@@ -1,0 +1,4 @@
+qmlwidgets
+Makefile
+moc_*
+*.o
