@@ -119,25 +119,41 @@ void DeclarativeObject::data_append(QDeclarativeListProperty<QObject> *property,
     return;
 
   DeclarativeObject *that = dynamic_cast<DeclarativeObject*>(property->object);
-  that->dataAppend(object);
+  if (that)
+    that->dataAppend(object);
+  else
+    qWarning("cast went wrong in data_append");
 }
 
 int DeclarativeObject::data_count(QDeclarativeListProperty<QObject> *property)
 {
   DeclarativeObject *that = dynamic_cast<DeclarativeObject*>(property->object);
-  return that->dataCount();
+  if (that)
+    return that->dataCount();
+  else {
+    qWarning("cast went wrong in data_count");
+    return 0;
+  }
 }
 
 QObject* DeclarativeObject::data_at(QDeclarativeListProperty<QObject> *property, int index)
 {
   DeclarativeObject *that = dynamic_cast<DeclarativeObject*>(property->object);
-  return that->dataAt(index);
+  if (that)
+    return that->dataAt(index);
+  else {
+    qWarning("cast went wrong in data_at");
+    return 0;
+  }
 }
 
 void DeclarativeObject::data_clear(QDeclarativeListProperty<QObject> *property)
 {
   DeclarativeObject *that = dynamic_cast<DeclarativeObject*>(property->object);
-  that->dataClear();
+  if (that)
+    that->dataClear();
+  else
+    qWarning("cast went wrong in data_clear");
 }
 
 // DeclarativeVBoxLayout
@@ -150,13 +166,11 @@ DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent)
 
 DeclarativeVBoxLayout::~DeclarativeVBoxLayout()
 {
+  delete m_layout;
 }
 
 QObject* DeclarativeVBoxLayout::object()
 {
-  if (!m_layout)
-    m_layout = new QVBoxLayout;
-
   return m_layout;
 }
 
@@ -167,10 +181,10 @@ void DeclarativeVBoxLayout::dataAppend(QObject *object)
 
   if (widget) {
     m_children.append(object);
-    qobject_cast<QVBoxLayout*>(this->object())->addWidget(qobject_cast<QWidget*>(widget->object()));
+    m_layout->addWidget(qobject_cast<QWidget*>(widget->object()));
   } else if (layout) {
     m_children.append(object);
-    qobject_cast<QVBoxLayout*>(this->object())->addLayout(qobject_cast<QVBoxLayout*>(layout->object()));
+    m_layout->addLayout(qobject_cast<QLayout*>(layout->object()));
   } else {
     // TODO: error unknown type
   }
@@ -204,13 +218,11 @@ DeclarativeWidget::DeclarativeWidget(QObject *parent)
 
 DeclarativeWidget::~DeclarativeWidget()
 {
+  delete m_widget;
 }
 
 QObject* DeclarativeWidget::object()
 {
-  if (!m_widget)
-    m_widget = new QWidget();
-
   return m_widget;
 }
 
@@ -222,12 +234,12 @@ void DeclarativeWidget::dataAppend(QObject *object)
   if (widget) {
     // TODO: error when layout is set
     m_children.append(object);
-    qobject_cast<QWidget*>(widget->object())->setParent(qobject_cast<QWidget*>(this->object()));
+    qobject_cast<QWidget*>(widget->object())->setParent(m_widget);
   } else if (layout) {
     // TODO: error when widget is set
 
     m_children.append(layout);
-    qobject_cast<QWidget*>(this->object())->setLayout(qobject_cast<QVBoxLayout*>(layout->object()));
+    m_widget->setLayout(qobject_cast<QVBoxLayout*>(layout->object()));
   } else {
     // TODO: error unknown type
   }
@@ -261,13 +273,11 @@ DeclarativeLabel::DeclarativeLabel(QObject *parent)
 
 DeclarativeLabel::~DeclarativeLabel()
 {
+  delete m_label;
 }
 
 QObject* DeclarativeLabel::object()
 {
-  if (!m_label)
-    m_label = new QLabel("Hello QML Widgets");
-
   return m_label;
 }
 
@@ -281,11 +291,13 @@ DeclarativeTabWidget::DeclarativeTabWidget(QObject *parent)
   connectAllSignals(m_tabWidget, this);
 }
 
+DeclarativeTabWidget::~DeclarativeTabWidget()
+{
+  delete m_tabWidget;
+}
+
 QObject* DeclarativeTabWidget::object()
 {
-  if (!m_tabWidget)
-    m_tabWidget = new QTabWidget();
-
   return m_tabWidget;
 }
 
@@ -296,7 +308,7 @@ void DeclarativeTabWidget::dataAppend(QObject *object)
   if (widget) {
     // TODO: error when layout is set
     m_children.append(object);
-    qobject_cast<QTabWidget*>(this->object())->addTab(qobject_cast<QWidget*>(widget->object()), "MyTab");
+    m_tabWidget->addTab(qobject_cast<QWidget*>(widget->object()), "MyTab");
   } else {
     // TODO: error unknown type
   }
@@ -328,13 +340,34 @@ DeclarativePushButton::DeclarativePushButton(QObject *parent)
   connectAllSignals(m_pushButton, this);
 }
 
+DeclarativePushButton::~DeclarativePushButton()
+{
+  delete m_pushButton;
+}
+
 QObject* DeclarativePushButton::object()
 {
-  if (!m_pushButton)
-    m_pushButton = new QPushButton("Hello QML Widgets");
-
   return m_pushButton;
 }
 
 CUSTOM_METAOBJECT(DeclarativePushButton, DeclarativeWidget, QPushButton, m_pushButton)
 
+// DeclarativeCheckBox
+DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent)
+  : DeclarativeWidget(parent)
+  , m_checkBox(new QCheckBox)
+{
+  connectAllSignals(m_checkBox, this);
+}
+
+DeclarativeCheckBox::~DeclarativeCheckBox()
+{
+  delete m_checkBox;
+}
+
+QObject* DeclarativeCheckBox::object()
+{
+  return m_checkBox;
+}
+
+CUSTOM_METAOBJECT(DeclarativeCheckBox, DeclarativeWidget, QCheckBox, m_checkBox)

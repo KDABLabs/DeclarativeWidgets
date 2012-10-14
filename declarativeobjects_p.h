@@ -2,6 +2,8 @@
 #define DECLARATIVEOBJECTS_H
 
 #include <QtCore/QObject>
+#include <QtCore/QPointer>
+#include <QtGui/QCheckBox>
 #include <QtGui/QLabel>
 #include <QtGui/QPushButton>
 #include <QtGui/QVBoxLayout>
@@ -65,7 +67,7 @@ class DeclarativeVBoxLayout : public DeclarativeObject
     virtual void dataClear();
 
   private:
-    QVBoxLayout* m_layout;
+    QPointer<QVBoxLayout> m_layout;
     QVector<QObject*> m_children;
 };
 
@@ -85,22 +87,8 @@ class DeclarativeWidget : public DeclarativeObject
     virtual QObject *dataAt(int);
     virtual void dataClear();
 
-    QWidget* m_widget;
+    QPointer<QWidget> m_widget;
     QVector<QObject*> m_children;
-};
-
-class DeclarativeFrame : public DeclarativeObject
-{
-  DECLARATIVE_OBJECT
-
-  public:
-    DeclarativeFrame(QObject *parent = 0);
-    ~DeclarativeFrame();
-
-    virtual QObject* object();
-
-  private:
-    QFrame* m_frame;
 };
 
 class DeclarativeLabel : public DeclarativeWidget
@@ -114,7 +102,7 @@ class DeclarativeLabel : public DeclarativeWidget
     virtual QObject* object();
 
   private:
-    QLabel* m_label;
+    QPointer<QLabel> m_label;
 };
 
 class DeclarativeTabWidget : public DeclarativeWidget
@@ -123,6 +111,7 @@ class DeclarativeTabWidget : public DeclarativeWidget
 
   public:
     DeclarativeTabWidget(QObject *parent = 0);
+    ~DeclarativeTabWidget();
 
     virtual QObject* object();
 
@@ -132,8 +121,8 @@ class DeclarativeTabWidget : public DeclarativeWidget
     virtual QObject *dataAt(int);
     virtual void dataClear();
 
+    QPointer<QTabWidget> m_tabWidget;
     QVector<QObject*> m_children;
-    QTabWidget* m_tabWidget;
 };
 
 class DeclarativePushButton : public DeclarativeWidget
@@ -142,11 +131,26 @@ class DeclarativePushButton : public DeclarativeWidget
 
   public:
     DeclarativePushButton(QObject *parent = 0);
+    ~DeclarativePushButton();
 
     virtual QObject* object();
 
   private:
-    QPushButton* m_pushButton;
+    QPointer<QPushButton> m_pushButton;
+};
+
+class DeclarativeCheckBox : public DeclarativeWidget
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeCheckBox(QObject *parent = 0);
+    ~DeclarativeCheckBox();
+
+    virtual QObject* object();
+
+  private:
+    QPointer<QCheckBox> m_checkBox;
 };
 
 #endif
