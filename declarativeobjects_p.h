@@ -3,9 +3,22 @@
 
 #include <QtCore/QObject>
 #include <QtGui/QLabel>
+#include <QtGui/QPushButton>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QTabWidget>
 #include <QtDeclarative/QDeclarativeListProperty>
+
+#define DECLARATIVE_OBJECT \
+  public: \
+    Q_OBJECT_CHECK \
+    static QMetaObject staticMetaObject; \
+    static bool metaObjectInitialized; \
+    static bool initializeMetaObject(); \
+    static const QMetaObject &getStaticMetaObject(); \
+    virtual const QMetaObject *metaObject() const; \
+    virtual void *qt_metacast(const char *); \
+    virtual int qt_metacall(QMetaObject::Call, int, void **); \
+  private: \
 
 class DeclarativeObject : public QObject
 {
@@ -38,7 +51,7 @@ class DeclarativeObject : public QObject
 
 class DeclarativeVBoxLayout : public DeclarativeObject
 {
-  Q_OBJECT
+  DECLARATIVE_OBJECT
 
   public:
     DeclarativeVBoxLayout(QObject *parent = 0);
@@ -58,7 +71,7 @@ class DeclarativeVBoxLayout : public DeclarativeObject
 
 class DeclarativeWidget : public DeclarativeObject
 {
-  Q_OBJECT
+  DECLARATIVE_OBJECT
 
   public:
     DeclarativeWidget(QObject *parent = 0);
@@ -76,9 +89,23 @@ class DeclarativeWidget : public DeclarativeObject
     QVector<QObject*> m_children;
 };
 
+class DeclarativeFrame : public DeclarativeObject
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeFrame(QObject *parent = 0);
+    ~DeclarativeFrame();
+
+    virtual QObject* object();
+
+  private:
+    QFrame* m_frame;
+};
+
 class DeclarativeLabel : public DeclarativeWidget
 {
-  Q_OBJECT
+  DECLARATIVE_OBJECT
 
   public:
     DeclarativeLabel(QObject *parent = 0);
@@ -92,7 +119,7 @@ class DeclarativeLabel : public DeclarativeWidget
 
 class DeclarativeTabWidget : public DeclarativeWidget
 {
-  Q_OBJECT
+  DECLARATIVE_OBJECT
 
   public:
     DeclarativeTabWidget(QObject *parent = 0);
@@ -107,6 +134,19 @@ class DeclarativeTabWidget : public DeclarativeWidget
 
     QVector<QObject*> m_children;
     QTabWidget* m_tabWidget;
+};
+
+class DeclarativePushButton : public DeclarativeWidget
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativePushButton(QObject *parent = 0);
+
+    virtual QObject* object();
+
+  private:
+    QPushButton* m_pushButton;
 };
 
 #endif

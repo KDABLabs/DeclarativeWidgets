@@ -8,7 +8,7 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
-HEADERS += declarativeobjects_p.h declarativewidgetdocument.h
-SOURCES += declarativeobjects.cpp declarativewidgetdocument.cpp main.cpp
+HEADERS += declarativeobjects_p.h declarativewidgetdocument.h qmetaobjectbuilder_p.h
+SOURCES += declarativeobjects.cpp declarativewidgetdocument.cpp main.cpp qmetaobjectbuilder.cpp
 
 QT += declarative

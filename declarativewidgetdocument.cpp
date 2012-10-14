@@ -32,6 +32,8 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeLabel>("qtgui.widgets", 1, 0, "Label");
   qmlRegisterType<DeclarativeVBoxLayout>("qtgui.widgets", 1, 0, "VBoxLayout");
   qmlRegisterType<DeclarativeTabWidget>("qtgui.widgets", 1, 0, "TabWidget");
+  qmlRegisterType<DeclarativePushButton>("qtgui.widgets", 1, 0, "PushButton");
+
   d->m_component->loadUrl(d->m_url);
   if (d->m_component->isError()) {
     foreach (const QDeclarativeError &error, d->m_component->errors())
@@ -52,7 +54,8 @@ QWidget* DeclarativeWidgetDocument::createWidget()
     return 0;
   }
 
-  DeclarativeObject *declarativeObject = qobject_cast<DeclarativeObject*>(object);
+  DeclarativeObject *declarativeObject = dynamic_cast<DeclarativeObject*>(object);
+
   if (!declarativeObject) {
     qWarning("Root element is no DeclarativeObject subclass");
     return 0;
