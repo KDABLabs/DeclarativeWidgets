@@ -156,6 +156,62 @@ void DeclarativeObject::data_clear(QDeclarativeListProperty<QObject> *property)
     qWarning("cast went wrong in data_clear");
 }
 
+// DeclarativeHBoxLayout
+DeclarativeHBoxLayout::DeclarativeHBoxLayout(QObject *parent)
+  : DeclarativeObject(parent)
+  , m_layout(new QHBoxLayout)
+{
+  connectAllSignals(m_layout, this);
+}
+
+DeclarativeHBoxLayout::~DeclarativeHBoxLayout()
+{
+  delete m_layout;
+}
+
+QObject* DeclarativeHBoxLayout::object()
+{
+  return m_layout;
+}
+
+void DeclarativeHBoxLayout::dataAppend(QObject *object)
+{
+  DeclarativeWidget *widget = dynamic_cast<DeclarativeWidget*>(object);
+  DeclarativeHBoxLayout *hboxLayout = dynamic_cast<DeclarativeHBoxLayout*>(object);
+  DeclarativeVBoxLayout *vboxLayout = dynamic_cast<DeclarativeVBoxLayout*>(object);
+
+  if (widget) {
+    m_children.append(object);
+    m_layout->addWidget(qobject_cast<QWidget*>(widget->object()));
+  } else if (hboxLayout) {
+    m_children.append(object);
+    m_layout->addLayout(qobject_cast<QLayout*>(hboxLayout->object()));
+  } else if (vboxLayout) {
+    m_children.append(object);
+    m_layout->addLayout(qobject_cast<QLayout*>(vboxLayout->object()));
+  } else {
+    // TODO: error unknown type
+  }
+}
+
+int DeclarativeHBoxLayout::dataCount()
+{
+  return m_children.count();
+}
+
+QObject* DeclarativeHBoxLayout::dataAt(int index)
+{
+  return m_children.at(index);
+}
+
+void DeclarativeHBoxLayout::dataClear()
+{
+  qDeleteAll(m_children);
+  m_children.clear();
+}
+
+CUSTOM_METAOBJECT(DeclarativeHBoxLayout, DeclarativeObject, QHBoxLayout, m_layout)
+
 // DeclarativeVBoxLayout
 DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent)
   : DeclarativeObject(parent)
@@ -177,14 +233,18 @@ QObject* DeclarativeVBoxLayout::object()
 void DeclarativeVBoxLayout::dataAppend(QObject *object)
 {
   DeclarativeWidget *widget = dynamic_cast<DeclarativeWidget*>(object);
-  DeclarativeVBoxLayout *layout = dynamic_cast<DeclarativeVBoxLayout*>(object);
+  DeclarativeHBoxLayout *hboxLayout = dynamic_cast<DeclarativeHBoxLayout*>(object);
+  DeclarativeVBoxLayout *vboxLayout = dynamic_cast<DeclarativeVBoxLayout*>(object);
 
   if (widget) {
     m_children.append(object);
     m_layout->addWidget(qobject_cast<QWidget*>(widget->object()));
-  } else if (layout) {
+  } else if (hboxLayout) {
     m_children.append(object);
-    m_layout->addLayout(qobject_cast<QLayout*>(layout->object()));
+    m_layout->addLayout(qobject_cast<QLayout*>(hboxLayout->object()));
+  } else if (vboxLayout) {
+    m_children.append(object);
+    m_layout->addLayout(qobject_cast<QLayout*>(vboxLayout->object()));
   } else {
     // TODO: error unknown type
   }
@@ -229,17 +289,23 @@ QObject* DeclarativeWidget::object()
 void DeclarativeWidget::dataAppend(QObject *object)
 {
   DeclarativeWidget *widget = dynamic_cast<DeclarativeWidget*>(object);
-  DeclarativeVBoxLayout *layout = dynamic_cast<DeclarativeVBoxLayout*>(object);
+  DeclarativeHBoxLayout *hboxLayout = dynamic_cast<DeclarativeHBoxLayout*>(object);
+  DeclarativeVBoxLayout *vboxLayout = dynamic_cast<DeclarativeVBoxLayout*>(object);
 
   if (widget) {
     // TODO: error when layout is set
     m_children.append(object);
     qobject_cast<QWidget*>(widget->object())->setParent(m_widget);
-  } else if (layout) {
+  } else if (hboxLayout) {
     // TODO: error when widget is set
 
-    m_children.append(layout);
-    m_widget->setLayout(qobject_cast<QVBoxLayout*>(layout->object()));
+    m_children.append(object);
+    m_widget->setLayout(qobject_cast<QLayout*>(hboxLayout->object()));
+  } else if (vboxLayout) {
+    // TODO: error when widget is set
+
+    m_children.append(object);
+    m_widget->setLayout(qobject_cast<QLayout*>(vboxLayout->object()));
   } else {
     // TODO: error unknown type
   }

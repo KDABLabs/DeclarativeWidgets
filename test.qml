@@ -1,5 +1,5 @@
 import QtQuick 1.0
-import qtgui.widgets 1.0
+import QtGui 1.0
 
 Widget {
   VBoxLayout {
@@ -23,6 +23,25 @@ Widget {
     PushButton {
       text: "Click me"
       onClicked: secondLabel.text = "Changed"
+    }
+    HBoxLayout {
+      CheckBox {
+        id: checkBox
+      }
+      Label {
+        text: checkBox.checked ? "Is checked" : "Is not checked"
+      }
+    }
+    TabWidget {
+      Label {
+        text: "Page 1"
+      }
+      Label {
+        text: "Page 2"
+      }
+      Label {
+        text: "Page 3"
+      }
     }
   }
 }

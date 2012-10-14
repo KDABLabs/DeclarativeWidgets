@@ -28,11 +28,13 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   : QObject(parent)
   , d(new Private(this, url))
 {
-  qmlRegisterType<DeclarativeWidget>("qtgui.widgets", 1, 0, "Widget");
-  qmlRegisterType<DeclarativeLabel>("qtgui.widgets", 1, 0, "Label");
-  qmlRegisterType<DeclarativeVBoxLayout>("qtgui.widgets", 1, 0, "VBoxLayout");
-  qmlRegisterType<DeclarativeTabWidget>("qtgui.widgets", 1, 0, "TabWidget");
-  qmlRegisterType<DeclarativePushButton>("qtgui.widgets", 1, 0, "PushButton");
+  qmlRegisterType<DeclarativeWidget>("QtGui", 1, 0, "Widget");
+  qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
+  qmlRegisterType<DeclarativeHBoxLayout>("QtGui", 1, 0, "HBoxLayout");
+  qmlRegisterType<DeclarativeVBoxLayout>("QtGui", 1, 0, "VBoxLayout");
+  qmlRegisterType<DeclarativeTabWidget>("QtGui", 1, 0, "TabWidget");
+  qmlRegisterType<DeclarativePushButton>("QtGui", 1, 0, "PushButton");
+  qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
 
   d->m_component->loadUrl(d->m_url);
   if (d->m_component->isError()) {

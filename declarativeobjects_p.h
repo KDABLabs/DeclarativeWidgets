@@ -4,6 +4,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
 #include <QtGui/QCheckBox>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QPushButton>
 #include <QtGui/QVBoxLayout>
@@ -49,6 +50,26 @@ class DeclarativeObject : public QObject
     static int data_count(QDeclarativeListProperty<QObject> *);
     static QObject *data_at(QDeclarativeListProperty<QObject> *, int);
     static void data_clear(QDeclarativeListProperty<QObject> *);
+};
+
+class DeclarativeHBoxLayout : public DeclarativeObject
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeHBoxLayout(QObject *parent = 0);
+    ~DeclarativeHBoxLayout();
+
+    virtual QObject* object();
+
+    virtual void dataAppend(QObject *);
+    virtual int dataCount();
+    virtual QObject *dataAt(int);
+    virtual void dataClear();
+
+  private:
+    QPointer<QHBoxLayout> m_layout;
+    QVector<QObject*> m_children;
 };
 
 class DeclarativeVBoxLayout : public DeclarativeObject
