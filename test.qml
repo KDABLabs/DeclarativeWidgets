@@ -22,7 +22,7 @@ Widget {
     }
     PushButton {
       text: "Click me"
-      onClicked: lastLabel.text = "Changed"
+      onClicked: secondLabel.text = "Changed"
     }
   }
 }

@@ -4,6 +4,25 @@
 
 #include <QDebug>
 
+/*
+  if (QString(staticMetaObject.className()) == "DeclarativeLabel") { \
+    qDebug("class: %s propOffset: %d", qPrintable(staticMetaObject.className()), staticMetaObject.propertyOffset()); \
+    for (int i = 0; i < staticMetaObject.propertyCount(); ++i) { \
+      qDebug("  prop: %d=%s", i, staticMetaObject.property(i).name()); \
+    } \
+    qDebug("class: DeclarativeObject"); \
+    for (int i = 0; i < DeclarativeObject::staticMetaObject.propertyCount(); ++i) { \
+      qDebug("  prop: %d=%s", i, DeclarativeObject::staticMetaObject.property(i).name()); \
+    } \
+  } \
+  if (QString(staticMetaObject.className()) == "DeclarativeLabel") { \
+    qDebug("class: %s methodOffset: %d", qPrintable(staticMetaObject.className()), staticMetaObject.methodOffset()); \
+    for (int i = 0; i < staticMetaObject.methodCount(); ++i) { \
+      qDebug("  prop: %d=%s", i, staticMetaObject.method(i).signature()); \
+    } \
+  } \
+*/
+
 #define CUSTOM_METAOBJECT(ClassName, BaseType, WidgetType, WidgetVariable) \
 QMetaObject ClassName::staticMetaObject;\
 bool ClassName::metaObjectInitialized = ClassName::initializeMetaObject(); \
@@ -15,18 +34,7 @@ bool ClassName::initializeMetaObject() \
   builder.addMetaObject(&DeclarativeObject::staticMetaObject); \
   builder.setSuperClass(WidgetType::staticMetaObject.superClass()); \
   builder.setClassName(""#ClassName); \
-  QMetaObject *mo2 = builder.toMetaObject(); \
-  ClassName::staticMetaObject = *mo2; \
-  if (QString(staticMetaObject.className()) == "DeclarativeLabel") { \
-    qDebug("class: %s propOffset: %d", qPrintable(staticMetaObject.className()), staticMetaObject.propertyOffset()); \
-    for (int i = 0; i < staticMetaObject.propertyCount(); ++i) { \
-      qDebug("  prop: %d=%s", i, staticMetaObject.property(i).name()); \
-    } \
-    qDebug("class: DeclarativeObject"); \
-    for (int i = 0; i < DeclarativeObject::staticMetaObject.propertyCount(); ++i) { \
-      qDebug("  prop: %d=%s", i, DeclarativeObject::staticMetaObject.property(i).name()); \
-    } \
-  } \
+  ClassName::staticMetaObject = *builder.toMetaObject(); \
   return true; \
 } \
 const QMetaObject &ClassName::getStaticMetaObject() \
@@ -43,23 +51,30 @@ void* ClassName::qt_metacast(const char *name) \
 } \
 int ClassName::qt_metacall(QMetaObject::Call call, int id, void **argv) \
 { \
-  qDebug("%s call=%d id=%d", staticMetaObject.className(), call, id); \
   if (call == QMetaObject::ReadProperty || call == QMetaObject::WriteProperty) { \
     if (id >= WidgetType::staticMetaObject.propertyCount()) { \
-      qDebug() << "dobject" << this << id << (id - WidgetType::staticMetaObject.propertyCount() + 1); \
       id = DeclarativeObject::qt_metacall(call, id - WidgetType::staticMetaObject.propertyCount() + 1, argv); \
-      qDebug() << "after" << id; \
       id += WidgetType::staticMetaObject.propertyCount() - 1; \
     } else { \
-      qDebug() << "widget" << WidgetVariable << id; \
-      WidgetVariable->qt_metacall(call, id, argv); \
-      qDebug() << "after" << id; \
-      id -= 1; \
+      id = WidgetVariable->qt_metacall(call, id, argv); \
     } \
     if (id < 0) \
       return 0; \
+  } else if (call == QMetaObject::InvokeMetaMethod) {\
+    QMetaObject::activate(this, id, argv); \
   } \
   return id; \
+}
+
+static void connectAllSignals(QObject *sender, QObject *receiver)
+{
+  for (int i = 0; i < sender->metaObject()->methodCount(); ++i) {
+    const QMetaMethod method = sender->metaObject()->method(i);
+    if (method.methodType() == QMetaMethod::Signal) {
+      const QByteArray signature = "2" + QByteArray(method.signature());
+      QObject::connect(sender, signature.data(), receiver, signature.data());
+    }
+  }
 }
 
 // DeclarativeObject
@@ -100,7 +115,6 @@ void DeclarativeObject::dataClear()
 
 void DeclarativeObject::data_append(QDeclarativeListProperty<QObject> *property, QObject *object)
 {
-  qDebug("tokoe: 1");
   if (!object)
     return;
 
@@ -110,21 +124,18 @@ void DeclarativeObject::data_append(QDeclarativeListProperty<QObject> *property,
 
 int DeclarativeObject::data_count(QDeclarativeListProperty<QObject> *property)
 {
-  qDebug("tokoe: 2");
   DeclarativeObject *that = dynamic_cast<DeclarativeObject*>(property->object);
   return that->dataCount();
 }
 
 QObject* DeclarativeObject::data_at(QDeclarativeListProperty<QObject> *property, int index)
 {
-  qDebug("tokoe: 3");
   DeclarativeObject *that = dynamic_cast<DeclarativeObject*>(property->object);
   return that->dataAt(index);
 }
 
 void DeclarativeObject::data_clear(QDeclarativeListProperty<QObject> *property)
 {
-  qDebug("tokoe: 4");
   DeclarativeObject *that = dynamic_cast<DeclarativeObject*>(property->object);
   that->dataClear();
 }
@@ -134,6 +145,7 @@ DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent)
   : DeclarativeObject(parent)
   , m_layout(new QVBoxLayout)
 {
+  connectAllSignals(m_layout, this);
 }
 
 DeclarativeVBoxLayout::~DeclarativeVBoxLayout()
@@ -187,6 +199,7 @@ DeclarativeWidget::DeclarativeWidget(QObject *parent)
   : DeclarativeObject(parent)
   , m_widget(new QWidget)
 {
+  connectAllSignals(m_widget, this);
 }
 
 DeclarativeWidget::~DeclarativeWidget()
@@ -241,8 +254,9 @@ CUSTOM_METAOBJECT(DeclarativeWidget, DeclarativeObject, QWidget, m_widget)
 // DeclarativeLabel
 DeclarativeLabel::DeclarativeLabel(QObject *parent)
   : DeclarativeWidget(parent)
-  , m_label(new QLabel("<empty>"))
+  , m_label(new QLabel)
 {
+  connectAllSignals(m_label, this);
 }
 
 DeclarativeLabel::~DeclarativeLabel()
@@ -264,6 +278,7 @@ DeclarativeTabWidget::DeclarativeTabWidget(QObject *parent)
   : DeclarativeWidget(parent)
   , m_tabWidget(new QTabWidget)
 {
+  connectAllSignals(m_tabWidget, this);
 }
 
 QObject* DeclarativeTabWidget::object()
@@ -310,6 +325,7 @@ DeclarativePushButton::DeclarativePushButton(QObject *parent)
   : DeclarativeWidget(parent)
   , m_pushButton(new QPushButton)
 {
+  connectAllSignals(m_pushButton, this);
 }
 
 QObject* DeclarativePushButton::object()
