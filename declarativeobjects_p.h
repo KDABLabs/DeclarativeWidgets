@@ -146,7 +146,26 @@ class DeclarativeTabWidget : public DeclarativeWidget
     QPointer<QTabWidget> m_tabWidget;
     QVector<QObject*> m_children;
 };
+/*
+class DeclarativeTab : public DeclarativeWidget
+{
+  DECLARATIVE_OBJECT
 
+  public:
+    DeclarativeTab(QObject *parent = 0);
+    ~DeclarativeTab();
+
+    virtual QObject* object();
+
+  private:
+    virtual void dataAppend(QObject *);
+    virtual int dataCount();
+    virtual QObject *dataAt(int);
+    virtual void dataClear();
+
+    QObject* m_child;
+};
+*/
 class DeclarativePushButton : public DeclarativeWidget
 {
   DECLARATIVE_OBJECT

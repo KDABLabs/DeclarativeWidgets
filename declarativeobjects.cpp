@@ -2,6 +2,8 @@
 
 #include "qmetaobjectbuilder_p.h"
 
+#include <QtDeclarative/qdeclarativeinfo.h>
+
 #include <QDebug>
 
 /*
@@ -45,7 +47,7 @@ const QMetaObject* ClassName::metaObject() const \
 { \
   return &ClassName::staticMetaObject; \
 } \
-void* ClassName::qt_metacast(const char *name) \
+void* ClassName::qt_metacast(const char*) \
 { \
   return 0; \
 } \
@@ -190,7 +192,7 @@ void DeclarativeHBoxLayout::dataAppend(QObject *object)
     m_children.append(object);
     m_layout->addLayout(qobject_cast<QLayout*>(vboxLayout->object()));
   } else {
-    // TODO: error unknown type
+    qmlInfo(this) << "Can not contain element of type " << object->metaObject()->className();
   }
 }
 
@@ -246,7 +248,7 @@ void DeclarativeVBoxLayout::dataAppend(QObject *object)
     m_children.append(object);
     m_layout->addLayout(qobject_cast<QLayout*>(vboxLayout->object()));
   } else {
-    // TODO: error unknown type
+    qmlInfo(this) << "Can not contain element of type " << object->metaObject()->className();
   }
 }
 
@@ -293,7 +295,11 @@ void DeclarativeWidget::dataAppend(QObject *object)
   DeclarativeVBoxLayout *vboxLayout = dynamic_cast<DeclarativeVBoxLayout*>(object);
 
   if (widget) {
-    // TODO: error when layout is set
+    if (m_widget->layout()) {
+      qmlInfo(this) << "Can not add Widget since a Layout is set already";
+      return;
+    }
+
     m_children.append(object);
     qobject_cast<QWidget*>(widget->object())->setParent(m_widget);
   } else if (hboxLayout) {
@@ -307,7 +313,7 @@ void DeclarativeWidget::dataAppend(QObject *object)
     m_children.append(object);
     m_widget->setLayout(qobject_cast<QLayout*>(vboxLayout->object()));
   } else {
-    // TODO: error unknown type
+    m_children.append(object);
   }
 }
 
