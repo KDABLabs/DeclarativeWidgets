@@ -45,7 +45,7 @@ const QMetaObject &ClassName::getStaticMetaObject() \
 } \
 const QMetaObject* ClassName::metaObject() const \
 { \
-  return &ClassName::staticMetaObject; \
+  return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject; \
 } \
 void* ClassName::qt_metacast(const char*) \
 { \
@@ -64,6 +64,7 @@ int ClassName::qt_metacall(QMetaObject::Call call, int id, void **argv) \
       return 0; \
   } else if (call == QMetaObject::InvokeMetaMethod) {\
     QMetaObject::activate(this, id, argv); \
+    id -= 1; \
   } \
   return id; \
 }

@@ -5,22 +5,18 @@ Widget {
   windowTitle: qsTr("Cool Test App")
   size: Qt.size(300, 500)
 
-  Timer {
-    id: counter
+  property int counter: 0
 
-    interval: 1000
-    running: true
-    repeat: true
-
-    onTriggered: dateLabel.text = Date().toString()
+  function myFunc()
+  {
+    counter++;
   }
+
+  Component.onCompleted: _timer.timeout.connect(myFunc)
 
   VBoxLayout {
     Label {
-      id: dateLabel
-    }
-    Label {
-      text: "Hallo ASCII-safe Kevin!!!"
+      text: "Hallo ASCII-safe Kevin!!! " + counter
     }
     Label {
       id: secondLabel
@@ -38,7 +34,10 @@ Widget {
     }
     PushButton {
       text: "Click me"
-      onClicked: secondLabel.text = "Changed"
+      onClicked: {
+        secondLabel.text = "Changed"
+        counter++
+      }
     }
     HBoxLayout {
       CheckBox {

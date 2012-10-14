@@ -12,8 +12,8 @@ int main(int argc, char **argv)
   timer.setInterval(1000);
   timer.start();
 
-  //DeclarativeWidgetDocument document(QUrl("test.qml"));
-  DeclarativeWidgetDocument document(QUrl("animation.qml"));
+  DeclarativeWidgetDocument document(QUrl("test.qml"));
+  //DeclarativeWidgetDocument document(QUrl("animation.qml"));
   document.setContextProperty("_timer", &timer);
 
   QWidget *widget = document.create<QWidget>();
