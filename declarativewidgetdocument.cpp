@@ -36,6 +36,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeTabWidget>("QtGui", 1, 0, "TabWidget");
   qmlRegisterType<DeclarativePushButton>("QtGui", 1, 0, "PushButton");
   qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
+  qmlRegisterType<DeclarativeSlider>("QtGui", 1, 0, "Slider");
 
   d->m_component->loadUrl(d->m_url);
   if (d->m_component->isError()) {

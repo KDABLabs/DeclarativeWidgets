@@ -437,3 +437,24 @@ QObject* DeclarativeCheckBox::object()
 }
 
 CUSTOM_METAOBJECT(DeclarativeCheckBox, DeclarativeWidget, QCheckBox, m_checkBox)
+
+// DeclarativeSlider
+DeclarativeSlider::DeclarativeSlider(QObject *parent)
+  : DeclarativeWidget(parent)
+  , m_slider(new QSlider)
+{
+  m_slider->setOrientation(Qt::Horizontal);
+  connectAllSignals(m_slider, this);
+}
+
+DeclarativeSlider::~DeclarativeSlider()
+{
+  delete m_slider;
+}
+
+QObject* DeclarativeSlider::object()
+{
+  return m_slider;
+}
+
+CUSTOM_METAOBJECT(DeclarativeSlider, DeclarativeWidget, QSlider, m_slider)

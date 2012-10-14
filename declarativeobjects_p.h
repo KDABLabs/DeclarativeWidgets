@@ -7,8 +7,9 @@
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QPushButton>
-#include <QtGui/QVBoxLayout>
+#include <QtGui/QSlider>
 #include <QtGui/QTabWidget>
+#include <QtGui/QVBoxLayout>
 #include <QtDeclarative/QDeclarativeListProperty>
 
 #define DECLARATIVE_OBJECT \
@@ -172,6 +173,20 @@ class DeclarativeCheckBox : public DeclarativeWidget
 
   private:
     QPointer<QCheckBox> m_checkBox;
+};
+
+class DeclarativeSlider : public DeclarativeWidget
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeSlider(QObject *parent = 0);
+    ~DeclarativeSlider();
+
+    virtual QObject* object();
+
+  private:
+    QPointer<QSlider> m_slider;
 };
 
 #endif
