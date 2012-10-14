@@ -2,6 +2,9 @@ import QtQuick 1.0
 import QtGui 1.0
 
 Widget {
+  windowTitle: qsTr("Cool Test App")
+  size: Qt.size(300, 500)
+
   VBoxLayout {
     Label {
       text: "Hallo ASCII-safe Kevin!!!"
