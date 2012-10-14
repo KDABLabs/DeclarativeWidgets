@@ -12,6 +12,9 @@ class DeclarativeWidgetDocument : public QObject
     DeclarativeWidgetDocument(const QUrl &url, QObject *parent = 0);
     ~DeclarativeWidgetDocument();
 
+    void setContextProperty(const QString &name, const QVariant &value);
+    void setContextProperty(const QString &name, QObject *object);
+
     template <typename T>
     T* create()
     {

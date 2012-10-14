@@ -5,7 +5,20 @@ Widget {
   windowTitle: qsTr("Cool Test App")
   size: Qt.size(300, 500)
 
+  Timer {
+    id: counter
+
+    interval: 1000
+    running: true
+    repeat: true
+
+    onTriggered: dateLabel.text = Date().toString()
+  }
+
   VBoxLayout {
+    Label {
+      id: dateLabel
+    }
     Label {
       text: "Hallo ASCII-safe Kevin!!!"
     }

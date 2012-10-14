@@ -5,6 +5,7 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
 #include <QtDeclarative/QDeclarativeComponent>
+#include <QtDeclarative/QDeclarativeContext>
 #include <QtDeclarative/QDeclarativeEngine>
 
 class DeclarativeWidgetDocument::Private
@@ -46,6 +47,16 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
 DeclarativeWidgetDocument::~DeclarativeWidgetDocument()
 {
   delete d;
+}
+
+void DeclarativeWidgetDocument::setContextProperty(const QString &name, const QVariant &value)
+{
+  d->m_engine->rootContext()->setContextProperty(name, value);
+}
+
+void DeclarativeWidgetDocument::setContextProperty(const QString &name, QObject *object)
+{
+  d->m_engine->rootContext()->setContextProperty(name, object);
 }
 
 QWidget* DeclarativeWidgetDocument::createWidget()
