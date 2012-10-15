@@ -24,7 +24,7 @@
     virtual int qt_metacall(QMetaObject::Call, int, void **); \
   private: \
 
-class DeclarativeObject : public QObject
+class AbstractDeclarativeObject : public QObject
 {
   Q_OBJECT
 
@@ -33,15 +33,15 @@ class DeclarativeObject : public QObject
   Q_CLASSINFO("DefaultProperty", "data")
 
   public:
-    DeclarativeObject(QObject *parent = 0);
-    virtual ~DeclarativeObject();
+    AbstractDeclarativeObject(QObject *parent = 0);
+    virtual ~AbstractDeclarativeObject();
 
-    virtual QObject* object() = 0;
+    virtual QObject* object() const = 0;
 
   protected:
     virtual void dataAppend(QObject *);
-    virtual int dataCount();
-    virtual QObject *dataAt(int);
+    virtual int dataCount() const;
+    virtual QObject *dataAt(int) const;
     virtual void dataClear();
 
   private:
@@ -53,98 +53,109 @@ class DeclarativeObject : public QObject
     static void data_clear(QDeclarativeListProperty<QObject> *);
 };
 
-class DeclarativeHBoxLayout : public DeclarativeObject
+template <class T>
+class DeclarativeObjectProxy : public AbstractDeclarativeObject
+{
+  public:
+    DeclarativeObjectProxy(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(new T) {}
+
+    ~DeclarativeObjectProxy() { delete m_proxiedObject; }
+
+    virtual QObject *object() const { return m_proxiedObject.data(); }
+
+  protected:
+    virtual void dataAppend(QObject *object)
+    {
+      m_children.append(object);
+    }
+
+    virtual int dataCount() const { return m_children.count(); }
+    virtual QObject *dataAt(int index) const { return m_children.at(index); }
+    virtual void dataClear()
+    {
+      qDeleteAll(m_children);
+      m_children.clear();
+    }
+
+  protected:
+    QPointer<T> m_proxiedObject;
+    QVector<QObject*> m_children;
+};
+
+template <class T>
+class DeclarativeBoxLayout : public DeclarativeObjectProxy<T>
+{
+  public:
+    DeclarativeBoxLayout(QObject *parent = 0) : DeclarativeObjectProxy<T>(parent) {}
+
+  protected:
+    virtual void dataAppend(QObject *object)
+    {
+      AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
+      if (declarativeObject) {
+        QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
+        if (widget) {
+          DeclarativeObjectProxy<T>::m_children.append(object);
+          DeclarativeObjectProxy<T>::m_proxiedObject->addWidget(widget);
+          return;
+        }
+
+        QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
+        if (layout) {
+          DeclarativeObjectProxy<T>::m_children.append(object);
+          DeclarativeObjectProxy<T>::m_proxiedObject->addLayout(layout);
+          return;
+        }
+      }
+
+      DeclarativeObjectProxy<T>::dataAppend(object);
+    }
+};
+
+class DeclarativeHBoxLayout : public DeclarativeBoxLayout<QHBoxLayout>
 {
   DECLARATIVE_OBJECT
 
   public:
     DeclarativeHBoxLayout(QObject *parent = 0);
-    ~DeclarativeHBoxLayout();
-
-    virtual QObject* object();
-
-    virtual void dataAppend(QObject *);
-    virtual int dataCount();
-    virtual QObject *dataAt(int);
-    virtual void dataClear();
-
-  private:
-    QPointer<QHBoxLayout> m_layout;
-    QVector<QObject*> m_children;
 };
 
-class DeclarativeVBoxLayout : public DeclarativeObject
+class DeclarativeVBoxLayout : public DeclarativeBoxLayout<QVBoxLayout>
 {
   DECLARATIVE_OBJECT
 
   public:
     DeclarativeVBoxLayout(QObject *parent = 0);
-    ~DeclarativeVBoxLayout();
-
-    virtual QObject* object();
-
-    virtual void dataAppend(QObject *);
-    virtual int dataCount();
-    virtual QObject *dataAt(int);
-    virtual void dataClear();
-
-  private:
-    QPointer<QVBoxLayout> m_layout;
-    QVector<QObject*> m_children;
 };
 
-class DeclarativeWidget : public DeclarativeObject
+class DeclarativeWidget : public DeclarativeObjectProxy<QWidget>
 {
   DECLARATIVE_OBJECT
 
   public:
     DeclarativeWidget(QObject *parent = 0);
-    ~DeclarativeWidget();
 
-    virtual QObject* object();
-
-  private:
+  protected:
     virtual void dataAppend(QObject *);
-    virtual int dataCount();
-    virtual QObject *dataAt(int);
-    virtual void dataClear();
-
-    QPointer<QWidget> m_widget;
-    QVector<QObject*> m_children;
 };
 
-class DeclarativeLabel : public DeclarativeWidget
+class DeclarativeLabel : public DeclarativeObjectProxy<QLabel>
 {
   DECLARATIVE_OBJECT
 
   public:
     DeclarativeLabel(QObject *parent = 0);
-    ~DeclarativeLabel();
-
-    virtual QObject* object();
-
-  private:
-    QPointer<QLabel> m_label;
 };
 
-class DeclarativeTabWidget : public DeclarativeWidget
+class DeclarativeTabWidget : public DeclarativeObjectProxy<QTabWidget>
 {
   DECLARATIVE_OBJECT
 
   public:
     DeclarativeTabWidget(QObject *parent = 0);
-    ~DeclarativeTabWidget();
 
-    virtual QObject* object();
-
-  private:
+  protected:
     virtual void dataAppend(QObject *);
-    virtual int dataCount();
-    virtual QObject *dataAt(int);
-    virtual void dataClear();
-
-    QPointer<QTabWidget> m_tabWidget;
-    QVector<QObject*> m_children;
 };
 /*
 class DeclarativeTab : public DeclarativeWidget
@@ -166,46 +177,28 @@ class DeclarativeTab : public DeclarativeWidget
     QObject* m_child;
 };
 */
-class DeclarativePushButton : public DeclarativeWidget
+class DeclarativePushButton : public DeclarativeObjectProxy<QPushButton>
 {
   DECLARATIVE_OBJECT
 
   public:
     DeclarativePushButton(QObject *parent = 0);
-    ~DeclarativePushButton();
-
-    virtual QObject* object();
-
-  private:
-    QPointer<QPushButton> m_pushButton;
 };
 
-class DeclarativeCheckBox : public DeclarativeWidget
+class DeclarativeCheckBox : public DeclarativeObjectProxy<QCheckBox>
 {
   DECLARATIVE_OBJECT
 
   public:
     DeclarativeCheckBox(QObject *parent = 0);
-    ~DeclarativeCheckBox();
-
-    virtual QObject* object();
-
-  private:
-    QPointer<QCheckBox> m_checkBox;
 };
 
-class DeclarativeSlider : public DeclarativeWidget
+class DeclarativeSlider : public DeclarativeObjectProxy<QSlider>
 {
   DECLARATIVE_OBJECT
 
   public:
     DeclarativeSlider(QObject *parent = 0);
-    ~DeclarativeSlider();
-
-    virtual QObject* object();
-
-  private:
-    QPointer<QSlider> m_slider;
 };
 
 #endif

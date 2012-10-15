@@ -2,9 +2,8 @@
 
 #include "qmetaobjectbuilder_p.h"
 
-#include <QtDeclarative/qdeclarativeinfo.h>
-
 #include <QDebug>
+#include <QtDeclarative/qdeclarativeinfo.h>
 
 /*
   if (QString(staticMetaObject.className()) == "DeclarativeLabel") { \
@@ -12,9 +11,9 @@
     for (int i = 0; i < staticMetaObject.propertyCount(); ++i) { \
       qDebug("  prop: %d=%s", i, staticMetaObject.property(i).name()); \
     } \
-    qDebug("class: DeclarativeObject"); \
-    for (int i = 0; i < DeclarativeObject::staticMetaObject.propertyCount(); ++i) { \
-      qDebug("  prop: %d=%s", i, DeclarativeObject::staticMetaObject.property(i).name()); \
+    qDebug("class: AbstractDeclarativeObject"); \
+    for (int i = 0; i < AbstractDeclarativeObject::staticMetaObject.propertyCount(); ++i) { \
+      qDebug("  prop: %d=%s", i, AbstractDeclarativeObject::staticMetaObject.property(i).name()); \
     } \
   } \
   if (QString(staticMetaObject.className()) == "DeclarativeLabel") { \
@@ -25,7 +24,7 @@
   } \
 */
 
-#define CUSTOM_METAOBJECT(ClassName, BaseType, WidgetType, WidgetVariable) \
+#define CUSTOM_METAOBJECT(ClassName, WidgetType, WidgetVariable) \
 QMetaObject ClassName::staticMetaObject;\
 bool ClassName::metaObjectInitialized = ClassName::initializeMetaObject(); \
 bool ClassName::initializeMetaObject() \
@@ -33,7 +32,7 @@ bool ClassName::initializeMetaObject() \
   QMetaObjectBuilder builder; \
   const QMetaObject *mo = &WidgetType::staticMetaObject; \
   builder.addMetaObject(mo); \
-  builder.addMetaObject(&DeclarativeObject::staticMetaObject); \
+  builder.addMetaObject(&AbstractDeclarativeObject::staticMetaObject); \
   builder.setSuperClass(WidgetType::staticMetaObject.superClass()); \
   builder.setClassName(""#ClassName); \
   ClassName::staticMetaObject = *builder.toMetaObject(); \
@@ -55,7 +54,7 @@ int ClassName::qt_metacall(QMetaObject::Call call, int id, void **argv) \
 { \
   if (call == QMetaObject::ReadProperty || call == QMetaObject::WriteProperty) { \
     if (id >= WidgetType::staticMetaObject.propertyCount()) { \
-      id = DeclarativeObject::qt_metacall(call, id - WidgetType::staticMetaObject.propertyCount() + 1, argv); \
+      id = AbstractDeclarativeObject::qt_metacall(call, id - WidgetType::staticMetaObject.propertyCount() + 1, argv); \
       id += WidgetType::staticMetaObject.propertyCount() - 1; \
     } else { \
       id = WidgetVariable->qt_metacall(call, id, argv); \
@@ -69,6 +68,42 @@ int ClassName::qt_metacall(QMetaObject::Call call, int id, void **argv) \
   return id; \
 }
 
+// AbstractDeclarativeObject
+AbstractDeclarativeObject::AbstractDeclarativeObject(QObject *parent)
+  : QObject(parent)
+{
+}
+
+AbstractDeclarativeObject::~AbstractDeclarativeObject()
+{
+}
+
+QDeclarativeListProperty<QObject> AbstractDeclarativeObject::data()
+{
+  return QDeclarativeListProperty<QObject>(this, 0, AbstractDeclarativeObject::data_append,
+                                                    AbstractDeclarativeObject::data_count,
+                                                    AbstractDeclarativeObject::data_at,
+                                                    AbstractDeclarativeObject::data_clear);
+}
+
+void AbstractDeclarativeObject::dataAppend(QObject *)
+{
+}
+
+int AbstractDeclarativeObject::dataCount() const
+{
+  return 0;
+}
+
+QObject* AbstractDeclarativeObject::dataAt(int) const
+{
+  return 0;
+}
+
+void AbstractDeclarativeObject::dataClear()
+{
+}
+
 static void connectAllSignals(QObject *sender, QObject *receiver)
 {
   for (int i = 0; i < sender->metaObject()->methodCount(); ++i) {
@@ -80,57 +115,21 @@ static void connectAllSignals(QObject *sender, QObject *receiver)
   }
 }
 
-// DeclarativeObject
-DeclarativeObject::DeclarativeObject(QObject *parent)
-  : QObject(parent)
-{
-}
-
-DeclarativeObject::~DeclarativeObject()
-{
-}
-
-QDeclarativeListProperty<QObject> DeclarativeObject::data()
-{
-  return QDeclarativeListProperty<QObject>(this, 0, DeclarativeObject::data_append,
-                                                    DeclarativeObject::data_count,
-                                                    DeclarativeObject::data_at,
-                                                    DeclarativeObject::data_clear);
-}
-
-void DeclarativeObject::dataAppend(QObject *)
-{
-}
-
-int DeclarativeObject::dataCount()
-{
-  return 0;
-}
-
-QObject* DeclarativeObject::dataAt(int)
-{
-  return 0;
-}
-
-void DeclarativeObject::dataClear()
-{
-}
-
-void DeclarativeObject::data_append(QDeclarativeListProperty<QObject> *property, QObject *object)
+void AbstractDeclarativeObject::data_append(QDeclarativeListProperty<QObject> *property, QObject *object)
 {
   if (!object)
     return;
 
-  DeclarativeObject *that = dynamic_cast<DeclarativeObject*>(property->object);
+  AbstractDeclarativeObject *that = dynamic_cast<AbstractDeclarativeObject*>(property->object);
   if (that)
     that->dataAppend(object);
   else
     qWarning("cast went wrong in data_append");
 }
 
-int DeclarativeObject::data_count(QDeclarativeListProperty<QObject> *property)
+int AbstractDeclarativeObject::data_count(QDeclarativeListProperty<QObject> *property)
 {
-  DeclarativeObject *that = dynamic_cast<DeclarativeObject*>(property->object);
+  AbstractDeclarativeObject *that = dynamic_cast<AbstractDeclarativeObject*>(property->object);
   if (that)
     return that->dataCount();
   else {
@@ -139,9 +138,9 @@ int DeclarativeObject::data_count(QDeclarativeListProperty<QObject> *property)
   }
 }
 
-QObject* DeclarativeObject::data_at(QDeclarativeListProperty<QObject> *property, int index)
+QObject* AbstractDeclarativeObject::data_at(QDeclarativeListProperty<QObject> *property, int index)
 {
-  DeclarativeObject *that = dynamic_cast<DeclarativeObject*>(property->object);
+  AbstractDeclarativeObject *that = dynamic_cast<AbstractDeclarativeObject*>(property->object);
   if (that)
     return that->dataAt(index);
   else {
@@ -150,9 +149,9 @@ QObject* DeclarativeObject::data_at(QDeclarativeListProperty<QObject> *property,
   }
 }
 
-void DeclarativeObject::data_clear(QDeclarativeListProperty<QObject> *property)
+void AbstractDeclarativeObject::data_clear(QDeclarativeListProperty<QObject> *property)
 {
-  DeclarativeObject *that = dynamic_cast<DeclarativeObject*>(property->object);
+  AbstractDeclarativeObject *that = dynamic_cast<AbstractDeclarativeObject*>(property->object);
   if (that)
     that->dataClear();
   else
@@ -160,308 +159,117 @@ void DeclarativeObject::data_clear(QDeclarativeListProperty<QObject> *property)
 }
 
 // DeclarativeHBoxLayout
-DeclarativeHBoxLayout::DeclarativeHBoxLayout(QObject *parent)
-  : DeclarativeObject(parent)
-  , m_layout(new QHBoxLayout)
+DeclarativeHBoxLayout::DeclarativeHBoxLayout(QObject *parent) : DeclarativeBoxLayout<QHBoxLayout>(parent)
 {
-  connectAllSignals(m_layout, this);
+  connectAllSignals(m_proxiedObject, this);
 }
 
-DeclarativeHBoxLayout::~DeclarativeHBoxLayout()
-{
-  delete m_layout;
-}
-
-QObject* DeclarativeHBoxLayout::object()
-{
-  return m_layout;
-}
-
-void DeclarativeHBoxLayout::dataAppend(QObject *object)
-{
-  DeclarativeWidget *widget = dynamic_cast<DeclarativeWidget*>(object);
-  DeclarativeHBoxLayout *hboxLayout = dynamic_cast<DeclarativeHBoxLayout*>(object);
-  DeclarativeVBoxLayout *vboxLayout = dynamic_cast<DeclarativeVBoxLayout*>(object);
-
-  if (widget) {
-    m_children.append(object);
-    m_layout->addWidget(qobject_cast<QWidget*>(widget->object()));
-  } else if (hboxLayout) {
-    m_children.append(object);
-    m_layout->addLayout(qobject_cast<QLayout*>(hboxLayout->object()));
-  } else if (vboxLayout) {
-    m_children.append(object);
-    m_layout->addLayout(qobject_cast<QLayout*>(vboxLayout->object()));
-  } else {
-    qmlInfo(this) << "Can not contain element of type " << object->metaObject()->className();
-  }
-}
-
-int DeclarativeHBoxLayout::dataCount()
-{
-  return m_children.count();
-}
-
-QObject* DeclarativeHBoxLayout::dataAt(int index)
-{
-  return m_children.at(index);
-}
-
-void DeclarativeHBoxLayout::dataClear()
-{
-  qDeleteAll(m_children);
-  m_children.clear();
-}
-
-CUSTOM_METAOBJECT(DeclarativeHBoxLayout, DeclarativeObject, QHBoxLayout, m_layout)
+CUSTOM_METAOBJECT(DeclarativeHBoxLayout, QHBoxLayout, m_proxiedObject)
 
 // DeclarativeVBoxLayout
-DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent)
-  : DeclarativeObject(parent)
-  , m_layout(new QVBoxLayout)
+DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent) : DeclarativeBoxLayout<QVBoxLayout>(parent)
 {
-  connectAllSignals(m_layout, this);
+  connectAllSignals(m_proxiedObject, this);
 }
 
-DeclarativeVBoxLayout::~DeclarativeVBoxLayout()
-{
-  delete m_layout;
-}
-
-QObject* DeclarativeVBoxLayout::object()
-{
-  return m_layout;
-}
-
-void DeclarativeVBoxLayout::dataAppend(QObject *object)
-{
-  DeclarativeWidget *widget = dynamic_cast<DeclarativeWidget*>(object);
-  DeclarativeHBoxLayout *hboxLayout = dynamic_cast<DeclarativeHBoxLayout*>(object);
-  DeclarativeVBoxLayout *vboxLayout = dynamic_cast<DeclarativeVBoxLayout*>(object);
-
-  if (widget) {
-    m_children.append(object);
-    m_layout->addWidget(qobject_cast<QWidget*>(widget->object()));
-  } else if (hboxLayout) {
-    m_children.append(object);
-    m_layout->addLayout(qobject_cast<QLayout*>(hboxLayout->object()));
-  } else if (vboxLayout) {
-    m_children.append(object);
-    m_layout->addLayout(qobject_cast<QLayout*>(vboxLayout->object()));
-  } else {
-    qmlInfo(this) << "Can not contain element of type " << object->metaObject()->className();
-  }
-}
-
-int DeclarativeVBoxLayout::dataCount()
-{
-  return m_children.count();
-}
-
-QObject* DeclarativeVBoxLayout::dataAt(int index)
-{
-  return m_children.at(index);
-}
-
-void DeclarativeVBoxLayout::dataClear()
-{
-  qDeleteAll(m_children);
-  m_children.clear();
-}
-
-CUSTOM_METAOBJECT(DeclarativeVBoxLayout, DeclarativeObject, QVBoxLayout, m_layout)
+CUSTOM_METAOBJECT(DeclarativeVBoxLayout, QVBoxLayout, m_proxiedObject)
 
 // DeclarativeWidget
-DeclarativeWidget::DeclarativeWidget(QObject *parent)
-  : DeclarativeObject(parent)
-  , m_widget(new QWidget)
+DeclarativeWidget::DeclarativeWidget(QObject *parent) : DeclarativeObjectProxy<QWidget>(parent)
 {
-  connectAllSignals(m_widget, this);
-}
-
-DeclarativeWidget::~DeclarativeWidget()
-{
-  delete m_widget;
-}
-
-QObject* DeclarativeWidget::object()
-{
-  return m_widget;
+  connectAllSignals(m_proxiedObject, this);
 }
 
 void DeclarativeWidget::dataAppend(QObject *object)
 {
-  DeclarativeWidget *widget = dynamic_cast<DeclarativeWidget*>(object);
-  DeclarativeHBoxLayout *hboxLayout = dynamic_cast<DeclarativeHBoxLayout*>(object);
-  DeclarativeVBoxLayout *vboxLayout = dynamic_cast<DeclarativeVBoxLayout*>(object);
+  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
+  if (declarativeObject) {
+    QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
+    if (widget) {
+      if (m_proxiedObject->layout()) {
+        qmlInfo(this) << "Can not add Widget since a Layout is set already";
+        return;
+      }
 
-  if (widget) {
-    if (m_widget->layout()) {
-      qmlInfo(this) << "Can not add Widget since a Layout is set already";
+      m_children.append(object);
+      widget->setParent(m_proxiedObject);
       return;
     }
 
-    m_children.append(object);
-    qobject_cast<QWidget*>(widget->object())->setParent(m_widget);
-  } else if (hboxLayout) {
-    // TODO: error when widget is set
+    QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
+    if (layout) {
+      // TODO: error when widget is set
 
-    m_children.append(object);
-    m_widget->setLayout(qobject_cast<QLayout*>(hboxLayout->object()));
-  } else if (vboxLayout) {
-    // TODO: error when widget is set
-
-    m_children.append(object);
-    m_widget->setLayout(qobject_cast<QLayout*>(vboxLayout->object()));
-  } else {
-    m_children.append(object);
+      m_children.append(object);
+      m_proxiedObject->setLayout(layout);
+      return;
+    }
   }
+
+  DeclarativeObjectProxy<QWidget>::dataAppend(object);
 }
 
-int DeclarativeWidget::dataCount()
-{
-  return m_children.count();
-}
-
-QObject *DeclarativeWidget::dataAt(int index)
-{
-  return m_children.at(index);
-}
-
-void DeclarativeWidget::dataClear()
-{
-  qDeleteAll(m_children);
-  m_children.clear();
-}
-
-CUSTOM_METAOBJECT(DeclarativeWidget, DeclarativeObject, QWidget, m_widget)
+CUSTOM_METAOBJECT(DeclarativeWidget, QWidget, m_proxiedObject)
 
 // DeclarativeLabel
-DeclarativeLabel::DeclarativeLabel(QObject *parent)
-  : DeclarativeWidget(parent)
-  , m_label(new QLabel)
+DeclarativeLabel::DeclarativeLabel(QObject *parent) : DeclarativeObjectProxy<QLabel>(parent)
 {
-  connectAllSignals(m_label, this);
+  connectAllSignals(m_proxiedObject, this);
 }
 
-DeclarativeLabel::~DeclarativeLabel()
-{
-  delete m_label;
-}
-
-QObject* DeclarativeLabel::object()
-{
-  return m_label;
-}
-
-CUSTOM_METAOBJECT(DeclarativeLabel, DeclarativeWidget, QLabel, m_label)
+CUSTOM_METAOBJECT(DeclarativeLabel, QLabel, m_proxiedObject)
 
 // DeclarativeTabWidget
-DeclarativeTabWidget::DeclarativeTabWidget(QObject *parent)
-  : DeclarativeWidget(parent)
-  , m_tabWidget(new QTabWidget)
+DeclarativeTabWidget::DeclarativeTabWidget(QObject *parent) : DeclarativeObjectProxy<QTabWidget>(parent)
 {
-  connectAllSignals(m_tabWidget, this);
-}
-
-DeclarativeTabWidget::~DeclarativeTabWidget()
-{
-  delete m_tabWidget;
-}
-
-QObject* DeclarativeTabWidget::object()
-{
-  return m_tabWidget;
+  connectAllSignals(m_proxiedObject, this);
 }
 
 void DeclarativeTabWidget::dataAppend(QObject *object)
 {
-  DeclarativeWidget *widget = dynamic_cast<DeclarativeWidget*>(object);
+  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
 
-  if (widget) {
-    // TODO: error when layout is set
-    m_children.append(object);
-    m_tabWidget->addTab(qobject_cast<QWidget*>(widget->object()), "MyTab");
-  } else {
-    // TODO: error unknown type
+  if (declarativeObject) {
+    QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
+    if (widget) {
+      // TODO: error when layout is set
+      m_children.append(object);
+      m_proxiedObject->addTab(widget, "MyTab");
+      return;
+    }
+
+    QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
+    if (layout) {
+      qmlInfo(this) << "Can not add QLayout to QTabWidget";
+      return;
+    }
   }
+
+  DeclarativeObjectProxy<QTabWidget>::dataAppend(object);
 }
 
-int DeclarativeTabWidget::dataCount()
-{
-  return m_children.count();
-}
-
-QObject *DeclarativeTabWidget::dataAt(int index)
-{
-  return m_children.at(index);
-}
-
-void DeclarativeTabWidget::dataClear()
-{
-  qDeleteAll(m_children);
-  m_children.clear();
-}
-
-CUSTOM_METAOBJECT(DeclarativeTabWidget, DeclarativeWidget, QTabWidget, m_tabWidget)
+CUSTOM_METAOBJECT(DeclarativeTabWidget, QTabWidget, m_proxiedObject)
 
 // DeclarativePushButton
-DeclarativePushButton::DeclarativePushButton(QObject *parent)
-  : DeclarativeWidget(parent)
-  , m_pushButton(new QPushButton)
+DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeObjectProxy<QPushButton>(parent)
 {
-  connectAllSignals(m_pushButton, this);
+  connectAllSignals(m_proxiedObject, this);
 }
 
-DeclarativePushButton::~DeclarativePushButton()
-{
-  delete m_pushButton;
-}
-
-QObject* DeclarativePushButton::object()
-{
-  return m_pushButton;
-}
-
-CUSTOM_METAOBJECT(DeclarativePushButton, DeclarativeWidget, QPushButton, m_pushButton)
+CUSTOM_METAOBJECT(DeclarativePushButton, QPushButton, m_proxiedObject)
 
 // DeclarativeCheckBox
-DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent)
-  : DeclarativeWidget(parent)
-  , m_checkBox(new QCheckBox)
+DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent) : DeclarativeObjectProxy<QCheckBox>(parent)
 {
-  connectAllSignals(m_checkBox, this);
+  connectAllSignals(m_proxiedObject, this);
 }
 
-DeclarativeCheckBox::~DeclarativeCheckBox()
-{
-  delete m_checkBox;
-}
-
-QObject* DeclarativeCheckBox::object()
-{
-  return m_checkBox;
-}
-
-CUSTOM_METAOBJECT(DeclarativeCheckBox, DeclarativeWidget, QCheckBox, m_checkBox)
+CUSTOM_METAOBJECT(DeclarativeCheckBox, QCheckBox, m_proxiedObject)
 
 // DeclarativeSlider
-DeclarativeSlider::DeclarativeSlider(QObject *parent)
-  : DeclarativeWidget(parent)
-  , m_slider(new QSlider)
+DeclarativeSlider::DeclarativeSlider(QObject *parent) : DeclarativeObjectProxy<QSlider>(parent)
 {
-  m_slider->setOrientation(Qt::Horizontal);
-  connectAllSignals(m_slider, this);
+  connectAllSignals(m_proxiedObject, this);
 }
 
-DeclarativeSlider::~DeclarativeSlider()
-{
-  delete m_slider;
-}
-
-QObject* DeclarativeSlider::object()
-{
-  return m_slider;
-}
-
-CUSTOM_METAOBJECT(DeclarativeSlider, DeclarativeWidget, QSlider, m_slider)
+CUSTOM_METAOBJECT(DeclarativeSlider, QSlider, m_proxiedObject)

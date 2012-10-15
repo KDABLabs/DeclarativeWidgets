@@ -68,10 +68,10 @@ QWidget* DeclarativeWidgetDocument::createWidget()
     return 0;
   }
 
-  DeclarativeObject *declarativeObject = dynamic_cast<DeclarativeObject*>(object);
+  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
 
   if (!declarativeObject) {
-    qWarning("Root element is no DeclarativeObject subclass");
+    qWarning("Root element is no AbstractDeclarativeObject subclass");
     return 0;
   }
 
