@@ -33,6 +33,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
   qmlRegisterType<DeclarativeHBoxLayout>("QtGui", 1, 0, "HBoxLayout");
   qmlRegisterType<DeclarativeVBoxLayout>("QtGui", 1, 0, "VBoxLayout");
+  qmlRegisterType<TabWidgetTabHeader>();
   qmlRegisterType<DeclarativeTabWidget>("QtGui", 1, 0, "TabWidget");
   qmlRegisterType<DeclarativePushButton>("QtGui", 1, 0, "PushButton");
   qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");

@@ -49,12 +49,16 @@ Widget {
     }
     TabWidget {
       Label {
+        TabWidget.label: "Title 1"
+
         text: "Page 1"
       }
       Label {
         text: "Page 2"
       }
       Label {
+        TabWidget.label: "Title 3"
+
         text: "Page 3"
       }
     }

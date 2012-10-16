@@ -12,6 +12,7 @@
 #include <QtGui/QVBoxLayout>
 #include <QtDeclarative/QDeclarativeListProperty>
 #include <QtDeclarative/qdeclarativeinfo.h>
+#include <qdeclarative.h>
 
 #define DECLARATIVE_OBJECT \
   public: \
@@ -198,6 +199,34 @@ class DeclarativeLabel : public DeclarativeWidgetProxy<QLabel>
     DeclarativeLabel(QObject *parent = 0);
 };
 
+
+// attached property for DeclarativeTabWidget
+class TabWidgetTabHeader : public QObject
+{
+  Q_OBJECT
+
+  Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
+  Q_PROPERTY(QIcon icon READ icon WRITE setIcon NOTIFY iconChanged)
+
+  public:
+    TabWidgetTabHeader(QObject *parent = 0);
+    ~TabWidgetTabHeader();
+
+    void setLabel(const QString &label);
+    QString label() const;
+
+    void setIcon(const QIcon &icon);
+    QIcon icon() const;
+
+  Q_SIGNALS:
+    void labelChanged(const QString &label);
+    void iconChanged(const QIcon &icon);
+
+  private:
+    class Private;
+    Private *const d;
+};
+
 class DeclarativeTabWidget : public DeclarativeWidgetProxy<QTabWidget>
 {
   DECLARATIVE_OBJECT
@@ -205,10 +234,15 @@ class DeclarativeTabWidget : public DeclarativeWidgetProxy<QTabWidget>
   public:
     DeclarativeTabWidget(QObject *parent = 0);
 
+    static TabWidgetTabHeader *qmlAttachedProperties(QObject *object);
+
   protected:
     virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
     virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
+
+QML_DECLARE_TYPEINFO(DeclarativeTabWidget, QML_HAS_ATTACHED_PROPERTIES)
+
 /*
 class DeclarativeTab : public DeclarativeWidget
 {

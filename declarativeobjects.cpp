@@ -190,6 +190,48 @@ DeclarativeLabel::DeclarativeLabel(QObject *parent) : DeclarativeWidgetProxy<QLa
 CUSTOM_METAOBJECT(DeclarativeLabel, QLabel, m_proxiedObject)
 
 // DeclarativeTabWidget
+class TabWidgetTabHeader::Private
+{
+  public:
+    QString label;
+    QIcon icon;
+};
+
+TabWidgetTabHeader::TabWidgetTabHeader(QObject *parent)
+  : QObject(parent), d(new TabWidgetTabHeader::Private)
+{
+}
+
+TabWidgetTabHeader::~TabWidgetTabHeader()
+{
+  delete d;
+}
+
+void TabWidgetTabHeader::setLabel(const QString &label)
+{
+  if (label == d->label)
+    return;
+
+  d->label = label;
+  emit labelChanged(label);
+}
+
+QString TabWidgetTabHeader::label() const
+{
+  return d->label;
+}
+
+void TabWidgetTabHeader::setIcon(const QIcon &icon)
+{
+  d->icon = icon;
+  emit iconChanged(icon);
+}
+
+QIcon TabWidgetTabHeader::icon() const
+{
+  return d->icon;
+}
+
 DeclarativeTabWidget::DeclarativeTabWidget(QObject *parent) : DeclarativeWidgetProxy<QTabWidget>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
@@ -198,8 +240,19 @@ DeclarativeTabWidget::DeclarativeTabWidget(QObject *parent) : DeclarativeWidgetP
 void DeclarativeTabWidget::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
 {
   // TODO: error when layout is set
+
   m_children.append(declarativeObject);
-  m_proxiedObject->addTab(widget, "MyTab");
+
+  QString label;
+  QIcon icon;
+
+  TabWidgetTabHeader *tabHeader = declarativeObject->findChild<TabWidgetTabHeader*>();
+  if (tabHeader) {
+    label = tabHeader->label();
+    icon = tabHeader->icon();
+  }
+
+  m_proxiedObject->addTab(widget, icon, label);
 }
 
 void DeclarativeTabWidget::setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
@@ -207,6 +260,11 @@ void DeclarativeTabWidget::setLayout(QLayout *layout, AbstractDeclarativeObject 
   Q_UNUSED(layout);
   Q_UNUSED(declarativeObject);
   qmlInfo(this) << "Can not add QLayout to QTabWidget";
+}
+
+TabWidgetTabHeader *DeclarativeTabWidget::qmlAttachedProperties(QObject *object)
+{
+  return new TabWidgetTabHeader(object);
 }
 
 CUSTOM_METAOBJECT(DeclarativeTabWidget, QTabWidget, m_proxiedObject)
