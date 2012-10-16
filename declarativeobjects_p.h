@@ -11,6 +11,7 @@
 #include <QtGui/QTabWidget>
 #include <QtGui/QVBoxLayout>
 #include <QtDeclarative/QDeclarativeListProperty>
+#include <QtDeclarative/qdeclarativeinfo.h>
 
 #define DECLARATIVE_OBJECT \
   public: \
@@ -83,6 +84,59 @@ class DeclarativeObjectProxy : public AbstractDeclarativeObject
 };
 
 template <class T>
+class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
+{
+  public:
+    DeclarativeWidgetProxy(QObject *parent = 0) : DeclarativeObjectProxy<T>(parent) {}
+
+  protected:
+    virtual void dataAppend(QObject *object)
+    {
+        AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
+        if (declarativeObject) {
+          QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
+          if (widget) {
+            if (DeclarativeObjectProxy<T>::m_proxiedObject->layout()) {
+              qmlInfo(this) << "Can not add Widget since a Layout is set already";
+              return;
+            }
+
+            addWidget(widget, declarativeObject);
+            return;
+          }
+
+          QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
+          if (layout) {
+            // TODO: error when widget is set
+
+            if (DeclarativeObjectProxy<T>::m_proxiedObject->layout()) {
+              qmlInfo(this) << "Can not add a second Layout";
+              return;
+            }
+
+            setLayout(layout, declarativeObject);
+            return;
+          }
+        }
+
+        DeclarativeObjectProxy<T>::dataAppend(object);
+    }
+
+    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+    {
+      Q_UNUSED(declarativeObject);
+      DeclarativeObjectProxy<T>::m_children.append(declarativeObject);
+      widget->setParent(DeclarativeObjectProxy<T>::m_proxiedObject);
+    }
+
+    virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+    {
+      DeclarativeObjectProxy<T>::m_children.append(declarativeObject);
+      DeclarativeObjectProxy<T>::m_proxiedObject->setLayout(layout);
+    }
+};
+
+template <class T>
 class DeclarativeBoxLayout : public DeclarativeObjectProxy<T>
 {
   public:
@@ -128,18 +182,15 @@ class DeclarativeVBoxLayout : public DeclarativeBoxLayout<QVBoxLayout>
     DeclarativeVBoxLayout(QObject *parent = 0);
 };
 
-class DeclarativeWidget : public DeclarativeObjectProxy<QWidget>
+class DeclarativeWidget : public DeclarativeWidgetProxy<QWidget>
 {
   DECLARATIVE_OBJECT
 
   public:
     DeclarativeWidget(QObject *parent = 0);
-
-  protected:
-    virtual void dataAppend(QObject *);
 };
 
-class DeclarativeLabel : public DeclarativeObjectProxy<QLabel>
+class DeclarativeLabel : public DeclarativeWidgetProxy<QLabel>
 {
   DECLARATIVE_OBJECT
 
@@ -147,7 +198,7 @@ class DeclarativeLabel : public DeclarativeObjectProxy<QLabel>
     DeclarativeLabel(QObject *parent = 0);
 };
 
-class DeclarativeTabWidget : public DeclarativeObjectProxy<QTabWidget>
+class DeclarativeTabWidget : public DeclarativeWidgetProxy<QTabWidget>
 {
   DECLARATIVE_OBJECT
 
@@ -155,7 +206,8 @@ class DeclarativeTabWidget : public DeclarativeObjectProxy<QTabWidget>
     DeclarativeTabWidget(QObject *parent = 0);
 
   protected:
-    virtual void dataAppend(QObject *);
+    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 /*
 class DeclarativeTab : public DeclarativeWidget
@@ -177,7 +229,7 @@ class DeclarativeTab : public DeclarativeWidget
     QObject* m_child;
 };
 */
-class DeclarativePushButton : public DeclarativeObjectProxy<QPushButton>
+class DeclarativePushButton : public DeclarativeWidgetProxy<QPushButton>
 {
   DECLARATIVE_OBJECT
 
@@ -185,7 +237,7 @@ class DeclarativePushButton : public DeclarativeObjectProxy<QPushButton>
     DeclarativePushButton(QObject *parent = 0);
 };
 
-class DeclarativeCheckBox : public DeclarativeObjectProxy<QCheckBox>
+class DeclarativeCheckBox : public DeclarativeWidgetProxy<QCheckBox>
 {
   DECLARATIVE_OBJECT
 
@@ -193,7 +245,7 @@ class DeclarativeCheckBox : public DeclarativeObjectProxy<QCheckBox>
     DeclarativeCheckBox(QObject *parent = 0);
 };
 
-class DeclarativeSlider : public DeclarativeObjectProxy<QSlider>
+class DeclarativeSlider : public DeclarativeWidgetProxy<QSlider>
 {
   DECLARATIVE_OBJECT
 

@@ -3,7 +3,6 @@
 #include "qmetaobjectbuilder_p.h"
 
 #include <QDebug>
-#include <QtDeclarative/qdeclarativeinfo.h>
 
 /*
   if (QString(staticMetaObject.className()) == "DeclarativeLabel") { \
@@ -175,44 +174,15 @@ DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent) : DeclarativeBoxLa
 CUSTOM_METAOBJECT(DeclarativeVBoxLayout, QVBoxLayout, m_proxiedObject)
 
 // DeclarativeWidget
-DeclarativeWidget::DeclarativeWidget(QObject *parent) : DeclarativeObjectProxy<QWidget>(parent)
+DeclarativeWidget::DeclarativeWidget(QObject *parent) : DeclarativeWidgetProxy<QWidget>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
-}
-
-void DeclarativeWidget::dataAppend(QObject *object)
-{
-  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
-  if (declarativeObject) {
-    QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
-    if (widget) {
-      if (m_proxiedObject->layout()) {
-        qmlInfo(this) << "Can not add Widget since a Layout is set already";
-        return;
-      }
-
-      m_children.append(object);
-      widget->setParent(m_proxiedObject);
-      return;
-    }
-
-    QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
-    if (layout) {
-      // TODO: error when widget is set
-
-      m_children.append(object);
-      m_proxiedObject->setLayout(layout);
-      return;
-    }
-  }
-
-  DeclarativeObjectProxy<QWidget>::dataAppend(object);
 }
 
 CUSTOM_METAOBJECT(DeclarativeWidget, QWidget, m_proxiedObject)
 
 // DeclarativeLabel
-DeclarativeLabel::DeclarativeLabel(QObject *parent) : DeclarativeObjectProxy<QLabel>(parent)
+DeclarativeLabel::DeclarativeLabel(QObject *parent) : DeclarativeWidgetProxy<QLabel>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
 }
@@ -220,38 +190,29 @@ DeclarativeLabel::DeclarativeLabel(QObject *parent) : DeclarativeObjectProxy<QLa
 CUSTOM_METAOBJECT(DeclarativeLabel, QLabel, m_proxiedObject)
 
 // DeclarativeTabWidget
-DeclarativeTabWidget::DeclarativeTabWidget(QObject *parent) : DeclarativeObjectProxy<QTabWidget>(parent)
+DeclarativeTabWidget::DeclarativeTabWidget(QObject *parent) : DeclarativeWidgetProxy<QTabWidget>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
 }
 
-void DeclarativeTabWidget::dataAppend(QObject *object)
+void DeclarativeTabWidget::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
 {
-  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
+  // TODO: error when layout is set
+  m_children.append(declarativeObject);
+  m_proxiedObject->addTab(widget, "MyTab");
+}
 
-  if (declarativeObject) {
-    QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
-    if (widget) {
-      // TODO: error when layout is set
-      m_children.append(object);
-      m_proxiedObject->addTab(widget, "MyTab");
-      return;
-    }
-
-    QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
-    if (layout) {
-      qmlInfo(this) << "Can not add QLayout to QTabWidget";
-      return;
-    }
-  }
-
-  DeclarativeObjectProxy<QTabWidget>::dataAppend(object);
+void DeclarativeTabWidget::setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+{
+  Q_UNUSED(layout);
+  Q_UNUSED(declarativeObject);
+  qmlInfo(this) << "Can not add QLayout to QTabWidget";
 }
 
 CUSTOM_METAOBJECT(DeclarativeTabWidget, QTabWidget, m_proxiedObject)
 
 // DeclarativePushButton
-DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeObjectProxy<QPushButton>(parent)
+DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeWidgetProxy<QPushButton>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
 }
@@ -259,7 +220,7 @@ DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeObjec
 CUSTOM_METAOBJECT(DeclarativePushButton, QPushButton, m_proxiedObject)
 
 // DeclarativeCheckBox
-DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent) : DeclarativeObjectProxy<QCheckBox>(parent)
+DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent) : DeclarativeWidgetProxy<QCheckBox>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
 }
@@ -267,7 +228,7 @@ DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent) : DeclarativeObjectPro
 CUSTOM_METAOBJECT(DeclarativeCheckBox, QCheckBox, m_proxiedObject)
 
 // DeclarativeSlider
-DeclarativeSlider::DeclarativeSlider(QObject *parent) : DeclarativeObjectProxy<QSlider>(parent)
+DeclarativeSlider::DeclarativeSlider(QObject *parent) : DeclarativeWidgetProxy<QSlider>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
 }
