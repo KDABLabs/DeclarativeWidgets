@@ -201,8 +201,11 @@ DeclarativeMainWindow::DeclarativeMainWindow(QObject *parent) : DeclarativeWidge
 void DeclarativeMainWindow::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
 {
   QMenuBar *menuBar = qobject_cast<QMenuBar*>(widget);
+  QToolBar *toolBar = qobject_cast<QToolBar*>(widget);
   if (menuBar) {
     m_proxiedObject->setMenuBar(menuBar);
+  } else if (toolBar) {
+    m_proxiedObject->addToolBar(toolBar);
   } else if (widget) {
     if (m_proxiedObject->centralWidget()) {
       qmlInfo(declarativeObject) << "The QMainWindow contains a central widget already";
@@ -230,7 +233,7 @@ DeclarativeMenu::DeclarativeMenu(QObject *parent) : DeclarativeWidgetProxy<QMenu
   connectAllSignals(m_proxiedObject, this);
 }
 
-void DeclarativeMenu::addObject(QObject *object, AbstractDeclarativeObject *declarativeObject)
+void DeclarativeMenu::addQObject(QObject *object, AbstractDeclarativeObject *declarativeObject)
 {
   QAction *action = qobject_cast<QAction*>(object);
   if (!action) {
@@ -397,6 +400,41 @@ DeclarativeTextEdit::DeclarativeTextEdit(QObject *parent) : DeclarativeWidgetPro
 }
 
 CUSTOM_METAOBJECT(DeclarativeTextEdit, QTextEdit)
+
+// DeclarativeToolBar
+DeclarativeToolBar::DeclarativeToolBar(QObject *parent) : DeclarativeWidgetProxy<QToolBar>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+void DeclarativeToolBar::addQObject(QObject *object, AbstractDeclarativeObject *declarativeObject)
+{
+  QAction *action = qobject_cast<QAction*>(object);
+  if (!action) {
+    qmlInfo(declarativeObject) << "The QToolBar can only contain QWidget or QAction";
+    return;
+  }
+
+  m_proxiedObject->addAction(action);
+
+  m_children.append(declarativeObject);
+}
+
+void DeclarativeToolBar::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+{
+  m_proxiedObject->addWidget(widget);
+
+  m_children.append(declarativeObject);
+}
+
+void DeclarativeToolBar::setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+{
+  Q_UNUSED(layout);
+  Q_UNUSED(declarativeObject);
+  qmlInfo(this) << "Can not set a QLayout to a QToolBar";
+}
+
+CUSTOM_METAOBJECT(DeclarativeToolBar, QToolBar)
 
 // DeclarativeWidget
 DeclarativeWidget::DeclarativeWidget(QObject *parent) : DeclarativeWidgetProxy<QWidget>(parent)

@@ -36,6 +36,16 @@ MainWindow {
     }
   }
 
+  ToolBar {
+    Action {
+      text: qsTr("New")
+    }
+
+    Label {
+      text: "Zoom"
+    }
+  }
+
   TextEdit {
     id: textEdit
   }

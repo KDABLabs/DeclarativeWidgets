@@ -15,6 +15,7 @@
 #include <QtGui/QSlider>
 #include <QtGui/QTabWidget>
 #include <QtGui/QTextEdit>
+#include <QtGui/QToolBar>
 #include <QtGui/QVBoxLayout>
 #include <QtDeclarative/QDeclarativeListProperty>
 #include <QtDeclarative/qdeclarativeinfo.h>
@@ -119,9 +120,9 @@ class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
             setLayout(layout, declarativeObject);
             return;
           }
-        }
 
-        addObject(declarativeObject->object(), declarativeObject);
+          addQObject(declarativeObject->object(), declarativeObject);
+        }
 
         DeclarativeObjectProxy<T>::dataAppend(object);
     }
@@ -139,7 +140,7 @@ class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
       DeclarativeObjectProxy<T>::m_proxiedObject->setLayout(layout);
     }
 
-    virtual void addObject(QObject *object, AbstractDeclarativeObject *declarativeObject)
+    virtual void addQObject(QObject *object, AbstractDeclarativeObject *declarativeObject)
     {
       object->setParent(DeclarativeObjectProxy<T>::m_proxiedObject);
       DeclarativeObjectProxy<T>::m_children.append(declarativeObject);
@@ -247,7 +248,7 @@ class DeclarativeMenu : public DeclarativeWidgetProxy<QMenu>
     DeclarativeMenu(QObject *parent = 0);
 
   protected:
-    virtual void addObject(QObject *object, AbstractDeclarativeObject *declarativeObject);
+    virtual void addQObject(QObject *object, AbstractDeclarativeObject *declarativeObject);
     virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
     virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
@@ -329,6 +330,19 @@ class DeclarativeTextEdit : public DeclarativeWidgetProxy<QTextEdit>
 
   public:
     DeclarativeTextEdit(QObject *parent = 0);
+};
+
+class DeclarativeToolBar : public DeclarativeWidgetProxy<QToolBar>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeToolBar(QObject *parent = 0);
+
+  protected:
+    virtual void addQObject(QObject *object, AbstractDeclarativeObject *declarativeObject);
+    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 
 class DeclarativeWidget : public DeclarativeWidgetProxy<QWidget>

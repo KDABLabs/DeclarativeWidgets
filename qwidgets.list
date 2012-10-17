@@ -36,11 +36,8 @@ qlcdnumber.h
 qlineedit.h
 qlistview.h
 qlistwidget.h
-qmainwindow.h
 qmdiarea.h
 qmdisubwindow.h
-qmenubar.h
-qmenu.h
 qmessagebox.h
 qplaintextedit.h
 qprintpreviewwidget.h
