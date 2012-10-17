@@ -406,24 +406,24 @@ DeclarativeStatusBarAttached *DeclarativeStatusBar::qmlAttachedProperties(QObjec
 CUSTOM_METAOBJECT(DeclarativeStatusBar, QStatusBar)
 
 // DeclarativeTabWidget
-class TabWidgetTabHeader::Private
+class DeclarativeTabWidgetAttached::Private
 {
   public:
     QString label;
     QIcon icon;
 };
 
-TabWidgetTabHeader::TabWidgetTabHeader(QObject *parent)
-  : QObject(parent), d(new TabWidgetTabHeader::Private)
+DeclarativeTabWidgetAttached::DeclarativeTabWidgetAttached(QObject *parent)
+  : QObject(parent), d(new DeclarativeTabWidgetAttached::Private)
 {
 }
 
-TabWidgetTabHeader::~TabWidgetTabHeader()
+DeclarativeTabWidgetAttached::~DeclarativeTabWidgetAttached()
 {
   delete d;
 }
 
-void TabWidgetTabHeader::setLabel(const QString &label)
+void DeclarativeTabWidgetAttached::setLabel(const QString &label)
 {
   if (label == d->label)
     return;
@@ -432,18 +432,18 @@ void TabWidgetTabHeader::setLabel(const QString &label)
   emit labelChanged(label);
 }
 
-QString TabWidgetTabHeader::label() const
+QString DeclarativeTabWidgetAttached::label() const
 {
   return d->label;
 }
 
-void TabWidgetTabHeader::setIcon(const QIcon &icon)
+void DeclarativeTabWidgetAttached::setIcon(const QIcon &icon)
 {
   d->icon = icon;
   emit iconChanged(icon);
 }
 
-QIcon TabWidgetTabHeader::icon() const
+QIcon DeclarativeTabWidgetAttached::icon() const
 {
   return d->icon;
 }
@@ -463,7 +463,7 @@ void DeclarativeTabWidget::addWidget(QWidget *widget, AbstractDeclarativeObject 
   QIcon icon;
 
   QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeTabWidget>(declarativeObject, false);
-  TabWidgetTabHeader *tabHeader = qobject_cast<TabWidgetTabHeader*>(attachedProperties);
+  DeclarativeTabWidgetAttached *tabHeader = qobject_cast<DeclarativeTabWidgetAttached*>(attachedProperties);
   if (tabHeader) {
     label = tabHeader->label();
     icon = tabHeader->icon();
@@ -479,9 +479,9 @@ void DeclarativeTabWidget::setLayout(QLayout *layout, AbstractDeclarativeObject 
   qmlInfo(this) << "Can not add QLayout to QTabWidget";
 }
 
-TabWidgetTabHeader *DeclarativeTabWidget::qmlAttachedProperties(QObject *object)
+DeclarativeTabWidgetAttached *DeclarativeTabWidget::qmlAttachedProperties(QObject *object)
 {
-  return new TabWidgetTabHeader(object);
+  return new DeclarativeTabWidgetAttached(object);
 }
 
 CUSTOM_METAOBJECT(DeclarativeTabWidget, QTabWidget)

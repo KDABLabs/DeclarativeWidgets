@@ -343,7 +343,7 @@ class DeclarativeStatusBar : public DeclarativeWidgetProxy<QStatusBar>
 QML_DECLARE_TYPEINFO(DeclarativeStatusBar, QML_HAS_ATTACHED_PROPERTIES)
 
 // attached property for DeclarativeTabWidget
-class TabWidgetTabHeader : public QObject
+class DeclarativeTabWidgetAttached : public QObject
 {
   Q_OBJECT
 
@@ -351,8 +351,8 @@ class TabWidgetTabHeader : public QObject
   Q_PROPERTY(QIcon icon READ icon WRITE setIcon NOTIFY iconChanged)
 
   public:
-    TabWidgetTabHeader(QObject *parent = 0);
-    ~TabWidgetTabHeader();
+    DeclarativeTabWidgetAttached(QObject *parent = 0);
+    ~DeclarativeTabWidgetAttached();
 
     void setLabel(const QString &label);
     QString label() const;
@@ -376,7 +376,7 @@ class DeclarativeTabWidget : public DeclarativeWidgetProxy<QTabWidget>
   public:
     DeclarativeTabWidget(QObject *parent = 0);
 
-    static TabWidgetTabHeader *qmlAttachedProperties(QObject *object);
+    static DeclarativeTabWidgetAttached *qmlAttachedProperties(QObject *object);
 
   protected:
     virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
