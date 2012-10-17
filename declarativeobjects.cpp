@@ -182,6 +182,35 @@ DeclarativeLabel::DeclarativeLabel(QObject *parent) : DeclarativeWidgetProxy<QLa
 
 CUSTOM_METAOBJECT(DeclarativeLabel, QLabel)
 
+// DeclarativeMainWindow
+DeclarativeMainWindow::DeclarativeMainWindow(QObject *parent) : DeclarativeWidgetProxy<QMainWindow>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+void DeclarativeMainWindow::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+{
+  if (widget) {
+    if (m_proxiedObject->centralWidget()) {
+      qmlInfo(this) << "The QMainWindow contains a central widget already";
+      return;
+    }
+
+    m_proxiedObject->setCentralWidget(widget);
+  }
+
+  m_children.append(declarativeObject);
+}
+
+void DeclarativeMainWindow::setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+{
+  Q_UNUSED(layout);
+  Q_UNUSED(declarativeObject);
+  qmlInfo(this) << "Can not set a QLayout to a QMainWindow";
+}
+
+CUSTOM_METAOBJECT(DeclarativeMainWindow, QMainWindow)
+
 // DeclarativePushButton
 DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeWidgetProxy<QPushButton>(parent)
 {
@@ -278,6 +307,14 @@ TabWidgetTabHeader *DeclarativeTabWidget::qmlAttachedProperties(QObject *object)
 }
 
 CUSTOM_METAOBJECT(DeclarativeTabWidget, QTabWidget)
+
+// DeclarativeTextEdit
+DeclarativeTextEdit::DeclarativeTextEdit(QObject *parent) : DeclarativeWidgetProxy<QTextEdit>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeTextEdit, QTextEdit)
 
 // DeclarativeWidget
 DeclarativeWidget::DeclarativeWidget(QObject *parent) : DeclarativeWidgetProxy<QWidget>(parent)

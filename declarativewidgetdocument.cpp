@@ -37,10 +37,12 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeCalendarWidget>("QtGui", 1, 0, "CalendarWidget");
   qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
+  qmlRegisterType<DeclarativeMainWindow>("QtGui", 1, 0, "MainWindow");
   qmlRegisterType<DeclarativePushButton>("QtGui", 1, 0, "PushButton");
   qmlRegisterType<DeclarativeSlider>("QtGui", 1, 0, "Slider");
   qmlRegisterType<TabWidgetTabHeader>();
   qmlRegisterType<DeclarativeTabWidget>("QtGui", 1, 0, "TabWidget");
+  qmlRegisterType<DeclarativeTextEdit>("QtGui", 1, 0, "TextEdit");
   qmlRegisterType<DeclarativeWidget>("QtGui", 1, 0, "Widget");
 
   d->m_component->loadUrl(d->m_url);

@@ -7,9 +7,11 @@
 #include <QtGui/QCheckBox>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
+#include <QtGui/QMainWindow>
 #include <QtGui/QPushButton>
 #include <QtGui/QSlider>
 #include <QtGui/QTabWidget>
+#include <QtGui/QTextEdit>
 #include <QtGui/QVBoxLayout>
 #include <QtDeclarative/QDeclarativeListProperty>
 #include <QtDeclarative/qdeclarativeinfo.h>
@@ -98,11 +100,12 @@ class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
         if (declarativeObject) {
           QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
           if (widget) {
+/*
             if (DeclarativeObjectProxy<T>::m_proxiedObject->layout()) {
               qmlInfo(this) << "Can not add Widget since a Layout is set already";
               return;
             }
-
+*/
             addWidget(widget, declarativeObject);
             return;
           }
@@ -210,6 +213,18 @@ class DeclarativeLabel : public DeclarativeWidgetProxy<QLabel>
     DeclarativeLabel(QObject *parent = 0);
 };
 
+class DeclarativeMainWindow : public DeclarativeWidgetProxy<QMainWindow>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeMainWindow(QObject *parent = 0);
+
+  protected:
+    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+};
+
 class DeclarativePushButton : public DeclarativeWidgetProxy<QPushButton>
 {
   DECLARATIVE_OBJECT
@@ -268,6 +283,14 @@ class DeclarativeTabWidget : public DeclarativeWidgetProxy<QTabWidget>
 };
 
 QML_DECLARE_TYPEINFO(DeclarativeTabWidget, QML_HAS_ATTACHED_PROPERTIES)
+
+class DeclarativeTextEdit : public DeclarativeWidgetProxy<QTextEdit>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeTextEdit(QObject *parent = 0);
+};
 
 class DeclarativeWidget : public DeclarativeWidgetProxy<QWidget>
 {
