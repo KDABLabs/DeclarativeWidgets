@@ -255,7 +255,8 @@ void DeclarativeTabWidget::addWidget(QWidget *widget, AbstractDeclarativeObject 
   QString label;
   QIcon icon;
 
-  TabWidgetTabHeader *tabHeader = declarativeObject->findChild<TabWidgetTabHeader*>();
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeTabWidget>(declarativeObject, false);
+  TabWidgetTabHeader *tabHeader = qobject_cast<TabWidgetTabHeader*>(attachedProperties);
   if (tabHeader) {
     label = tabHeader->label();
     icon = tabHeader->icon();
