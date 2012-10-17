@@ -114,10 +114,18 @@ MainWindow {
     contextMenuPolicy: Qt.ActionsContextMenu
 
     Action {
-      text: "Copy"
+      text: qsTr("Cut")
+      onTriggered: textEdit.cut()
     }
+
     Action {
-      text: "Paste"
+      text: qsTr("Copy")
+      onTriggered: textEdit.copy()
+    }
+
+    Action {
+      text: qsTr("Paste")
+      onTriggered: textEdit.paste()
     }
   }
 
