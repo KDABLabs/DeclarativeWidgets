@@ -14,4 +14,8 @@ SOURCES += declarativeobjects.cpp declarativewidgetdocument.cpp main.cpp qmetaob
 QT += declarative
 
 OTHER_FILES += \
-    layouts.qml
+    layouts.qml \
+    animation.qml \
+    editor.qml \
+    gallery.qml \
+    test.qml
