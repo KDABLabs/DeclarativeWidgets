@@ -3,6 +3,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
+#include <QtGui/QCalendarWidget>
 #include <QtGui/QCheckBox>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
@@ -185,6 +186,14 @@ class DeclarativeVBoxLayout : public DeclarativeBoxLayout<QVBoxLayout>
 };
 
 //// Widgets ////
+class DeclarativeCalendarWidget : public DeclarativeWidgetProxy<QCalendarWidget>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeCalendarWidget(QObject *parent = 0);
+};
+
 class DeclarativeCheckBox : public DeclarativeWidgetProxy<QCheckBox>
 {
   DECLARATIVE_OBJECT

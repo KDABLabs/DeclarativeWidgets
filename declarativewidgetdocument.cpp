@@ -29,15 +29,19 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   : QObject(parent)
   , d(new Private(this, url))
 {
-  qmlRegisterType<DeclarativeWidget>("QtGui", 1, 0, "Widget");
-  qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
+  // layouts
   qmlRegisterType<DeclarativeHBoxLayout>("QtGui", 1, 0, "HBoxLayout");
   qmlRegisterType<DeclarativeVBoxLayout>("QtGui", 1, 0, "VBoxLayout");
+
+  // widgets
+  qmlRegisterType<DeclarativeCalendarWidget>("QtGui", 1, 0, "CalendarWidget");
+  qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
+  qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
+  qmlRegisterType<DeclarativePushButton>("QtGui", 1, 0, "PushButton");
+  qmlRegisterType<DeclarativeSlider>("QtGui", 1, 0, "Slider");
   qmlRegisterType<TabWidgetTabHeader>();
   qmlRegisterType<DeclarativeTabWidget>("QtGui", 1, 0, "TabWidget");
-  qmlRegisterType<DeclarativePushButton>("QtGui", 1, 0, "PushButton");
-  qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
-  qmlRegisterType<DeclarativeSlider>("QtGui", 1, 0, "Slider");
+  qmlRegisterType<DeclarativeWidget>("QtGui", 1, 0, "Widget");
 
   d->m_component->loadUrl(d->m_url);
   if (d->m_component->isError()) {

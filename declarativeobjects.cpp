@@ -158,6 +158,14 @@ CUSTOM_METAOBJECT(DeclarativeVBoxLayout, QVBoxLayout)
 
 //// Widgets ////
 
+// DeclarativeCalendarWidget
+DeclarativeCalendarWidget::DeclarativeCalendarWidget(QObject *parent) : DeclarativeWidgetProxy<QCalendarWidget>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeCalendarWidget, QCalendarWidget)
+
 // DeclarativeCheckBox
 DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent) : DeclarativeWidgetProxy<QCheckBox>(parent)
 {
