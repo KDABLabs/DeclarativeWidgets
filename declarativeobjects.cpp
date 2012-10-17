@@ -4,26 +4,7 @@
 
 #include <QDebug>
 
-/*
-  if (QString(staticMetaObject.className()) == "DeclarativeLabel") { \
-    qDebug("class: %s propOffset: %d", qPrintable(staticMetaObject.className()), staticMetaObject.propertyOffset()); \
-    for (int i = 0; i < staticMetaObject.propertyCount(); ++i) { \
-      qDebug("  prop: %d=%s", i, staticMetaObject.property(i).name()); \
-    } \
-    qDebug("class: AbstractDeclarativeObject"); \
-    for (int i = 0; i < AbstractDeclarativeObject::staticMetaObject.propertyCount(); ++i) { \
-      qDebug("  prop: %d=%s", i, AbstractDeclarativeObject::staticMetaObject.property(i).name()); \
-    } \
-  } \
-  if (QString(staticMetaObject.className()) == "DeclarativeLabel") { \
-    qDebug("class: %s methodOffset: %d", qPrintable(staticMetaObject.className()), staticMetaObject.methodOffset()); \
-    for (int i = 0; i < staticMetaObject.methodCount(); ++i) { \
-      qDebug("  prop: %d=%s", i, staticMetaObject.method(i).signature()); \
-    } \
-  } \
-*/
-
-#define CUSTOM_METAOBJECT(ClassName, WidgetType, WidgetVariable) \
+#define CUSTOM_METAOBJECT(ClassName, WidgetType) \
 QMetaObject ClassName::staticMetaObject;\
 bool ClassName::metaObjectInitialized = ClassName::initializeMetaObject(); \
 bool ClassName::initializeMetaObject() \
@@ -56,7 +37,7 @@ int ClassName::qt_metacall(QMetaObject::Call call, int id, void **argv) \
       id = AbstractDeclarativeObject::qt_metacall(call, id - WidgetType::staticMetaObject.propertyCount() + 1, argv); \
       id += WidgetType::staticMetaObject.propertyCount() - 1; \
     } else { \
-      id = WidgetVariable->qt_metacall(call, id, argv); \
+      id = m_proxiedObject->qt_metacall(call, id, argv); \
     } \
     if (id < 0) \
       return 0; \
@@ -163,7 +144,7 @@ DeclarativeHBoxLayout::DeclarativeHBoxLayout(QObject *parent) : DeclarativeBoxLa
   connectAllSignals(m_proxiedObject, this);
 }
 
-CUSTOM_METAOBJECT(DeclarativeHBoxLayout, QHBoxLayout, m_proxiedObject)
+CUSTOM_METAOBJECT(DeclarativeHBoxLayout, QHBoxLayout)
 
 // DeclarativeVBoxLayout
 DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent) : DeclarativeBoxLayout<QVBoxLayout>(parent)
@@ -171,7 +152,7 @@ DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent) : DeclarativeBoxLa
   connectAllSignals(m_proxiedObject, this);
 }
 
-CUSTOM_METAOBJECT(DeclarativeVBoxLayout, QVBoxLayout, m_proxiedObject)
+CUSTOM_METAOBJECT(DeclarativeVBoxLayout, QVBoxLayout)
 
 // DeclarativeWidget
 DeclarativeWidget::DeclarativeWidget(QObject *parent) : DeclarativeWidgetProxy<QWidget>(parent)
@@ -179,7 +160,7 @@ DeclarativeWidget::DeclarativeWidget(QObject *parent) : DeclarativeWidgetProxy<Q
   connectAllSignals(m_proxiedObject, this);
 }
 
-CUSTOM_METAOBJECT(DeclarativeWidget, QWidget, m_proxiedObject)
+CUSTOM_METAOBJECT(DeclarativeWidget, QWidget)
 
 // DeclarativeLabel
 DeclarativeLabel::DeclarativeLabel(QObject *parent) : DeclarativeWidgetProxy<QLabel>(parent)
@@ -187,7 +168,7 @@ DeclarativeLabel::DeclarativeLabel(QObject *parent) : DeclarativeWidgetProxy<QLa
   connectAllSignals(m_proxiedObject, this);
 }
 
-CUSTOM_METAOBJECT(DeclarativeLabel, QLabel, m_proxiedObject)
+CUSTOM_METAOBJECT(DeclarativeLabel, QLabel)
 
 // DeclarativeTabWidget
 class TabWidgetTabHeader::Private
@@ -267,7 +248,7 @@ TabWidgetTabHeader *DeclarativeTabWidget::qmlAttachedProperties(QObject *object)
   return new TabWidgetTabHeader(object);
 }
 
-CUSTOM_METAOBJECT(DeclarativeTabWidget, QTabWidget, m_proxiedObject)
+CUSTOM_METAOBJECT(DeclarativeTabWidget, QTabWidget)
 
 // DeclarativePushButton
 DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeWidgetProxy<QPushButton>(parent)
@@ -275,7 +256,7 @@ DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeWidge
   connectAllSignals(m_proxiedObject, this);
 }
 
-CUSTOM_METAOBJECT(DeclarativePushButton, QPushButton, m_proxiedObject)
+CUSTOM_METAOBJECT(DeclarativePushButton, QPushButton)
 
 // DeclarativeCheckBox
 DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent) : DeclarativeWidgetProxy<QCheckBox>(parent)
@@ -283,7 +264,7 @@ DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent) : DeclarativeWidgetPro
   connectAllSignals(m_proxiedObject, this);
 }
 
-CUSTOM_METAOBJECT(DeclarativeCheckBox, QCheckBox, m_proxiedObject)
+CUSTOM_METAOBJECT(DeclarativeCheckBox, QCheckBox)
 
 // DeclarativeSlider
 DeclarativeSlider::DeclarativeSlider(QObject *parent) : DeclarativeWidgetProxy<QSlider>(parent)
@@ -291,4 +272,4 @@ DeclarativeSlider::DeclarativeSlider(QObject *parent) : DeclarativeWidgetProxy<Q
   connectAllSignals(m_proxiedObject, this);
 }
 
-CUSTOM_METAOBJECT(DeclarativeSlider, QSlider, m_proxiedObject)
+CUSTOM_METAOBJECT(DeclarativeSlider, QSlider)
