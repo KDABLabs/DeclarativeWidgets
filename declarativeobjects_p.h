@@ -137,6 +137,7 @@ class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
     }
 };
 
+//// Layouts ////
 template <class T>
 class DeclarativeBoxLayout : public DeclarativeObjectProxy<T>
 {
@@ -183,12 +184,13 @@ class DeclarativeVBoxLayout : public DeclarativeBoxLayout<QVBoxLayout>
     DeclarativeVBoxLayout(QObject *parent = 0);
 };
 
-class DeclarativeWidget : public DeclarativeWidgetProxy<QWidget>
+//// Widgets ////
+class DeclarativeCheckBox : public DeclarativeWidgetProxy<QCheckBox>
 {
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeWidget(QObject *parent = 0);
+    DeclarativeCheckBox(QObject *parent = 0);
 };
 
 class DeclarativeLabel : public DeclarativeWidgetProxy<QLabel>
@@ -199,6 +201,21 @@ class DeclarativeLabel : public DeclarativeWidgetProxy<QLabel>
     DeclarativeLabel(QObject *parent = 0);
 };
 
+class DeclarativePushButton : public DeclarativeWidgetProxy<QPushButton>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativePushButton(QObject *parent = 0);
+};
+
+class DeclarativeSlider : public DeclarativeWidgetProxy<QSlider>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeSlider(QObject *parent = 0);
+};
 
 // attached property for DeclarativeTabWidget
 class TabWidgetTabHeader : public QObject
@@ -243,48 +260,12 @@ class DeclarativeTabWidget : public DeclarativeWidgetProxy<QTabWidget>
 
 QML_DECLARE_TYPEINFO(DeclarativeTabWidget, QML_HAS_ATTACHED_PROPERTIES)
 
-/*
-class DeclarativeTab : public DeclarativeWidget
+class DeclarativeWidget : public DeclarativeWidgetProxy<QWidget>
 {
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeTab(QObject *parent = 0);
-    ~DeclarativeTab();
-
-    virtual QObject* object();
-
-  private:
-    virtual void dataAppend(QObject *);
-    virtual int dataCount();
-    virtual QObject *dataAt(int);
-    virtual void dataClear();
-
-    QObject* m_child;
-};
-*/
-class DeclarativePushButton : public DeclarativeWidgetProxy<QPushButton>
-{
-  DECLARATIVE_OBJECT
-
-  public:
-    DeclarativePushButton(QObject *parent = 0);
-};
-
-class DeclarativeCheckBox : public DeclarativeWidgetProxy<QCheckBox>
-{
-  DECLARATIVE_OBJECT
-
-  public:
-    DeclarativeCheckBox(QObject *parent = 0);
-};
-
-class DeclarativeSlider : public DeclarativeWidgetProxy<QSlider>
-{
-  DECLARATIVE_OBJECT
-
-  public:
-    DeclarativeSlider(QObject *parent = 0);
+    DeclarativeWidget(QObject *parent = 0);
 };
 
 #endif

@@ -1,7 +1,5 @@
-qboxlayout.h
 qbuttongroup.h
 qcalendarwidget.h
-qcheckbox.h
 qcolordialog.h
 qcolumnview.h
 qcombobox.h
@@ -23,7 +21,6 @@ qgridlayout.h
 qgroupbox.h
 qheaderview.h
 qinputdialog.h
-qlabel.h
 qlayout.h
 qlayoutitem.h
 qlcdnumber.h
@@ -44,11 +41,9 @@ qprintpreviewdialog.h
 qprintpreviewwidget.h
 qprogressbar.h
 qprogressdialog.h
-qpushbutton.h
 qradiobutton.h
 qscrollarea.h
 qscrollbar.h
-qslider.h
 qspinbox.h
 qsplashscreen.h
 qsplitter.h
@@ -67,5 +62,4 @@ qtoolbutton.h
 qtreeview.h
 qtreewidget.h
 qundoview.h
-qwidget.h
 qwizard.h

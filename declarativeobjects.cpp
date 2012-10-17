@@ -138,6 +138,8 @@ void AbstractDeclarativeObject::data_clear(QDeclarativeListProperty<QObject> *pr
     qWarning("cast went wrong in data_clear");
 }
 
+//// Layouts ////
+
 // DeclarativeHBoxLayout
 DeclarativeHBoxLayout::DeclarativeHBoxLayout(QObject *parent) : DeclarativeBoxLayout<QHBoxLayout>(parent)
 {
@@ -154,13 +156,15 @@ DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent) : DeclarativeBoxLa
 
 CUSTOM_METAOBJECT(DeclarativeVBoxLayout, QVBoxLayout)
 
-// DeclarativeWidget
-DeclarativeWidget::DeclarativeWidget(QObject *parent) : DeclarativeWidgetProxy<QWidget>(parent)
+//// Widgets ////
+
+// DeclarativeCheckBox
+DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent) : DeclarativeWidgetProxy<QCheckBox>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
 }
 
-CUSTOM_METAOBJECT(DeclarativeWidget, QWidget)
+CUSTOM_METAOBJECT(DeclarativeCheckBox, QCheckBox)
 
 // DeclarativeLabel
 DeclarativeLabel::DeclarativeLabel(QObject *parent) : DeclarativeWidgetProxy<QLabel>(parent)
@@ -169,6 +173,22 @@ DeclarativeLabel::DeclarativeLabel(QObject *parent) : DeclarativeWidgetProxy<QLa
 }
 
 CUSTOM_METAOBJECT(DeclarativeLabel, QLabel)
+
+// DeclarativePushButton
+DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeWidgetProxy<QPushButton>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativePushButton, QPushButton)
+
+// DeclarativeSlider
+DeclarativeSlider::DeclarativeSlider(QObject *parent) : DeclarativeWidgetProxy<QSlider>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeSlider, QSlider)
 
 // DeclarativeTabWidget
 class TabWidgetTabHeader::Private
@@ -250,26 +270,11 @@ TabWidgetTabHeader *DeclarativeTabWidget::qmlAttachedProperties(QObject *object)
 
 CUSTOM_METAOBJECT(DeclarativeTabWidget, QTabWidget)
 
-// DeclarativePushButton
-DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeWidgetProxy<QPushButton>(parent)
+// DeclarativeWidget
+DeclarativeWidget::DeclarativeWidget(QObject *parent) : DeclarativeWidgetProxy<QWidget>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
 }
 
-CUSTOM_METAOBJECT(DeclarativePushButton, QPushButton)
+CUSTOM_METAOBJECT(DeclarativeWidget, QWidget)
 
-// DeclarativeCheckBox
-DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent) : DeclarativeWidgetProxy<QCheckBox>(parent)
-{
-  connectAllSignals(m_proxiedObject, this);
-}
-
-CUSTOM_METAOBJECT(DeclarativeCheckBox, QCheckBox)
-
-// DeclarativeSlider
-DeclarativeSlider::DeclarativeSlider(QObject *parent) : DeclarativeWidgetProxy<QSlider>(parent)
-{
-  connectAllSignals(m_proxiedObject, this);
-}
-
-CUSTOM_METAOBJECT(DeclarativeSlider, QSlider)
