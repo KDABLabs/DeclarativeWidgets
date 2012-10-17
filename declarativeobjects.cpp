@@ -4,16 +4,16 @@
 
 #include <QDebug>
 
-#define CUSTOM_METAOBJECT(ClassName, WidgetType) \
+#define CUSTOM_METAOBJECT(ClassName, ProxyObjectType) \
 QMetaObject ClassName::staticMetaObject;\
 bool ClassName::metaObjectInitialized = ClassName::initializeMetaObject(); \
 bool ClassName::initializeMetaObject() \
 { \
   QMetaObjectBuilder builder; \
-  const QMetaObject *mo = &WidgetType::staticMetaObject; \
+  const QMetaObject *mo = &ProxyObjectType::staticMetaObject; \
   builder.addMetaObject(mo); \
   builder.addMetaObject(&AbstractDeclarativeObject::staticMetaObject); \
-  builder.setSuperClass(WidgetType::staticMetaObject.superClass()); \
+  builder.setSuperClass(ProxyObjectType::staticMetaObject.superClass()); \
   builder.setClassName(""#ClassName); \
   ClassName::staticMetaObject = *builder.toMetaObject(); \
   return true; \
@@ -33,9 +33,9 @@ void* ClassName::qt_metacast(const char*) \
 int ClassName::qt_metacall(QMetaObject::Call call, int id, void **argv) \
 { \
   if (call == QMetaObject::ReadProperty || call == QMetaObject::WriteProperty) { \
-    if (id >= WidgetType::staticMetaObject.propertyCount()) { \
-      id = AbstractDeclarativeObject::qt_metacall(call, id - WidgetType::staticMetaObject.propertyCount() + 1, argv); \
-      id += WidgetType::staticMetaObject.propertyCount() - 1; \
+    if (id >= ProxyObjectType::staticMetaObject.propertyCount()) { \
+      id = AbstractDeclarativeObject::qt_metacall(call, id - ProxyObjectType::staticMetaObject.propertyCount() + 1, argv); \
+      id += ProxyObjectType::staticMetaObject.propertyCount() - 1; \
     } else { \
       id = m_proxiedObject->qt_metacall(call, id, argv); \
     } \
