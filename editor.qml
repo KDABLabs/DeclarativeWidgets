@@ -7,6 +7,12 @@ MainWindow {
       title: qsTr("File")
 
       Action {
+        text: "New"
+      }
+
+      Separator {}
+
+      Action {
         text: "Close"
       }
     }
@@ -16,12 +22,18 @@ MainWindow {
 
       Action {
         text: "Copy"
+
+        onTriggered: textEdit.copy()
       }
 
       Action {
         text: "Paste"
+
+        onTriggered: textEdit.paste()
       }
     }
+
+    Separator {}
 
     Menu {
       title: qsTr("Help")
@@ -40,6 +52,8 @@ MainWindow {
     Action {
       text: qsTr("New")
     }
+
+    Separator {}
 
     Label {
       text: "Zoom"

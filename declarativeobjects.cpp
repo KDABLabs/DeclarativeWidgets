@@ -148,6 +148,14 @@ DeclarativeAction::DeclarativeAction(QObject *parent) : DeclarativeObjectProxy<Q
 
 CUSTOM_METAOBJECT(DeclarativeAction, QAction)
 
+// DeclarativeSeparator
+DeclarativeSeparator::DeclarativeSeparator(QObject *parent) : DeclarativeObjectProxy<QAction>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeSeparator, QAction)
+
 //// Layouts ////
 
 // DeclarativeHBoxLayout
@@ -237,7 +245,7 @@ void DeclarativeMenu::addWidget(QWidget *widget, AbstractDeclarativeObject *decl
 {
   QMenu *menu = qobject_cast<QMenu*>(widget);
   if (!menu) {
-    qmlInfo(declarativeObject) << "The QMenu can only contain QMenu or QAction";
+    qmlInfo(declarativeObject) << "The QMenu can only contain QMenu, QAction or Separator";
     return;
   }
 
@@ -251,6 +259,19 @@ void DeclarativeMenu::setLayout(QLayout *layout, AbstractDeclarativeObject *decl
   Q_UNUSED(layout);
   Q_UNUSED(declarativeObject);
   qmlInfo(this) << "Can not set a QLayout to a QMenu";
+}
+
+void DeclarativeMenu::addAction(QAction *action, AbstractDeclarativeObject *declarativeObject)
+{
+  DeclarativeSeparator *separator = dynamic_cast<DeclarativeSeparator*>(declarativeObject);
+
+  if (separator) {
+    m_proxiedObject->addSeparator();
+  } else {
+    m_proxiedObject->addAction(action);
+  }
+
+  m_children.append(declarativeObject);
 }
 
 CUSTOM_METAOBJECT(DeclarativeMenu, QMenu)
@@ -279,6 +300,19 @@ void DeclarativeMenuBar::setLayout(QLayout *layout, AbstractDeclarativeObject *d
   Q_UNUSED(layout);
   Q_UNUSED(declarativeObject);
   qmlInfo(this) << "Can not set a QLayout to a QMenuBar";
+}
+
+void DeclarativeMenuBar::addAction(QAction *action, AbstractDeclarativeObject *declarativeObject)
+{
+  Q_UNUSED(action)
+
+  DeclarativeSeparator *separator = dynamic_cast<DeclarativeSeparator*>(declarativeObject);
+
+  if (separator) {
+    m_proxiedObject->addSeparator();
+  }
+
+  m_children.append(declarativeObject);
 }
 
 CUSTOM_METAOBJECT(DeclarativeMenuBar, QMenuBar)
@@ -406,6 +440,19 @@ void DeclarativeToolBar::setLayout(QLayout *layout, AbstractDeclarativeObject *d
   Q_UNUSED(layout);
   Q_UNUSED(declarativeObject);
   qmlInfo(this) << "Can not set a QLayout to a QToolBar";
+}
+
+void DeclarativeToolBar::addAction(QAction *action, AbstractDeclarativeObject *declarativeObject)
+{
+  DeclarativeSeparator *separator = dynamic_cast<DeclarativeSeparator*>(declarativeObject);
+
+  if (separator) {
+    m_proxiedObject->addSeparator();
+  } else {
+    m_proxiedObject->addAction(action);
+  }
+
+  m_children.append(declarativeObject);
 }
 
 CUSTOM_METAOBJECT(DeclarativeToolBar, QToolBar)

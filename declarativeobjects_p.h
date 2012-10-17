@@ -169,6 +169,14 @@ class DeclarativeAction : public DeclarativeObjectProxy<QAction>
     DeclarativeAction(QObject *parent = 0);
 };
 
+class DeclarativeSeparator : public DeclarativeObjectProxy<QAction>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeSeparator(QObject *parent = 0);
+};
+
 //// Layouts ////
 template <class T>
 class DeclarativeBoxLayout : public DeclarativeObjectProxy<T>
@@ -263,6 +271,7 @@ class DeclarativeMenu : public DeclarativeWidgetProxy<QMenu>
   protected:
     virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
     virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+    virtual void addAction(QAction *action, AbstractDeclarativeObject *declarativeObject);
 };
 
 class DeclarativeMenuBar : public DeclarativeWidgetProxy<QMenuBar>
@@ -275,6 +284,7 @@ class DeclarativeMenuBar : public DeclarativeWidgetProxy<QMenuBar>
   protected:
     virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
     virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+    virtual void addAction(QAction *action, AbstractDeclarativeObject *declarativeObject);
 };
 
 class DeclarativePushButton : public DeclarativeWidgetProxy<QPushButton>
@@ -354,6 +364,7 @@ class DeclarativeToolBar : public DeclarativeWidgetProxy<QToolBar>
   protected:
     virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
     virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+    virtual void addAction(QAction *action, AbstractDeclarativeObject *declarativeObject);
 };
 
 class DeclarativeWidget : public DeclarativeWidgetProxy<QWidget>
