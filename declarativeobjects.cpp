@@ -207,6 +207,88 @@ Qt::Alignment DeclarativeBoxLayoutAttached::alignment() const
   return d->alignment;
 }
 
+// DeclarativeFormLayout
+class DeclarativeFormLayoutAttached::Private
+{
+  public:
+    QString label;
+};
+
+DeclarativeFormLayoutAttached::DeclarativeFormLayoutAttached(QObject *parent)
+  : QObject(parent), d(new Private)
+{
+}
+
+DeclarativeFormLayoutAttached::~DeclarativeFormLayoutAttached()
+{
+  delete d;
+}
+
+void DeclarativeFormLayoutAttached::setLabel(const QString &label)
+{
+  if (label == d->label)
+    return;
+
+  d->label = label;
+  emit labelChanged(label);
+}
+
+QString DeclarativeFormLayoutAttached::label() const
+{
+  return d->label;
+}
+
+DeclarativeFormLayout::DeclarativeFormLayout(QObject *parent) : DeclarativeObjectProxy<QFormLayout>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+DeclarativeFormLayoutAttached *DeclarativeFormLayout::qmlAttachedProperties(QObject *parent)
+{
+  return new DeclarativeFormLayoutAttached(parent);
+}
+
+void DeclarativeFormLayout::dataAppend(QObject *object)
+{
+  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
+  if (declarativeObject) {
+    QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeFormLayout>(declarativeObject, false);
+    DeclarativeFormLayoutAttached *properties = qobject_cast<DeclarativeFormLayoutAttached*>(attachedProperties);
+
+    QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
+    if (widget) {
+      if (properties) {
+        if (!properties->label().isEmpty()) {
+          m_proxiedObject->addRow(properties->label(), widget);
+          m_children.append(declarativeObject);
+          return;
+        }
+      }
+      m_proxiedObject->addRow(widget);
+      m_children.append(declarativeObject);
+      return;
+    }
+
+    QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
+    if (layout) {
+        if (properties) {
+          if (!properties->label().isEmpty()) {
+            m_proxiedObject->addRow(properties->label(), layout);
+            m_children.append(declarativeObject);
+            return;
+          }
+        }
+        m_proxiedObject->addRow(layout);
+        m_children.append(declarativeObject);
+        return;
+    }
+  }
+
+  DeclarativeObjectProxy<QFormLayout>::dataAppend(object);
+}
+
+CUSTOM_METAOBJECT(DeclarativeFormLayout, QFormLayout)
+
 // DeclarativeHBoxLayout
 DeclarativeHBoxLayout::DeclarativeHBoxLayout(QObject *parent) : DeclarativeBoxLayout<QHBoxLayout>(parent)
 {

@@ -6,6 +6,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QCalendarWidget>
 #include <QtGui/QCheckBox>
+#include <QtGui/QFormLayout>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QMainWindow>
@@ -235,6 +236,42 @@ class DeclarativeBoxLayout : public DeclarativeObjectProxy<T>
 
     virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject) = 0;
 };
+
+class DeclarativeFormLayoutAttached : public QObject
+{
+  Q_OBJECT
+
+  Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
+
+  public:
+    DeclarativeFormLayoutAttached(QObject *parent);
+    ~DeclarativeFormLayoutAttached();
+
+    void setLabel(const QString &label);
+    QString label() const;
+
+  Q_SIGNALS:
+    void labelChanged(const QString &label);
+
+  private:
+    class Private;
+    Private *const d;
+};
+
+class DeclarativeFormLayout : public DeclarativeObjectProxy<QFormLayout>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeFormLayout(QObject *parent = 0);
+
+    static DeclarativeFormLayoutAttached *qmlAttachedProperties(QObject *parent);
+
+  protected:
+    void dataAppend(QObject *object);
+};
+
+QML_DECLARE_TYPEINFO(DeclarativeFormLayout, QML_HAS_ATTACHED_PROPERTIES)
 
 class DeclarativeHBoxLayout : public DeclarativeBoxLayout<QHBoxLayout>
 {

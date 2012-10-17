@@ -64,4 +64,40 @@ TabWidget {
       }
     }
   }
+
+  Widget {
+    TabWidget.label: "Form Layout"
+
+    VBoxLayout {
+      FormLayout {
+        PushButton {
+          FormLayout.label: "Label 1"
+          text: "Row 1"
+        }
+        CheckBox {
+          text: "Row 2"
+        }
+      }
+      FormLayout {
+        HBoxLayout {
+          FormLayout.label: "Label 1"
+
+          Label {
+            text: "row"
+          }
+          Label {
+            text: "1"
+          }
+        }
+        HBoxLayout {
+          Label {
+            text: "row"
+          }
+          Label {
+            text: "2"
+          }
+        }
+      }
+    }
+  }
 }
