@@ -138,6 +138,16 @@ void AbstractDeclarativeObject::data_clear(QDeclarativeListProperty<QObject> *pr
     qWarning("cast went wrong in data_clear");
 }
 
+//// Objects ////
+
+// DeclarativeAction
+DeclarativeAction::DeclarativeAction(QObject *parent) : DeclarativeObjectProxy<QAction>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeAction, QAction)
+
 //// Layouts ////
 
 // DeclarativeHBoxLayout
@@ -190,9 +200,12 @@ DeclarativeMainWindow::DeclarativeMainWindow(QObject *parent) : DeclarativeWidge
 
 void DeclarativeMainWindow::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
 {
-  if (widget) {
+  QMenuBar *menuBar = qobject_cast<QMenuBar*>(widget);
+  if (menuBar) {
+    m_proxiedObject->setMenuBar(menuBar);
+  } else if (widget) {
     if (m_proxiedObject->centralWidget()) {
-      qmlInfo(this) << "The QMainWindow contains a central widget already";
+      qmlInfo(declarativeObject) << "The QMainWindow contains a central widget already";
       return;
     }
 
@@ -210,6 +223,75 @@ void DeclarativeMainWindow::setLayout(QLayout *layout, AbstractDeclarativeObject
 }
 
 CUSTOM_METAOBJECT(DeclarativeMainWindow, QMainWindow)
+
+// DeclarativeMenu
+DeclarativeMenu::DeclarativeMenu(QObject *parent) : DeclarativeWidgetProxy<QMenu>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+void DeclarativeMenu::addObject(QObject *object, AbstractDeclarativeObject *declarativeObject)
+{
+  QAction *action = qobject_cast<QAction*>(object);
+  if (!action) {
+    qmlInfo(declarativeObject) << "The QMenu can only contain QMenu or QAction";
+    return;
+  }
+
+  m_proxiedObject->addAction(action);
+
+  m_children.append(declarativeObject);
+}
+
+void DeclarativeMenu::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+{
+  QMenu *menu = qobject_cast<QMenu*>(widget);
+  if (!menu) {
+    qmlInfo(declarativeObject) << "The QMenu can only contain QMenu or QAction";
+    return;
+  }
+
+  m_proxiedObject->addMenu(menu);
+
+  m_children.append(declarativeObject);
+}
+
+void DeclarativeMenu::setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+{
+  Q_UNUSED(layout);
+  Q_UNUSED(declarativeObject);
+  qmlInfo(this) << "Can not set a QLayout to a QMenu";
+}
+
+CUSTOM_METAOBJECT(DeclarativeMenu, QMenu)
+
+// DeclarativeMenuBar
+DeclarativeMenuBar::DeclarativeMenuBar(QObject *parent) : DeclarativeWidgetProxy<QMenuBar>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+void DeclarativeMenuBar::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+{
+  QMenu *menu = qobject_cast<QMenu*>(widget);
+  if (!menu) {
+    qmlInfo(declarativeObject) << "The QMenuBar can only contain QMenus";
+    return;
+  }
+
+  m_proxiedObject->addMenu(menu);
+
+  m_children.append(declarativeObject);
+}
+
+void DeclarativeMenuBar::setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+{
+  Q_UNUSED(layout);
+  Q_UNUSED(declarativeObject);
+  qmlInfo(this) << "Can not set a QLayout to a QMenuBar";
+}
+
+CUSTOM_METAOBJECT(DeclarativeMenuBar, QMenuBar)
 
 // DeclarativePushButton
 DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeWidgetProxy<QPushButton>(parent)

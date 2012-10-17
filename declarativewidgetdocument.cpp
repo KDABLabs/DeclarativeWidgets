@@ -29,6 +29,10 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   : QObject(parent)
   , d(new Private(this, url))
 {
+  // objects
+  qmlRegisterType<QAction>();
+  qmlRegisterType<DeclarativeAction>("QtGui", 1, 0, "Action");
+
   // layouts
   qmlRegisterType<DeclarativeHBoxLayout>("QtGui", 1, 0, "HBoxLayout");
   qmlRegisterType<DeclarativeVBoxLayout>("QtGui", 1, 0, "VBoxLayout");
@@ -38,6 +42,8 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
   qmlRegisterType<DeclarativeMainWindow>("QtGui", 1, 0, "MainWindow");
+  qmlRegisterType<DeclarativeMenu>("QtGui", 1, 0, "Menu");
+  qmlRegisterType<DeclarativeMenuBar>("QtGui", 1, 0, "MenuBar");
   qmlRegisterType<DeclarativePushButton>("QtGui", 1, 0, "PushButton");
   qmlRegisterType<DeclarativeSlider>("QtGui", 1, 0, "Slider");
   qmlRegisterType<TabWidgetTabHeader>();

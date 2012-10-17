@@ -3,11 +3,14 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
+#include <QtGui/QAction>
 #include <QtGui/QCalendarWidget>
 #include <QtGui/QCheckBox>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QMainWindow>
+#include <QtGui/QMenu>
+#include <QtGui/QMenuBar>
 #include <QtGui/QPushButton>
 #include <QtGui/QSlider>
 #include <QtGui/QTabWidget>
@@ -62,7 +65,7 @@ template <class T>
 class DeclarativeObjectProxy : public AbstractDeclarativeObject
 {
   public:
-    DeclarativeObjectProxy(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(new T) {}
+    DeclarativeObjectProxy(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(new T(0)) {}
 
     ~DeclarativeObjectProxy() { delete m_proxiedObject; }
 
@@ -100,12 +103,6 @@ class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
         if (declarativeObject) {
           QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
           if (widget) {
-/*
-            if (DeclarativeObjectProxy<T>::m_proxiedObject->layout()) {
-              qmlInfo(this) << "Can not add Widget since a Layout is set already";
-              return;
-            }
-*/
             addWidget(widget, declarativeObject);
             return;
           }
@@ -124,6 +121,8 @@ class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
           }
         }
 
+        addObject(declarativeObject->object(), declarativeObject);
+
         DeclarativeObjectProxy<T>::dataAppend(object);
     }
 
@@ -139,6 +138,21 @@ class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
       DeclarativeObjectProxy<T>::m_children.append(declarativeObject);
       DeclarativeObjectProxy<T>::m_proxiedObject->setLayout(layout);
     }
+
+    virtual void addObject(QObject *object, AbstractDeclarativeObject *declarativeObject)
+    {
+      object->setParent(DeclarativeObjectProxy<T>::m_proxiedObject);
+      DeclarativeObjectProxy<T>::m_children.append(declarativeObject);
+    }
+};
+
+//// Objects ///
+class DeclarativeAction : public DeclarativeObjectProxy<QAction>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeAction(QObject *parent = 0);
 };
 
 //// Layouts ////
@@ -219,6 +233,31 @@ class DeclarativeMainWindow : public DeclarativeWidgetProxy<QMainWindow>
 
   public:
     DeclarativeMainWindow(QObject *parent = 0);
+
+  protected:
+    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+};
+
+class DeclarativeMenu : public DeclarativeWidgetProxy<QMenu>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeMenu(QObject *parent = 0);
+
+  protected:
+    virtual void addObject(QObject *object, AbstractDeclarativeObject *declarativeObject);
+    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+};
+
+class DeclarativeMenuBar : public DeclarativeWidgetProxy<QMenuBar>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeMenuBar(QObject *parent = 0);
 
   protected:
     virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
