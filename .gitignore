@@ -1,4 +1,4 @@
-qmlwidgets
+declarativewidgets
 Makefile
 moc_*
 *.o
