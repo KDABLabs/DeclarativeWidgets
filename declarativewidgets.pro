@@ -12,3 +12,6 @@ HEADERS += declarativeobjects_p.h declarativewidgetdocument.h qmetaobjectbuilder
 SOURCES += declarativeobjects.cpp declarativewidgetdocument.cpp main.cpp qmetaobjectbuilder.cpp
 
 QT += declarative
+
+OTHER_FILES += \
+    layouts.qml

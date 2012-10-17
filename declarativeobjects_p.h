@@ -179,6 +179,32 @@ class DeclarativeSeparator : public DeclarativeObjectProxy<QAction>
 };
 
 //// Layouts ////
+class DeclarativeBoxLayoutAttached : public QObject
+{
+  Q_OBJECT
+
+  Q_PROPERTY(int stretch READ stretch WRITE setStretch NOTIFY stretchChanged)
+  Q_PROPERTY(Qt::Alignment alignment READ alignment WRITE setAlignment NOTIFY alignmentChanged)
+
+  public:
+    DeclarativeBoxLayoutAttached(QObject *parent);
+    ~DeclarativeBoxLayoutAttached();
+
+    void setStretch(int stretch);
+    int stretch() const;
+
+    void setAlignment(Qt::Alignment alignment);
+    Qt::Alignment alignment() const;
+
+  Q_SIGNALS:
+    void stretchChanged(int stretch);
+    void alignmentChanged(Qt::Alignment alignment);
+
+  private:
+    class Private;
+    Private *const d;
+};
+
 template <class T>
 class DeclarativeBoxLayout : public DeclarativeObjectProxy<T>
 {
@@ -192,8 +218,7 @@ class DeclarativeBoxLayout : public DeclarativeObjectProxy<T>
       if (declarativeObject) {
         QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
         if (widget) {
-          DeclarativeObjectProxy<T>::m_children.append(object);
-          DeclarativeObjectProxy<T>::m_proxiedObject->addWidget(widget);
+          addWidget(widget, declarativeObject);
           return;
         }
 
@@ -207,6 +232,8 @@ class DeclarativeBoxLayout : public DeclarativeObjectProxy<T>
 
       DeclarativeObjectProxy<T>::dataAppend(object);
     }
+
+    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject) = 0;
 };
 
 class DeclarativeHBoxLayout : public DeclarativeBoxLayout<QHBoxLayout>
@@ -215,7 +242,15 @@ class DeclarativeHBoxLayout : public DeclarativeBoxLayout<QHBoxLayout>
 
   public:
     DeclarativeHBoxLayout(QObject *parent = 0);
+
+    static DeclarativeBoxLayoutAttached *qmlAttachedProperties(QObject *parent);
+
+  protected:
+    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
 };
+
+
+QML_DECLARE_TYPEINFO(DeclarativeHBoxLayout, QML_HAS_ATTACHED_PROPERTIES)
 
 class DeclarativeVBoxLayout : public DeclarativeBoxLayout<QVBoxLayout>
 {
@@ -223,7 +258,14 @@ class DeclarativeVBoxLayout : public DeclarativeBoxLayout<QVBoxLayout>
 
   public:
     DeclarativeVBoxLayout(QObject *parent = 0);
+
+    static DeclarativeBoxLayoutAttached *qmlAttachedProperties(QObject *parent);
+
+  protected:
+    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
 };
+
+QML_DECLARE_TYPEINFO(DeclarativeVBoxLayout, QML_HAS_ATTACHED_PROPERTIES)
 
 //// Widgets ////
 class DeclarativeCalendarWidget : public DeclarativeWidgetProxy<QCalendarWidget>

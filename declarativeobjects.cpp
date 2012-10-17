@@ -160,11 +160,78 @@ DeclarativeSeparator::DeclarativeSeparator(QObject *parent) : DeclarativeObjectP
 CUSTOM_METAOBJECT(DeclarativeSeparator, QAction)
 
 //// Layouts ////
+class DeclarativeBoxLayoutAttached::Private
+{
+  public:
+    Private() : stretch(0), alignment(0) {}
+
+    int stretch;
+    Qt::Alignment alignment;
+};
+
+DeclarativeBoxLayoutAttached::DeclarativeBoxLayoutAttached(QObject *parent)
+  : QObject(parent), d(new Private)
+{
+}
+
+DeclarativeBoxLayoutAttached::~DeclarativeBoxLayoutAttached()
+{
+  delete d;
+}
+
+void DeclarativeBoxLayoutAttached::setStretch(int stretch)
+{
+  if (stretch == d->stretch)
+    return;
+
+  d->stretch = stretch;
+  emit stretchChanged(stretch);
+}
+
+int DeclarativeBoxLayoutAttached::stretch() const
+{
+  return d->stretch;
+}
+
+void DeclarativeBoxLayoutAttached::setAlignment(Qt::Alignment alignment)
+{
+  if (alignment == d->alignment)
+    return;
+
+  d->alignment = alignment;
+  emit alignmentChanged(alignment);
+}
+
+Qt::Alignment DeclarativeBoxLayoutAttached::alignment() const
+{
+  return d->alignment;
+}
 
 // DeclarativeHBoxLayout
 DeclarativeHBoxLayout::DeclarativeHBoxLayout(QObject *parent) : DeclarativeBoxLayout<QHBoxLayout>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
+}
+
+DeclarativeBoxLayoutAttached *DeclarativeHBoxLayout::qmlAttachedProperties(QObject *parent)
+{
+  return new DeclarativeBoxLayoutAttached(parent);
+}
+
+void DeclarativeHBoxLayout::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+{
+  int stretch = 0;
+  Qt::Alignment alignment = 0;
+
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeHBoxLayout>(declarativeObject, false);
+  DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
+  if (properties) {
+    stretch = properties->stretch();
+    alignment = properties->alignment();
+  }
+
+  m_proxiedObject->addWidget(widget, stretch, alignment);
+  m_children.append(declarativeObject);
 }
 
 CUSTOM_METAOBJECT(DeclarativeHBoxLayout, QHBoxLayout)
@@ -173,6 +240,27 @@ CUSTOM_METAOBJECT(DeclarativeHBoxLayout, QHBoxLayout)
 DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent) : DeclarativeBoxLayout<QVBoxLayout>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
+}
+
+DeclarativeBoxLayoutAttached *DeclarativeVBoxLayout::qmlAttachedProperties(QObject *parent)
+{
+  return new DeclarativeBoxLayoutAttached(parent);
+}
+
+void DeclarativeVBoxLayout::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+{
+  int stretch = 0;
+  Qt::Alignment alignment = 0;
+
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeVBoxLayout>(declarativeObject, false);
+  DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
+  if (properties) {
+    stretch = properties->stretch();
+    alignment = properties->alignment();
+  }
+
+  m_proxiedObject->addWidget(widget, stretch, alignment);
+  m_children.append(declarativeObject);
 }
 
 CUSTOM_METAOBJECT(DeclarativeVBoxLayout, QVBoxLayout)

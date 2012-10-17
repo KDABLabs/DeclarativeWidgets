@@ -35,6 +35,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeSeparator>("QtGui", 1, 0, "Separator");
 
   // layouts
+  qmlRegisterType<DeclarativeBoxLayoutAttached>();
   qmlRegisterType<DeclarativeHBoxLayout>("QtGui", 1, 0, "HBoxLayout");
   qmlRegisterType<DeclarativeVBoxLayout>("QtGui", 1, 0, "VBoxLayout");
 
