@@ -210,10 +210,14 @@ void DeclarativeMainWindow::addWidget(QWidget *widget, AbstractDeclarativeObject
 {
   QMenuBar *menuBar = qobject_cast<QMenuBar*>(widget);
   QToolBar *toolBar = qobject_cast<QToolBar*>(widget);
+  QStatusBar *statusBar = qobject_cast<QStatusBar*>(widget);
+
   if (menuBar) {
     m_proxiedObject->setMenuBar(menuBar);
   } else if (toolBar) {
     m_proxiedObject->addToolBar(toolBar);
+  } else if (statusBar) {
+    m_proxiedObject->setStatusBar(statusBar);
   } else if (widget) {
     if (m_proxiedObject->centralWidget()) {
       qmlInfo(declarativeObject) << "The QMainWindow contains a central widget already";
@@ -332,6 +336,74 @@ DeclarativeSlider::DeclarativeSlider(QObject *parent) : DeclarativeWidgetProxy<Q
 }
 
 CUSTOM_METAOBJECT(DeclarativeSlider, QSlider)
+
+// DeclarativeStatusBar
+class DeclarativeStatusBarAttached::Private
+{
+  public:
+    int stretch;
+};
+
+DeclarativeStatusBarAttached::DeclarativeStatusBarAttached(QObject *parent)
+  : QObject(parent), d(new DeclarativeStatusBarAttached::Private)
+{
+  d->stretch = 0;
+}
+
+DeclarativeStatusBarAttached::~DeclarativeStatusBarAttached()
+{
+  delete d;
+}
+
+void DeclarativeStatusBarAttached::setStretch(int stretch)
+{
+  if (d->stretch == stretch)
+    return;
+
+  d->stretch = stretch;
+  emit stretchChanged();
+}
+
+int DeclarativeStatusBarAttached::stretch() const
+{
+  return d->stretch;
+}
+
+DeclarativeStatusBar::DeclarativeStatusBar(QObject *parent) : DeclarativeWidgetProxy<QStatusBar>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+void DeclarativeStatusBar::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+{
+  // TODO: error when layout is set
+
+  m_children.append(declarativeObject);
+
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeStatusBar>(declarativeObject, false);
+  DeclarativeStatusBarAttached *attached = qobject_cast<DeclarativeStatusBarAttached*>(attachedProperties);
+
+  int stretch = 0;
+  if (attached) {
+    stretch = attached->stretch();
+  }
+
+  m_proxiedObject->addPermanentWidget(widget, stretch);
+}
+
+void DeclarativeStatusBar::setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+{
+  Q_UNUSED(layout);
+  Q_UNUSED(declarativeObject);
+  qmlInfo(this) << "Can not add QLayout to QStatusBar";
+}
+
+DeclarativeStatusBarAttached *DeclarativeStatusBar::qmlAttachedProperties(QObject *object)
+{
+  return new DeclarativeStatusBarAttached(object);
+}
+
+CUSTOM_METAOBJECT(DeclarativeStatusBar, QStatusBar)
 
 // DeclarativeTabWidget
 class TabWidgetTabHeader::Private

@@ -72,4 +72,11 @@ MainWindow {
       text: "Paste"
     }
   }
+
+  StatusBar {
+    Label {
+      StatusBar.stretch: 2
+      text: "Pos:"
+    }
+  }
 }

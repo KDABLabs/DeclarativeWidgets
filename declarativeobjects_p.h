@@ -13,6 +13,7 @@
 #include <QtGui/QMenuBar>
 #include <QtGui/QPushButton>
 #include <QtGui/QSlider>
+#include <QtGui/QStatusBar>
 #include <QtGui/QTabWidget>
 #include <QtGui/QTextEdit>
 #include <QtGui/QToolBar>
@@ -302,6 +303,44 @@ class DeclarativeSlider : public DeclarativeWidgetProxy<QSlider>
   public:
     DeclarativeSlider(QObject *parent = 0);
 };
+
+// attached property for DeclarativeStatusBar
+class DeclarativeStatusBarAttached : public QObject
+{
+  Q_OBJECT
+
+  Q_PROPERTY(int stretch READ stretch WRITE setStretch NOTIFY stretchChanged)
+
+  public:
+    DeclarativeStatusBarAttached(QObject *parent = 0);
+    ~DeclarativeStatusBarAttached();
+
+    void setStretch(int stretch);
+    int stretch() const;
+
+  Q_SIGNALS:
+    void stretchChanged();
+
+  private:
+    class Private;
+    Private *const d;
+};
+
+class DeclarativeStatusBar : public DeclarativeWidgetProxy<QStatusBar>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeStatusBar(QObject *parent = 0);
+
+    static DeclarativeStatusBarAttached *qmlAttachedProperties(QObject *object);
+
+  protected:
+    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+};
+
+QML_DECLARE_TYPEINFO(DeclarativeStatusBar, QML_HAS_ATTACHED_PROPERTIES)
 
 // attached property for DeclarativeTabWidget
 class TabWidgetTabHeader : public QObject
