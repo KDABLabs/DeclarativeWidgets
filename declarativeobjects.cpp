@@ -236,14 +236,12 @@ DeclarativeMenu::DeclarativeMenu(QObject *parent) : DeclarativeWidgetProxy<QMenu
 void DeclarativeMenu::addQObject(QObject *object, AbstractDeclarativeObject *declarativeObject)
 {
   QAction *action = qobject_cast<QAction*>(object);
-  if (!action) {
-    qmlInfo(declarativeObject) << "The QMenu can only contain QMenu or QAction";
-    return;
+  if (action) {
+      m_proxiedObject->addAction(action);
+      m_children.append(declarativeObject);
+  } else {
+      DeclarativeWidgetProxy<QMenu>::addQObject(object, declarativeObject);
   }
-
-  m_proxiedObject->addAction(action);
-
-  m_children.append(declarativeObject);
 }
 
 void DeclarativeMenu::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
