@@ -42,7 +42,10 @@ int ClassName::qt_metacall(QMetaObject::Call call, int id, void **argv) \
     if (id < 0) \
       return 0; \
   } else if (call == QMetaObject::InvokeMetaMethod) {\
-    QMetaObject::activate(this, id, argv); \
+    if (ClassName::staticMetaObject.method(id).methodType() == QMetaMethod::Signal) \
+      QMetaObject::activate(this, id, argv); \
+    else \
+      id = m_proxiedObject->qt_metacall(call, id, argv); \
     id -= 1; \
   } \
   return id; \
