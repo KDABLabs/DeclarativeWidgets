@@ -4,6 +4,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QUrl>
 
+class QDeclarativeEngine;
+
 class DeclarativeWidgetDocument : public QObject
 {
   Q_OBJECT
@@ -14,6 +16,8 @@ class DeclarativeWidgetDocument : public QObject
 
     void setContextProperty(const QString &name, const QVariant &value);
     void setContextProperty(const QString &name, QObject *object);
+
+    QDeclarativeEngine* engine() const;
 
     template <typename T>
     T* create()

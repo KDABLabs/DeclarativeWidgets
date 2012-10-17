@@ -77,6 +77,11 @@ void DeclarativeWidgetDocument::setContextProperty(const QString &name, QObject 
   d->m_engine->rootContext()->setContextProperty(name, object);
 }
 
+QDeclarativeEngine* DeclarativeWidgetDocument::engine() const
+{
+  return d->m_engine;
+}
+
 QWidget* DeclarativeWidgetDocument::createWidget()
 {
   QObject *object = d->m_component->create();

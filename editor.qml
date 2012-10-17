@@ -14,6 +14,7 @@ MainWindow {
 
       Action {
         text: "Close"
+        onTriggered: Qt.quit()
       }
     }
 

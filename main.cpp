@@ -3,9 +3,11 @@
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QTimer>
+#include <QtDeclarative/QDeclarativeEngine>
 #include <QtGui/QApplication>
 #include <QtGui/QWidget>
 #include <QDebug>
+
 int main(int argc, char **argv)
 {
   QApplication app(argc, argv);
@@ -24,6 +26,8 @@ int main(int argc, char **argv)
   const QUrl documentUrl = QUrl::fromLocalFile(qmlFile.absoluteFilePath());
 
   DeclarativeWidgetDocument document(documentUrl);
+  QObject::connect(document.engine(), SIGNAL(quit()), &app, SLOT(quit()));
+
   document.setContextProperty("_timer", &timer);
 
   QWidget *widget = document.create<QWidget>();
