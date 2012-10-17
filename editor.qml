@@ -48,5 +48,14 @@ MainWindow {
 
   TextEdit {
     id: textEdit
+
+    contextMenuPolicy: Qt.ActionsContextMenu
+
+    Action {
+      text: "Copy"
+    }
+    Action {
+      text: "Paste"
+    }
   }
 }

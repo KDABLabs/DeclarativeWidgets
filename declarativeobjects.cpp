@@ -233,17 +233,6 @@ DeclarativeMenu::DeclarativeMenu(QObject *parent) : DeclarativeWidgetProxy<QMenu
   connectAllSignals(m_proxiedObject, this);
 }
 
-void DeclarativeMenu::addQObject(QObject *object, AbstractDeclarativeObject *declarativeObject)
-{
-  QAction *action = qobject_cast<QAction*>(object);
-  if (action) {
-      m_proxiedObject->addAction(action);
-      m_children.append(declarativeObject);
-  } else {
-      DeclarativeWidgetProxy<QMenu>::addQObject(object, declarativeObject);
-  }
-}
-
 void DeclarativeMenu::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
 {
   QMenu *menu = qobject_cast<QMenu*>(widget);
@@ -403,19 +392,6 @@ CUSTOM_METAOBJECT(DeclarativeTextEdit, QTextEdit)
 DeclarativeToolBar::DeclarativeToolBar(QObject *parent) : DeclarativeWidgetProxy<QToolBar>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
-}
-
-void DeclarativeToolBar::addQObject(QObject *object, AbstractDeclarativeObject *declarativeObject)
-{
-  QAction *action = qobject_cast<QAction*>(object);
-  if (!action) {
-    qmlInfo(declarativeObject) << "The QToolBar can only contain QWidget or QAction";
-    return;
-  }
-
-  m_proxiedObject->addAction(action);
-
-  m_children.append(declarativeObject);
 }
 
 void DeclarativeToolBar::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)

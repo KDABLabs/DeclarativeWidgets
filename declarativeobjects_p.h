@@ -121,7 +121,14 @@ class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
             return;
           }
 
+          QAction *action = qobject_cast<QAction*>(declarativeObject->object());
+          if (action) {
+            addAction(action, declarativeObject);
+            return;
+          }
+
           addQObject(declarativeObject->object(), declarativeObject);
+          return;
         }
 
         DeclarativeObjectProxy<T>::dataAppend(object);
@@ -138,6 +145,12 @@ class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
     {
       DeclarativeObjectProxy<T>::m_children.append(declarativeObject);
       DeclarativeObjectProxy<T>::m_proxiedObject->setLayout(layout);
+    }
+
+    virtual void addAction(QAction *action, AbstractDeclarativeObject *declarativeObject)
+    {
+      DeclarativeObjectProxy<T>::m_children.append(declarativeObject);
+      DeclarativeObjectProxy<T>::m_proxiedObject->addAction(action);
     }
 
     virtual void addQObject(QObject *object, AbstractDeclarativeObject *declarativeObject)
@@ -248,7 +261,6 @@ class DeclarativeMenu : public DeclarativeWidgetProxy<QMenu>
     DeclarativeMenu(QObject *parent = 0);
 
   protected:
-    virtual void addQObject(QObject *object, AbstractDeclarativeObject *declarativeObject);
     virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
     virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
@@ -340,7 +352,6 @@ class DeclarativeToolBar : public DeclarativeWidgetProxy<QToolBar>
     DeclarativeToolBar(QObject *parent = 0);
 
   protected:
-    virtual void addQObject(QObject *object, AbstractDeclarativeObject *declarativeObject);
     virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
     virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
