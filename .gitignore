@@ -2,3 +2,4 @@ declarativewidgets
 Makefile
 moc_*
 *.o
+*.pro.user
