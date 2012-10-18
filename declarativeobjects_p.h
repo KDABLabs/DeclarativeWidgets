@@ -162,6 +162,46 @@ class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
     }
 };
 
+template <class T>
+class DeclarativeLayoutProxy : public DeclarativeObjectProxy<T>
+{
+  public:
+    DeclarativeLayoutProxy(QObject *parent = 0) : DeclarativeObjectProxy<T>(parent) {}
+
+  protected:
+    virtual void dataAppend(QObject *object)
+    {
+      AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
+      if (declarativeObject) {
+        QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
+        if (widget) {
+          addWidget(widget, declarativeObject);
+          return;
+        }
+
+        QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
+        if (layout) {
+          addLayout(layout, declarativeObject);
+          return;
+        }
+      }
+
+      DeclarativeObjectProxy<T>::dataAppend(object);
+    }
+
+    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+    {
+      DeclarativeObjectProxy<T>::m_children.append(declarativeObject);
+      DeclarativeObjectProxy<T>::m_proxiedObject->addWidget(widget);
+    }
+
+    virtual void addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+    {
+      DeclarativeObjectProxy<T>::m_children.append(declarativeObject);
+      DeclarativeObjectProxy<T>::m_proxiedObject->addItem(layout);
+    }
+};
+
 //// Objects ///
 class DeclarativeAction : public DeclarativeObjectProxy<QAction>
 {
@@ -206,37 +246,6 @@ class DeclarativeBoxLayoutAttached : public QObject
     Private *const d;
 };
 
-template <class T>
-class DeclarativeBoxLayout : public DeclarativeObjectProxy<T>
-{
-  public:
-    DeclarativeBoxLayout(QObject *parent = 0) : DeclarativeObjectProxy<T>(parent) {}
-
-  protected:
-    virtual void dataAppend(QObject *object)
-    {
-      AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
-      if (declarativeObject) {
-        QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
-        if (widget) {
-          addWidget(widget, declarativeObject);
-          return;
-        }
-
-        QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
-        if (layout) {
-          DeclarativeObjectProxy<T>::m_children.append(object);
-          DeclarativeObjectProxy<T>::m_proxiedObject->addLayout(layout);
-          return;
-        }
-      }
-
-      DeclarativeObjectProxy<T>::dataAppend(object);
-    }
-
-    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject) = 0;
-};
-
 class DeclarativeFormLayoutAttached : public QObject
 {
   Q_OBJECT
@@ -258,7 +267,7 @@ class DeclarativeFormLayoutAttached : public QObject
     Private *const d;
 };
 
-class DeclarativeFormLayout : public DeclarativeObjectProxy<QFormLayout>
+class DeclarativeFormLayout : public DeclarativeLayoutProxy<QFormLayout>
 {
   DECLARATIVE_OBJECT
 
@@ -268,12 +277,13 @@ class DeclarativeFormLayout : public DeclarativeObjectProxy<QFormLayout>
     static DeclarativeFormLayoutAttached *qmlAttachedProperties(QObject *parent);
 
   protected:
-    void dataAppend(QObject *object);
+    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    void addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 
 QML_DECLARE_TYPEINFO(DeclarativeFormLayout, QML_HAS_ATTACHED_PROPERTIES)
 
-class DeclarativeHBoxLayout : public DeclarativeBoxLayout<QHBoxLayout>
+class DeclarativeHBoxLayout : public DeclarativeLayoutProxy<QHBoxLayout>
 {
   DECLARATIVE_OBJECT
 
@@ -284,12 +294,13 @@ class DeclarativeHBoxLayout : public DeclarativeBoxLayout<QHBoxLayout>
 
   protected:
     void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    void addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 
 
 QML_DECLARE_TYPEINFO(DeclarativeHBoxLayout, QML_HAS_ATTACHED_PROPERTIES)
 
-class DeclarativeVBoxLayout : public DeclarativeBoxLayout<QVBoxLayout>
+class DeclarativeVBoxLayout : public DeclarativeLayoutProxy<QVBoxLayout>
 {
   DECLARATIVE_OBJECT
 
@@ -300,6 +311,7 @@ class DeclarativeVBoxLayout : public DeclarativeBoxLayout<QVBoxLayout>
 
   protected:
     void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    void addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 
 QML_DECLARE_TYPEINFO(DeclarativeVBoxLayout, QML_HAS_ATTACHED_PROPERTIES)

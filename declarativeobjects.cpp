@@ -238,7 +238,7 @@ QString DeclarativeFormLayoutAttached::label() const
   return d->label;
 }
 
-DeclarativeFormLayout::DeclarativeFormLayout(QObject *parent) : DeclarativeObjectProxy<QFormLayout>(parent)
+DeclarativeFormLayout::DeclarativeFormLayout(QObject *parent) : DeclarativeLayoutProxy<QFormLayout>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
 }
@@ -248,49 +248,41 @@ DeclarativeFormLayoutAttached *DeclarativeFormLayout::qmlAttachedProperties(QObj
   return new DeclarativeFormLayoutAttached(parent);
 }
 
-void DeclarativeFormLayout::dataAppend(QObject *object)
+void DeclarativeFormLayout::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
 {
-  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
-  if (declarativeObject) {
-    QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeFormLayout>(declarativeObject, false);
-    DeclarativeFormLayoutAttached *properties = qobject_cast<DeclarativeFormLayoutAttached*>(attachedProperties);
-
-    QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
-    if (widget) {
-      if (properties) {
-        if (!properties->label().isEmpty()) {
-          m_proxiedObject->addRow(properties->label(), widget);
-          m_children.append(declarativeObject);
-          return;
-        }
-      }
-      m_proxiedObject->addRow(widget);
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeFormLayout>(declarativeObject, false);
+  DeclarativeFormLayoutAttached *properties = qobject_cast<DeclarativeFormLayoutAttached*>(attachedProperties);
+  if (properties) {
+    if (!properties->label().isEmpty()) {
+      m_proxiedObject->addRow(properties->label(), widget);
       m_children.append(declarativeObject);
       return;
     }
-
-    QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
-    if (layout) {
-        if (properties) {
-          if (!properties->label().isEmpty()) {
-            m_proxiedObject->addRow(properties->label(), layout);
-            m_children.append(declarativeObject);
-            return;
-          }
-        }
-        m_proxiedObject->addRow(layout);
-        m_children.append(declarativeObject);
-        return;
-    }
   }
 
-  DeclarativeObjectProxy<QFormLayout>::dataAppend(object);
+  m_proxiedObject->addRow(widget);
+  m_children.append(declarativeObject);
+}
+
+void DeclarativeFormLayout::addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+{
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeFormLayout>(declarativeObject, false);
+  DeclarativeFormLayoutAttached *properties = qobject_cast<DeclarativeFormLayoutAttached*>(attachedProperties);
+  if (properties) {
+    if (!properties->label().isEmpty()) {
+      m_proxiedObject->addRow(properties->label(), layout);
+      m_children.append(declarativeObject);
+      return;
+    }
+  }
+  m_proxiedObject->addRow(layout);
+  m_children.append(declarativeObject);
 }
 
 CUSTOM_METAOBJECT(DeclarativeFormLayout, QFormLayout)
 
 // DeclarativeHBoxLayout
-DeclarativeHBoxLayout::DeclarativeHBoxLayout(QObject *parent) : DeclarativeBoxLayout<QHBoxLayout>(parent)
+DeclarativeHBoxLayout::DeclarativeHBoxLayout(QObject *parent) : DeclarativeLayoutProxy<QHBoxLayout>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
 }
@@ -316,10 +308,23 @@ void DeclarativeHBoxLayout::addWidget(QWidget *widget, AbstractDeclarativeObject
   m_children.append(declarativeObject);
 }
 
+void DeclarativeHBoxLayout::addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+{
+  int stretch = 0;
+
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeHBoxLayout>(declarativeObject, false);
+  DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
+  if (properties)
+    stretch = properties->stretch();
+
+  m_proxiedObject->addLayout(layout, stretch);
+  m_children.append(declarativeObject);
+}
+
 CUSTOM_METAOBJECT(DeclarativeHBoxLayout, QHBoxLayout)
 
 // DeclarativeVBoxLayout
-DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent) : DeclarativeBoxLayout<QVBoxLayout>(parent)
+DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent) : DeclarativeLayoutProxy<QVBoxLayout>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
 }
@@ -342,6 +347,19 @@ void DeclarativeVBoxLayout::addWidget(QWidget *widget, AbstractDeclarativeObject
   }
 
   m_proxiedObject->addWidget(widget, stretch, alignment);
+  m_children.append(declarativeObject);
+}
+
+void DeclarativeVBoxLayout::addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+{
+  int stretch = 0;
+
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeVBoxLayout>(declarativeObject, false);
+  DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
+  if (properties)
+    stretch = properties->stretch();
+
+  m_proxiedObject->addLayout(layout, stretch);
   m_children.append(declarativeObject);
 }
 
