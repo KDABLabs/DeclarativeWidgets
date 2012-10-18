@@ -100,4 +100,55 @@ TabWidget {
       }
     }
   }
+  Widget {
+    TabWidget.label: "Grid Layout"
+
+    GridLayout {
+      PushButton {
+        GridLayout.row: 0
+        GridLayout.column: 0
+
+        text: "0/0"
+      }
+      PushButton {
+        GridLayout.row: 0
+        GridLayout.column: 2
+
+        text: "0/2"
+      }
+      PushButton {
+        GridLayout.row: 1
+        GridLayout.column: 0
+
+        text: "1/0"
+      }
+      PushButton {
+        GridLayout.row: 1
+        GridLayout.column: 1
+        GridLayout.columnSpan: 2
+
+        text: "1/1, 1/2"
+      }
+      TextEdit {
+        GridLayout.row: 2
+        GridLayout.column: 0
+        GridLayout.columnSpan: 2
+        GridLayout.rowSpan: 2
+
+        plainText: "2/0, 2/2"
+      }
+      PushButton {
+        GridLayout.row: 2
+        GridLayout.column: 2
+
+        text: "2/2"
+      }
+      PushButton {
+        GridLayout.row: 3
+        GridLayout.column: 2
+
+        text: "3/2"
+      }
+    }
+  }
 }

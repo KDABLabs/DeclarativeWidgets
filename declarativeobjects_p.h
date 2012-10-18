@@ -195,11 +195,7 @@ class DeclarativeLayoutProxy : public DeclarativeObjectProxy<T>
       DeclarativeObjectProxy<T>::m_proxiedObject->addWidget(widget);
     }
 
-    virtual void addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
-    {
-      DeclarativeObjectProxy<T>::m_children.append(declarativeObject);
-      DeclarativeObjectProxy<T>::m_proxiedObject->addItem(layout);
-    }
+    virtual void addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject) = 0;
 };
 
 //// Objects ///
@@ -267,6 +263,47 @@ class DeclarativeFormLayoutAttached : public QObject
     Private *const d;
 };
 
+class DeclarativeGridLayoutAttached : public QObject
+{
+  Q_OBJECT
+
+  Q_PROPERTY(int row READ row WRITE setRow NOTIFY rowChanged)
+  Q_PROPERTY(int column READ column WRITE setColumn NOTIFY columnChanged)
+  Q_PROPERTY(int rowSpan READ rowSpan WRITE setRowSpan NOTIFY rowSpanChanged)
+  Q_PROPERTY(int columnSpan READ columnSpan WRITE setColumnSpan NOTIFY columnSpanChanged)
+  Q_PROPERTY(Qt::Alignment alignment READ alignment WRITE setAlignment NOTIFY alignmentChanged)
+
+  public:
+    DeclarativeGridLayoutAttached(QObject *parent = 0);
+    ~DeclarativeGridLayoutAttached();
+
+    void setRow(int row);
+    int row() const;
+
+    void setColumn(int column);
+    int column() const;
+
+    void setRowSpan(int rowSpan);
+    int rowSpan() const;
+
+    void setColumnSpan(int columnSpan);
+    int columnSpan() const;
+
+    void setAlignment(Qt::Alignment alignment);
+    Qt::Alignment alignment() const;
+
+  Q_SIGNALS:
+    void rowChanged(int row);
+    void columnChanged(int column);
+    void rowSpanChanged(int rowSpan);
+    void columnSpanChanged(int columnSpan);
+    void alignmentChanged(Qt::Alignment alignment);
+
+  private:
+    class Private;
+    Private *const d;
+};
+
 class DeclarativeFormLayout : public DeclarativeLayoutProxy<QFormLayout>
 {
   DECLARATIVE_OBJECT
@@ -282,6 +319,22 @@ class DeclarativeFormLayout : public DeclarativeLayoutProxy<QFormLayout>
 };
 
 QML_DECLARE_TYPEINFO(DeclarativeFormLayout, QML_HAS_ATTACHED_PROPERTIES)
+
+class DeclarativeGridLayout : public DeclarativeLayoutProxy<QGridLayout>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeGridLayout(QObject *parent = 0);
+
+    static DeclarativeGridLayoutAttached *qmlAttachedProperties(QObject *parent);
+
+  protected:
+    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    void addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+};
+
+QML_DECLARE_TYPEINFO(DeclarativeGridLayout, QML_HAS_ATTACHED_PROPERTIES)
 
 class DeclarativeHBoxLayout : public DeclarativeLayoutProxy<QHBoxLayout>
 {

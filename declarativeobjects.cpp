@@ -207,7 +207,6 @@ Qt::Alignment DeclarativeBoxLayoutAttached::alignment() const
   return d->alignment;
 }
 
-// DeclarativeFormLayout
 class DeclarativeFormLayoutAttached::Private
 {
   public:
@@ -233,11 +232,104 @@ void DeclarativeFormLayoutAttached::setLabel(const QString &label)
   emit labelChanged(label);
 }
 
+class DeclarativeGridLayoutAttached::Private
+{
+  public:
+    Private() : row(0), column(0), rowSpan(1), columnSpan(1), alignment(0) {}
+
+    int row;
+    int column;
+    int rowSpan;
+    int columnSpan;
+    Qt::Alignment alignment;
+};
+
+DeclarativeGridLayoutAttached::DeclarativeGridLayoutAttached(QObject *parent)
+  : QObject(parent), d(new Private)
+{
+}
+
+DeclarativeGridLayoutAttached::~DeclarativeGridLayoutAttached()
+{
+  delete d;
+}
+
+void DeclarativeGridLayoutAttached::setRow(int row)
+{
+  if (row == d->row)
+    return;
+
+  d->row = row;
+  emit rowChanged(row);
+}
+
+int DeclarativeGridLayoutAttached::row() const
+{
+  return d->row;
+}
+
+void DeclarativeGridLayoutAttached::setColumn(int column)
+{
+  if (column == d->column)
+    return;
+
+  d->column = column;
+  emit columnChanged(column);
+}
+
+int DeclarativeGridLayoutAttached::column() const
+{
+  return d->column;
+}
+
+void DeclarativeGridLayoutAttached::setRowSpan(int rowSpan)
+{
+  if (rowSpan == d->rowSpan)
+    return;
+
+  d->rowSpan = rowSpan;
+  emit rowSpanChanged(rowSpan);
+}
+
+int DeclarativeGridLayoutAttached::rowSpan() const
+{
+  return d->rowSpan;
+}
+
+void DeclarativeGridLayoutAttached::setColumnSpan(int columnSpan)
+{
+  if (columnSpan == d->columnSpan)
+    return;
+
+  d->columnSpan = columnSpan;
+  emit columnSpanChanged(columnSpan);
+}
+
+int DeclarativeGridLayoutAttached::columnSpan() const
+{
+  return d->columnSpan;
+}
+
+void DeclarativeGridLayoutAttached::setAlignment(Qt::Alignment alignment)
+{
+  if (alignment == d->alignment)
+    return;
+
+  d->alignment = alignment;
+  emit alignmentChanged(alignment);
+}
+
+Qt::Alignment DeclarativeGridLayoutAttached::alignment() const
+{
+  return d->alignment;
+}
+
 QString DeclarativeFormLayoutAttached::label() const
 {
   return d->label;
 }
 
+// DeclarativeFormLayout
 DeclarativeFormLayout::DeclarativeFormLayout(QObject *parent) : DeclarativeLayoutProxy<QFormLayout>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
@@ -280,6 +372,63 @@ void DeclarativeFormLayout::addLayout(QLayout *layout, AbstractDeclarativeObject
 }
 
 CUSTOM_METAOBJECT(DeclarativeFormLayout, QFormLayout)
+
+// DeclarativeGridLayout
+DeclarativeGridLayout::DeclarativeGridLayout(QObject *parent) : DeclarativeLayoutProxy<QGridLayout>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+DeclarativeGridLayoutAttached *DeclarativeGridLayout::qmlAttachedProperties(QObject *parent)
+{
+  return new DeclarativeGridLayoutAttached(parent);
+}
+
+void DeclarativeGridLayout::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+{
+  int row = 0;
+  int column = 0;
+  int rowSpan = 1;
+  int columnSpan = 1;
+  Qt::Alignment alignment = 0;
+
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeGridLayout>(declarativeObject, false);
+  DeclarativeGridLayoutAttached *properties = qobject_cast<DeclarativeGridLayoutAttached*>(attachedProperties);
+  if (properties) {
+    row = properties->row();
+    column = properties->column();
+    rowSpan = properties->rowSpan();
+    columnSpan = properties->columnSpan();
+    alignment = properties->alignment();
+  }
+
+  m_proxiedObject->addWidget(widget, row, column, rowSpan, columnSpan, alignment);
+  m_children.append(declarativeObject);
+}
+
+void DeclarativeGridLayout::addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+{
+  int row = 0;
+  int column = 0;
+  int rowSpan = 1;
+  int columnSpan = 1;
+  Qt::Alignment alignment = 0;
+
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeGridLayout>(declarativeObject, false);
+  DeclarativeGridLayoutAttached *properties = qobject_cast<DeclarativeGridLayoutAttached*>(attachedProperties);
+  if (properties) {
+    row = properties->row();
+    column = properties->column();
+    rowSpan = properties->rowSpan();
+    columnSpan = properties->columnSpan();
+    alignment = properties->alignment();
+  }
+
+  m_proxiedObject->addLayout(layout, row, column, rowSpan, columnSpan, alignment);
+  m_children.append(declarativeObject);
+}
+
+CUSTOM_METAOBJECT(DeclarativeGridLayout, QGridLayout)
 
 // DeclarativeHBoxLayout
 DeclarativeHBoxLayout::DeclarativeHBoxLayout(QObject *parent) : DeclarativeLayoutProxy<QHBoxLayout>(parent)
