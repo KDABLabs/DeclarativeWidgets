@@ -819,6 +819,74 @@ void DeclarativeMenuBar::addAction(QAction *action, AbstractDeclarativeObject *d
 
 CUSTOM_METAOBJECT(DeclarativeMenuBar, QMenuBar)
 
+// DeclarativeMessageBox
+DeclarativeMessageBoxAttached::DeclarativeMessageBoxAttached(QObject *parent) : QObject(parent)
+{
+}
+
+void DeclarativeMessageBoxAttached::about(QObject *parent, const QString &title, const QString &text)
+{
+  QMessageBox::about(bestParentWindow(parent), title, text);
+}
+
+void DeclarativeMessageBoxAttached::aboutQt(QObject *parent, const QString &title)
+{
+  QMessageBox::aboutQt(bestParentWindow(parent), title);
+}
+
+int DeclarativeMessageBoxAttached::critical(QObject *parent, const QString &title, const QString &text, int buttons, int defaultButton)
+{
+  return QMessageBox::critical(bestParentWindow(parent), title, text, static_cast<QMessageBox::StandardButtons>(buttons), static_cast<QMessageBox::StandardButton>(defaultButton));
+}
+
+int DeclarativeMessageBoxAttached::information(QObject *parent, const QString &title, const QString &text, int buttons, int defaultButton)
+{
+  return QMessageBox::information(bestParentWindow(parent), title, text, static_cast<QMessageBox::StandardButtons>(buttons), static_cast<QMessageBox::StandardButton>(defaultButton));
+}
+
+int DeclarativeMessageBoxAttached::question(QObject *parent, const QString &title, const QString &text, int buttons, int defaultButton)
+{
+  return QMessageBox::question(bestParentWindow(parent), title, text, static_cast<QMessageBox::StandardButtons>(buttons), static_cast<QMessageBox::StandardButton>(defaultButton));
+}
+
+int DeclarativeMessageBoxAttached::warning(QObject *parent, const QString &title, const QString &text, int buttons, int defaultButton)
+{
+  return QMessageBox::warning(bestParentWindow(parent), title, text, static_cast<QMessageBox::StandardButtons>(buttons), static_cast<QMessageBox::StandardButton>(defaultButton));
+}
+
+QWidget *DeclarativeMessageBoxAttached::bestParentWindow(QObject *parent) const
+{
+  if (!parent)
+    parent = this->parent();
+
+  // if parent is a Declarative Object, search the proxied hierarchy
+  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(parent);
+  if (declarativeObject)
+    parent = declarativeObject->object();
+
+  while (parent) {
+    QWidget *widget = qobject_cast<QWidget*>(parent);
+    if (widget)
+      return widget->topLevelWidget();
+
+    parent = parent->parent();
+  }
+
+  return 0;
+}
+
+DeclarativeMessageBox::DeclarativeMessageBox(QObject *parent) : DeclarativeObjectProxy<QMessageBox>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+DeclarativeMessageBoxAttached *DeclarativeMessageBox::qmlAttachedProperties(QObject *parent)
+{
+  return new DeclarativeMessageBoxAttached(parent);
+}
+
+CUSTOM_METAOBJECT(DeclarativeMessageBox, QMessageBox)
+
 // DeclarativePushButton
 DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeWidgetProxy<QPushButton>(parent)
 {

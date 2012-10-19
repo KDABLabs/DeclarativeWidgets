@@ -29,4 +29,5 @@ OTHER_FILES += \
     editor.qml \
     gallery.qml \
     layouts.qml \
-    test.qml
+    test.qml \
+    messagebox.qml

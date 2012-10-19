@@ -18,6 +18,7 @@
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
+#include <QtGui/QMessageBox>
 #include <QtGui/QPushButton>
 #include <QtGui/QSlider>
 #include <QtGui/QStatusBar>
@@ -240,6 +241,8 @@ class DeclarativeBoxLayoutAttached : public QObject
 
     void setAlignment(Qt::Alignment alignment);
     Qt::Alignment alignment() const;
+
+    Q_INVOKABLE QString foo() const { qDebug() << Q_FUNC_INFO; return "foo"; }
 
   Q_SIGNALS:
     void stretchChanged(int stretch);
@@ -490,6 +493,44 @@ class DeclarativeMenuBar : public DeclarativeWidgetProxy<QMenuBar>
     virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
     virtual void addAction(QAction *action, AbstractDeclarativeObject *declarativeObject);
 };
+
+class DeclarativeMessageBoxAttached : public QObject
+{
+  Q_OBJECT
+  Q_FLAGS(StandardButtons)
+
+  public:
+    typedef QMessageBox::StandardButton StandardButton;
+    Q_DECLARE_FLAGS(StandardButtons, StandardButton);
+
+    DeclarativeMessageBoxAttached(QObject *parent = 0);
+
+    Q_INVOKABLE void about(QObject *parent, const QString &title, const QString &text);
+    Q_INVOKABLE void aboutQt(QObject *parent, const QString &title);
+    Q_INVOKABLE int critical(QObject *parent, const QString &title, const QString &text,
+                             int buttons = QMessageBox::Ok, int defaultButton = QMessageBox::NoButton);
+    Q_INVOKABLE int information(QObject *parent, const QString &title, const QString &text,
+                                int buttons = QMessageBox::Ok, int defaultButton = QMessageBox::NoButton);
+    Q_INVOKABLE int question(QObject *parent, const QString &title, const QString &text,
+                             int buttons = QMessageBox::Ok, int defaultButton = QMessageBox::NoButton);
+    Q_INVOKABLE int warning(QObject *parent, const QString &title, const QString &text,
+                            int buttons = QMessageBox::Ok, int defaultButton = QMessageBox::NoButton);
+
+  private:
+    QWidget *bestParentWindow(QObject *parent) const;
+};
+
+class DeclarativeMessageBox : public DeclarativeObjectProxy<QMessageBox>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeMessageBox(QObject *parent = 0);
+
+    static DeclarativeMessageBoxAttached *qmlAttachedProperties(QObject *parent);
+};
+
+QML_DECLARE_TYPEINFO(DeclarativeMessageBox, QML_HAS_ATTACHED_PROPERTIES)
 
 class DeclarativePushButton : public DeclarativeWidgetProxy<QPushButton>
 {
