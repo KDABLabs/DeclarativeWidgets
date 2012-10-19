@@ -49,7 +49,7 @@ MainWindow {
       Separator {}
 
       Action {
-        text: "Close"
+        text: qsTr("Close")
         onTriggered: Qt.quit()
       }
     }
@@ -70,16 +70,19 @@ MainWindow {
       Separator {}
 
       Action {
+        id: cutAction
         text: qsTr("Cut")
         onTriggered: textEdit.cut()
       }
 
       Action {
+        id: copyAction
         text: qsTr("Copy")
         onTriggered: textEdit.copy()
       }
 
       Action {
+        id: pasteAction
         text: qsTr("Paste")
         onTriggered: textEdit.paste()
       }
@@ -139,19 +142,16 @@ MainWindow {
 
     contextMenuPolicy: Qt.ActionsContextMenu
 
-    Action {
-      text: qsTr("Cut")
-      onTriggered: textEdit.cut()
+    ActionItem {
+      action: cutAction
     }
 
-    Action {
-      text: qsTr("Copy")
-      onTriggered: textEdit.copy()
+    ActionItem {
+      action: copyAction
     }
 
-    Action {
-      text: qsTr("Paste")
-      onTriggered: textEdit.paste()
+    ActionItem {
+      action: pasteAction
     }
   }
 

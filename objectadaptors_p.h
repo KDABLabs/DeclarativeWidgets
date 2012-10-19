@@ -1,6 +1,7 @@
 #ifndef OBJECTADAPTORS_P_H
 #define OBJECTADAPTORS_P_H
 
+#include <QtGui/QAction>
 #include <QtGui/QFileDialog>
 #include <QtGui/QInputDialog>
 #include <QtGui/QTextEdit>
@@ -63,6 +64,29 @@ class TextEdit : public QTextEdit
 
   private:
     bool modified() const;
+};
+
+class ActionItem : public QObject
+{
+  Q_OBJECT
+
+  Q_PROPERTY(QVariant action READ qmlAction WRITE setAction NOTIFY actionChanged)
+
+  public:
+    ActionItem(QObject *parent = 0);
+
+    QAction* action();
+
+  Q_SIGNALS:
+    void actionChanged();
+
+  private:
+    void setAction(const QVariant &action);
+    QVariant qmlAction() const;
+
+    QVariant m_action;
+    QAction* m_placeholderAction;
+    QAction* m_qAction;
 };
 
 #endif

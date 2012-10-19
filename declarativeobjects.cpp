@@ -154,6 +154,14 @@ DeclarativeAction::DeclarativeAction(QObject *parent) : DeclarativeObjectProxy<Q
 
 CUSTOM_METAOBJECT(DeclarativeAction, QAction)
 
+// DeclarativeActionItem
+DeclarativeActionItem::DeclarativeActionItem(QObject *parent) : DeclarativeObjectProxy<ActionItem>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeActionItem, ActionItem)
+
 // DeclarativeSeparator
 DeclarativeSeparator::DeclarativeSeparator(QObject *parent) : DeclarativeObjectProxy<QAction>(parent)
 {

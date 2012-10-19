@@ -29,6 +29,10 @@
 #include <QtDeclarative/qdeclarativeinfo.h>
 #include <qdeclarative.h>
 
+#include "objectadaptors_p.h"
+
+Q_DECLARE_METATYPE(QAction*)
+
 #define DECLARATIVE_OBJECT \
   public: \
     Q_OBJECT_CHECK \
@@ -99,6 +103,14 @@ class DeclarativeObjectProxy : public AbstractDeclarativeObject
     QVector<QObject*> m_children;
 };
 
+class DeclarativeActionItem : public DeclarativeObjectProxy<ActionItem>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeActionItem(QObject *parent = 0);
+};
+
 template <class T>
 class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
 {
@@ -126,6 +138,12 @@ class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
             }
 
             setLayout(layout, declarativeObject);
+            return;
+          }
+
+          DeclarativeActionItem *declarativeActionItem = dynamic_cast<DeclarativeActionItem*>(object);
+          if (declarativeActionItem) {
+            addAction(qobject_cast<ActionItem*>(declarativeActionItem->object())->action(), declarativeObject);
             return;
           }
 
@@ -212,6 +230,7 @@ class DeclarativeAction : public DeclarativeObjectProxy<QAction>
   public:
     DeclarativeAction(QObject *parent = 0);
 };
+Q_DECLARE_METATYPE(DeclarativeAction*)
 
 class DeclarativeSeparator : public DeclarativeObjectProxy<QAction>
 {
