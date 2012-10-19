@@ -5,12 +5,35 @@ MainWindow {
 
   size: Qt.size(500, 300)
 
+  Dialog {
+    id: myDialog
+
+    size: Qt.size(300, 200)
+    visible: false
+
+    VBoxLayout {
+      Label {
+        text: "Hello World"
+      }
+      DialogButtonBox {
+        standardButtons: DialogButtonBox.Ok | DialogButtonBox.Cancel
+
+        onAccepted: myDialog.accept()
+        onRejected: myDialog.reject()
+      }
+    }
+  }
+
   MenuBar {
     Menu {
       title: qsTr("File")
 
       Action {
         text: qsTr("New")
+        onTriggered: {
+          var result = myDialog.exec()
+          console.log("result="+result)
+        }
       }
 
       Action {

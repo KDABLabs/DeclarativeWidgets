@@ -635,6 +635,22 @@ DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent) : DeclarativeWidgetPro
 
 CUSTOM_METAOBJECT(DeclarativeCheckBox, QCheckBox)
 
+// DeclarativeDialog
+DeclarativeDialog::DeclarativeDialog(QObject *parent) : DeclarativeWidgetProxy<QDialog>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeDialog, QDialog)
+
+// DeclarativeDialogButtonBox
+DeclarativeDialogButtonBox::DeclarativeDialogButtonBox(QObject *parent) : DeclarativeWidgetProxy<QDialogButtonBox>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeDialogButtonBox, QDialogButtonBox)
+
 // DeclarativeLabel
 DeclarativeLabel::DeclarativeLabel(QObject *parent) : DeclarativeWidgetProxy<QLabel>(parent)
 {
@@ -654,6 +670,7 @@ void DeclarativeMainWindow::addWidget(QWidget *widget, AbstractDeclarativeObject
   QMenuBar *menuBar = qobject_cast<QMenuBar*>(widget);
   QToolBar *toolBar = qobject_cast<QToolBar*>(widget);
   QStatusBar *statusBar = qobject_cast<QStatusBar*>(widget);
+  QDialog *dialog = qobject_cast<QDialog*>(widget);
 
   if (menuBar) {
     m_proxiedObject->setMenuBar(menuBar);
@@ -661,6 +678,9 @@ void DeclarativeMainWindow::addWidget(QWidget *widget, AbstractDeclarativeObject
     m_proxiedObject->addToolBar(toolBar);
   } else if (statusBar) {
     m_proxiedObject->setStatusBar(statusBar);
+  } else if (dialog) {
+    // We allow to place dialogs on the mainwindow
+    dialog->setParent(m_proxiedObject, dialog->windowFlags());
   } else if (widget) {
     if (m_proxiedObject->centralWidget()) {
       qmlInfo(declarativeObject) << "The QMainWindow contains a central widget already";

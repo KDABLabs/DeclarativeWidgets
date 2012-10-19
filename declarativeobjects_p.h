@@ -8,6 +8,8 @@
 #include <QtGui/QAction>
 #include <QtGui/QCalendarWidget>
 #include <QtGui/QCheckBox>
+#include <QtGui/QDialog>
+#include <QtGui/QDialogButtonBox>
 #include <QtGui/QFormLayout>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
@@ -141,7 +143,7 @@ class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
     {
       Q_UNUSED(declarativeObject);
       DeclarativeObjectProxy<T>::m_children.append(declarativeObject);
-      widget->setParent(DeclarativeObjectProxy<T>::m_proxiedObject);
+      widget->setParent(DeclarativeObjectProxy<T>::m_proxiedObject, widget->windowFlags());
     }
 
     virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
@@ -391,6 +393,22 @@ class DeclarativeCheckBox : public DeclarativeWidgetProxy<QCheckBox>
 
   public:
     DeclarativeCheckBox(QObject *parent = 0);
+};
+
+class DeclarativeDialog : public DeclarativeWidgetProxy<QDialog>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeDialog(QObject *parent = 0);
+};
+
+class DeclarativeDialogButtonBox : public DeclarativeWidgetProxy<QDialogButtonBox>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeDialogButtonBox(QObject *parent = 0);
 };
 
 class DeclarativeLabel : public DeclarativeWidgetProxy<QLabel>

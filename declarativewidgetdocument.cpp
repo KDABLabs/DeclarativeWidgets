@@ -46,6 +46,8 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   // widgets
   qmlRegisterType<DeclarativeCalendarWidget>("QtGui", 1, 0, "CalendarWidget");
   qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
+  qmlRegisterType<DeclarativeDialog>("QtGui", 1, 0, "Dialog");
+  qmlRegisterType<DeclarativeDialogButtonBox>("QtGui", 1, 0, "DialogButtonBox");
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
   qmlRegisterType<DeclarativeMainWindow>("QtGui", 1, 0, "MainWindow");
   qmlRegisterType<DeclarativeMenu>("QtGui", 1, 0, "Menu");
