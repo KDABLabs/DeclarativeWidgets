@@ -1,7 +1,7 @@
 import QtGui 1.0
 
 MainWindow {
-  windowTitle: qsTr("Declarative Widget Editor")
+  windowTitle: textEdit.modified ? qsTr("Declarative Widget Editor *modified*") : qsTr("Declarative Widget Editor")
 
   size: Qt.size(500, 300)
 

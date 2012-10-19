@@ -930,12 +930,12 @@ DeclarativeTabWidgetAttached *DeclarativeTabWidget::qmlAttachedProperties(QObjec
 CUSTOM_METAOBJECT(DeclarativeTabWidget, QTabWidget)
 
 // DeclarativeTextEdit
-DeclarativeTextEdit::DeclarativeTextEdit(QObject *parent) : DeclarativeWidgetProxy<QTextEdit>(parent)
+DeclarativeTextEdit::DeclarativeTextEdit(QObject *parent) : DeclarativeWidgetProxy<TextEdit>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
 }
 
-CUSTOM_METAOBJECT(DeclarativeTextEdit, QTextEdit)
+CUSTOM_METAOBJECT(DeclarativeTextEdit, TextEdit)
 
 // DeclarativeToolBar
 DeclarativeToolBar::DeclarativeToolBar(QObject *parent) : DeclarativeWidgetProxy<QToolBar>(parent)

@@ -1,6 +1,8 @@
 #ifndef DECLARATIVEOBJECTS_H
 #define DECLARATIVEOBJECTS_H
 
+#include "objectadaptors_p.h"
+
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
 #include <QtGui/QAction>
@@ -16,7 +18,6 @@
 #include <QtGui/QSlider>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTabWidget>
-#include <QtGui/QTextEdit>
 #include <QtGui/QToolBar>
 #include <QtGui/QVBoxLayout>
 #include <QtDeclarative/QDeclarativeListProperty>
@@ -535,7 +536,7 @@ class DeclarativeTabWidget : public DeclarativeWidgetProxy<QTabWidget>
 
 QML_DECLARE_TYPEINFO(DeclarativeTabWidget, QML_HAS_ATTACHED_PROPERTIES)
 
-class DeclarativeTextEdit : public DeclarativeWidgetProxy<QTextEdit>
+class DeclarativeTextEdit : public DeclarativeWidgetProxy<TextEdit>
 {
   DECLARATIVE_OBJECT
 
