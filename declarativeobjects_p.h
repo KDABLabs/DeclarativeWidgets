@@ -277,8 +277,11 @@ class DeclarativeGridLayoutAttached : public QObject
   Q_PROPERTY(Qt::Alignment alignment READ alignment WRITE setAlignment NOTIFY alignmentChanged)
 
   public:
-    DeclarativeGridLayoutAttached(QObject *parent = 0);
+    DeclarativeGridLayoutAttached(QWidget *widget, QObject *parent);
+    DeclarativeGridLayoutAttached(QLayout *layout, QObject *parent);
     ~DeclarativeGridLayoutAttached();
+
+    void setParentLayout(QGridLayout *parentLayout);
 
     void setRow(int row);
     int row() const;

@@ -257,23 +257,40 @@ void DeclarativeFormLayoutAttached::setLabel(const QString &label)
 class DeclarativeGridLayoutAttached::Private
 {
   public:
-    Private() : row(0), column(0), rowSpan(1), columnSpan(1), alignment(0) {}
+    Private(QWidget *w, QLayout *l)
+      : row(0), column(0), rowSpan(1), columnSpan(1), alignment(0),
+        widget(w), layout(l)
+    {}
 
     int row;
     int column;
     int rowSpan;
     int columnSpan;
     Qt::Alignment alignment;
+
+    QPointer<QWidget> widget;
+    QPointer<QLayout> layout;
+    QPointer<QGridLayout> parentLayout;
 };
 
-DeclarativeGridLayoutAttached::DeclarativeGridLayoutAttached(QObject *parent)
-  : QObject(parent), d(new Private)
+DeclarativeGridLayoutAttached::DeclarativeGridLayoutAttached(QWidget *widget, QObject *parent)
+  : QObject(parent), d(new Private(widget, 0))
+{
+}
+
+DeclarativeGridLayoutAttached::DeclarativeGridLayoutAttached(QLayout *layout, QObject *parent)
+  : QObject(parent), d(new Private(0, layout))
 {
 }
 
 DeclarativeGridLayoutAttached::~DeclarativeGridLayoutAttached()
 {
   delete d;
+}
+
+void DeclarativeGridLayoutAttached::setParentLayout(QGridLayout *parentLayout)
+{
+  d->parentLayout = parentLayout;
 }
 
 void DeclarativeGridLayoutAttached::setRow(int row)
@@ -339,6 +356,14 @@ void DeclarativeGridLayoutAttached::setAlignment(Qt::Alignment alignment)
 
   d->alignment = alignment;
   emit alignmentChanged(alignment);
+
+  if (d->parentLayout) {
+    if (d->widget)
+      d->parentLayout->setAlignment(d->widget, d->alignment);
+
+    if (d->layout)
+      d->parentLayout->setAlignment(d->layout, d->alignment);
+  }
 }
 
 Qt::Alignment DeclarativeGridLayoutAttached::alignment() const
@@ -403,7 +428,19 @@ DeclarativeGridLayout::DeclarativeGridLayout(QObject *parent) : DeclarativeLayou
 
 DeclarativeGridLayoutAttached *DeclarativeGridLayout::qmlAttachedProperties(QObject *parent)
 {
-  return new DeclarativeGridLayoutAttached(parent);
+  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(parent);
+  if (declarativeObject) {
+    QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
+    if (widget)
+      return new DeclarativeGridLayoutAttached(widget, parent);
+
+    QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
+    if (layout)
+      return new DeclarativeGridLayoutAttached(layout, parent);
+  }
+
+  qmlInfo(parent) << "Can only attach GridLayout to widgets and layouts";
+  return 0;
 }
 
 void DeclarativeGridLayout::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
@@ -422,6 +459,8 @@ void DeclarativeGridLayout::addWidget(QWidget *widget, AbstractDeclarativeObject
     rowSpan = properties->rowSpan();
     columnSpan = properties->columnSpan();
     alignment = properties->alignment();
+
+    properties->setParentLayout(m_proxiedObject);
   }
 
   m_proxiedObject->addWidget(widget, row, column, rowSpan, columnSpan, alignment);
@@ -444,6 +483,8 @@ void DeclarativeGridLayout::addLayout(QLayout *layout, AbstractDeclarativeObject
     rowSpan = properties->rowSpan();
     columnSpan = properties->columnSpan();
     alignment = properties->alignment();
+
+    properties->setParentLayout(m_proxiedObject);
   }
 
   m_proxiedObject->addLayout(layout, row, column, rowSpan, columnSpan, alignment);

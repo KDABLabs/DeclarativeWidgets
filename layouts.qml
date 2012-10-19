@@ -143,12 +143,14 @@ TabWidget {
       PushButton {
         GridLayout.row: 2
         GridLayout.column: 2
+        GridLayout.alignment: Qt.AlignBottom
 
         text: "2/2"
       }
       PushButton {
         GridLayout.row: 3
         GridLayout.column: 2
+        GridLayout.alignment: Qt.AlignTop
 
         text: "3/2"
       }
