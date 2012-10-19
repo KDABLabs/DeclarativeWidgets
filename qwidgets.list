@@ -3,7 +3,6 @@ qbuttongroup.h
 
 // dialogs
 qcolordialog.h
-qdialog.h
 qfiledialog.h
 qfontdialog.h
 qinputdialog.h
@@ -13,25 +12,19 @@ qprintpreviewdialog.h
 qprogressdialog.h
 
 // widgets
-qcalendarwidget.h
 qcolumnview.h
 qcombobox.h
 qcommandlinkbutton.h
 qdatetimeedit.h
 qdial.h
-qdialogbuttonbox.h
 qdockwidget.h
 qfocusframe.h
 qfontcombobox.h
-qformlayout.h
 qframe.h
 qgraphicsview.h
 qgraphicswidget.h
-qgridlayout.h
 qgroupbox.h
 qheaderview.h
-qlayout.h
-qlayoutitem.h
 qlcdnumber.h
 qlineedit.h
 qlistview.h
@@ -50,14 +43,11 @@ qsplashscreen.h
 qsplitter.h
 qstackedlayout.h
 qstackedwidget.h
-qstatusbar.h
 qtabbar.h
 qtableview.h
 qtablewidget.h
 qtabwidget.h
 qtextbrowser.h
-qtextedit.h
-qtoolbar.h
 qtoolbox.h
 qtoolbutton.h
 qtreeview.h
