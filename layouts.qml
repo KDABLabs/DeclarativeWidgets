@@ -24,7 +24,7 @@ TabWidget {
       Widget {
         HBoxLayout {
           Label {
-            HBoxLayout.alignment: Qt.AlignRight
+            HBoxLayout.alignment: Qt.AlignTop
             text: "Top"
           }
           Label {
@@ -34,6 +34,9 @@ TabWidget {
           Label {
             HBoxLayout.alignment: Qt.AlignBottom
             text: "Bottom"
+          }
+          Label { // just for increasing the parent's height
+            text: "\n\n\n"
           }
         }
       }

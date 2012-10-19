@@ -163,20 +163,34 @@ CUSTOM_METAOBJECT(DeclarativeSeparator, QAction)
 class DeclarativeBoxLayoutAttached::Private
 {
   public:
-    Private() : stretch(0), alignment(0) {}
+    Private(QWidget *w, QLayout *l) : stretch(0), alignment(0), widget(w), layout(l) {}
 
     int stretch;
     Qt::Alignment alignment;
+
+    QPointer<QWidget> widget;
+    QPointer<QLayout> layout;
+    QPointer<QBoxLayout> parentLayout;
 };
 
-DeclarativeBoxLayoutAttached::DeclarativeBoxLayoutAttached(QObject *parent)
-  : QObject(parent), d(new Private)
+DeclarativeBoxLayoutAttached::DeclarativeBoxLayoutAttached(QWidget *widget, QObject *parent)
+  : QObject(parent), d(new Private(widget, 0))
+{
+}
+
+DeclarativeBoxLayoutAttached::DeclarativeBoxLayoutAttached(QLayout *layout, QObject *parent)
+  : QObject(parent), d(new Private(0, layout))
 {
 }
 
 DeclarativeBoxLayoutAttached::~DeclarativeBoxLayoutAttached()
 {
   delete d;
+}
+
+void DeclarativeBoxLayoutAttached::setParentLayout(QBoxLayout *parentLayout)
+{
+  d->parentLayout = parentLayout;
 }
 
 void DeclarativeBoxLayoutAttached::setStretch(int stretch)
@@ -200,6 +214,14 @@ void DeclarativeBoxLayoutAttached::setAlignment(Qt::Alignment alignment)
 
   d->alignment = alignment;
   emit alignmentChanged(alignment);
+
+  if (d->parentLayout) {
+    if (d->widget)
+      d->parentLayout->setAlignment(d->widget, d->alignment);
+
+    if (d->layout)
+      d->parentLayout->setAlignment(d->layout, d->alignment);
+  }
 }
 
 Qt::Alignment DeclarativeBoxLayoutAttached::alignment() const
@@ -438,7 +460,19 @@ DeclarativeHBoxLayout::DeclarativeHBoxLayout(QObject *parent) : DeclarativeLayou
 
 DeclarativeBoxLayoutAttached *DeclarativeHBoxLayout::qmlAttachedProperties(QObject *parent)
 {
-  return new DeclarativeBoxLayoutAttached(parent);
+  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(parent);
+  if (declarativeObject) {
+    QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
+    if (widget)
+      return new DeclarativeBoxLayoutAttached(widget, parent);
+
+    QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
+    if (layout)
+      return new DeclarativeBoxLayoutAttached(layout, parent);
+  }
+
+  qmlInfo(parent) << "Can only attach HBoxLayout to widgets and layouts";
+  return 0;
 }
 
 void DeclarativeHBoxLayout::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
@@ -451,6 +485,8 @@ void DeclarativeHBoxLayout::addWidget(QWidget *widget, AbstractDeclarativeObject
   if (properties) {
     stretch = properties->stretch();
     alignment = properties->alignment();
+
+    properties->setParentLayout(m_proxiedObject);
   }
 
   m_proxiedObject->addWidget(widget, stretch, alignment);
@@ -460,13 +496,19 @@ void DeclarativeHBoxLayout::addWidget(QWidget *widget, AbstractDeclarativeObject
 void DeclarativeHBoxLayout::addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
 {
   int stretch = 0;
+  Qt::Alignment alignment = 0;
 
   QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeHBoxLayout>(declarativeObject, false);
   DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
-  if (properties)
+  if (properties) {
     stretch = properties->stretch();
+    alignment = properties->alignment();
+
+    properties->setParentLayout(m_proxiedObject);
+  }
 
   m_proxiedObject->addLayout(layout, stretch);
+  m_proxiedObject->setAlignment(layout, alignment);
   m_children.append(declarativeObject);
 }
 
@@ -480,7 +522,19 @@ DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent) : DeclarativeLayou
 
 DeclarativeBoxLayoutAttached *DeclarativeVBoxLayout::qmlAttachedProperties(QObject *parent)
 {
-  return new DeclarativeBoxLayoutAttached(parent);
+  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(parent);
+  if (declarativeObject) {
+    QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
+    if (widget)
+      return new DeclarativeBoxLayoutAttached(widget, parent);
+
+    QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
+    if (layout)
+      return new DeclarativeBoxLayoutAttached(layout, parent);
+  }
+
+  qmlInfo(parent) << "Can only attach VBoxLayout to widgets and layouts";
+  return 0;
 }
 
 void DeclarativeVBoxLayout::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
@@ -493,6 +547,8 @@ void DeclarativeVBoxLayout::addWidget(QWidget *widget, AbstractDeclarativeObject
   if (properties) {
     stretch = properties->stretch();
     alignment = properties->alignment();
+
+    properties->setParentLayout(m_proxiedObject);
   }
 
   m_proxiedObject->addWidget(widget, stretch, alignment);
@@ -502,13 +558,19 @@ void DeclarativeVBoxLayout::addWidget(QWidget *widget, AbstractDeclarativeObject
 void DeclarativeVBoxLayout::addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
 {
   int stretch = 0;
+  Qt::Alignment alignment = 0;
 
   QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeVBoxLayout>(declarativeObject, false);
   DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
-  if (properties)
+  if (properties) {
     stretch = properties->stretch();
+    alignment = properties->alignment();
+
+    properties->setParentLayout(m_proxiedObject);
+  }
 
   m_proxiedObject->addLayout(layout, stretch);
+  m_proxiedObject->setAlignment(layout, alignment);
   m_children.append(declarativeObject);
 }
 

@@ -224,8 +224,11 @@ class DeclarativeBoxLayoutAttached : public QObject
   Q_PROPERTY(Qt::Alignment alignment READ alignment WRITE setAlignment NOTIFY alignmentChanged)
 
   public:
-    DeclarativeBoxLayoutAttached(QObject *parent);
+    DeclarativeBoxLayoutAttached(QWidget *widget, QObject *parent);
+    DeclarativeBoxLayoutAttached(QLayout *layout, QObject *parent);
     ~DeclarativeBoxLayoutAttached();
+
+    void setParentLayout(QBoxLayout *parentLayout);
 
     void setStretch(int stretch);
     int stretch() const;
