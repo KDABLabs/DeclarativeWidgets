@@ -87,11 +87,14 @@ void AbstractDeclarativeObject::dataClear()
 {
 }
 
-static void connectAllSignals(QObject *sender, QObject *receiver)
+static void connectAllSignals(QObject *sender, QObject *receiver, const QSet<QByteArray> &blacklist = QSet<QByteArray>())
 {
   for (int i = 0; i < sender->metaObject()->methodCount(); ++i) {
     const QMetaMethod method = sender->metaObject()->method(i);
     if (method.methodType() == QMetaMethod::Signal) {
+      if (blacklist.contains(method.signature()))
+        continue;
+
       const QByteArray signature = "2" + QByteArray(method.signature());
       QObject::connect(sender, signature.data(), receiver, signature.data());
     }
@@ -787,7 +790,7 @@ CUSTOM_METAOBJECT(DeclarativeMenuBar, QMenuBar)
 // DeclarativePushButton
 DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeWidgetProxy<QPushButton>(parent)
 {
-  connectAllSignals(m_proxiedObject, this);
+  connectAllSignals(m_proxiedObject, this, QSet<QByteArray>() << "clicked()");
 }
 
 CUSTOM_METAOBJECT(DeclarativePushButton, QPushButton)
