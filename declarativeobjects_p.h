@@ -8,8 +8,10 @@
 #include <QtGui/QAction>
 #include <QtGui/QCalendarWidget>
 #include <QtGui/QCheckBox>
+#include <QtGui/QColorDialog>
 #include <QtGui/QDialog>
 #include <QtGui/QDialogButtonBox>
+#include <QtGui/QFontDialog>
 #include <QtGui/QFormLayout>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
@@ -395,6 +397,14 @@ class DeclarativeCheckBox : public DeclarativeWidgetProxy<QCheckBox>
     DeclarativeCheckBox(QObject *parent = 0);
 };
 
+class DeclarativeColorDialog : public DeclarativeWidgetProxy<QColorDialog>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeColorDialog(QObject *parent = 0);
+};
+
 class DeclarativeDialog : public DeclarativeWidgetProxy<QDialog>
 {
   DECLARATIVE_OBJECT
@@ -409,6 +419,30 @@ class DeclarativeDialogButtonBox : public DeclarativeWidgetProxy<QDialogButtonBo
 
   public:
     DeclarativeDialogButtonBox(QObject *parent = 0);
+};
+
+class DeclarativeFileDialog : public DeclarativeWidgetProxy<FileDialog>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeFileDialog(QObject *parent = 0);
+};
+
+class DeclarativeFontDialog : public DeclarativeWidgetProxy<QFontDialog>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeFontDialog(QObject *parent = 0);
+};
+
+class DeclarativeInputDialog : public DeclarativeWidgetProxy<InputDialog>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeInputDialog(QObject *parent = 0);
 };
 
 class DeclarativeLabel : public DeclarativeWidgetProxy<QLabel>

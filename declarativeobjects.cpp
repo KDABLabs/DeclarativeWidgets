@@ -638,6 +638,14 @@ DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent) : DeclarativeWidgetPro
 
 CUSTOM_METAOBJECT(DeclarativeCheckBox, QCheckBox)
 
+// DeclarativeColorDialog
+DeclarativeColorDialog::DeclarativeColorDialog(QObject *parent) : DeclarativeWidgetProxy<QColorDialog>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeColorDialog, QColorDialog)
+
 // DeclarativeDialog
 DeclarativeDialog::DeclarativeDialog(QObject *parent) : DeclarativeWidgetProxy<QDialog>(parent)
 {
@@ -653,6 +661,30 @@ DeclarativeDialogButtonBox::DeclarativeDialogButtonBox(QObject *parent) : Declar
 }
 
 CUSTOM_METAOBJECT(DeclarativeDialogButtonBox, QDialogButtonBox)
+
+// DeclarativeFileDialog
+DeclarativeFileDialog::DeclarativeFileDialog(QObject *parent) : DeclarativeWidgetProxy<FileDialog>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeFileDialog, FileDialog)
+
+// DeclarativeFontDialog
+DeclarativeFontDialog::DeclarativeFontDialog(QObject *parent) : DeclarativeWidgetProxy<QFontDialog>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeFontDialog, QFontDialog)
+
+// DeclarativeInputDialog
+DeclarativeInputDialog::DeclarativeInputDialog(QObject *parent) : DeclarativeWidgetProxy<InputDialog>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeInputDialog, InputDialog)
 
 // DeclarativeLabel
 DeclarativeLabel::DeclarativeLabel(QObject *parent) : DeclarativeWidgetProxy<QLabel>(parent)

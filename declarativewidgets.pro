@@ -24,8 +24,9 @@ SOURCES += \
 QT += declarative
 
 OTHER_FILES += \
-    layouts.qml \
     animation.qml \
+    dialogs.qml \
     editor.qml \
     gallery.qml \
+    layouts.qml \
     test.qml
