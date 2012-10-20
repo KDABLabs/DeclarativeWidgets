@@ -111,10 +111,13 @@ MainWindow {
 
       Action {
         text: qsTr("About")
+        onTriggered: MessageBox.about(0, qsTr("About Declarative Widgets Editor Example"),
+                                      qsTr("This is an example of a simple text editor written in QML using DeclarativeWidgets"))
       }
 
       Action {
         text: qsTr("About Qt")
+        onTriggered: MessageBox.aboutQt(0, qsTr("About Qt"))
       }
     }
   }
