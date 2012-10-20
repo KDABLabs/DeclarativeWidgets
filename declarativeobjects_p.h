@@ -497,12 +497,8 @@ class DeclarativeMenuBar : public DeclarativeWidgetProxy<QMenuBar>
 class DeclarativeMessageBoxAttached : public QObject
 {
   Q_OBJECT
-  Q_FLAGS(StandardButtons)
 
   public:
-    typedef QMessageBox::StandardButton StandardButton;
-    Q_DECLARE_FLAGS(StandardButtons, StandardButton);
-
     DeclarativeMessageBoxAttached(QObject *parent = 0);
 
     Q_INVOKABLE void about(QObject *parent, const QString &title, const QString &text);
