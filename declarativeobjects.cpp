@@ -639,9 +639,49 @@ DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent) : DeclarativeWidgetPro
 CUSTOM_METAOBJECT(DeclarativeCheckBox, QCheckBox)
 
 // DeclarativeColorDialog
+DeclarativeColorDialogAttached::DeclarativeColorDialogAttached(QObject *parent) : QObject(parent)
+{
+}
+
+QColor DeclarativeColorDialogAttached::getColor(const QColor &initialColor, QObject *parent, const QString &title, int options)
+{
+  return QColorDialog::getColor(initialColor, bestParentWindow(parent), title, static_cast<QColorDialog::ColorDialogOptions>(options));
+}
+
+QColor DeclarativeColorDialogAttached::getColor(const QColor &initialColor, QObject *parent)
+{
+  return QColorDialog::getColor(initialColor, bestParentWindow(parent));
+}
+
+QWidget *DeclarativeColorDialogAttached::bestParentWindow(QObject *parent) const
+{
+  if (!parent)
+    parent = this->parent();
+
+  // if parent is a Declarative Object, search the proxied hierarchy
+  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(parent);
+  if (declarativeObject)
+    parent = declarativeObject->object();
+
+  while (parent) {
+    QWidget *widget = qobject_cast<QWidget*>(parent);
+    if (widget)
+      return widget->topLevelWidget();
+
+    parent = parent->parent();
+  }
+
+  return 0;
+}
+
 DeclarativeColorDialog::DeclarativeColorDialog(QObject *parent) : DeclarativeWidgetProxy<QColorDialog>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
+}
+
+DeclarativeColorDialogAttached *DeclarativeColorDialog::qmlAttachedProperties(QObject *parent)
+{
+  return new DeclarativeColorDialogAttached(parent);
 }
 
 CUSTOM_METAOBJECT(DeclarativeColorDialog, QColorDialog)

@@ -400,13 +400,31 @@ class DeclarativeCheckBox : public DeclarativeWidgetProxy<QCheckBox>
     DeclarativeCheckBox(QObject *parent = 0);
 };
 
+class DeclarativeColorDialogAttached : public QObject
+{
+  Q_OBJECT
+
+  public:
+    DeclarativeColorDialogAttached(QObject *parent = 0);
+
+    Q_INVOKABLE QColor getColor(const QColor &initialColor, QObject *parent, const QString &title, int options = 0);
+    Q_INVOKABLE QColor getColor(const QColor &initialColor, QObject *parent = 0);
+
+  private:
+    QWidget *bestParentWindow(QObject *parent) const;
+};
+
 class DeclarativeColorDialog : public DeclarativeWidgetProxy<QColorDialog>
 {
   DECLARATIVE_OBJECT
 
   public:
     DeclarativeColorDialog(QObject *parent = 0);
+
+    static DeclarativeColorDialogAttached *qmlAttachedProperties(QObject *parent);
 };
+
+QML_DECLARE_TYPEINFO(DeclarativeColorDialog, QML_HAS_ATTACHED_PROPERTIES)
 
 class DeclarativeDialog : public DeclarativeWidgetProxy<QDialog>
 {

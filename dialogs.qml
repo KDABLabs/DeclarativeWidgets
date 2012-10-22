@@ -32,6 +32,20 @@ Widget {
     }
 
     PushButton {
+      text: qsTr("Color Dialog::getColor")
+      onClicked: {
+          console.log("Selected color: " + ColorDialog.getColor("#ff0000"))
+      }
+    }
+
+    PushButton {
+      text: qsTr("Color Dialog::getColor with title")
+      onClicked: {
+          console.log("Selected color: " + ColorDialog.getColor("#ff0000", 0, "Pick a color"))
+      }
+    }
+
+    PushButton {
       text: qsTr("File Dialog...")
       onClicked: {
         if (fileDialog.exec())
