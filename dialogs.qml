@@ -16,13 +16,40 @@ Widget {
     id: fontDialog
   }
 
-  InputDialog {
-    id: intInputDialog
-
-    labelText: qsTr("Percentage")
-  }
-
   VBoxLayout {
+    PushButton {
+      text: qsTr("InputDialog::getInt()")
+      onClicked: {
+        var value = InputDialog.getInt(0, qsTr("Integer Input"), qsTr("Percentage..."), 25)
+        console.log("InputDialog.getInt returned " + value)
+      }
+    }
+
+    PushButton {
+      text: qsTr("InputDialog::getDouble()")
+      onClicked: {
+        var value = InputDialog.getDouble(0, qsTr("Double Input"), qsTr("Amount:"), 37.56)
+        console.log("InputDialog.getDouble returned " + value)
+      }
+    }
+
+    PushButton {
+      text: qsTr("InputDialog::getItem()")
+      onClicked: {
+        var items = [ qsTr("Spring"), qsTr("Summer"), qsTr("Autem"), qsTr("Winter") ]
+        var item = InputDialog.getItem(0, qsTr("Item Selection"), qsTr("Season:"), items)
+        console.log("InputDialog.getItem returned " + item)
+      }
+    }
+
+    PushButton {
+      text: qsTr("InputDialog::getText()")
+      onClicked: {
+        var text = InputDialog.getText(0, qsTr("Text Input"), qsTr("User name:"))
+        console.log("InputDialog.getText returned " + text)
+      }
+    }
+
     PushButton {
       text: qsTr("Color Dialog...")
       onClicked: {
@@ -61,12 +88,5 @@ Widget {
       }
     }
 
-    PushButton {
-      text: qsTr("Input Dialog (Int)...")
-      onClicked: {
-        if (intInputDialog.exec())
-          console.log(intInputDialog.intValue + "%")
-      }
-    }
   }
 }
