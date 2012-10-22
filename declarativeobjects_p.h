@@ -442,13 +442,42 @@ class DeclarativeDialogButtonBox : public DeclarativeWidgetProxy<QDialogButtonBo
     DeclarativeDialogButtonBox(QObject *parent = 0);
 };
 
+class DeclarativeFileDialogAttached : public QObject
+{
+  Q_OBJECT
+
+  public:
+    DeclarativeFileDialogAttached(QObject *parent = 0);
+
+    Q_INVOKABLE QString getExistingDirectory(QObject *parent = 0, const QString &caption = QString(),
+                                             const QString &dir = QString(), int options = QFileDialog::ShowDirsOnly);
+
+    Q_INVOKABLE QString getOpenFileName(QObject *parent = 0, const QString &caption = QString(),
+                                        const QString &dir = QString(), const QString &filter = QString(),
+                                        int options = QFileDialog::ShowDirsOnly);
+
+    Q_INVOKABLE QStringList getOpenFileNames(QObject *parent = 0, const QString &caption = QString(),
+                                             const QString &dir = QString(), const QString &filter = QString(),
+                                             int options = QFileDialog::ShowDirsOnly);
+    Q_INVOKABLE QString getSaveFileName(QObject *parent = 0, const QString &caption = QString(),
+                                        const QString &dir = QString(), const QString &filter = QString(),
+                                        int options = QFileDialog::ShowDirsOnly);
+
+  private:
+    QWidget *bestParentWindow(QObject *parent) const;
+};
+
 class DeclarativeFileDialog : public DeclarativeWidgetProxy<FileDialog>
 {
   DECLARATIVE_OBJECT
 
   public:
     DeclarativeFileDialog(QObject *parent = 0);
+
+    static DeclarativeFileDialogAttached *qmlAttachedProperties(QObject *parent);
 };
+
+QML_DECLARE_TYPEINFO(DeclarativeFileDialog, QML_HAS_ATTACHED_PROPERTIES)
 
 class DeclarativeFontDialog : public DeclarativeWidgetProxy<QFontDialog>
 {

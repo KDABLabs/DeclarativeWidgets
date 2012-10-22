@@ -50,6 +50,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeColorDialog>("QtGui", 1, 0, "ColorDialog");
   qmlRegisterType<DeclarativeDialog>("QtGui", 1, 0, "Dialog");
   qmlRegisterType<DeclarativeDialogButtonBox>("QtGui", 1, 0, "DialogButtonBox");
+  qmlRegisterType<DeclarativeFileDialogAttached>();
   qmlRegisterType<DeclarativeFileDialog>("QtGui", 1, 0, "FileDialog");
   qmlRegisterType<DeclarativeFontDialog>("QtGui", 1, 0, "FontDialog");
   qmlRegisterType<DeclarativeInputDialog>("QtGui", 1, 0, "InputDialog");

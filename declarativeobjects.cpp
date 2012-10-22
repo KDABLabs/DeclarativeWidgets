@@ -703,9 +703,64 @@ DeclarativeDialogButtonBox::DeclarativeDialogButtonBox(QObject *parent) : Declar
 CUSTOM_METAOBJECT(DeclarativeDialogButtonBox, QDialogButtonBox)
 
 // DeclarativeFileDialog
+DeclarativeFileDialogAttached::DeclarativeFileDialogAttached(QObject *parent) : QObject(parent)
+{
+}
+
+QString DeclarativeFileDialogAttached::getExistingDirectory(QObject *parent, const QString &caption,
+                                                            const QString &dir, int options)
+{
+  return QFileDialog::getExistingDirectory(bestParentWindow(parent), caption, dir, static_cast<QFileDialog::Options>(options));
+}
+
+QString DeclarativeFileDialogAttached::getOpenFileName(QObject *parent, const QString &caption,
+                                                       const QString &dir, const QString &filter, int options)
+{
+  return QFileDialog::getOpenFileName(bestParentWindow(parent), caption, dir, filter, 0, static_cast<QFileDialog::Options>(options));
+}
+
+QStringList DeclarativeFileDialogAttached::getOpenFileNames(QObject *parent, const QString &caption,
+                                                            const QString &dir, const QString &filter, int options)
+{
+  return QFileDialog::getOpenFileNames(bestParentWindow(parent), caption, dir, filter, 0, static_cast<QFileDialog::Options>(options));
+
+}
+
+QString DeclarativeFileDialogAttached::getSaveFileName(QObject *parent, const QString &caption,
+                                                       const QString &dir, const QString &filter, int options)
+{
+  return QFileDialog::getSaveFileName(bestParentWindow(parent), caption, dir, filter, 0, static_cast<QFileDialog::Options>(options));
+}
+
+QWidget *DeclarativeFileDialogAttached::bestParentWindow(QObject *parent) const
+{
+  if (!parent)
+    parent = this->parent();
+
+  // if parent is a Declarative Object, search the proxied hierarchy
+  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(parent);
+  if (declarativeObject)
+    parent = declarativeObject->object();
+
+  while (parent) {
+    QWidget *widget = qobject_cast<QWidget*>(parent);
+    if (widget)
+      return widget->topLevelWidget();
+
+    parent = parent->parent();
+  }
+
+  return 0;
+}
+
 DeclarativeFileDialog::DeclarativeFileDialog(QObject *parent) : DeclarativeWidgetProxy<FileDialog>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
+}
+
+DeclarativeFileDialogAttached *DeclarativeFileDialog::qmlAttachedProperties(QObject *parent)
+{
+  return new DeclarativeFileDialogAttached(parent);
 }
 
 CUSTOM_METAOBJECT(DeclarativeFileDialog, FileDialog)
