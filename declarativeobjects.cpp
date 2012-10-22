@@ -774,9 +774,63 @@ DeclarativeFontDialog::DeclarativeFontDialog(QObject *parent) : DeclarativeWidge
 CUSTOM_METAOBJECT(DeclarativeFontDialog, QFontDialog)
 
 // DeclarativeInputDialog
+DeclarativeInputDialogAttached::DeclarativeInputDialogAttached(QObject *parent) : QObject(parent)
+{
+}
+
+double DeclarativeInputDialogAttached::getDouble(QObject *parent, const QString &title, const QString &label,
+                                                 double value, double min, double max, int decimals)
+{
+  return QInputDialog::getDouble(bestParentWindow(parent), title, label, value, min, max, decimals);
+}
+
+int DeclarativeInputDialogAttached::getInt(QObject *parent, const QString &title, const QString &label,
+                                           int value, int min, int max, int step)
+{
+  return QInputDialog::getInt(bestParentWindow(parent), title, label, value, min, max, step);
+}
+
+QString DeclarativeInputDialogAttached::getItem(QObject *parent, const QString &title, const QString &label,
+                                                const QStringList &items, int current, bool editable)
+{
+  return QInputDialog::getItem(bestParentWindow(parent), title, label, items, current, editable);
+}
+
+QString DeclarativeInputDialogAttached::getText(QObject *parent, const QString &title, const QString &label,
+                                                int echoMode, const QString &text)
+{
+  return QInputDialog::getText(bestParentWindow(parent), title, label, static_cast<QLineEdit::EchoMode>(echoMode), text);
+}
+
+QWidget *DeclarativeInputDialogAttached::bestParentWindow(QObject *parent) const
+{
+  if (!parent)
+    parent = this->parent();
+
+  // if parent is a Declarative Object, search the proxied hierarchy
+  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(parent);
+  if (declarativeObject)
+    parent = declarativeObject->object();
+
+  while (parent) {
+    QWidget *widget = qobject_cast<QWidget*>(parent);
+    if (widget)
+      return widget->topLevelWidget();
+
+    parent = parent->parent();
+  }
+
+  return 0;
+}
+
 DeclarativeInputDialog::DeclarativeInputDialog(QObject *parent) : DeclarativeWidgetProxy<InputDialog>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
+}
+
+DeclarativeInputDialogAttached *DeclarativeInputDialog::qmlAttachedProperties(QObject *parent)
+{
+  return new DeclarativeInputDialogAttached(parent);
 }
 
 CUSTOM_METAOBJECT(DeclarativeInputDialog, InputDialog)

@@ -487,13 +487,40 @@ class DeclarativeFontDialog : public DeclarativeWidgetProxy<QFontDialog>
     DeclarativeFontDialog(QObject *parent = 0);
 };
 
+class DeclarativeInputDialogAttached : public QObject
+{
+  Q_OBJECT
+
+  public:
+    DeclarativeInputDialogAttached(QObject *parent = 0);
+
+    Q_INVOKABLE double getDouble(QObject *parent, const QString &title, const QString &label,
+                                 double value = 0, double min = -2147483647, double max = 2147483647, int decimals = 1);
+
+    Q_INVOKABLE int getInt(QObject *parent, const QString &title, const QString &label,
+                           int value = 0, int min = -2147483647, int max = 2147483647, int step = 1);
+
+    Q_INVOKABLE QString getItem(QObject *parent, const QString &title, const QString &label,
+                                const QStringList &items, int current = 0, bool editable = true);
+
+    Q_INVOKABLE QString getText(QObject *parent, const QString &title, const QString &label,
+                                int echoMode = QLineEdit::Normal, const QString &text = QString());
+
+  private:
+    QWidget *bestParentWindow(QObject *parent) const;
+};
+
 class DeclarativeInputDialog : public DeclarativeWidgetProxy<InputDialog>
 {
   DECLARATIVE_OBJECT
 
   public:
     DeclarativeInputDialog(QObject *parent = 0);
+
+    static DeclarativeInputDialogAttached *qmlAttachedProperties(QObject *parent);
 };
+
+QML_DECLARE_TYPEINFO(DeclarativeInputDialog, QML_HAS_ATTACHED_PROPERTIES)
 
 class DeclarativeLabel : public DeclarativeWidgetProxy<QLabel>
 {
