@@ -703,33 +703,117 @@ DeclarativeDialogButtonBox::DeclarativeDialogButtonBox(QObject *parent) : Declar
 CUSTOM_METAOBJECT(DeclarativeDialogButtonBox, QDialogButtonBox)
 
 // DeclarativeFileDialog
-DeclarativeFileDialogAttached::DeclarativeFileDialogAttached(QObject *parent) : QObject(parent)
+class DeclarativeFileDialogAttached::Private
+{
+  public:
+    QPointer<QObject> dialogParent;
+    QString caption;
+    QString dir;
+    QStringList nameFilters;
+    QString selectedFilter;
+};
+
+DeclarativeFileDialogAttached::DeclarativeFileDialogAttached(QObject *parent)
+  : QObject(parent), d(new Private)
 {
 }
 
-QString DeclarativeFileDialogAttached::getExistingDirectory(QObject *parent, const QString &caption,
-                                                            const QString &dir, int options)
+DeclarativeFileDialogAttached::~DeclarativeFileDialogAttached()
 {
-  return QFileDialog::getExistingDirectory(bestParentWindow(parent), caption, dir, static_cast<QFileDialog::Options>(options));
+  delete d;
 }
 
-QString DeclarativeFileDialogAttached::getOpenFileName(QObject *parent, const QString &caption,
-                                                       const QString &dir, const QString &filter, int options)
+void DeclarativeFileDialogAttached::setDialogParent(QObject *parent)
 {
-  return QFileDialog::getOpenFileName(bestParentWindow(parent), caption, dir, filter, 0, static_cast<QFileDialog::Options>(options));
+  if (parent == d->dialogParent)
+    return;
+
+  d->dialogParent = parent;
+  emit dialogParentChanged(parent);
 }
 
-QStringList DeclarativeFileDialogAttached::getOpenFileNames(QObject *parent, const QString &caption,
-                                                            const QString &dir, const QString &filter, int options)
+QObject *DeclarativeFileDialogAttached::dialogParent() const
 {
-  return QFileDialog::getOpenFileNames(bestParentWindow(parent), caption, dir, filter, 0, static_cast<QFileDialog::Options>(options));
-
+  return d->dialogParent;
 }
 
-QString DeclarativeFileDialogAttached::getSaveFileName(QObject *parent, const QString &caption,
-                                                       const QString &dir, const QString &filter, int options)
+void DeclarativeFileDialogAttached::setCaption(const QString &caption)
 {
-  return QFileDialog::getSaveFileName(bestParentWindow(parent), caption, dir, filter, 0, static_cast<QFileDialog::Options>(options));
+  if (caption == d->caption)
+    return;
+
+  d->caption = caption;
+  emit captionChanged(caption);
+}
+
+QString DeclarativeFileDialogAttached::caption() const
+{
+  return d->caption;
+}
+
+void DeclarativeFileDialogAttached::setDir(const QString &dir)
+{
+  if (dir == d->dir)
+    return;
+
+  d->dir = dir;
+  emit dirChanged(dir);
+}
+
+QString DeclarativeFileDialogAttached::dir() const
+{
+  return d->dir;
+}
+
+void DeclarativeFileDialogAttached::setNameFilters(const QStringList &nameFilters)
+{
+  if (nameFilters == d->nameFilters)
+    return;
+
+  d->nameFilters = nameFilters;
+  emit nameFiltersChanged(nameFilters);
+}
+
+QStringList DeclarativeFileDialogAttached::nameFilters() const
+{
+  return d->nameFilters;
+}
+
+QString DeclarativeFileDialogAttached::selectedFilter() const
+{
+  return d->selectedFilter;
+}
+
+QString DeclarativeFileDialogAttached::getExistingDirectory()
+{
+  return QFileDialog::getExistingDirectory(bestParentWindow(d->dialogParent), d->caption, d->dir, QFileDialog::ShowDirsOnly);
+}
+
+QString DeclarativeFileDialogAttached::getOpenFileName()
+{
+  QString selectedFilter;
+  const QString retVal = QFileDialog::getOpenFileName(bestParentWindow(d->dialogParent), d->caption, d->dir,
+                                                      d->nameFilters.join(";;"), &selectedFilter, 0);
+  setSelectedFilter(selectedFilter);
+  return retVal;
+}
+
+QStringList DeclarativeFileDialogAttached::getOpenFileNames()
+{
+  QString selectedFilter;
+  const QStringList retVal = QFileDialog::getOpenFileNames(bestParentWindow(d->dialogParent), d->caption, d->dir,
+                                                           d->nameFilters.join(";;"), &selectedFilter, 0);
+  setSelectedFilter(selectedFilter);
+  return retVal;
+}
+
+QString DeclarativeFileDialogAttached::getSaveFileName()
+{
+  QString selectedFilter;
+  const QString retVal = QFileDialog::getSaveFileName(bestParentWindow(d->dialogParent), d->caption, d->dir,
+                                                      d->nameFilters.join(";;"), &selectedFilter, 0);
+  setSelectedFilter(selectedFilter);
+  return retVal;
 }
 
 QWidget *DeclarativeFileDialogAttached::bestParentWindow(QObject *parent) const
@@ -751,6 +835,15 @@ QWidget *DeclarativeFileDialogAttached::bestParentWindow(QObject *parent) const
   }
 
   return 0;
+}
+
+void DeclarativeFileDialogAttached::setSelectedFilter(const QString &filter)
+{
+  if (filter == d->selectedFilter)
+    return;
+
+  d->selectedFilter = filter;
+  emit selectedFilterChanged(filter);
 }
 
 DeclarativeFileDialog::DeclarativeFileDialog(QObject *parent) : DeclarativeWidgetProxy<FileDialog>(parent)

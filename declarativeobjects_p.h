@@ -445,26 +445,52 @@ class DeclarativeDialogButtonBox : public DeclarativeWidgetProxy<QDialogButtonBo
 class DeclarativeFileDialogAttached : public QObject
 {
   Q_OBJECT
+  Q_PROPERTY(QObject* parent READ dialogParent WRITE setDialogParent NOTIFY dialogParentChanged)
+  Q_PROPERTY(QString caption READ caption WRITE setCaption NOTIFY captionChanged)
+  Q_PROPERTY(QString dir READ dir WRITE setDir NOTIFY dirChanged)
+  Q_PROPERTY(QStringList nameFilters READ nameFilters WRITE setNameFilters NOTIFY nameFiltersChanged)
+  // TODO dialog option
+  Q_PROPERTY(QString selectedFilter READ selectedFilter NOTIFY selectedFilterChanged)
 
   public:
     DeclarativeFileDialogAttached(QObject *parent = 0);
+    ~DeclarativeFileDialogAttached();
 
-    Q_INVOKABLE QString getExistingDirectory(QObject *parent = 0, const QString &caption = QString(),
-                                             const QString &dir = QString(), int options = QFileDialog::ShowDirsOnly);
+    void setDialogParent(QObject *parent);
+    QObject *dialogParent() const;
 
-    Q_INVOKABLE QString getOpenFileName(QObject *parent = 0, const QString &caption = QString(),
-                                        const QString &dir = QString(), const QString &filter = QString(),
-                                        int options = QFileDialog::ShowDirsOnly);
+    void setCaption(const QString &caption);
+    QString caption() const;
 
-    Q_INVOKABLE QStringList getOpenFileNames(QObject *parent = 0, const QString &caption = QString(),
-                                             const QString &dir = QString(), const QString &filter = QString(),
-                                             int options = QFileDialog::ShowDirsOnly);
-    Q_INVOKABLE QString getSaveFileName(QObject *parent = 0, const QString &caption = QString(),
-                                        const QString &dir = QString(), const QString &filter = QString(),
-                                        int options = QFileDialog::ShowDirsOnly);
+    void setDir(const QString &dir);
+    QString dir() const;
+
+    void setNameFilters(const QStringList &nameFilters);
+    QStringList nameFilters() const;
+
+    QString selectedFilter() const;
+
+    Q_INVOKABLE QString getExistingDirectory();
+
+    Q_INVOKABLE QString getOpenFileName();
+
+    Q_INVOKABLE QStringList getOpenFileNames();
+
+    Q_INVOKABLE QString getSaveFileName();
+
+  Q_SIGNALS:
+    void dialogParentChanged(QObject *parent);
+    void captionChanged(const QString &caption);
+    void dirChanged(const QString &dir);
+    void nameFiltersChanged(const QStringList &filters);
+    void selectedFilterChanged(const QString &filter);
 
   private:
     QWidget *bestParentWindow(QObject *parent) const;
+    void setSelectedFilter(const QString &filter);
+
+    class Private;
+    Private *const d;
 };
 
 class DeclarativeFileDialog : public DeclarativeWidgetProxy<FileDialog>
