@@ -882,6 +882,14 @@ DeclarativeFrame::DeclarativeFrame(QObject *parent) : DeclarativeWidgetProxy<QFr
 
 CUSTOM_METAOBJECT(DeclarativeFrame, QFrame)
 
+// DeclarativeGroupBox
+DeclarativeGroupBox::DeclarativeGroupBox(QObject *parent) : DeclarativeWidgetProxy<QGroupBox>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeGroupBox, QGroupBox)
+
 // DeclarativeInputDialog
 DeclarativeInputDialogAttached::DeclarativeInputDialogAttached(QObject *parent) : QObject(parent)
 {

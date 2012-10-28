@@ -13,5 +13,10 @@ Widget {
       minimumWidth: 100
       minimumHeight: 100
     }
+    GroupBox {
+      title: qsTr("Hello World")
+      minimumWidth: 100
+      minimumHeight: 100
+    }
   }
 }

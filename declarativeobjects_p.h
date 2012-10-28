@@ -13,6 +13,7 @@
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QFontDialog>
 #include <QtGui/QFormLayout>
+#include <QtGui/QGroupBox>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
@@ -539,6 +540,14 @@ class DeclarativeFrame : public DeclarativeWidgetProxy<QFrame>
 
   public:
     DeclarativeFrame(QObject *parent = 0);
+};
+
+class DeclarativeGroupBox : public DeclarativeWidgetProxy<QGroupBox>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeGroupBox(QObject *parent = 0);
 };
 
 class DeclarativeInputDialogAttached : public QObject

@@ -18,7 +18,6 @@ qfocusframe.h
 qfontcombobox.h
 qgraphicsview.h
 qgraphicswidget.h
-qgroupbox.h
 qheaderview.h
 qlcdnumber.h
 qlistview.h

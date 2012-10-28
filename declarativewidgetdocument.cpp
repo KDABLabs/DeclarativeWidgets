@@ -55,6 +55,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeFileDialog>("QtGui", 1, 0, "FileDialog");
   qmlRegisterType<DeclarativeFontDialog>("QtGui", 1, 0, "FontDialog");
   qmlRegisterType<DeclarativeFrame>("QtGui", 1, 0, "Frame");
+  qmlRegisterType<DeclarativeGroupBox>("QtGui", 1, 0, "GroupBox");
   qmlRegisterType<DeclarativeInputDialogAttached>();
   qmlRegisterType<DeclarativeInputDialog>("QtGui", 1, 0, "InputDialog");
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
