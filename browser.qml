@@ -18,6 +18,8 @@ Widget {
 
       LineEdit {
         id: urlInput
+
+        onEditingFinished: webView.url = urlInput.text
       }
 
       PushButton {

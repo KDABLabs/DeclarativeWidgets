@@ -25,6 +25,7 @@ QT += declarative webkit
 
 OTHER_FILES += \
     animation.qml \
+    browser.qml \
     dialogs.qml \
     editor.qml \
     gallery.qml \
