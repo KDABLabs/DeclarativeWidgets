@@ -75,6 +75,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeTextBrowser>("QtGui", 1, 0, "TextBrowser");
   qmlRegisterType<DeclarativeTextEdit>("QtGui", 1, 0, "TextEdit");
   qmlRegisterType<DeclarativeToolBar>("QtGui", 1, 0, "ToolBar");
+  qmlRegisterType<DeclarativeWebView>("QtGui", 1, 0, "WebView");
   qmlRegisterType<DeclarativeWidget>("QtGui", 1, 0, "Widget");
 
   d->m_component->loadUrl(d->m_url);

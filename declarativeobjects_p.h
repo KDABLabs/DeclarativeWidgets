@@ -29,6 +29,7 @@
 #include <QtGui/QTextBrowser>
 #include <QtGui/QToolBar>
 #include <QtGui/QVBoxLayout>
+#include <QtWebKit/QWebView>
 #include <QtDeclarative/QDeclarativeListProperty>
 #include <QtDeclarative/qdeclarativeinfo.h>
 #include <qdeclarative.h>
@@ -807,6 +808,14 @@ class DeclarativeToolBar : public DeclarativeWidgetProxy<QToolBar>
     virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
     virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
     virtual void addAction(QAction *action, AbstractDeclarativeObject *declarativeObject);
+};
+
+class DeclarativeWebView : public DeclarativeWidgetProxy<QWebView>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeWebView(QObject *parent = 0);
 };
 
 class DeclarativeWidget : public DeclarativeWidgetProxy<QWidget>

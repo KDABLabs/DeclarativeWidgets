@@ -21,7 +21,7 @@ SOURCES += \
     objectadaptors.cpp \
     qmetaobjectbuilder.cpp
 
-QT += declarative
+QT += declarative webkit
 
 OTHER_FILES += \
     animation.qml \
