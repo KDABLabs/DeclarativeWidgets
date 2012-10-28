@@ -4,5 +4,8 @@ Widget {
   VBoxLayout
   {
     CalendarWidget {}
+    LineEdit {
+      onTextChanged: console.log("Types: " + text)
+    }
   }
 }

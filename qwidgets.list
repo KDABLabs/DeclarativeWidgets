@@ -22,7 +22,6 @@ qgraphicswidget.h
 qgroupbox.h
 qheaderview.h
 qlcdnumber.h
-qlineedit.h
 qlistview.h
 qlistwidget.h
 qmdiarea.h

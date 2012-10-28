@@ -15,6 +15,7 @@
 #include <QtGui/QFormLayout>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
+#include <QtGui/QLineEdit>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
@@ -573,6 +574,14 @@ class DeclarativeLabel : public DeclarativeWidgetProxy<QLabel>
 
   public:
     DeclarativeLabel(QObject *parent = 0);
+};
+
+class DeclarativeLineEdit : public DeclarativeWidgetProxy<QLineEdit>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeLineEdit(QObject *parent = 0);
 };
 
 class DeclarativeMainWindow : public DeclarativeWidgetProxy<QMainWindow>

@@ -944,6 +944,14 @@ DeclarativeLabel::DeclarativeLabel(QObject *parent) : DeclarativeWidgetProxy<QLa
 
 CUSTOM_METAOBJECT(DeclarativeLabel, QLabel)
 
+// DeclarativeLineEdit
+DeclarativeLineEdit::DeclarativeLineEdit(QObject *parent) : DeclarativeWidgetProxy<QLineEdit>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeLineEdit, QLineEdit)
+
 // DeclarativeMainWindow
 DeclarativeMainWindow::DeclarativeMainWindow(QObject *parent) : DeclarativeWidgetProxy<QMainWindow>(parent)
 {
