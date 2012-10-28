@@ -69,6 +69,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeMessageBox>("QtGui", 1, 0, "MessageBox");
   qmlRegisterType<DeclarativePlainTextEdit>("QtGui", 1, 0, "PlainTextEdit");
   qmlRegisterType<DeclarativePushButton>("QtGui", 1, 0, "PushButton");
+  qmlRegisterType<DeclarativeRadioButton>("QtGui", 1, 0, "RadioButton");
   qmlRegisterType<DeclarativeSlider>("QtGui", 1, 0, "Slider");
   qmlRegisterType<DeclarativeStatusBarAttached>();
   qmlRegisterType<DeclarativeStatusBar>("QtGui", 1, 0, "StatusBar");

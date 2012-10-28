@@ -26,7 +26,6 @@ qmdisubwindow.h
 qmessagebox.h
 qprintpreviewwidget.h
 qprogressbar.h
-qradiobutton.h
 qscrollarea.h
 qscrollbar.h
 qspinbox.h
@@ -37,7 +36,6 @@ qstackedwidget.h
 qtabbar.h
 qtableview.h
 qtablewidget.h
-qtabwidget.h
 qtoolbox.h
 qtreeview.h
 qtreewidget.h

@@ -1193,6 +1193,14 @@ DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeWidge
 
 CUSTOM_METAOBJECT(DeclarativePushButton, QPushButton)
 
+// DeclarativeRadioButton
+DeclarativeRadioButton::DeclarativeRadioButton(QObject *parent) : DeclarativeWidgetProxy<QRadioButton>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeRadioButton, QRadioButton)
+
 // DeclarativeSlider
 DeclarativeSlider::DeclarativeSlider(QObject *parent) : DeclarativeWidgetProxy<QSlider>(parent)
 {

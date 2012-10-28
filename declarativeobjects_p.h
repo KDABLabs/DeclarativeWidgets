@@ -24,6 +24,7 @@
 #include <QtGui/QMessageBox>
 #include <QtGui/QPlainTextEdit>
 #include <QtGui/QPushButton>
+#include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTabWidget>
@@ -708,6 +709,14 @@ class DeclarativePushButton : public DeclarativeWidgetProxy<QPushButton>
 
   public:
     DeclarativePushButton(QObject *parent = 0);
+};
+
+class DeclarativeRadioButton : public DeclarativeWidgetProxy<QRadioButton>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeRadioButton(QObject *parent = 0);
 };
 
 class DeclarativeSlider : public DeclarativeWidgetProxy<QSlider>
