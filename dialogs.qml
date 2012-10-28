@@ -20,33 +20,83 @@ Widget {
     PushButton {
       text: qsTr("InputDialog::getInt()")
       onClicked: {
-        var value = InputDialog.getInt(0, qsTr("Integer Input"), qsTr("Percentage..."), 25)
+        var value = InputDialog.getInt()
         console.log("InputDialog.getInt returned " + value)
+      }
+    }
+
+    PushButton {
+      text: qsTr("InputDialog::getInt() with options")
+      onClicked: {
+        InputDialog.title = qsTr("Integer Input")
+        InputDialog.label = qsTr("Percentage...")
+        InputDialog.value = 25
+        InputDialog.min = 0
+        InputDialog.max = 100
+        InputDialog.step = 10
+        var value = InputDialog.getInt()
+        console.log("InputDialog.getInt " + (InputDialog.ok ? "returned " + value : "was cancelled"))
       }
     }
 
     PushButton {
       text: qsTr("InputDialog::getDouble()")
       onClicked: {
-        var value = InputDialog.getDouble(0, qsTr("Double Input"), qsTr("Amount:"), 37.56)
+        var value = InputDialog.getDouble()
         console.log("InputDialog.getDouble returned " + value)
+      }
+    }
+
+    PushButton {
+      text: qsTr("InputDialog::getDouble() with options")
+      onClicked: {
+        InputDialog.title = qsTr("Double Input")
+        InputDialog.label = qsTr("Amount:")
+        InputDialog.value = 37.56
+        InputDialog.decimals = 2
+        var value = InputDialog.getDouble()
+        console.log("InputDialog.getDouble " + (InputDialog.ok ? "returned " + value : "was cancelled"))
       }
     }
 
     PushButton {
       text: qsTr("InputDialog::getItem()")
       onClicked: {
-        var items = [ qsTr("Spring"), qsTr("Summer"), qsTr("Autem"), qsTr("Winter") ]
-        var item = InputDialog.getItem(0, qsTr("Item Selection"), qsTr("Season:"), items)
+        var items = [ qsTr("Spring"), qsTr("Summer"), qsTr("Autumn"), qsTr("Winter") ]
+        var item = InputDialog.getItem(items)
         console.log("InputDialog.getItem returned " + item)
+      }
+    }
+
+    PushButton {
+      text: qsTr("InputDialog::getItem() with options")
+      onClicked: {
+         InputDialog.title = qsTr("Item Selection")
+        InputDialog.label = qsTr("Season:")
+        InputDialog.current = 2
+        var items = [ qsTr("Spring"), qsTr("Summer"), qsTr("Autumn"), qsTr("Winter") ]
+        var item = InputDialog.getItem(items)
+        console.log("InputDialog.getItem " + (InputDialog.ok ? "returned " + item : "was cancelled"))
       }
     }
 
     PushButton {
       text: qsTr("InputDialog::getText()")
       onClicked: {
-        var text = InputDialog.getText(0, qsTr("Text Input"), qsTr("User name:"))
+        var text = InputDialog.getText()
         console.log("InputDialog.getText returned " + text)
+      }
+    }
+
+    PushButton {
+      text: qsTr("InputDialog::getText() with options")
+      onClicked: {
+        InputDialog.title = qsTr("Text Input")
+        InputDialog.label = qsTr("Password:")
+        InputDialog.echoMode = LineEdit.Password
+        InputDialog.text = "secret"
+        var text = InputDialog.getText()
+        console.log("InputDialog.getText " + (InputDialog.ok ? "returned " + text : "was cancelled"))
       }
     }
 

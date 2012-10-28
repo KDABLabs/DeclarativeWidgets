@@ -628,24 +628,97 @@ class DeclarativeGroupBox : public DeclarativeWidgetProxy<QGroupBox>
 class DeclarativeInputDialogAttached : public QObject
 {
   Q_OBJECT
+  Q_PROPERTY(QObject* parent READ dialogParent WRITE setDialogParent NOTIFY dialogParentChanged)
+  Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
+  Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
+  Q_PROPERTY(bool ok READ dialogAccepted NOTIFY dialogAcceptedChanged)
+
+  Q_PROPERTY(QVariant value READ value WRITE setValue NOTIFY valueChanged)
+  Q_PROPERTY(QVariant min READ min WRITE setMin NOTIFY minChanged)
+  Q_PROPERTY(QVariant max READ max WRITE setMax NOTIFY maxChanged)
+  Q_PROPERTY(int decimals READ decimals WRITE setDecimals NOTIFY decimalsChanged)
+  Q_PROPERTY(int step READ step WRITE setStep NOTIFY stepChanged)
+
+  Q_PROPERTY(int current READ currentItem WRITE setCurrentItem NOTIFY currentItemChanged)
+  Q_PROPERTY(bool editable READ itemsEditable WRITE setItemsEditable NOTIFY itemsEditableChanged)
+
+  Q_PROPERTY(QLineEdit::EchoMode echoMode READ echoMode WRITE setEchoMode NOTIFY echoModeChanged)
+  Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 
   public:
     DeclarativeInputDialogAttached(QObject *parent = 0);
+    ~DeclarativeInputDialogAttached();
 
-    Q_INVOKABLE double getDouble(QObject *parent, const QString &title, const QString &label,
-                                 double value = 0, double min = -2147483647, double max = 2147483647, int decimals = 1);
+    void setDialogParent(QObject *parent);
+    QObject *dialogParent() const;
 
-    Q_INVOKABLE int getInt(QObject *parent, const QString &title, const QString &label,
-                           int value = 0, int min = -2147483647, int max = 2147483647, int step = 1);
+    void setTitle(const QString &title);
+    QString title() const;
 
-    Q_INVOKABLE QString getItem(QObject *parent, const QString &title, const QString &label,
-                                const QStringList &items, int current = 0, bool editable = true);
+    void setLabel(const QString &label);
+    QString label() const;
 
-    Q_INVOKABLE QString getText(QObject *parent, const QString &title, const QString &label,
-                                int echoMode = QLineEdit::Normal, const QString &text = QString());
+    bool dialogAccepted() const;
+
+    void setValue(const QVariant &value);
+    QVariant value() const;
+
+    void setMin(const QVariant &min);
+    QVariant min() const;
+
+    void setMax(const QVariant &max);
+    QVariant max() const;
+
+    void setDecimals(int decimals);
+    int decimals() const;
+
+    void setStep(int step);
+    int step() const;
+
+    void setCurrentItem(int current);
+    int currentItem() const;
+
+    void setItemsEditable(bool editable);
+    bool itemsEditable() const;
+
+    void setEchoMode(QLineEdit::EchoMode echoMode);
+    QLineEdit::EchoMode echoMode() const;
+
+    void setText(const QString &text);
+    QString text() const;
+
+    Q_INVOKABLE double getDouble();
+
+    Q_INVOKABLE int getInt();
+
+    Q_INVOKABLE QString getItem(const QStringList &items);
+
+    Q_INVOKABLE QString getText();
+
+  Q_SIGNALS:
+    void dialogParentChanged(QObject *parent);
+    void titleChanged(const QString &title);
+    void labelChanged(const QString &label);
+    void dialogAcceptedChanged(bool accepted);
+
+    void valueChanged(const QVariant &value);
+    void minChanged(const QVariant &min);
+    void maxChanged(const QVariant &max);
+    void decimalsChanged(int decimals);
+    void stepChanged(int step);
+
+    void currentItemChanged(int current);
+    void itemsEditableChanged(bool editable);
+
+    void echoModeChanged(QLineEdit::EchoMode echoMode);
+    void textChanged(const QString &text);
 
   private:
+    void setDialogAccepted(bool accepted);
     QWidget *bestParentWindow(QObject *parent) const;
+
+    class Private;
+    Private *const d;
 };
 
 class DeclarativeInputDialog : public DeclarativeWidgetProxy<InputDialog>
