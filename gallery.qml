@@ -12,6 +12,10 @@ TabWidget {
         text: qsTr("PushButton")
       }
 
+      ToolButton {
+        text: qsTr("ToolButton")
+      }
+
       CheckBox {
         text: qsTr("CheckBox")
       }

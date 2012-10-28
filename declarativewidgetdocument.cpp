@@ -78,6 +78,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeTextEdit>("QtGui", 1, 0, "TextEdit");
   qmlRegisterType<DeclarativeTimeEdit>("QtGui", 1, 0, "TimeEdit");
   qmlRegisterType<DeclarativeToolBar>("QtGui", 1, 0, "ToolBar");
+  qmlRegisterType<DeclarativeToolButton>("QtGui", 1, 0, "ToolButton");
   qmlRegisterType<DeclarativeWebView>("QtGui", 1, 0, "WebView");
   qmlRegisterType<DeclarativeWidget>("QtGui", 1, 0, "Widget");
 

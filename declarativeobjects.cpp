@@ -1409,6 +1409,14 @@ void DeclarativeToolBar::addAction(QAction *action, AbstractDeclarativeObject *d
 
 CUSTOM_METAOBJECT(DeclarativeToolBar, QToolBar)
 
+// DeclarativeToolButton
+DeclarativeToolButton::DeclarativeToolButton(QObject *parent) : DeclarativeWidgetProxy<QToolButton>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeToolButton, QToolButton)
+
 // DeclarativeWebView
 DeclarativeWebView::DeclarativeWebView(QObject *parent) : DeclarativeWidgetProxy<QWebView>(parent)
 {

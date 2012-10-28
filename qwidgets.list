@@ -39,7 +39,6 @@ qtableview.h
 qtablewidget.h
 qtabwidget.h
 qtoolbox.h
-qtoolbutton.h
 qtreeview.h
 qtreewidget.h
 qundoview.h
