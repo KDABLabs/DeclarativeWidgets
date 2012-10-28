@@ -117,6 +117,13 @@ TabWidget {
 
       CalendarWidget {}
 
+      ProgressBar {
+        minimum: 0
+        maximum: 100
+        value: 42
+        textVisible: true
+      }
+
       WebView {
         url: "http://www.kdab.com"
       }

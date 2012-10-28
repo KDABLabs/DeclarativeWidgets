@@ -1209,6 +1209,14 @@ DeclarativePlainTextEdit::DeclarativePlainTextEdit(QObject *parent) : Declarativ
 
 CUSTOM_METAOBJECT(DeclarativePlainTextEdit, QPlainTextEdit)
 
+// DeclarativeProgressBar
+DeclarativeProgressBar::DeclarativeProgressBar(QObject *parent) : DeclarativeWidgetProxy<QProgressBar>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeProgressBar, QProgressBar)
+
 // DeclarativePushButton
 DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeWidgetProxy<QPushButton>(parent)
 {

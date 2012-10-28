@@ -25,6 +25,7 @@
 #include <QtGui/QMenuBar>
 #include <QtGui/QMessageBox>
 #include <QtGui/QPlainTextEdit>
+#include <QtGui/QProgressBar>
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QScrollBar>
@@ -729,6 +730,14 @@ class DeclarativePlainTextEdit : public DeclarativeWidgetProxy<QPlainTextEdit>
 
   public:
     DeclarativePlainTextEdit(QObject *parent = 0);
+};
+
+class DeclarativeProgressBar : public DeclarativeWidgetProxy<QProgressBar>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeProgressBar(QObject *parent = 0);
 };
 
 class DeclarativePushButton : public DeclarativeWidgetProxy<QPushButton>
