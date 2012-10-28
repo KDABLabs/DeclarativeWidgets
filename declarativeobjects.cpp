@@ -734,6 +734,14 @@ DeclarativeDialogButtonBox::DeclarativeDialogButtonBox(QObject *parent) : Declar
 
 CUSTOM_METAOBJECT(DeclarativeDialogButtonBox, QDialogButtonBox)
 
+// DeclarativeDoubleSpinBox
+DeclarativeDoubleSpinBox::DeclarativeDoubleSpinBox(QObject *parent) : DeclarativeWidgetProxy<QDoubleSpinBox>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeDoubleSpinBox, QDoubleSpinBox)
+
 // DeclarativeFileDialog
 class DeclarativeFileDialogAttached::Private
 {
@@ -1216,6 +1224,14 @@ DeclarativeSlider::DeclarativeSlider(QObject *parent) : DeclarativeWidgetProxy<Q
 }
 
 CUSTOM_METAOBJECT(DeclarativeSlider, QSlider)
+
+// DeclarativeSpinBox
+DeclarativeSpinBox::DeclarativeSpinBox(QObject *parent) : DeclarativeWidgetProxy<QSpinBox>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeSpinBox, QSpinBox)
 
 // DeclarativeStatusBar
 class DeclarativeStatusBarAttached::Private

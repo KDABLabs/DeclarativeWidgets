@@ -74,6 +74,10 @@ TabWidget {
         plainText: qsTr("PlainTextEdit")
       }
 
+      SpinBox {}
+
+      DoubleSpinBox {}
+
       TimeEdit {}
 
       DateEdit {}

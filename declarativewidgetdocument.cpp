@@ -54,6 +54,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeDateTimeEdit>("QtGui", 1, 0, "DateTimeEdit");
   qmlRegisterType<DeclarativeDialog>("QtGui", 1, 0, "Dialog");
   qmlRegisterType<DeclarativeDialogButtonBox>("QtGui", 1, 0, "DialogButtonBox");
+  qmlRegisterType<DeclarativeDoubleSpinBox>("QtGui", 1, 0, "DoubleSpinBox");
   qmlRegisterType<DeclarativeFileDialogAttached>();
   qmlRegisterType<DeclarativeFileDialog>("QtGui", 1, 0, "FileDialog");
   qmlRegisterType<DeclarativeFontDialog>("QtGui", 1, 0, "FontDialog");
@@ -72,6 +73,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativePushButton>("QtGui", 1, 0, "PushButton");
   qmlRegisterType<DeclarativeRadioButton>("QtGui", 1, 0, "RadioButton");
   qmlRegisterType<DeclarativeSlider>("QtGui", 1, 0, "Slider");
+  qmlRegisterType<DeclarativeSpinBox>("QtGui", 1, 0, "SpinBox");
   qmlRegisterType<DeclarativeStatusBarAttached>();
   qmlRegisterType<DeclarativeStatusBar>("QtGui", 1, 0, "StatusBar");
   qmlRegisterType<DeclarativeTabWidgetAttached>();

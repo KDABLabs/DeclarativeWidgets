@@ -27,6 +27,7 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
+#include <QtGui/QSpinBox>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTabWidget>
 #include <QtGui/QTextBrowser>
@@ -494,6 +495,14 @@ class DeclarativeDialogButtonBox : public DeclarativeWidgetProxy<QDialogButtonBo
     DeclarativeDialogButtonBox(QObject *parent = 0);
 };
 
+class DeclarativeDoubleSpinBox : public DeclarativeWidgetProxy<QDoubleSpinBox>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeDoubleSpinBox(QObject *parent = 0);
+};
+
 class DeclarativeFileDialogAttached : public QObject
 {
   Q_OBJECT
@@ -734,6 +743,14 @@ class DeclarativeSlider : public DeclarativeWidgetProxy<QSlider>
 
   public:
     DeclarativeSlider(QObject *parent = 0);
+};
+
+class DeclarativeSpinBox : public DeclarativeWidgetProxy<QSpinBox>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeSpinBox(QObject *parent = 0);
 };
 
 // attached property for DeclarativeStatusBar
