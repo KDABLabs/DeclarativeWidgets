@@ -11,6 +11,7 @@
 #include <QtGui/QColorDialog>
 #include <QtGui/QCommandLinkButton>
 #include <QtGui/QDateTimeEdit>
+#include <QtGui/QDial>
 #include <QtGui/QDialog>
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QFontDialog>
@@ -477,6 +478,14 @@ class DeclarativeDateTimeEdit : public DeclarativeWidgetProxy<QDateTimeEdit>
 
   public:
     DeclarativeDateTimeEdit(QObject *parent = 0);
+};
+
+class DeclarativeDial : public DeclarativeWidgetProxy<QDial>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeDial(QObject *parent = 0);
 };
 
 class DeclarativeDialog : public DeclarativeWidgetProxy<QDialog>

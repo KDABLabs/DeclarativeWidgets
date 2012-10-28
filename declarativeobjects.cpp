@@ -718,6 +718,14 @@ DeclarativeDateTimeEdit::DeclarativeDateTimeEdit(QObject *parent) : DeclarativeW
 
 CUSTOM_METAOBJECT(DeclarativeDateTimeEdit, QDateTimeEdit)
 
+// DeclarativeDial
+DeclarativeDial::DeclarativeDial(QObject *parent) : DeclarativeWidgetProxy<QDial>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeDial, QDial)
+
 // DeclarativeDialog
 DeclarativeDialog::DeclarativeDialog(QObject *parent) : DeclarativeWidgetProxy<QDialog>(parent)
 {

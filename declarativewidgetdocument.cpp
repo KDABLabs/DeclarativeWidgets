@@ -52,6 +52,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeCommandLinkButton>("QtGui", 1, 0, "CommandLinkButton");
   qmlRegisterType<DeclarativeDateEdit>("QtGui", 1, 0, "DateEdit");
   qmlRegisterType<DeclarativeDateTimeEdit>("QtGui", 1, 0, "DateTimeEdit");
+  qmlRegisterType<DeclarativeDial>("QtGui", 1, 0, "Dial");
   qmlRegisterType<DeclarativeDialog>("QtGui", 1, 0, "Dialog");
   qmlRegisterType<DeclarativeDialogButtonBox>("QtGui", 1, 0, "DialogButtonBox");
   qmlRegisterType<DeclarativeDoubleSpinBox>("QtGui", 1, 0, "DoubleSpinBox");
