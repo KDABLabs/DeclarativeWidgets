@@ -49,6 +49,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
   qmlRegisterType<DeclarativeColorDialogAttached>();
   qmlRegisterType<DeclarativeColorDialog>("QtGui", 1, 0, "ColorDialog");
+  qmlRegisterType<DeclarativeCommandLinkButton>("QtGui", 1, 0, "CommandLinkButton");
   qmlRegisterType<DeclarativeDateEdit>("QtGui", 1, 0, "DateEdit");
   qmlRegisterType<DeclarativeDateTimeEdit>("QtGui", 1, 0, "DateTimeEdit");
   qmlRegisterType<DeclarativeDialog>("QtGui", 1, 0, "Dialog");

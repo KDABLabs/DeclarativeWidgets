@@ -694,6 +694,14 @@ DeclarativeColorDialogAttached *DeclarativeColorDialog::qmlAttachedProperties(QO
 
 CUSTOM_METAOBJECT(DeclarativeColorDialog, QColorDialog)
 
+// DeclarativeCommandLinkButton
+DeclarativeCommandLinkButton::DeclarativeCommandLinkButton(QObject *parent) : DeclarativeWidgetProxy<QCommandLinkButton>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeCommandLinkButton, QCommandLinkButton)
+
 // DeclarativeDateEdit
 DeclarativeDateEdit::DeclarativeDateEdit(QObject *parent) : DeclarativeWidgetProxy<QDateEdit>(parent)
 {

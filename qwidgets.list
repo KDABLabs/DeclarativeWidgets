@@ -10,7 +10,6 @@ qprogressdialog.h
 // widgets
 qcolumnview.h
 qcombobox.h
-qcommandlinkbutton.h
 qdial.h
 qdockwidget.h
 qfocusframe.h
@@ -23,7 +22,6 @@ qlistview.h
 qlistwidget.h
 qmdiarea.h
 qmdisubwindow.h
-qmessagebox.h
 qprintpreviewwidget.h
 qprogressbar.h
 qscrollarea.h

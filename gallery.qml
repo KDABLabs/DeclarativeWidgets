@@ -24,6 +24,11 @@ TabWidget {
         text: qsTr("CheckBox")
       }
 
+      CommandLinkButton {
+        text: qsTr("CommandLinkButton")
+        description: qsTr("A short description")
+      }
+
       DialogButtonBox {
         standardButtons: DialogButtonBox.Save | DialogButtonBox.Cancel
       }

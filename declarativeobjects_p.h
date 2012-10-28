@@ -9,6 +9,7 @@
 #include <QtGui/QCalendarWidget>
 #include <QtGui/QCheckBox>
 #include <QtGui/QColorDialog>
+#include <QtGui/QCommandLinkButton>
 #include <QtGui/QDateTimeEdit>
 #include <QtGui/QDialog>
 #include <QtGui/QDialogButtonBox>
@@ -452,6 +453,14 @@ class DeclarativeColorDialog : public DeclarativeWidgetProxy<QColorDialog>
 };
 
 QML_DECLARE_TYPEINFO(DeclarativeColorDialog, QML_HAS_ATTACHED_PROPERTIES)
+
+class DeclarativeCommandLinkButton : public DeclarativeWidgetProxy<QCommandLinkButton>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeCommandLinkButton(QObject *parent = 0);
+};
 
 class DeclarativeDateEdit : public DeclarativeWidgetProxy<QDateEdit>
 {
