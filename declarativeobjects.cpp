@@ -162,6 +162,14 @@ DeclarativeActionItem::DeclarativeActionItem(QObject *parent) : DeclarativeObjec
 
 CUSTOM_METAOBJECT(DeclarativeActionItem, ActionItem)
 
+// DeclarativeButtonGroup
+DeclarativeButtonGroup::DeclarativeButtonGroup(QObject *parent) : DeclarativeObjectProxy<ButtonGroup>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeButtonGroup, ButtonGroup)
+
 // DeclarativeSeparator
 DeclarativeSeparator::DeclarativeSeparator(QObject *parent) : DeclarativeObjectProxy<QAction>(parent)
 {

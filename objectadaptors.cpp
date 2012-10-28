@@ -2,30 +2,9 @@
 
 #include "declarativeobjects_p.h"
 
-FileDialog::FileDialog(QWidget *parent)
-  : QFileDialog(parent)
-{
-}
+#include <QDebug>
 
-InputDialog::InputDialog(QWidget *parent)
-  : QInputDialog(parent)
-{
-  connect(this, SIGNAL(textValueChanged(QString)), this, SIGNAL(customTextValueChanged()));
-  connect(this, SIGNAL(intValueChanged(int)), this, SIGNAL(customIntValueChanged()));
-  connect(this, SIGNAL(doubleValueChanged(double)), this, SIGNAL(customDoubleValueChanged()));
-}
-
-TextEdit::TextEdit(QWidget *parent)
-  : QTextEdit(parent)
-{
-  connect(document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(modifiedChanged()));
-}
-
-bool TextEdit::modified() const
-{
-  return document()->isModified();
-}
-
+// ActionItem
 ActionItem::ActionItem(QObject *parent)
   : QObject(parent)
   , m_placeholderAction(new QAction(this))
@@ -76,4 +55,78 @@ void ActionItem::setAction(const QVariant &action)
 QVariant ActionItem::qmlAction() const
 {
   return m_action;
+}
+
+// ButtonGroup
+ButtonGroup::ButtonGroup(QObject *parent)
+  : QButtonGroup(parent)
+{
+}
+
+void ButtonGroup::setButtons(const QVariantList &buttons)
+{
+  if (m_buttons == buttons)
+    return;
+
+  // First remove the old buttons ...
+  foreach (const QVariant &variant, m_buttons) {
+    QObject *object = variant.value<QObject*>();
+    if (object) {
+      AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
+      if (declarativeObject) {
+        QAbstractButton *button = qobject_cast<QAbstractButton*>(declarativeObject->object());
+        if (button)
+          QButtonGroup::removeButton(button);
+      }
+    }
+  }
+
+  m_buttons = buttons;
+
+  // ... then add the new ones
+  foreach (const QVariant &variant, m_buttons) {
+    QObject *object = variant.value<QObject*>();
+    if (object) {
+      AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
+      if (declarativeObject) {
+        QAbstractButton *button = qobject_cast<QAbstractButton*>(declarativeObject->object());
+        if (button)
+          QButtonGroup::addButton(button);
+      }
+    }
+  }
+
+  emit buttonsChanged();
+}
+
+QVariantList ButtonGroup::buttons() const
+{
+  return m_buttons;
+}
+
+// FileDialog
+FileDialog::FileDialog(QWidget *parent)
+  : QFileDialog(parent)
+{
+}
+
+// InputDialog
+InputDialog::InputDialog(QWidget *parent)
+  : QInputDialog(parent)
+{
+  connect(this, SIGNAL(textValueChanged(QString)), this, SIGNAL(customTextValueChanged()));
+  connect(this, SIGNAL(intValueChanged(int)), this, SIGNAL(customIntValueChanged()));
+  connect(this, SIGNAL(doubleValueChanged(double)), this, SIGNAL(customDoubleValueChanged()));
+}
+
+// TextEdit
+TextEdit::TextEdit(QWidget *parent)
+  : QTextEdit(parent)
+{
+  connect(document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(modifiedChanged()));
+}
+
+bool TextEdit::modified() const
+{
+  return document()->isModified();
 }

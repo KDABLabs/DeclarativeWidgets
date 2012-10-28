@@ -33,6 +33,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<QAction>();
   qmlRegisterType<DeclarativeAction>("QtGui", 1, 0, "Action");
   qmlRegisterType<DeclarativeActionItem>("QtGui", 1, 0, "ActionItem");
+  qmlRegisterType<DeclarativeButtonGroup>("QtGui", 1, 0, "ButtonGroup");
   qmlRegisterType<DeclarativeSeparator>("QtGui", 1, 0, "Separator");
 
   // layouts

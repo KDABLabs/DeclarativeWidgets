@@ -245,6 +245,14 @@ class DeclarativeAction : public DeclarativeObjectProxy<QAction>
 };
 Q_DECLARE_METATYPE(DeclarativeAction*)
 
+class DeclarativeButtonGroup : public DeclarativeObjectProxy<ButtonGroup>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeButtonGroup(QObject *parent = 0);
+};
+
 class DeclarativeSeparator : public DeclarativeObjectProxy<QAction>
 {
   DECLARATIVE_OBJECT

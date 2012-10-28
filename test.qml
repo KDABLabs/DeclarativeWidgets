@@ -53,8 +53,33 @@ Widget {
 
         text: "Page 1"
       }
-      Label {
-        text: "Page 2"
+      Widget {
+        TabWidget.label: "Title 2"
+
+        ButtonGroup {
+          buttons: [ button1, button2, button3, button4 ]
+        }
+
+        VBoxLayout {
+          RadioButton {
+            id: button1
+            text: qsTr("Apple")
+          }
+          RadioButton {
+            id: button2
+            text: qsTr("Banana")
+          }
+          RadioButton {
+            id: button3
+            text: qsTr("Peach")
+          }
+
+          PushButton {
+            id: button4
+            checkable: true
+            text: qsTr("Peas")
+          }
+        }
       }
       Label {
         TabWidget.label: "Title 3"
