@@ -655,18 +655,62 @@ DeclarativeCheckBox::DeclarativeCheckBox(QObject *parent) : DeclarativeWidgetPro
 CUSTOM_METAOBJECT(DeclarativeCheckBox, QCheckBox)
 
 // DeclarativeColorDialog
-DeclarativeColorDialogAttached::DeclarativeColorDialogAttached(QObject *parent) : QObject(parent)
+class DeclarativeColorDialogAttached::Private
+{
+  public:
+    Private() : options(0) {}
+
+  public:
+    QPointer<QObject> dialogParent;
+    QString title;
+    QColorDialog::ColorDialogOptions options;
+};
+
+DeclarativeColorDialogAttached::DeclarativeColorDialogAttached(QObject *parent)
+  : QObject(parent), d(new Private)
 {
 }
 
-QColor DeclarativeColorDialogAttached::getColor(const QColor &initialColor, QObject *parent, const QString &title, int options)
+DeclarativeColorDialogAttached::~DeclarativeColorDialogAttached()
 {
-  return QColorDialog::getColor(initialColor, bestParentWindow(parent), title, static_cast<QColorDialog::ColorDialogOptions>(options));
+  delete d;
 }
 
-QColor DeclarativeColorDialogAttached::getColor(const QColor &initialColor, QObject *parent)
+void DeclarativeColorDialogAttached::setDialogParent(QObject *parent)
 {
-  return QColorDialog::getColor(initialColor, bestParentWindow(parent));
+  if (parent == d->dialogParent)
+    return;
+
+  d->dialogParent = parent;
+  emit dialogParentChanged(parent);
+}
+
+QObject *DeclarativeColorDialogAttached::dialogParent() const
+{
+  return d->dialogParent;
+}
+
+void DeclarativeColorDialogAttached::setTitle(const QString &title)
+{
+  if (title == d->title)
+    return;
+
+  d->title = title;
+  emit titleChanged(title);
+}
+
+QString DeclarativeColorDialogAttached::title() const
+{
+  return d->title;
+}
+
+QColor DeclarativeColorDialogAttached::getColor(const QColor &initialColor)
+{
+  QWidget *parent = bestParentWindow(d->dialogParent);
+  if (!d->title.isEmpty() || d->options != 0)
+    return QColorDialog::getColor(initialColor, parent, d->title, d->options);
+  else
+    return QColorDialog::getColor(initialColor, parent);
 }
 
 QWidget *DeclarativeColorDialogAttached::bestParentWindow(QObject *parent) const

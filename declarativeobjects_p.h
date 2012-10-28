@@ -443,15 +443,31 @@ class DeclarativeCheckBox : public DeclarativeWidgetProxy<QCheckBox>
 class DeclarativeColorDialogAttached : public QObject
 {
   Q_OBJECT
+  Q_PROPERTY(QObject* parent READ dialogParent WRITE setDialogParent NOTIFY dialogParentChanged)
+  Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
+  // TODO option
 
   public:
     DeclarativeColorDialogAttached(QObject *parent = 0);
+    ~DeclarativeColorDialogAttached();
 
-    Q_INVOKABLE QColor getColor(const QColor &initialColor, QObject *parent, const QString &title, int options = 0);
-    Q_INVOKABLE QColor getColor(const QColor &initialColor, QObject *parent = 0);
+    void setDialogParent(QObject *parent);
+    QObject *dialogParent() const;
+
+    void setTitle(const QString &title);
+    QString title() const;
+
+    Q_INVOKABLE QColor getColor(const QColor &initialColor);
+
+  Q_SIGNALS:
+    void dialogParentChanged(QObject *parent);
+    void titleChanged(const QString &title);
 
   private:
     QWidget *bestParentWindow(QObject *parent) const;
+
+    class Private;
+    Private *const d;
 };
 
 class DeclarativeColorDialog : public DeclarativeWidgetProxy<QColorDialog>

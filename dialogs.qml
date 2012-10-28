@@ -68,7 +68,8 @@ Widget {
     PushButton {
       text: qsTr("Color Dialog::getColor with title")
       onClicked: {
-          console.log("Selected color: " + ColorDialog.getColor("#ff0000", 0, "Pick a color"))
+          ColorDialog.title = "Pick a color"
+          console.log("Selected color: " + ColorDialog.getColor("#ff0000"))
       }
     }
 
