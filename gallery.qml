@@ -1,29 +1,94 @@
 import QtGui 1.0
 
-Widget {
-  VBoxLayout
-  {
-    CalendarWidget {}
-    LineEdit {
-      onTextChanged: console.log("Types: " + text)
+TabWidget {
+  windowTitle: qsTr("Widget Gallery")
+  size: Qt.size(700, 500)
+
+  Widget {
+    TabWidget.label: "Buttons"
+
+    VBoxLayout {
+      PushButton {
+        text: qsTr("PushButton")
+      }
+
+      CheckBox {
+        text: qsTr("CheckBox")
+      }
+
+      DialogButtonBox {
+        standardButtons: DialogButtonBox.Save | DialogButtonBox.Cancel
+      }
     }
-    Frame {
-      frameShape: Frame.Panel
-      frameShadow: Frame.Sunken
-      minimumWidth: 100
-      minimumHeight: 100
+  }
+
+  Widget {
+    TabWidget.label: "ItemViews"
+  }
+
+  Widget {
+    TabWidget.label: "Containers"
+
+    VBoxLayout {
+      GroupBox {
+        title: "GroupBox"
+        minimumWidth: 100
+        minimumHeight: 100
+      }
+      Frame {
+        frameShape: Frame.Panel
+        frameShadow: Frame.Sunken
+        minimumWidth: 100
+        minimumHeight: 100
+      }
     }
-    GroupBox {
-      title: qsTr("Hello World")
-      minimumWidth: 100
-      minimumHeight: 100
+  }
+
+  Widget {
+    TabWidget.label: "Input Widgets"
+
+    VBoxLayout {
+      LineEdit {
+        text: qsTr("LineEdit")
+        onTextChanged: console.log("Types: " + text)
+      }
+
+      TextEdit {
+        plainText: qsTr("TextEdit")
+      }
+
+      PlainTextEdit {
+        plainText: qsTr("PlainTextEdit")
+      }
+
+      TimeEdit {}
+
+      DateEdit {}
+
+      DateTimeEdit {}
+
+      Slider {}
     }
-    PlainTextEdit {
-      plainText: qsTr("Hello World")
-    }
-    TextBrowser {
-      openExternalLinks: true
-      html: "<html><body><a href=\"http://www.kde.org\">Coolest project ever</a></body></html>"
+  }
+
+  Widget {
+    TabWidget.label: "Display Widgets"
+
+    VBoxLayout {
+      Label {
+        text: qsTr("Label")
+      }
+
+      TextBrowser {
+        openExternalLinks: true
+        html: "<html><body>TextBrowser <a href=\"http://www.kde.org\">Coolest project ever</a></body></html>"
+      }
+
+      CalendarWidget {}
+
+      WebView {
+        url: "http://www.kdab.com"
+      }
     }
   }
 }
