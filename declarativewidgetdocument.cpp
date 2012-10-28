@@ -49,6 +49,8 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
   qmlRegisterType<DeclarativeColorDialogAttached>();
   qmlRegisterType<DeclarativeColorDialog>("QtGui", 1, 0, "ColorDialog");
+  qmlRegisterType<DeclarativeDateEdit>("QtGui", 1, 0, "DateEdit");
+  qmlRegisterType<DeclarativeDateTimeEdit>("QtGui", 1, 0, "DateTimeEdit");
   qmlRegisterType<DeclarativeDialog>("QtGui", 1, 0, "Dialog");
   qmlRegisterType<DeclarativeDialogButtonBox>("QtGui", 1, 0, "DialogButtonBox");
   qmlRegisterType<DeclarativeFileDialogAttached>();
@@ -74,6 +76,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeTabWidget>("QtGui", 1, 0, "TabWidget");
   qmlRegisterType<DeclarativeTextBrowser>("QtGui", 1, 0, "TextBrowser");
   qmlRegisterType<DeclarativeTextEdit>("QtGui", 1, 0, "TextEdit");
+  qmlRegisterType<DeclarativeTimeEdit>("QtGui", 1, 0, "TimeEdit");
   qmlRegisterType<DeclarativeToolBar>("QtGui", 1, 0, "ToolBar");
   qmlRegisterType<DeclarativeWebView>("QtGui", 1, 0, "WebView");
   qmlRegisterType<DeclarativeWidget>("QtGui", 1, 0, "Widget");

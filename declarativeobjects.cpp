@@ -694,6 +694,22 @@ DeclarativeColorDialogAttached *DeclarativeColorDialog::qmlAttachedProperties(QO
 
 CUSTOM_METAOBJECT(DeclarativeColorDialog, QColorDialog)
 
+// DeclarativeDateEdit
+DeclarativeDateEdit::DeclarativeDateEdit(QObject *parent) : DeclarativeWidgetProxy<QDateEdit>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeDateEdit, QDateEdit)
+
+// DeclarativeDateTimeEdit
+DeclarativeDateTimeEdit::DeclarativeDateTimeEdit(QObject *parent) : DeclarativeWidgetProxy<QDateTimeEdit>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeDateTimeEdit, QDateTimeEdit)
+
 // DeclarativeDialog
 DeclarativeDialog::DeclarativeDialog(QObject *parent) : DeclarativeWidgetProxy<QDialog>(parent)
 {
@@ -1349,6 +1365,14 @@ DeclarativeTextEdit::DeclarativeTextEdit(QObject *parent) : DeclarativeWidgetPro
 }
 
 CUSTOM_METAOBJECT(DeclarativeTextEdit, TextEdit)
+
+// DeclarativeTimeEdit
+DeclarativeTimeEdit::DeclarativeTimeEdit(QObject *parent) : DeclarativeWidgetProxy<QTimeEdit>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeTimeEdit, QTimeEdit)
 
 // DeclarativeToolBar
 DeclarativeToolBar::DeclarativeToolBar(QObject *parent) : DeclarativeWidgetProxy<QToolBar>(parent)
