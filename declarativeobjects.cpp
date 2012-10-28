@@ -1225,6 +1225,14 @@ DeclarativeRadioButton::DeclarativeRadioButton(QObject *parent) : DeclarativeWid
 
 CUSTOM_METAOBJECT(DeclarativeRadioButton, QRadioButton)
 
+// DeclarativeScrollBar
+DeclarativeScrollBar::DeclarativeScrollBar(QObject *parent) : DeclarativeWidgetProxy<QScrollBar>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeScrollBar, QScrollBar)
+
 // DeclarativeSlider
 DeclarativeSlider::DeclarativeSlider(QObject *parent) : DeclarativeWidgetProxy<QSlider>(parent)
 {

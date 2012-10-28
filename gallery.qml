@@ -86,6 +86,13 @@ TabWidget {
 
       Dial {}
 
+      ScrollBar {
+        minimum: 0
+        maximum: 100
+        value: 50
+        orientation: Qt.Horizontal
+      }
+
       Slider {
         minimum: 0
         maximum: 100
