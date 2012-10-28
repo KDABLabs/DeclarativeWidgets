@@ -72,6 +72,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeStatusBar>("QtGui", 1, 0, "StatusBar");
   qmlRegisterType<DeclarativeTabWidgetAttached>();
   qmlRegisterType<DeclarativeTabWidget>("QtGui", 1, 0, "TabWidget");
+  qmlRegisterType<DeclarativeTextBrowser>("QtGui", 1, 0, "TextBrowser");
   qmlRegisterType<DeclarativeTextEdit>("QtGui", 1, 0, "TextEdit");
   qmlRegisterType<DeclarativeToolBar>("QtGui", 1, 0, "ToolBar");
   qmlRegisterType<DeclarativeWidget>("QtGui", 1, 0, "Widget");

@@ -26,6 +26,7 @@
 #include <QtGui/QSlider>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTabWidget>
+#include <QtGui/QTextBrowser>
 #include <QtGui/QToolBar>
 #include <QtGui/QVBoxLayout>
 #include <QtDeclarative/QDeclarativeListProperty>
@@ -778,6 +779,14 @@ class DeclarativeTabWidget : public DeclarativeWidgetProxy<QTabWidget>
 };
 
 QML_DECLARE_TYPEINFO(DeclarativeTabWidget, QML_HAS_ATTACHED_PROPERTIES)
+
+class DeclarativeTextBrowser : public DeclarativeWidgetProxy<QTextBrowser>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeTextBrowser(QObject *parent = 0);
+};
 
 class DeclarativeTextEdit : public DeclarativeWidgetProxy<TextEdit>
 {

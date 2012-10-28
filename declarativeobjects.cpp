@@ -1334,6 +1334,14 @@ DeclarativeTabWidgetAttached *DeclarativeTabWidget::qmlAttachedProperties(QObjec
 
 CUSTOM_METAOBJECT(DeclarativeTabWidget, QTabWidget)
 
+// DeclarativeTextBrowser
+DeclarativeTextBrowser::DeclarativeTextBrowser(QObject *parent) : DeclarativeWidgetProxy<QTextBrowser>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeTextBrowser, QTextBrowser)
+
 // DeclarativeTextEdit
 DeclarativeTextEdit::DeclarativeTextEdit(QObject *parent) : DeclarativeWidgetProxy<TextEdit>(parent)
 {
