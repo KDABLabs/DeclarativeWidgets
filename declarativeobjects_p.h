@@ -533,6 +533,14 @@ class DeclarativeFontDialog : public DeclarativeWidgetProxy<QFontDialog>
     DeclarativeFontDialog(QObject *parent = 0);
 };
 
+class DeclarativeFrame : public DeclarativeWidgetProxy<QFrame>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeFrame(QObject *parent = 0);
+};
+
 class DeclarativeInputDialogAttached : public QObject
 {
   Q_OBJECT

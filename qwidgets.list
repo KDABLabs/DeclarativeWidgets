@@ -16,7 +16,6 @@ qdial.h
 qdockwidget.h
 qfocusframe.h
 qfontcombobox.h
-qframe.h
 qgraphicsview.h
 qgraphicswidget.h
 qgroupbox.h

@@ -874,6 +874,14 @@ DeclarativeFontDialog::DeclarativeFontDialog(QObject *parent) : DeclarativeWidge
 
 CUSTOM_METAOBJECT(DeclarativeFontDialog, QFontDialog)
 
+// DeclarativeFrame
+DeclarativeFrame::DeclarativeFrame(QObject *parent) : DeclarativeWidgetProxy<QFrame>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeFrame, QFrame)
+
 // DeclarativeInputDialog
 DeclarativeInputDialogAttached::DeclarativeInputDialogAttached(QObject *parent) : QObject(parent)
 {
