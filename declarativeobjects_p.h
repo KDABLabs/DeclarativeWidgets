@@ -21,6 +21,7 @@
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
 #include <QtGui/QMessageBox>
+#include <QtGui/QPlainTextEdit>
 #include <QtGui/QPushButton>
 #include <QtGui/QSlider>
 #include <QtGui/QStatusBar>
@@ -672,6 +673,14 @@ class DeclarativeMessageBox : public DeclarativeObjectProxy<QMessageBox>
 };
 
 QML_DECLARE_TYPEINFO(DeclarativeMessageBox, QML_HAS_ATTACHED_PROPERTIES)
+
+class DeclarativePlainTextEdit : public DeclarativeWidgetProxy<QPlainTextEdit>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativePlainTextEdit(QObject *parent = 0);
+};
 
 class DeclarativePushButton : public DeclarativeWidgetProxy<QPushButton>
 {

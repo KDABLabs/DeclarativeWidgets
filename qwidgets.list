@@ -25,7 +25,6 @@ qlistwidget.h
 qmdiarea.h
 qmdisubwindow.h
 qmessagebox.h
-qplaintextedit.h
 qprintpreviewwidget.h
 qprogressbar.h
 qradiobutton.h

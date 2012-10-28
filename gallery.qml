@@ -18,5 +18,8 @@ Widget {
       minimumWidth: 100
       minimumHeight: 100
     }
+    PlainTextEdit {
+      plainText: qsTr("Hello World")
+    }
   }
 }

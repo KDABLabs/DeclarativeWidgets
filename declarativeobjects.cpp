@@ -1161,6 +1161,14 @@ DeclarativeMessageBoxAttached *DeclarativeMessageBox::qmlAttachedProperties(QObj
 
 CUSTOM_METAOBJECT(DeclarativeMessageBox, QMessageBox)
 
+// DeclarativePlainTextEdit
+DeclarativePlainTextEdit::DeclarativePlainTextEdit(QObject *parent) : DeclarativeWidgetProxy<QPlainTextEdit>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativePlainTextEdit, QPlainTextEdit)
+
 // DeclarativePushButton
 DeclarativePushButton::DeclarativePushButton(QObject *parent) : DeclarativeWidgetProxy<QPushButton>(parent)
 {
