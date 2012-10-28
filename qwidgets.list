@@ -2,10 +2,6 @@
 qbuttongroup.h
 
 // dialogs
-qcolordialog.h
-qfiledialog.h
-qfontdialog.h
-qinputdialog.h
 qpagesetupdialog.h
 qprintdialog.h
 qprintpreviewdialog.h
