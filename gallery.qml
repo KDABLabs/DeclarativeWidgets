@@ -54,6 +54,14 @@ TabWidget {
         minimumWidth: 100
         minimumHeight: 100
       }
+      StackedWidget {
+        Label {
+          text: "Page 1"
+        }
+        Label {
+          text: "Page 2"
+        }
+      }
     }
   }
 

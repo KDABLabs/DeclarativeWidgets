@@ -32,6 +32,7 @@
 #include <QtGui/QScrollBar>
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
+#include <QtGui/QStackedWidget>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTabWidget>
 #include <QtGui/QTextBrowser>
@@ -928,6 +929,18 @@ class DeclarativeSpinBox : public DeclarativeWidgetProxy<QSpinBox>
 
   public:
     DeclarativeSpinBox(QObject *parent = 0);
+};
+
+class DeclarativeStackedWidget : public DeclarativeWidgetProxy<QStackedWidget>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeStackedWidget(QObject *parent = 0);
+
+  protected:
+    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 
 // attached property for DeclarativeStatusBar

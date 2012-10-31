@@ -1578,6 +1578,25 @@ DeclarativeSpinBox::DeclarativeSpinBox(QObject *parent) : DeclarativeWidgetProxy
 
 CUSTOM_METAOBJECT(DeclarativeSpinBox, QSpinBox)
 
+// DeclarativeStackedWidget
+DeclarativeStackedWidget::DeclarativeStackedWidget(QObject *parent) : DeclarativeWidgetProxy<QStackedWidget>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+void DeclarativeStackedWidget::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+{
+  m_proxiedObject->addWidget(widget);
+  m_children.append(declarativeObject);
+}
+
+void DeclarativeStackedWidget::setLayout(QLayout*, AbstractDeclarativeObject *declarativeObject)
+{
+  qmlInfo(declarativeObject) << "StackedWidget does not support child layouts";
+}
+
+CUSTOM_METAOBJECT(DeclarativeStackedWidget, QStackedWidget)
+
 // DeclarativeStatusBar
 class DeclarativeStatusBarAttached::Private
 {

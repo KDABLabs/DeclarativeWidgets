@@ -80,6 +80,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeScrollBar>("QtGui", 1, 0, "ScrollBar");
   qmlRegisterType<DeclarativeSlider>("QtGui", 1, 0, "Slider");
   qmlRegisterType<DeclarativeSpinBox>("QtGui", 1, 0, "SpinBox");
+  qmlRegisterType<DeclarativeStackedWidget>("QtGui", 1, 0, "StackedWidget");
   qmlRegisterType<DeclarativeStatusBarAttached>();
   qmlRegisterType<DeclarativeStatusBar>("QtGui", 1, 0, "StatusBar");
   qmlRegisterType<DeclarativeTabWidgetAttached>();
