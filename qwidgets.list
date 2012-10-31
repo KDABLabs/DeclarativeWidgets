@@ -16,7 +16,6 @@ qlistwidget.h
 qmdiarea.h
 qmdisubwindow.h
 qprintpreviewwidget.h
-qscrollarea.h
 qsplashscreen.h
 qsplitter.h
 qtabbar.h

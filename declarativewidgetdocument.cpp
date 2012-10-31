@@ -82,6 +82,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeProgressBar>("QtGui", 1, 0, "ProgressBar");
   qmlRegisterType<DeclarativePushButton>("QtGui", 1, 0, "PushButton");
   qmlRegisterType<DeclarativeRadioButton>("QtGui", 1, 0, "RadioButton");
+  qmlRegisterType<DeclarativeScrollArea>("QtGui", 1, 0, "ScrollArea");
   qmlRegisterType<DeclarativeScrollBar>("QtGui", 1, 0, "ScrollBar");
   qmlRegisterType<DeclarativeSlider>("QtGui", 1, 0, "Slider");
   qmlRegisterType<DeclarativeSpinBox>("QtGui", 1, 0, "SpinBox");

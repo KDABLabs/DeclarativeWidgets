@@ -63,6 +63,11 @@ TabWidget {
         minimumWidth: 100
         minimumHeight: 100
       }
+      ScrollArea {
+        Widget {
+          size: Qt.size(800, 800)
+        }
+      }
       Frame {
         frameShape: Frame.Panel
         frameShadow: Frame.Sunken

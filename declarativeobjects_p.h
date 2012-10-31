@@ -29,6 +29,7 @@
 #include <QtGui/QProgressBar>
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
+#include <QtGui/QScrollArea>
 #include <QtGui/QScrollBar>
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
@@ -921,6 +922,18 @@ class DeclarativeRadioButton : public DeclarativeWidgetProxy<QRadioButton>
 
   public:
     DeclarativeRadioButton(QObject *parent = 0);
+};
+
+class DeclarativeScrollArea : public DeclarativeWidgetProxy<QScrollArea>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeScrollArea(QObject *parent = 0);
+
+  protected:
+    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 
 class DeclarativeScrollBar : public DeclarativeWidgetProxy<QScrollBar>

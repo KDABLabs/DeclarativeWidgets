@@ -1570,6 +1570,32 @@ DeclarativeRadioButton::DeclarativeRadioButton(QObject *parent) : DeclarativeWid
 
 CUSTOM_METAOBJECT(DeclarativeRadioButton, QRadioButton)
 
+// DeclarativeScrollArea
+DeclarativeScrollArea::DeclarativeScrollArea(QObject *parent) : DeclarativeWidgetProxy<QScrollArea>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+void DeclarativeScrollArea::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+{
+  if (m_proxiedObject->widget()) {
+    qmlInfo(declarativeObject) << "Can not add multiple Widgets to ScrollArea";
+  } else {
+    m_proxiedObject->setWidget(widget);
+  }
+
+  m_children.append(declarativeObject);
+}
+
+void DeclarativeScrollArea::setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+{
+  Q_UNUSED(layout);
+  Q_UNUSED(declarativeObject);
+  qmlInfo(this) << "Can not add Layout to ScrollArea";
+}
+
+CUSTOM_METAOBJECT(DeclarativeScrollArea, QScrollArea)
+
 // DeclarativeScrollBar
 DeclarativeScrollBar::DeclarativeScrollBar(QObject *parent) : DeclarativeWidgetProxy<QScrollBar>(parent)
 {
