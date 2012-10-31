@@ -87,12 +87,44 @@ class AbstractDeclarativeObject : public QObject
     static void data_clear(QDeclarativeListProperty<QObject> *);
 };
 
-template <class T>
+template <class T, bool needsParentInitialization = false>
 class DeclarativeObjectProxy : public AbstractDeclarativeObject
+{
+};
+
+template <class T>
+class DeclarativeObjectProxy<T, false> : public AbstractDeclarativeObject
+{
+  public:
+    DeclarativeObjectProxy(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(new T) {}
+    ~DeclarativeObjectProxy() { delete m_proxiedObject; }
+
+    virtual QObject *object() const { return m_proxiedObject.data(); }
+
+  protected:
+    virtual void dataAppend(QObject *object)
+    {
+      m_children.append(object);
+    }
+
+    virtual int dataCount() const { return m_children.count(); }
+    virtual QObject *dataAt(int index) const { return m_children.at(index); }
+    virtual void dataClear()
+    {
+      qDeleteAll(m_children);
+      m_children.clear();
+    }
+
+  protected:
+    QPointer<T> m_proxiedObject;
+    QVector<QObject*> m_children;
+};
+
+template <class T>
+class DeclarativeObjectProxy<T, true> : public AbstractDeclarativeObject
 {
   public:
     DeclarativeObjectProxy(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(new T(0)) {}
-
     ~DeclarativeObjectProxy() { delete m_proxiedObject; }
 
     virtual QObject *object() const { return m_proxiedObject.data(); }
@@ -236,7 +268,7 @@ class DeclarativeLayoutProxy : public DeclarativeObjectProxy<T>
 };
 
 //// Objects ///
-class DeclarativeAction : public DeclarativeObjectProxy<QAction>
+class DeclarativeAction : public DeclarativeObjectProxy<QAction, true>
 {
   DECLARATIVE_OBJECT
 
@@ -253,7 +285,7 @@ class DeclarativeButtonGroup : public DeclarativeObjectProxy<ButtonGroup>
     DeclarativeButtonGroup(QObject *parent = 0);
 };
 
-class DeclarativeSeparator : public DeclarativeObjectProxy<QAction>
+class DeclarativeSeparator : public DeclarativeObjectProxy<QAction, true>
 {
   DECLARATIVE_OBJECT
 

@@ -147,7 +147,7 @@ void AbstractDeclarativeObject::data_clear(QDeclarativeListProperty<QObject> *pr
 //// Objects ////
 
 // DeclarativeAction
-DeclarativeAction::DeclarativeAction(QObject *parent) : DeclarativeObjectProxy<QAction>(parent)
+DeclarativeAction::DeclarativeAction(QObject *parent) : DeclarativeObjectProxy<QAction, true>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
 }
@@ -171,7 +171,7 @@ DeclarativeButtonGroup::DeclarativeButtonGroup(QObject *parent) : DeclarativeObj
 CUSTOM_METAOBJECT(DeclarativeButtonGroup, ButtonGroup)
 
 // DeclarativeSeparator
-DeclarativeSeparator::DeclarativeSeparator(QObject *parent) : DeclarativeObjectProxy<QAction>(parent)
+DeclarativeSeparator::DeclarativeSeparator(QObject *parent) : DeclarativeObjectProxy<QAction, true>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
 }
