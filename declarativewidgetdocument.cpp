@@ -43,6 +43,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeFormLayout>("QtGui", 1, 0, "FormLayout");
   qmlRegisterType<DeclarativeGridLayout>("QtGui", 1, 0, "GridLayout");
   qmlRegisterType<DeclarativeHBoxLayout>("QtGui", 1, 0, "HBoxLayout");
+  qmlRegisterType<DeclarativeStackedLayout>("QtGui", 1, 0, "StackedLayout");
   qmlRegisterType<DeclarativeVBoxLayout>("QtGui", 1, 0, "VBoxLayout");
 
   // widgets

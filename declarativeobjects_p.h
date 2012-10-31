@@ -439,6 +439,18 @@ class DeclarativeHBoxLayout : public DeclarativeLayoutProxy<QHBoxLayout>
 
 QML_DECLARE_TYPEINFO(DeclarativeHBoxLayout, QML_HAS_ATTACHED_PROPERTIES)
 
+class DeclarativeStackedLayout : public DeclarativeLayoutProxy<StackedLayout>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeStackedLayout(QObject *parent = 0);
+
+  protected:
+    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    void addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+};
+
 class DeclarativeVBoxLayout : public DeclarativeLayoutProxy<QVBoxLayout>
 {
   DECLARATIVE_OBJECT

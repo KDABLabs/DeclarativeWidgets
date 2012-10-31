@@ -25,7 +25,6 @@ qprintpreviewwidget.h
 qscrollarea.h
 qsplashscreen.h
 qsplitter.h
-qstackedlayout.h
 qstackedwidget.h
 qtabbar.h
 qtableview.h

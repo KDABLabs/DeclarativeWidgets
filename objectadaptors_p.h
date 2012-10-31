@@ -5,6 +5,7 @@
 #include <QtGui/QButtonGroup>
 #include <QtGui/QFileDialog>
 #include <QtGui/QInputDialog>
+#include <QtGui/QStackedLayout>
 #include <QtGui/QTextEdit>
 
 class ActionItem : public QObject
@@ -91,6 +92,13 @@ class InputDialog : public QInputDialog
     void customTextValueChanged();
     void customIntValueChanged();
     void customDoubleValueChanged();
+};
+
+class StackedLayout : public QStackedLayout
+{
+  Q_OBJECT
+
+  Q_PROPERTY(int count READ count)
 };
 
 class TextEdit : public QTextEdit

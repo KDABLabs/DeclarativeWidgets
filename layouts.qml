@@ -156,4 +156,28 @@ TabWidget {
       }
     }
   }
+
+  Widget {
+    TabWidget.label: "Stacked Layout"
+    VBoxLayout {
+      PushButton {
+        text: "Next Page"
+        onClicked: {
+          stackedLayout.currentIndex = ((stackedLayout.currentIndex + 1) % stackedLayout.count)
+        }
+      }
+      StackedLayout {
+        id: stackedLayout
+        Label {
+          text: "Page 1"
+        }
+        Label {
+          text: "Page 2"
+        }
+        Label {
+          text: "Page 3"
+        }
+      }
+    }
+  }
 }

@@ -574,6 +574,25 @@ void DeclarativeHBoxLayout::addLayout(QLayout *layout, AbstractDeclarativeObject
 
 CUSTOM_METAOBJECT(DeclarativeHBoxLayout, QHBoxLayout)
 
+// DeclarativeStackedLayout
+DeclarativeStackedLayout::DeclarativeStackedLayout(QObject *parent) : DeclarativeLayoutProxy<StackedLayout>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+void DeclarativeStackedLayout::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+{
+  m_proxiedObject->addWidget(widget);
+  m_children.append(declarativeObject);
+}
+
+void DeclarativeStackedLayout::addLayout(QLayout*, AbstractDeclarativeObject *declarativeObject)
+{
+  qmlInfo(declarativeObject) << "StackedLayout does not support child layouts";
+}
+
+CUSTOM_METAOBJECT(DeclarativeStackedLayout, StackedLayout)
+
 // DeclarativeVBoxLayout
 DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent) : DeclarativeLayoutProxy<QVBoxLayout>(parent)
 {
