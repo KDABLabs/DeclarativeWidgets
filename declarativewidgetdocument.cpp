@@ -29,6 +29,9 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   : QObject(parent)
   , d(new Private(this, url))
 {
+  qmlRegisterType<QAbstractItemModel>();
+  qmlRegisterType<QItemSelectionModel>();
+
   // objects
   qmlRegisterType<QAction>();
   qmlRegisterType<DeclarativeAction>("QtGui", 1, 0, "Action");
@@ -51,6 +54,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
   qmlRegisterType<DeclarativeColorDialogAttached>();
   qmlRegisterType<DeclarativeColorDialog>("QtGui", 1, 0, "ColorDialog");
+  qmlRegisterType<DeclarativeColumnView>("QtGui", 1, 0, "ColumnView");
   qmlRegisterType<DeclarativeCommandLinkButton>("QtGui", 1, 0, "CommandLinkButton");
   qmlRegisterType<DeclarativeDateEdit>("QtGui", 1, 0, "DateEdit");
   qmlRegisterType<DeclarativeDateTimeEdit>("QtGui", 1, 0, "DateTimeEdit");
@@ -68,6 +72,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
   qmlRegisterType<DeclarativeLCDNumber>("QtGui", 1, 0, "LCDNumber");
   qmlRegisterType<DeclarativeLineEdit>("QtGui", 1, 0, "LineEdit");
+  qmlRegisterType<DeclarativeListView>("QtGui", 1, 0, "ListView");
   qmlRegisterType<DeclarativeMainWindow>("QtGui", 1, 0, "MainWindow");
   qmlRegisterType<DeclarativeMenu>("QtGui", 1, 0, "Menu");
   qmlRegisterType<DeclarativeMenuBar>("QtGui", 1, 0, "MenuBar");
@@ -83,6 +88,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeStackedWidget>("QtGui", 1, 0, "StackedWidget");
   qmlRegisterType<DeclarativeStatusBarAttached>();
   qmlRegisterType<DeclarativeStatusBar>("QtGui", 1, 0, "StatusBar");
+  qmlRegisterType<DeclarativeTableView>("QtGui", 1, 0, "TableView");
   qmlRegisterType<DeclarativeTabWidgetAttached>();
   qmlRegisterType<DeclarativeTabWidget>("QtGui", 1, 0, "TabWidget");
   qmlRegisterType<DeclarativeTextBrowser>("QtGui", 1, 0, "TextBrowser");
@@ -90,6 +96,7 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   qmlRegisterType<DeclarativeTimeEdit>("QtGui", 1, 0, "TimeEdit");
   qmlRegisterType<DeclarativeToolBar>("QtGui", 1, 0, "ToolBar");
   qmlRegisterType<DeclarativeToolButton>("QtGui", 1, 0, "ToolButton");
+  qmlRegisterType<DeclarativeTreeView>("QtGui", 1, 0, "TreeView");
   qmlRegisterType<DeclarativeWebView>("QtGui", 1, 0, "WebView");
   qmlRegisterType<DeclarativeWidget>("QtGui", 1, 0, "Widget");
 

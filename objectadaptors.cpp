@@ -104,6 +104,33 @@ QVariantList ButtonGroup::buttons() const
   return m_buttons;
 }
 
+// ColumnView
+ColumnView::ColumnView(QWidget *parent)
+  : QColumnView(parent)
+{
+}
+
+void ColumnView::setModel(QAbstractItemModel *model)
+{
+  if (this->model() == model)
+    return;
+
+  QColumnView::setModel(model);
+
+  emit modelChanged(model);
+  emit selectionModelChanged(selectionModel());
+}
+
+void ColumnView::setSelectionModel(QItemSelectionModel *selectionModel)
+{
+  if (this->selectionModel() == selectionModel)
+    return;
+
+  QColumnView::setSelectionModel(selectionModel);
+
+  emit selectionModelChanged(selectionModel);
+}
+
 // FileDialog
 FileDialog::FileDialog(QWidget *parent)
   : QFileDialog(parent)
@@ -119,6 +146,60 @@ InputDialog::InputDialog(QWidget *parent)
   connect(this, SIGNAL(doubleValueChanged(double)), this, SIGNAL(customDoubleValueChanged()));
 }
 
+// ListView
+ListView::ListView(QWidget *parent)
+  : QListView(parent)
+{
+}
+
+void ListView::setModel(QAbstractItemModel *model)
+{
+  if (this->model() == model)
+    return;
+
+  QListView::setModel(model);
+
+  emit modelChanged(model);
+  emit selectionModelChanged(selectionModel());
+}
+
+void ListView::setSelectionModel(QItemSelectionModel *selectionModel)
+{
+  if (this->selectionModel() == selectionModel)
+    return;
+
+  QListView::setSelectionModel(selectionModel);
+
+  emit selectionModelChanged(selectionModel);
+}
+
+// TableView
+TableView::TableView(QWidget *parent)
+  : QTableView(parent)
+{
+}
+
+void TableView::setModel(QAbstractItemModel *model)
+{
+  if (this->model() == model)
+    return;
+
+  QTableView::setModel(model);
+
+  emit modelChanged(model);
+  emit selectionModelChanged(selectionModel());
+}
+
+void TableView::setSelectionModel(QItemSelectionModel *selectionModel)
+{
+  if (this->selectionModel() == selectionModel)
+    return;
+
+  QTableView::setSelectionModel(selectionModel);
+
+  emit selectionModelChanged(selectionModel);
+}
+
 // TextEdit
 TextEdit::TextEdit(QWidget *parent)
   : QTextEdit(parent)
@@ -129,4 +210,31 @@ TextEdit::TextEdit(QWidget *parent)
 bool TextEdit::modified() const
 {
   return document()->isModified();
+}
+
+// TreeView
+TreeView::TreeView(QWidget *parent)
+  : QTreeView(parent)
+{
+}
+
+void TreeView::setModel(QAbstractItemModel *model)
+{
+  if (this->model() == model)
+    return;
+
+  QTreeView::setModel(model);
+
+  emit modelChanged(model);
+  emit selectionModelChanged(selectionModel());
+}
+
+void TreeView::setSelectionModel(QItemSelectionModel *selectionModel)
+{
+  if (this->selectionModel() == selectionModel)
+    return;
+
+  QTreeView::setSelectionModel(selectionModel);
+
+  emit selectionModelChanged(selectionModel);
 }

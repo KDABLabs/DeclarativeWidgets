@@ -3,10 +3,14 @@
 
 #include <QtGui/QAction>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QColumnView>
 #include <QtGui/QFileDialog>
 #include <QtGui/QInputDialog>
+#include <QtGui/QListView>
 #include <QtGui/QStackedLayout>
+#include <QtGui/QTableView>
 #include <QtGui/QTextEdit>
+#include <QtGui/QTreeView>
 
 class ActionItem : public QObject
 {
@@ -48,6 +52,24 @@ class ButtonGroup : public QButtonGroup
     QVariantList buttons() const;
 
     QVariantList m_buttons;
+};
+
+class ColumnView : public QColumnView
+{
+  Q_OBJECT
+
+  Q_PROPERTY(QAbstractItemModel* model READ model WRITE setModel NOTIFY modelChanged)
+  Q_PROPERTY(QItemSelectionModel* selectionModel READ selectionModel WRITE setSelectionModel NOTIFY selectionModelChanged)
+
+  public:
+    ColumnView(QWidget *parent = 0);
+
+    void setModel(QAbstractItemModel *model);
+    void setSelectionModel(QItemSelectionModel *selectionModel);
+
+  Q_SIGNALS:
+    void modelChanged(QAbstractItemModel*);
+    void selectionModelChanged(QItemSelectionModel*);
 };
 
 class FileDialog : public QFileDialog
@@ -94,11 +116,47 @@ class InputDialog : public QInputDialog
     void customDoubleValueChanged();
 };
 
+class ListView : public QListView
+{
+  Q_OBJECT
+
+  Q_PROPERTY(QAbstractItemModel* model READ model WRITE setModel NOTIFY modelChanged)
+  Q_PROPERTY(QItemSelectionModel* selectionModel READ selectionModel WRITE setSelectionModel NOTIFY selectionModelChanged)
+
+  public:
+    ListView(QWidget *parent = 0);
+
+    void setModel(QAbstractItemModel *model);
+    void setSelectionModel(QItemSelectionModel *selectionModel);
+
+  Q_SIGNALS:
+    void modelChanged(QAbstractItemModel*);
+    void selectionModelChanged(QItemSelectionModel*);
+};
+
 class StackedLayout : public QStackedLayout
 {
   Q_OBJECT
 
   Q_PROPERTY(int count READ count)
+};
+
+class TableView : public QTableView
+{
+  Q_OBJECT
+
+  Q_PROPERTY(QAbstractItemModel* model READ model WRITE setModel NOTIFY modelChanged)
+  Q_PROPERTY(QItemSelectionModel* selectionModel READ selectionModel WRITE setSelectionModel NOTIFY selectionModelChanged)
+
+  public:
+    TableView(QWidget *parent = 0);
+
+    void setModel(QAbstractItemModel *model);
+    void setSelectionModel(QItemSelectionModel *selectionModel);
+
+  Q_SIGNALS:
+    void modelChanged(QAbstractItemModel*);
+    void selectionModelChanged(QItemSelectionModel*);
 };
 
 class TextEdit : public QTextEdit
@@ -115,6 +173,24 @@ class TextEdit : public QTextEdit
 
   private:
     bool modified() const;
+};
+
+class TreeView : public QTreeView
+{
+  Q_OBJECT
+
+  Q_PROPERTY(QAbstractItemModel* model READ model WRITE setModel NOTIFY modelChanged)
+  Q_PROPERTY(QItemSelectionModel* selectionModel READ selectionModel WRITE setSelectionModel NOTIFY selectionModelChanged)
+
+  public:
+    TreeView(QWidget *parent = 0);
+
+    void setModel(QAbstractItemModel *model);
+    void setSelectionModel(QItemSelectionModel *selectionModel);
+
+  Q_SIGNALS:
+    void modelChanged(QAbstractItemModel*);
+    void selectionModelChanged(QItemSelectionModel*);
 };
 
 #endif

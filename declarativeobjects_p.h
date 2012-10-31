@@ -528,6 +528,14 @@ class DeclarativeColorDialog : public DeclarativeWidgetProxy<QColorDialog>
 
 QML_DECLARE_TYPEINFO(DeclarativeColorDialog, QML_HAS_ATTACHED_PROPERTIES)
 
+class DeclarativeColumnView : public DeclarativeWidgetProxy<ColumnView>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeColumnView(QObject *parent = 0);
+};
+
 class DeclarativeCommandLinkButton : public DeclarativeWidgetProxy<QCommandLinkButton>
 {
   DECLARATIVE_OBJECT
@@ -803,6 +811,14 @@ class DeclarativeLineEdit : public DeclarativeWidgetProxy<QLineEdit>
     DeclarativeLineEdit(QObject *parent = 0);
 };
 
+class DeclarativeListView : public DeclarativeWidgetProxy<ListView>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeListView(QObject *parent = 0);
+};
+
 class DeclarativeMainWindow : public DeclarativeWidgetProxy<QMainWindow>
 {
   DECLARATIVE_OBJECT
@@ -981,6 +997,14 @@ class DeclarativeStatusBar : public DeclarativeWidgetProxy<QStatusBar>
 
 QML_DECLARE_TYPEINFO(DeclarativeStatusBar, QML_HAS_ATTACHED_PROPERTIES)
 
+class DeclarativeTableView : public DeclarativeWidgetProxy<TableView>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeTableView(QObject *parent = 0);
+};
+
 // attached property for DeclarativeTabWidget
 class DeclarativeTabWidgetAttached : public QObject
 {
@@ -1067,6 +1091,14 @@ class DeclarativeToolButton : public DeclarativeWidgetProxy<QToolButton>
 
   public:
     DeclarativeToolButton(QObject *parent = 0);
+};
+
+class DeclarativeTreeView : public DeclarativeWidgetProxy<TreeView>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeTreeView(QObject *parent = 0);
 };
 
 class DeclarativeWebView : public DeclarativeWidgetProxy<QWebView>

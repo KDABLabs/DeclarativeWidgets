@@ -37,6 +37,21 @@ TabWidget {
 
   Widget {
     TabWidget.label: "ItemViews"
+
+    VBoxLayout {
+      ListView {
+        model: _fileSystemModel
+      }
+      TreeView {
+        model: _fileSystemModel
+      }
+      TableView {
+        model: _fileSystemModel
+      }
+      ColumnView {
+        model: _fileSystemModel
+      }
+    }
   }
 
   Widget {

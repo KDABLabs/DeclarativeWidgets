@@ -765,6 +765,14 @@ DeclarativeColorDialogAttached *DeclarativeColorDialog::qmlAttachedProperties(QO
 
 CUSTOM_METAOBJECT(DeclarativeColorDialog, QColorDialog)
 
+// DeclarativeColumnView
+DeclarativeColumnView::DeclarativeColumnView(QObject *parent) : DeclarativeWidgetProxy<ColumnView>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeColumnView, ColumnView)
+
 // DeclarativeCommandLinkButton
 DeclarativeCommandLinkButton::DeclarativeCommandLinkButton(QObject *parent) : DeclarativeWidgetProxy<QCommandLinkButton>(parent)
 {
@@ -1329,6 +1337,14 @@ DeclarativeLineEdit::DeclarativeLineEdit(QObject *parent) : DeclarativeWidgetPro
 
 CUSTOM_METAOBJECT(DeclarativeLineEdit, QLineEdit)
 
+// DeclarativeListView
+DeclarativeListView::DeclarativeListView(QObject *parent) : DeclarativeWidgetProxy<ListView>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeListView, ListView)
+
 // DeclarativeMainWindow
 DeclarativeMainWindow::DeclarativeMainWindow(QObject *parent) : DeclarativeWidgetProxy<QMainWindow>(parent)
 {
@@ -1665,6 +1681,14 @@ DeclarativeStatusBarAttached *DeclarativeStatusBar::qmlAttachedProperties(QObjec
 
 CUSTOM_METAOBJECT(DeclarativeStatusBar, QStatusBar)
 
+// DeclarativeTableView
+DeclarativeTableView::DeclarativeTableView(QObject *parent) : DeclarativeWidgetProxy<TableView>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeTableView, TableView)
+
 // DeclarativeTabWidget
 class DeclarativeTabWidgetAttached::Private
 {
@@ -1812,6 +1836,14 @@ DeclarativeToolButton::DeclarativeToolButton(QObject *parent) : DeclarativeWidge
 }
 
 CUSTOM_METAOBJECT(DeclarativeToolButton, QToolButton)
+
+// DeclarativeTreeView
+DeclarativeTreeView::DeclarativeTreeView(QObject *parent) : DeclarativeWidgetProxy<TreeView>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeTreeView, TreeView)
 
 // DeclarativeWebView
 DeclarativeWebView::DeclarativeWebView(QObject *parent) : DeclarativeWidgetProxy<QWebView>(parent)
