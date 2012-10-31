@@ -1,6 +1,3 @@
-// objects
-qbuttongroup.h
-
 // dialogs
 qpagesetupdialog.h
 qprintdialog.h
@@ -16,7 +13,6 @@ qfontcombobox.h
 qgraphicsview.h
 qgraphicswidget.h
 qheaderview.h
-qlcdnumber.h
 qlistview.h
 qlistwidget.h
 qmdiarea.h

@@ -117,6 +117,10 @@ TabWidget {
 
       CalendarWidget {}
 
+      LCDNumber {
+        value: 42
+      }
+
       ProgressBar {
         minimum: 0
         maximum: 100

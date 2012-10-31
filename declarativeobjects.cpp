@@ -1313,6 +1313,14 @@ DeclarativeLabel::DeclarativeLabel(QObject *parent) : DeclarativeWidgetProxy<QLa
 
 CUSTOM_METAOBJECT(DeclarativeLabel, QLabel)
 
+// DeclarativeLCDNumber
+DeclarativeLCDNumber::DeclarativeLCDNumber(QObject *parent) : DeclarativeWidgetProxy<QLCDNumber>(parent)
+{
+  connectAllSignals(m_proxiedObject, this);
+}
+
+CUSTOM_METAOBJECT(DeclarativeLCDNumber, QLCDNumber)
+
 // DeclarativeLineEdit
 DeclarativeLineEdit::DeclarativeLineEdit(QObject *parent) : DeclarativeWidgetProxy<QLineEdit>(parent)
 {

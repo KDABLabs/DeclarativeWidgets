@@ -19,6 +19,7 @@
 #include <QtGui/QGroupBox>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
+#include <QtGui/QLCDNumber>
 #include <QtGui/QLineEdit>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenu>
@@ -783,6 +784,14 @@ class DeclarativeLabel : public DeclarativeWidgetProxy<QLabel>
 
   public:
     DeclarativeLabel(QObject *parent = 0);
+};
+
+class DeclarativeLCDNumber : public DeclarativeWidgetProxy<QLCDNumber>
+{
+  DECLARATIVE_OBJECT
+
+  public:
+    DeclarativeLCDNumber(QObject *parent = 0);
 };
 
 class DeclarativeLineEdit : public DeclarativeWidgetProxy<QLineEdit>
