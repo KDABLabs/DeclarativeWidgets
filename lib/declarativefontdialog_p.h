@@ -23,7 +23,43 @@
 
 #include "declarativewidgetproxy_p.h"
 
+#include "staticdialogmethodattached_p.h"
+
 #include <QFontDialog>
+
+class DeclarativeFontDialogAttached : public StaticDialogMethodAttached
+{
+  Q_OBJECT
+  Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
+  Q_PROPERTY(bool ok READ dialogAccepted NOTIFY dialogAcceptedChanged)
+  Q_PROPERTY(int options READ options WRITE setOptions NOTIFY optionsChanged)
+
+  public:
+    DeclarativeFontDialogAttached(QObject *parent = 0);
+    ~DeclarativeFontDialogAttached();
+
+    void setTitle(const QString &title);
+    QString title() const;
+
+    bool dialogAccepted() const;
+
+    void setOptions(int options);
+    int options() const;
+
+    Q_INVOKABLE QFont getFont();
+    Q_INVOKABLE QFont getFont(const QString &fontFamily);
+
+  Q_SIGNALS:
+    void titleChanged(const QString &title);
+    void dialogAcceptedChanged(bool accepted);
+    void optionsChanged(int options);
+
+  private:
+    void setDialogAccepted(bool accepted);
+
+    class Private;
+    Private *const d;
+};
 
 class DeclarativeFontDialog : public DeclarativeWidgetProxy<QFontDialog>
 {
@@ -31,6 +67,10 @@ class DeclarativeFontDialog : public DeclarativeWidgetProxy<QFontDialog>
 
   public:
     DeclarativeFontDialog(QObject *parent = 0);
+
+    static DeclarativeFontDialogAttached *qmlAttachedProperties(QObject *parent);
 };
+
+QML_DECLARE_TYPEINFO(DeclarativeFontDialog, QML_HAS_ATTACHED_PROPERTIES)
 
 #endif

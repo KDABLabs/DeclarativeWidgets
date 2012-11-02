@@ -137,6 +137,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeDoubleSpinBox>("QtGui", 1, 0, "DoubleSpinBox");
   qmlRegisterType<DeclarativeFileDialogAttached>();
   qmlRegisterType<DeclarativeFileDialog>("QtGui", 1, 0, "FileDialog");
+  qmlRegisterType<DeclarativeFontDialogAttached>();
   qmlRegisterType<DeclarativeFontDialog>("QtGui", 1, 0, "FontDialog");
   qmlRegisterType<DeclarativeFrame>("QtGui", 1, 0, "Frame");
   qmlRegisterType<DeclarativeGroupBox>("QtGui", 1, 0, "GroupBox");

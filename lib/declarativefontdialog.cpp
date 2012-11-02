@@ -20,10 +20,104 @@
 
 #include "declarativefontdialog_p.h"
 
+class DeclarativeFontDialogAttached::Private
+{
+  public:
+    Private() : dialogAccepted(false), options(0) {}
+
+  public:
+    QFont initial;
+    QString title;
+    bool dialogAccepted;
+    QFontDialog::FontDialogOptions options;
+};
+
+
+DeclarativeFontDialogAttached::DeclarativeFontDialogAttached(QObject *parent)
+  : StaticDialogMethodAttached(parent), d(new Private)
+{
+}
+
+DeclarativeFontDialogAttached::~DeclarativeFontDialogAttached()
+{
+  delete d;
+}
+
+void DeclarativeFontDialogAttached::setTitle(const QString &title)
+{
+  if (title == d->title)
+    return;
+
+  d->title = title;
+  emit titleChanged(title);
+}
+
+QString DeclarativeFontDialogAttached::title() const
+{
+  return d->title;
+}
+
+bool DeclarativeFontDialogAttached::dialogAccepted() const
+{
+  return d->dialogAccepted;
+}
+
+void DeclarativeFontDialogAttached::setOptions(int options)
+{
+  if (options == d->options)
+    return;
+
+  d->options = static_cast<QFontDialog::FontDialogOptions>(options);
+  emit optionsChanged(options);
+}
+
+int DeclarativeFontDialogAttached::options() const
+{
+  return d->options;
+}
+
+QFont DeclarativeFontDialogAttached::getFont()
+{
+  QWidget *parent = bestParentWindow();
+  bool ok = false;
+
+  QFont retVal;
+  if (d->title.isEmpty() && d->options == 0) {
+    retVal = QFontDialog::getFont(&ok, d->initial, parent);
+  } else if (d->options != 0) {
+    retVal = QFontDialog::getFont(&ok, d->initial, parent, d->title, d->options);
+  } else {
+    retVal = QFontDialog::getFont(&ok, d->initial, parent, d->title);
+  }
+
+  setDialogAccepted(ok);
+  return retVal;
+}
+
+QFont DeclarativeFontDialogAttached::getFont(const QString &fontFamily)
+{
+  d->initial = QFont(fontFamily);
+  return getFont();
+}
+
+void DeclarativeFontDialogAttached::setDialogAccepted(bool accepted)
+{
+  if (accepted == d->dialogAccepted)
+    return;
+
+  d->dialogAccepted = accepted;
+  emit dialogAcceptedChanged(accepted);
+}
+
 DeclarativeFontDialog::DeclarativeFontDialog(QObject *parent)
   : DeclarativeWidgetProxy<QFontDialog>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
+}
+
+DeclarativeFontDialogAttached *DeclarativeFontDialog::qmlAttachedProperties(QObject *parent)
+{
+  return new DeclarativeFontDialogAttached(parent);
 }
 
 CUSTOM_METAOBJECT(DeclarativeFontDialog, QFontDialog)

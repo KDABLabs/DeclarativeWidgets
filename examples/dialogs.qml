@@ -139,5 +139,39 @@ Widget {
       }
     }
 
+    PushButton {
+      text: qsTr("Font Dialog::getFont")
+      onClicked: {
+          var font = FontDialog.getFont()
+          console.log("FontDialog.getFont " + (FontDialog.ok ? "returned " + font : "was cancelled"))
+      }
+    }
+
+    PushButton {
+      text: qsTr("Font Dialog::getFont with initial")
+      onClicked: {
+          var font = FontDialog.getFont(Qt.fontFamilies()[0])
+          console.log("FontDialog.getFont " + (FontDialog.ok ? "returned " + font : "was cancelled"))
+      }
+    }
+
+    PushButton {
+      text: qsTr("Font Dialog::getFont with title")
+      onClicked: {
+          FontDialog.title = "Pick a font"
+          var font = FontDialog.getFont()
+          console.log("FontDialog.getFont " + (FontDialog.ok ? "returned " + font : "was cancelled"))
+      }
+    }
+
+    PushButton {
+      text: qsTr("Font Dialog::getFont with options")
+      onClicked: {
+          FontDialog.options = FontDialog.NoButtons
+          var font = FontDialog.getFont()
+          console.log("FontDialog.getFont " + (FontDialog.ok ? "returned " + font : "was cancelled"))
+      }
+    }
+
   }
 }
