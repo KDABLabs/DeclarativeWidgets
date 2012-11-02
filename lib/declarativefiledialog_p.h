@@ -24,11 +24,11 @@
 #include "declarativewidgetproxy_p.h"
 
 #include "objectadaptors_p.h"
+#include "staticdialogmethodattached_p.h"
 
-class DeclarativeFileDialogAttached : public QObject
+class DeclarativeFileDialogAttached : public StaticDialogMethodAttached
 {
   Q_OBJECT
-  Q_PROPERTY(QObject* parent READ dialogParent WRITE setDialogParent NOTIFY dialogParentChanged)
   Q_PROPERTY(QString caption READ caption WRITE setCaption NOTIFY captionChanged)
   Q_PROPERTY(QString dir READ dir WRITE setDir NOTIFY dirChanged)
   Q_PROPERTY(QStringList nameFilters READ nameFilters WRITE setNameFilters NOTIFY nameFiltersChanged)
@@ -38,9 +38,6 @@ class DeclarativeFileDialogAttached : public QObject
   public:
     DeclarativeFileDialogAttached(QObject *parent = 0);
     ~DeclarativeFileDialogAttached();
-
-    void setDialogParent(QObject *parent);
-    QObject *dialogParent() const;
 
     void setCaption(const QString &caption);
     QString caption() const;
@@ -62,14 +59,12 @@ class DeclarativeFileDialogAttached : public QObject
     Q_INVOKABLE QString getSaveFileName();
 
   Q_SIGNALS:
-    void dialogParentChanged(QObject *parent);
     void captionChanged(const QString &caption);
     void dirChanged(const QString &dir);
     void nameFiltersChanged(const QStringList &filters);
     void selectedFilterChanged(const QString &filter);
 
   private:
-    QWidget *bestParentWindow(QObject *parent) const;
     void setSelectedFilter(const QString &filter);
 
     class Private;
