@@ -49,7 +49,7 @@ Widget {
     }
     TabWidget {
       Label {
-        TabWidget.label: "Title 1"
+        TabWidget.label: qsTr("Title 1")
 
         text: "Page 1"
       }

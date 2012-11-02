@@ -1721,6 +1721,8 @@ class DeclarativeTabWidgetAttached::Private
   public:
     QString label;
     QIcon icon;
+    QPointer<QTabWidget> tabWidget;
+    int index;
 };
 
 DeclarativeTabWidgetAttached::DeclarativeTabWidgetAttached(QObject *parent)
@@ -1739,6 +1741,10 @@ void DeclarativeTabWidgetAttached::setLabel(const QString &label)
     return;
 
   d->label = label;
+
+  if (d->tabWidget)
+    d->tabWidget->setTabText(d->index, d->label);
+
   emit labelChanged(label);
 }
 
@@ -1750,12 +1756,22 @@ QString DeclarativeTabWidgetAttached::label() const
 void DeclarativeTabWidgetAttached::setIcon(const QIcon &icon)
 {
   d->icon = icon;
+
+  if (d->tabWidget)
+    d->tabWidget->setTabIcon(d->index, d->icon);
+
   emit iconChanged(icon);
 }
 
 QIcon DeclarativeTabWidgetAttached::icon() const
 {
   return d->icon;
+}
+
+void DeclarativeTabWidgetAttached::setAssociation(QTabWidget *widget, int index)
+{
+  d->tabWidget = widget;
+  d->index = index;
 }
 
 DeclarativeTabWidget::DeclarativeTabWidget(QObject *parent) : DeclarativeWidgetProxy<QTabWidget>(parent)
@@ -1779,7 +1795,9 @@ void DeclarativeTabWidget::addWidget(QWidget *widget, AbstractDeclarativeObject 
     icon = tabHeader->icon();
   }
 
-  m_proxiedObject->addTab(widget, icon, label);
+  const int index = m_proxiedObject->addTab(widget, icon, label);
+  if (tabHeader)
+    tabHeader->setAssociation(m_proxiedObject, index);
 }
 
 void DeclarativeTabWidget::setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)

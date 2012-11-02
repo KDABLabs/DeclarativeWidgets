@@ -1036,6 +1036,8 @@ class DeclarativeTabWidgetAttached : public QObject
     void setIcon(const QIcon &icon);
     QIcon icon() const;
 
+    void setAssociation(QTabWidget *widget, int index);
+
   Q_SIGNALS:
     void labelChanged(const QString &label);
     void iconChanged(const QIcon &icon);
