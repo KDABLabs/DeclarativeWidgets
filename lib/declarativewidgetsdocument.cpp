@@ -75,11 +75,11 @@
 #include "declarativewebview_p.h"
 #include "declarativewidget_p.h"
 
-#include <QtCore/QCoreApplication>
-#include <QtCore/QDebug>
-#include <QtDeclarative/QDeclarativeComponent>
-#include <QtDeclarative/QDeclarativeContext>
-#include <QtDeclarative/QDeclarativeEngine>
+#include <QCoreApplication>
+#include <QDebug>
+#include <QDeclarativeComponent>
+#include <QDeclarativeContext>
+#include <QDeclarativeEngine>
 
 class DeclarativeWidgetsDocument::Private
 {

@@ -20,14 +20,14 @@
 
 #include "declarativewidgetsdocument.h"
 
-#include <QtCore/QDir>
-#include <QtCore/QFileInfo>
-#include <QtCore/QTimer>
-#include <QtDeclarative/QDeclarativeEngine>
-#include <QtGui/QApplication>
-#include <QtGui/QFileSystemModel>
-#include <QtGui/QWidget>
+#include <QApplication>
 #include <QDebug>
+#include <QDeclarativeEngine>
+#include <QDir>
+#include <QFileInfo>
+#include <QFileSystemModel>
+#include <QTimer>
+#include <QWidget>
 
 int main(int argc, char **argv)
 {

@@ -21,8 +21,8 @@
 #ifndef DECLARATIVEWIDGETSDOCUMENT_H
 #define DECLARATIVEWIDGETSDOCUMENT_H
 
-#include <QtCore/QObject>
-#include <QtCore/QUrl>
+#include <QObject>
+#include <QUrl>
 
 class QDeclarativeEngine;
 

@@ -53,12 +53,10 @@
 // We mean it.
 //
 
-#include <QtCore/qobject.h>
-#include <QtCore/qmetaobject.h>
-#include <QtCore/qdatastream.h>
-#include <QtCore/qmap.h>
-
-//#include <private/qdeclarativeglobal_p.h>
+#include <qobject.h>
+#include <qmetaobject.h>
+#include <qdatastream.h>
+#include <qmap.h>
 
 QT_BEGIN_NAMESPACE
 

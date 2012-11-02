@@ -21,16 +21,16 @@
 #ifndef OBJECTADAPTORS_P_H
 #define OBJECTADAPTORS_P_H
 
-#include <QtGui/QAction>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QColumnView>
-#include <QtGui/QFileDialog>
-#include <QtGui/QInputDialog>
-#include <QtGui/QListView>
-#include <QtGui/QStackedLayout>
-#include <QtGui/QTableView>
-#include <QtGui/QTextEdit>
-#include <QtGui/QTreeView>
+#include <QAction>
+#include <QButtonGroup>
+#include <QColumnView>
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QListView>
+#include <QStackedLayout>
+#include <QTableView>
+#include <QTextEdit>
+#include <QTreeView>
 
 class ActionItem : public QObject
 {
