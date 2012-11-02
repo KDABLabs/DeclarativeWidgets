@@ -30,7 +30,6 @@ class DeclarativeInputDialogAttached::Private
     {}
 
   public:
-    QPointer<QObject> dialogParent;
     QString title;
     QString label;
     bool dialogAccepted;
@@ -49,27 +48,13 @@ class DeclarativeInputDialogAttached::Private
 };
 
 DeclarativeInputDialogAttached::DeclarativeInputDialogAttached(QObject *parent)
-  : QObject(parent), d(new Private)
+  : StaticDialogMethodAttached(parent), d(new Private)
 {
 }
 
 DeclarativeInputDialogAttached::~DeclarativeInputDialogAttached()
 {
   delete d;
-}
-
-void DeclarativeInputDialogAttached::setDialogParent(QObject *parent)
-{
-  if (parent == d->dialogParent)
-    return;
-
-  d->dialogParent = parent;
-  emit dialogParentChanged(parent);
-}
-
-QObject *DeclarativeInputDialogAttached::dialogParent() const
-{
-  return d->dialogParent;
 }
 
 void DeclarativeInputDialogAttached::setTitle(const QString &title)
@@ -233,7 +218,7 @@ QString DeclarativeInputDialogAttached::text() const
 
 double DeclarativeInputDialogAttached::getDouble()
 {
-  QWidget *parent = bestParentWindow(d->dialogParent);
+  QWidget *parent = bestParentWindow();
   bool ok = false;
   const double value = d->value.canConvert<double>() ? d->value.value<double>() : 0.0;
   const double min = d->min.canConvert<double>() ? d->min.value<double>() : -2147483647;
@@ -247,7 +232,7 @@ double DeclarativeInputDialogAttached::getDouble()
 
 int DeclarativeInputDialogAttached::getInt()
 {
-  QWidget *parent = bestParentWindow(d->dialogParent);
+  QWidget *parent = bestParentWindow();
   bool ok = false;
   const int value = d->value.canConvert<int>() ? d->value.value<int>() : 0;
   const int min = d->min.canConvert<int>() ? d->min.value<int>() : -2147483647;
@@ -261,7 +246,7 @@ int DeclarativeInputDialogAttached::getInt()
 
 QString DeclarativeInputDialogAttached::getItem(const QStringList &items)
 {
-  QWidget *parent = bestParentWindow(d->dialogParent);
+  QWidget *parent = bestParentWindow();
   bool ok = false;
 
   const QString retVal = QInputDialog::getItem(parent, d->title, d->label, items, d->currentItem, d->itemsEditable, &ok);
@@ -272,7 +257,7 @@ QString DeclarativeInputDialogAttached::getItem(const QStringList &items)
 
 QString DeclarativeInputDialogAttached::getText()
 {
-  QWidget *parent = bestParentWindow(d->dialogParent);
+  QWidget *parent = bestParentWindow();
   bool ok = false;
 
   const QString retVal = QInputDialog::getText(parent, d->title, d->label, d->echoMode, d->text, &ok);
@@ -288,27 +273,6 @@ void DeclarativeInputDialogAttached::setDialogAccepted(bool accepted)
 
   d->dialogAccepted = accepted;
   emit dialogAcceptedChanged(accepted);
-}
-
-QWidget *DeclarativeInputDialogAttached::bestParentWindow(QObject *parent) const
-{
-  if (!parent)
-    parent = this->parent();
-
-  // if parent is a Declarative Object, search the proxied hierarchy
-  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(parent);
-  if (declarativeObject)
-    parent = declarativeObject->object();
-
-  while (parent) {
-    QWidget *widget = qobject_cast<QWidget*>(parent);
-    if (widget)
-      return widget->topLevelWidget();
-
-    parent = parent->parent();
-  }
-
-  return 0;
 }
 
 DeclarativeInputDialog::DeclarativeInputDialog(QObject *parent) : DeclarativeWidgetProxy<InputDialog>(parent)

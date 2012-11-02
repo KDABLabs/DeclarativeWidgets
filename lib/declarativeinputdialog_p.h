@@ -24,11 +24,11 @@
 #include "declarativewidgetproxy_p.h"
 
 #include "objectadaptors_p.h"
+#include "staticdialogmethodattached_p.h"
 
-class DeclarativeInputDialogAttached : public QObject
+class DeclarativeInputDialogAttached : public StaticDialogMethodAttached
 {
   Q_OBJECT
-  Q_PROPERTY(QObject* parent READ dialogParent WRITE setDialogParent NOTIFY dialogParentChanged)
   Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
   Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
   Q_PROPERTY(bool ok READ dialogAccepted NOTIFY dialogAcceptedChanged)
@@ -48,9 +48,6 @@ class DeclarativeInputDialogAttached : public QObject
   public:
     DeclarativeInputDialogAttached(QObject *parent = 0);
     ~DeclarativeInputDialogAttached();
-
-    void setDialogParent(QObject *parent);
-    QObject *dialogParent() const;
 
     void setTitle(const QString &title);
     QString title() const;
@@ -96,7 +93,6 @@ class DeclarativeInputDialogAttached : public QObject
     Q_INVOKABLE QString getText();
 
   Q_SIGNALS:
-    void dialogParentChanged(QObject *parent);
     void titleChanged(const QString &title);
     void labelChanged(const QString &label);
     void dialogAcceptedChanged(bool accepted);
@@ -115,7 +111,6 @@ class DeclarativeInputDialogAttached : public QObject
 
   private:
     void setDialogAccepted(bool accepted);
-    QWidget *bestParentWindow(QObject *parent) const;
 
     class Private;
     Private *const d;
