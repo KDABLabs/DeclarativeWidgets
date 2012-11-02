@@ -148,4 +148,5 @@ OTHER_FILES += \
     examples/gallery.qml \
     examples/layouts.qml \
     examples/test.qml \
-    examples/messagebox.qml
+    examples/messagebox.qml \
+    examples/filedialog.qml
