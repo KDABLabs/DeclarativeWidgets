@@ -69,7 +69,8 @@ LIB_HEADERS = \
   lib/declarativewidgetproxy_p.h \
   lib/declarativewidgetsdocument.h \
   lib/objectadaptors_p.h \
-  lib/qmetaobjectbuilder_p.h
+  lib/qmetaobjectbuilder_p.h \
+  lib/staticdialogmethodattached_p.h
 
 LIB_SOURCES = \
   lib/abstractdeclarativeobject.cpp \
@@ -129,7 +130,8 @@ LIB_SOURCES = \
   lib/declarativewidget.cpp \
   lib/declarativewidgetsdocument.cpp \
   lib/objectadaptors.cpp \
-  lib/qmetaobjectbuilder.cpp
+  lib/qmetaobjectbuilder.cpp \
+  lib/staticdialogmethodattached.cpp
 
 HEADERS += \
     $$LIB_HEADERS
