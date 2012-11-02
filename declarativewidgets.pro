@@ -5,30 +5,147 @@
 TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
-INCLUDEPATH += .
+INCLUDEPATH += . lib/
 
 # Input
+LIB_HEADERS = \
+  lib/abstractdeclarativeobject_p.h \
+  lib/declarativeactionitem_p.h \
+  lib/declarativeaction_p.h \
+  lib/declarativeboxlayout_p.h \
+  lib/declarativebuttongroup_p.h \
+  lib/declarativecalendarwidget_p.h \
+  lib/declarativecheckbox_p.h \
+  lib/declarativecolordialog_p.h \
+  lib/declarativecolumnview_p.h \
+  lib/declarativecommandlinkbutton_p.h \
+  lib/declarativedateedit_p.h \
+  lib/declarativedatetimeedit_p.h \
+  lib/declarativedialogbuttonbox_p.h \
+  lib/declarativedialog_p.h \
+  lib/declarativedial_p.h \
+  lib/declarativedoublespinbox_p.h \
+  lib/declarativefiledialog_p.h \
+  lib/declarativefontdialog_p.h \
+  lib/declarativeformlayout_p.h \
+  lib/declarativeframe_p.h \
+  lib/declarativegridlayout_p.h \
+  lib/declarativegroupbox_p.h \
+  lib/declarativehboxlayout_p.h \
+  lib/declarativeinputdialog_p.h \
+  lib/declarativelabel_p.h \
+  lib/declarativelayoutproxy_p.h \
+  lib/declarativelcdnumber_p.h \
+  lib/declarativelineedit_p.h \
+  lib/declarativelistview_p.h \
+  lib/declarativemainwindow_p.h \
+  lib/declarativemenubar_p.h \
+  lib/declarativemenu_p.h \
+  lib/declarativemessagebox_p.h \
+  lib/declarativeobjectproxy_p.h \
+  lib/declarativeplaintextedit_p.h \
+  lib/declarativeprogressbar_p.h \
+  lib/declarativepushbutton_p.h \
+  lib/declarativeradiobutton_p.h \
+  lib/declarativescrollarea_p.h \
+  lib/declarativescrollbar_p.h \
+  lib/declarativeseparator_p.h \
+  lib/declarativeslider_p.h \
+  lib/declarativespinbox_p.h \
+  lib/declarativestackedlayout_p.h \
+  lib/declarativestackedwidget_p.h \
+  lib/declarativestatusbar_p.h \
+  lib/declarativetableview_p.h \
+  lib/declarativetabwidget_p.h \
+  lib/declarativetextbrowser_p.h \
+  lib/declarativetextedit_p.h \
+  lib/declarativetimeedit_p.h \
+  lib/declarativetoolbar_p.h \
+  lib/declarativetoolbutton_p.h \
+  lib/declarativetreeview_p.h \
+  lib/declarativevboxlayout_p.h \
+  lib/declarativewebview_p.h \
+  lib/declarativewidget_p.h \
+  lib/declarativewidgetproxy_p.h \
+  lib/declarativewidgetsdocument.h \
+  lib/objectadaptors_p.h \
+  lib/qmetaobjectbuilder_p.h
+
+LIB_SOURCES = \
+  lib/abstractdeclarativeobject.cpp \
+  lib/declarativeaction.cpp \
+  lib/declarativeactionitem.cpp \
+  lib/declarativeboxlayout.cpp \
+  lib/declarativebuttongroup.cpp \
+  lib/declarativecalendarwidget.cpp \
+  lib/declarativecheckbox.cpp \
+  lib/declarativecolordialog.cpp \
+  lib/declarativecolumnview.cpp \
+  lib/declarativecommandlinkbutton.cpp \
+  lib/declarativedateedit.cpp \
+  lib/declarativedatetimeedit.cpp \
+  lib/declarativedial.cpp \
+  lib/declarativedialogbuttonbox.cpp \
+  lib/declarativedialog.cpp \
+  lib/declarativedoublespinbox.cpp \
+  lib/declarativefiledialog.cpp \
+  lib/declarativefontdialog.cpp \
+  lib/declarativeformlayout.cpp \
+  lib/declarativeframe.cpp \
+  lib/declarativegridlayout.cpp \
+  lib/declarativegroupbox.cpp \
+  lib/declarativehboxlayout.cpp \
+  lib/declarativeinputdialog.cpp \
+  lib/declarativelabel.cpp \
+  lib/declarativelcdnumber.cpp \
+  lib/declarativelineedit.cpp \
+  lib/declarativelistview.cpp \
+  lib/declarativemainwindow.cpp \
+  lib/declarativemenubar.cpp \
+  lib/declarativemenu.cpp \
+  lib/declarativemessagebox.cpp \
+  lib/declarativeplaintextedit.cpp \
+  lib/declarativeprogressbar.cpp \
+  lib/declarativepushbutton.cpp \
+  lib/declarativeradiobutton.cpp \
+  lib/declarativescrollarea.cpp \
+  lib/declarativescrollbar.cpp \
+  lib/declarativeseparator.cpp \
+  lib/declarativeslider.cpp \
+  lib/declarativespinbox.cpp \
+  lib/declarativestackedlayout.cpp \
+  lib/declarativestackedwidget.cpp \
+  lib/declarativestatusbar.cpp \
+  lib/declarativetableview.cpp \
+  lib/declarativetabwidget.cpp \
+  lib/declarativetextbrowser.cpp \
+  lib/declarativetextedit.cpp \
+  lib/declarativetimeedit.cpp \
+  lib/declarativetoolbar.cpp \
+  lib/declarativetoolbutton.cpp \
+  lib/declarativetreeview.cpp \
+  lib/declarativevboxlayout.cpp \
+  lib/declarativewebview.cpp \
+  lib/declarativewidget.cpp \
+  lib/declarativewidgetsdocument.cpp \
+  lib/objectadaptors.cpp \
+  lib/qmetaobjectbuilder.cpp
+
 HEADERS += \
-    declarativeobjects_p.h \
-    declarativewidgetdocument.h \
-    objectadaptors_p.h \
-    qmetaobjectbuilder_p.h
+    $$LIB_HEADERS
 
 SOURCES += \
-    declarativeobjects.cpp \
-    declarativewidgetdocument.cpp \
-    main.cpp \
-    objectadaptors.cpp \
-    qmetaobjectbuilder.cpp
+    $$LIB_SOURCES \
+    main.cpp
 
 QT += declarative webkit
 
 OTHER_FILES += \
-    animation.qml \
-    browser.qml \
-    dialogs.qml \
-    editor.qml \
-    gallery.qml \
-    layouts.qml \
-    test.qml \
-    messagebox.qml
+    examples/animation.qml \
+    examples/browser.qml \
+    examples/dialogs.qml \
+    examples/editor.qml \
+    examples/gallery.qml \
+    examples/layouts.qml \
+    examples/test.qml \
+    examples/messagebox.qml

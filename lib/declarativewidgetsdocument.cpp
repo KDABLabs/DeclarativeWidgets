@@ -1,6 +1,79 @@
-#include "declarativewidgetdocument.h"
+/*
+  Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Author: Kevin Krammer, krake@kdab.com
+  Author: Tobias Koenig, tokoe@kdab.com
 
-#include "declarativeobjects_p.h"
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+*/
+
+#include "declarativewidgetsdocument.h"
+
+// The declarative widget wrappers
+#include "declarativeactionitem_p.h"
+#include "declarativeaction_p.h"
+#include "declarativebuttongroup_p.h"
+#include "declarativecalendarwidget_p.h"
+#include "declarativecheckbox_p.h"
+#include "declarativecolordialog_p.h"
+#include "declarativecolumnview_p.h"
+#include "declarativecommandlinkbutton_p.h"
+#include "declarativedateedit_p.h"
+#include "declarativedatetimeedit_p.h"
+#include "declarativedialogbuttonbox_p.h"
+#include "declarativedialog_p.h"
+#include "declarativedial_p.h"
+#include "declarativedoublespinbox_p.h"
+#include "declarativefiledialog_p.h"
+#include "declarativefontdialog_p.h"
+#include "declarativeformlayout_p.h"
+#include "declarativeframe_p.h"
+#include "declarativegridlayout_p.h"
+#include "declarativegroupbox_p.h"
+#include "declarativehboxlayout_p.h"
+#include "declarativeinputdialog_p.h"
+#include "declarativelabel_p.h"
+#include "declarativelcdnumber_p.h"
+#include "declarativelineedit_p.h"
+#include "declarativelistview_p.h"
+#include "declarativemainwindow_p.h"
+#include "declarativemenubar_p.h"
+#include "declarativemenu_p.h"
+#include "declarativemessagebox_p.h"
+#include "declarativeplaintextedit_p.h"
+#include "declarativeprogressbar_p.h"
+#include "declarativepushbutton_p.h"
+#include "declarativeradiobutton_p.h"
+#include "declarativescrollarea_p.h"
+#include "declarativescrollbar_p.h"
+#include "declarativeseparator_p.h"
+#include "declarativeslider_p.h"
+#include "declarativespinbox_p.h"
+#include "declarativestackedlayout_p.h"
+#include "declarativestackedwidget_p.h"
+#include "declarativestatusbar_p.h"
+#include "declarativetableview_p.h"
+#include "declarativetabwidget_p.h"
+#include "declarativetextbrowser_p.h"
+#include "declarativetextedit_p.h"
+#include "declarativetimeedit_p.h"
+#include "declarativetoolbar_p.h"
+#include "declarativetoolbutton_p.h"
+#include "declarativetreeview_p.h"
+#include "declarativevboxlayout_p.h"
+#include "declarativewebview_p.h"
+#include "declarativewidget_p.h"
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
@@ -8,10 +81,10 @@
 #include <QtDeclarative/QDeclarativeContext>
 #include <QtDeclarative/QDeclarativeEngine>
 
-class DeclarativeWidgetDocument::Private
+class DeclarativeWidgetsDocument::Private
 {
   public:
-    Private(DeclarativeWidgetDocument *qq, const QUrl &url)
+    Private(DeclarativeWidgetsDocument *qq, const QUrl &url)
       : q(qq)
       , m_url(url)
       , m_engine(new QDeclarativeEngine(q))
@@ -19,13 +92,13 @@ class DeclarativeWidgetDocument::Private
     {
     }
 
-    DeclarativeWidgetDocument* q;
+    DeclarativeWidgetsDocument* q;
     QUrl m_url;
     QDeclarativeEngine* m_engine;
     QDeclarativeComponent* m_component;
 };
 
-DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *parent)
+DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject *parent)
   : QObject(parent)
   , d(new Private(this, url))
 {
@@ -108,27 +181,27 @@ DeclarativeWidgetDocument::DeclarativeWidgetDocument(const QUrl &url, QObject *p
   }
 }
 
-DeclarativeWidgetDocument::~DeclarativeWidgetDocument()
+DeclarativeWidgetsDocument::~DeclarativeWidgetsDocument()
 {
   delete d;
 }
 
-void DeclarativeWidgetDocument::setContextProperty(const QString &name, const QVariant &value)
+void DeclarativeWidgetsDocument::setContextProperty(const QString &name, const QVariant &value)
 {
   d->m_engine->rootContext()->setContextProperty(name, value);
 }
 
-void DeclarativeWidgetDocument::setContextProperty(const QString &name, QObject *object)
+void DeclarativeWidgetsDocument::setContextProperty(const QString &name, QObject *object)
 {
   d->m_engine->rootContext()->setContextProperty(name, object);
 }
 
-QDeclarativeEngine* DeclarativeWidgetDocument::engine() const
+QDeclarativeEngine* DeclarativeWidgetsDocument::engine() const
 {
   return d->m_engine;
 }
 
-QWidget* DeclarativeWidgetDocument::createWidget()
+QWidget* DeclarativeWidgetsDocument::createWidget()
 {
   QObject *object = d->m_component->create();
   if (!object) {
