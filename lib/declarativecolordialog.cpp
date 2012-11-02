@@ -26,33 +26,18 @@ class DeclarativeColorDialogAttached::Private
     Private() : options(0) {}
 
   public:
-    QPointer<QObject> dialogParent;
     QString title;
     QColorDialog::ColorDialogOptions options;
 };
 
 DeclarativeColorDialogAttached::DeclarativeColorDialogAttached(QObject *parent)
-  : QObject(parent), d(new Private)
+  : StaticDialogMethodAttached(parent), d(new Private)
 {
 }
 
 DeclarativeColorDialogAttached::~DeclarativeColorDialogAttached()
 {
   delete d;
-}
-
-void DeclarativeColorDialogAttached::setDialogParent(QObject *parent)
-{
-  if (parent == d->dialogParent)
-    return;
-
-  d->dialogParent = parent;
-  emit dialogParentChanged(parent);
-}
-
-QObject *DeclarativeColorDialogAttached::dialogParent() const
-{
-  return d->dialogParent;
 }
 
 void DeclarativeColorDialogAttached::setTitle(const QString &title)
@@ -71,32 +56,11 @@ QString DeclarativeColorDialogAttached::title() const
 
 QColor DeclarativeColorDialogAttached::getColor(const QColor &initialColor)
 {
-  QWidget *parent = bestParentWindow(d->dialogParent);
+  QWidget *parent = bestParentWindow();
   if (!d->title.isEmpty() || d->options != 0)
     return QColorDialog::getColor(initialColor, parent, d->title, d->options);
   else
     return QColorDialog::getColor(initialColor, parent);
-}
-
-QWidget *DeclarativeColorDialogAttached::bestParentWindow(QObject *parent) const
-{
-  if (!parent)
-    parent = this->parent();
-
-  // if parent is a Declarative Object, search the proxied hierarchy
-  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(parent);
-  if (declarativeObject)
-    parent = declarativeObject->object();
-
-  while (parent) {
-    QWidget *widget = qobject_cast<QWidget*>(parent);
-    if (widget)
-      return widget->topLevelWidget();
-
-    parent = parent->parent();
-  }
-
-  return 0;
 }
 
 DeclarativeColorDialog::DeclarativeColorDialog(QObject *parent) : DeclarativeWidgetProxy<QColorDialog>(parent)

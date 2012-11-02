@@ -23,12 +23,13 @@
 
 #include "declarativewidgetproxy_p.h"
 
+#include "staticdialogmethodattached_p.h"
+
 #include <QColorDialog>
 
-class DeclarativeColorDialogAttached : public QObject
+class DeclarativeColorDialogAttached : public StaticDialogMethodAttached
 {
   Q_OBJECT
-  Q_PROPERTY(QObject* parent READ dialogParent WRITE setDialogParent NOTIFY dialogParentChanged)
   Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
   // TODO option
 
@@ -36,21 +37,15 @@ class DeclarativeColorDialogAttached : public QObject
     DeclarativeColorDialogAttached(QObject *parent = 0);
     ~DeclarativeColorDialogAttached();
 
-    void setDialogParent(QObject *parent);
-    QObject *dialogParent() const;
-
     void setTitle(const QString &title);
     QString title() const;
 
     Q_INVOKABLE QColor getColor(const QColor &initialColor);
 
   Q_SIGNALS:
-    void dialogParentChanged(QObject *parent);
     void titleChanged(const QString &title);
 
   private:
-    QWidget *bestParentWindow(QObject *parent) const;
-
     class Private;
     Private *const d;
 };
