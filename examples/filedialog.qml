@@ -10,6 +10,14 @@ Widget {
       }
     }
     PushButton {
+      text: "FileDialog::getExistingDirectory non-native dialog"
+      onClicked: {
+        FileDialog.options = FileDialog.ShowDirsOnly | FileDialog.DontUseNativeDialog
+        var file = FileDialog.getExistingDirectory()
+        console.log("FileDialog.getExistingDirectory returned " + file)
+      }
+    }
+    PushButton {
       text: "FileDialog::getOpenFileName"
       onClicked: {
         var file = FileDialog.getOpenFileName()

@@ -32,7 +32,7 @@ class DeclarativeFileDialogAttached : public StaticDialogMethodAttached
   Q_PROPERTY(QString caption READ caption WRITE setCaption NOTIFY captionChanged)
   Q_PROPERTY(QString dir READ dir WRITE setDir NOTIFY dirChanged)
   Q_PROPERTY(QStringList nameFilters READ nameFilters WRITE setNameFilters NOTIFY nameFiltersChanged)
-  // TODO dialog option
+  Q_PROPERTY(int options READ options WRITE setOptions NOTIFY optionsChanged)
   Q_PROPERTY(QString selectedFilter READ selectedFilter NOTIFY selectedFilterChanged)
 
   public:
@@ -48,6 +48,9 @@ class DeclarativeFileDialogAttached : public StaticDialogMethodAttached
     void setNameFilters(const QStringList &nameFilters);
     QStringList nameFilters() const;
 
+    void setOptions(int options);
+    int options() const;
+
     QString selectedFilter() const;
 
     Q_INVOKABLE QString getExistingDirectory();
@@ -62,6 +65,7 @@ class DeclarativeFileDialogAttached : public StaticDialogMethodAttached
     void captionChanged(const QString &caption);
     void dirChanged(const QString &dir);
     void nameFiltersChanged(const QStringList &filters);
+    void optionsChanged(int options);
     void selectedFilterChanged(const QString &filter);
 
   private:
