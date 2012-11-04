@@ -54,6 +54,29 @@ QString DeclarativeColorDialogAttached::title() const
   return d->title;
 }
 
+void DeclarativeColorDialogAttached::setOptions(int options)
+{
+  if (d->options == options)
+    return;
+
+  d->options = static_cast<QColorDialog::ColorDialogOptions>(options);
+  emit optionsChanged(options);
+}
+
+int DeclarativeColorDialogAttached::options() const
+{
+  return d->options;
+}
+
+QColor DeclarativeColorDialogAttached::getColor()
+{
+  QWidget *parent = bestParentWindow();
+  if (!d->title.isEmpty() || d->options != 0)
+    return QColorDialog::getColor(Qt::white, parent, d->title, d->options);
+  else
+    return QColorDialog::getColor(Qt::white, parent);
+}
+
 QColor DeclarativeColorDialogAttached::getColor(const QColor &initialColor)
 {
   QWidget *parent = bestParentWindow();

@@ -111,15 +111,30 @@ Widget {
     PushButton {
       text: qsTr("Color Dialog::getColor")
       onClicked: {
-          console.log("Selected color: " + ColorDialog.getColor("#ff0000"))
+        console.log("Selected color: " + ColorDialog.getColor())
+      }
+    }
+
+    PushButton {
+      text: qsTr("Color Dialog::getColor with initial color")
+      onClicked: {
+        console.log("Selected color: " + ColorDialog.getColor("#ff0000"))
       }
     }
 
     PushButton {
       text: qsTr("Color Dialog::getColor with title")
       onClicked: {
-          ColorDialog.title = "Pick a color"
-          console.log("Selected color: " + ColorDialog.getColor("#ff0000"))
+        ColorDialog.title = "Pick a color"
+        console.log("Selected color: " + ColorDialog.getColor())
+      }
+    }
+
+    PushButton {
+      text: qsTr("Color Dialog::getColor with options")
+      onClicked: {
+        ColorDialog.options = ColorDialog.NoButtons | ColorDialog.ShowAlphaChannel
+        console.log("Selected color: " + ColorDialog.getColor())
       }
     }
 

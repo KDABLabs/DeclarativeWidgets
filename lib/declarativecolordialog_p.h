@@ -31,7 +31,7 @@ class DeclarativeColorDialogAttached : public StaticDialogMethodAttached
 {
   Q_OBJECT
   Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
-  // TODO option
+  Q_PROPERTY(int options READ options WRITE setOptions NOTIFY optionsChanged)
 
   public:
     DeclarativeColorDialogAttached(QObject *parent = 0);
@@ -40,10 +40,15 @@ class DeclarativeColorDialogAttached : public StaticDialogMethodAttached
     void setTitle(const QString &title);
     QString title() const;
 
+    void setOptions(int options);
+    int options() const;
+
+    Q_INVOKABLE QColor getColor();
     Q_INVOKABLE QColor getColor(const QColor &initialColor);
 
   Q_SIGNALS:
     void titleChanged(const QString &title);
+    void optionsChanged(int options);
 
   private:
     class Private;
