@@ -20,60 +20,87 @@
 
 #include "declarativemessagebox_p.h"
 
+class DeclarativeMessageBoxAttached::Private
+{
+  public:
+    Private() : buttons(QMessageBox::Ok), defaultButton(QMessageBox::NoButton) {}
+
+  public:
+    QMessageBox::StandardButtons buttons;
+    QMessageBox::StandardButton defaultButton;
+};
+
 DeclarativeMessageBoxAttached::DeclarativeMessageBoxAttached(QObject *parent)
-  : QObject(parent)
+  : StaticDialogMethodAttached(parent), d(new Private)
 {
 }
 
-void DeclarativeMessageBoxAttached::about(QObject *parent, const QString &title, const QString &text)
+DeclarativeMessageBoxAttached::~DeclarativeMessageBoxAttached()
 {
-  QMessageBox::about(bestParentWindow(parent), title, text);
+  delete d;
 }
 
-void DeclarativeMessageBoxAttached::aboutQt(QObject *parent, const QString &title)
+void DeclarativeMessageBoxAttached::setButtons(int buttons)
 {
-  QMessageBox::aboutQt(bestParentWindow(parent), title);
+  if (d->buttons == buttons)
+    return;
+
+  d->buttons = static_cast<QMessageBox::StandardButtons>(buttons);
+  emit buttonsChanged(buttons);
 }
 
-int DeclarativeMessageBoxAttached::critical(QObject *parent, const QString &title, const QString &text, int buttons, int defaultButton)
+int DeclarativeMessageBoxAttached::buttons() const
 {
-  return QMessageBox::critical(bestParentWindow(parent), title, text, static_cast<QMessageBox::StandardButtons>(buttons), static_cast<QMessageBox::StandardButton>(defaultButton));
+  return d->buttons;
 }
 
-int DeclarativeMessageBoxAttached::information(QObject *parent, const QString &title, const QString &text, int buttons, int defaultButton)
+void DeclarativeMessageBoxAttached::setDefaultButton(int defaultButton)
 {
-  return QMessageBox::information(bestParentWindow(parent), title, text, static_cast<QMessageBox::StandardButtons>(buttons), static_cast<QMessageBox::StandardButton>(defaultButton));
+  if (d->defaultButton == defaultButton)
+    return;
+
+  d->defaultButton = static_cast<QMessageBox::StandardButton>(defaultButton);
+  emit defaultButtonChanged(defaultButton);
 }
 
-int DeclarativeMessageBoxAttached::question(QObject *parent, const QString &title, const QString &text, int buttons, int defaultButton)
+int DeclarativeMessageBoxAttached::defaultButton() const
 {
-  return QMessageBox::question(bestParentWindow(parent), title, text, static_cast<QMessageBox::StandardButtons>(buttons), static_cast<QMessageBox::StandardButton>(defaultButton));
+  return d->defaultButton;
 }
 
-int DeclarativeMessageBoxAttached::warning(QObject *parent, const QString &title, const QString &text, int buttons, int defaultButton)
+void DeclarativeMessageBoxAttached::about(const QString &title, const QString &text)
 {
-  return QMessageBox::warning(bestParentWindow(parent), title, text, static_cast<QMessageBox::StandardButtons>(buttons), static_cast<QMessageBox::StandardButton>(defaultButton));
+  QMessageBox::about(bestParentWindow(), title, text);
 }
 
-QWidget *DeclarativeMessageBoxAttached::bestParentWindow(QObject *parent) const
+void DeclarativeMessageBoxAttached::aboutQt()
 {
-  if (!parent)
-    parent = this->parent();
+  QMessageBox::aboutQt(bestParentWindow());
+}
 
-  // if parent is a Declarative Object, search the proxied hierarchy
-  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(parent);
-  if (declarativeObject)
-    parent = declarativeObject->object();
+void DeclarativeMessageBoxAttached::aboutQt(const QString &title)
+{
+  QMessageBox::aboutQt(bestParentWindow(), title);
+}
 
-  while (parent) {
-    QWidget *widget = qobject_cast<QWidget*>(parent);
-    if (widget)
-      return widget->topLevelWidget();
+int DeclarativeMessageBoxAttached::critical(const QString &title, const QString &text)
+{
+  return QMessageBox::critical(bestParentWindow(), title, text, d->buttons, d->defaultButton);
+}
 
-    parent = parent->parent();
-  }
+int DeclarativeMessageBoxAttached::information(const QString &title, const QString &text)
+{
+  return QMessageBox::information(bestParentWindow(), title, text, d->buttons, d->defaultButton);
+}
 
-  return 0;
+int DeclarativeMessageBoxAttached::question(const QString &title, const QString &text)
+{
+  return QMessageBox::question(bestParentWindow(), title, text, d->buttons, d->defaultButton);
+}
+
+int DeclarativeMessageBoxAttached::warning(const QString &title, const QString &text)
+{
+  return QMessageBox::warning(bestParentWindow(), title, text, d->buttons, d->defaultButton);
 }
 
 DeclarativeMessageBox::DeclarativeMessageBox(QObject *parent) : DeclarativeObjectProxy<QMessageBox>(parent)

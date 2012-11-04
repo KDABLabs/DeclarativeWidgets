@@ -23,28 +23,41 @@
 
 #include "declarativeobjectproxy_p.h"
 
+#include "staticdialogmethodattached_p.h"
+
 #include <QMessageBox>
 
-class DeclarativeMessageBoxAttached : public QObject
+class DeclarativeMessageBoxAttached : public StaticDialogMethodAttached
 {
   Q_OBJECT
+  Q_PROPERTY(int buttons READ buttons WRITE setButtons NOTIFY buttonsChanged)
+  Q_PROPERTY(int defaultButton READ defaultButton WRITE setDefaultButton NOTIFY defaultButtonChanged)
 
   public:
     DeclarativeMessageBoxAttached(QObject *parent = 0);
+    ~DeclarativeMessageBoxAttached();
 
-    Q_INVOKABLE void about(QObject *parent, const QString &title, const QString &text);
-    Q_INVOKABLE void aboutQt(QObject *parent, const QString &title);
-    Q_INVOKABLE int critical(QObject *parent, const QString &title, const QString &text,
-                             int buttons = QMessageBox::Ok, int defaultButton = QMessageBox::NoButton);
-    Q_INVOKABLE int information(QObject *parent, const QString &title, const QString &text,
-                                int buttons = QMessageBox::Ok, int defaultButton = QMessageBox::NoButton);
-    Q_INVOKABLE int question(QObject *parent, const QString &title, const QString &text,
-                             int buttons = QMessageBox::Ok, int defaultButton = QMessageBox::NoButton);
-    Q_INVOKABLE int warning(QObject *parent, const QString &title, const QString &text,
-                            int buttons = QMessageBox::Ok, int defaultButton = QMessageBox::NoButton);
+    void setButtons(int buttons);
+    int buttons() const;
+
+    void setDefaultButton(int defaultButton);
+    int defaultButton() const;
+
+    Q_INVOKABLE void about(const QString &title, const QString &text);
+    Q_INVOKABLE void aboutQt();
+    Q_INVOKABLE void aboutQt(const QString &title);
+    Q_INVOKABLE int critical(const QString &title, const QString &text);
+    Q_INVOKABLE int information(const QString &title, const QString &text);
+    Q_INVOKABLE int question(const QString &title, const QString &text);
+    Q_INVOKABLE int warning(const QString &title, const QString &text);
+
+  Q_SIGNALS:
+    void buttonsChanged(int buttons);
+    void defaultButtonChanged(int defaultButton);
 
   private:
-    QWidget *bestParentWindow(QObject *parent) const;
+    class Private;
+    Private *const d;
 };
 
 class DeclarativeMessageBox : public DeclarativeObjectProxy<QMessageBox>

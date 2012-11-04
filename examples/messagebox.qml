@@ -11,18 +11,26 @@ Widget {
     PushButton {
       id: aboutButton
       text: qsTr("MessageBox::about")
-      onClicked: MessageBox.about(aboutButton, qsTr("About DeclarativeWidgets"), qsTr("This is a text about declarative widgets."))
+      onClicked: {
+        MessageBox.parent = aboutButton
+        MessageBox.about(qsTr("About DeclarativeWidgets"), qsTr("This is a text about declarative widgets."))
+      }
     }
 
     PushButton {
       text: qsTr("MessageBox::aboutQt")
-      onClicked: MessageBox.aboutQt(0, qsTr("About Qt"))
+      onClicked: MessageBox.aboutQt()
+    }
+
+    PushButton {
+      text: qsTr("MessageBox::aboutQt with title")
+      onClicked: MessageBox.aboutQt(qsTr("About Qt message box"))
     }
 
     PushButton {
       text: qsTr("MessageBox::critical")
       onClicked: {
-        var button = MessageBox.critical(0, qsTr("Error"), qsTr("An error occurred!"))
+        var button = MessageBox.critical(qsTr("Error"), qsTr("An error occurred!"))
         console.log("MessageBox.critical returned " + button)
       }
     }
@@ -30,7 +38,7 @@ Widget {
     PushButton {
       text: qsTr("MessageBox::information")
       onClicked: {
-        var button = MessageBox.information(0, qsTr("Information"), qsTr("The taxi is here"))
+        var button = MessageBox.information(qsTr("Information"), qsTr("The taxi is here"))
         console.log("MessageBox.information returned " + button)
       }
     }
@@ -38,7 +46,18 @@ Widget {
     PushButton {
       text: qsTr("MessageBox::question")
       onClicked: {
-        var button = MessageBox.question(0, qsTr("Network error"), qsTr("Can not connect to host"), MessageBox.Retry | MessageBox.Abort | MessageBox.Ignore, MessageBox.Abort)
+        MessageBox.buttons = MessageBox.Retry | MessageBox.Abort | MessageBox.Ignore
+        var button = MessageBox.question(qsTr("Network error"), qsTr("Can not connect to host"))
+        console.log("MessageBox.question returned " + button)
+      }
+    }
+
+    PushButton {
+      text: qsTr("MessageBox::question with default abort")
+      onClicked: {
+        MessageBox.buttons = MessageBox.Retry | MessageBox.Abort | MessageBox.Ignore
+        MessageBox.defaultButton = MessageBox.Abort
+        var button = MessageBox.question(qsTr("Network error"), qsTr("Can not connect to host"))
         console.log("MessageBox.question returned " + button)
       }
     }
@@ -46,7 +65,8 @@ Widget {
     PushButton {
       text: qsTr("MessageBox::warning")
       onClicked: {
-        var button = MessageBox.warning(0, qsTr("Warning"), qsTr("Do you really want to quit?"), MessageBox.Ok | MessageBox.Cancel, MessageBox.Ok)
+        MessageBox.buttons = MessageBox.Ok | MessageBox.Cancel
+        var button = MessageBox.warning(0, qsTr("Warning"), qsTr("Do you really want to quit?"))
         console.log("MessageBox.warning returned " + button)
       }
     }
