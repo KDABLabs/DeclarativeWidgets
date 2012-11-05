@@ -1,5 +1,7 @@
 TEMPLATE = subdirs
 
+SUBDIRS += text-editor
+
 OTHER_FILES += \
     animation.qml \
     browser.qml \
