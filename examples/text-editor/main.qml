@@ -1,3 +1,4 @@
+import QtQuick 1.0
 import QtGui 1.0
 
 MainWindow {
@@ -141,4 +142,6 @@ MainWindow {
       text: "Pos:"
     }
   }
+
+  Component.onCompleted: textEdit.document = _editor.document
 }

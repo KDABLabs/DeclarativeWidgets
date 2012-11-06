@@ -18,6 +18,8 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
+#include "editor.h"
+
 #include "declarativewidgetsdocument.h"
 
 #include <QApplication>
@@ -33,6 +35,9 @@ int main(int argc, char **argv)
 
   DeclarativeWidgetsDocument document(documentUrl);
   QObject::connect(document.engine(), SIGNAL(quit()), &app, SLOT(quit()));
+
+  Editor editor;
+  document.setContextProperty("_editor", &editor);
 
   QWidget *widget = document.create<QWidget>();
   if (!widget)
