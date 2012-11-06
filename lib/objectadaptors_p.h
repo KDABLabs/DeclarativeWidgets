@@ -183,13 +183,20 @@ class TextEdit : public QTextEdit
 {
   Q_OBJECT
 
+  // TODO
+  // ideally QTextDocument's property declaration for modified would include the modificationChanged signal
+  // as its NOTIFY, this and setTextDocument could then be removed
   Q_PROPERTY(bool modified READ modified NOTIFY modifiedChanged)
+  Q_PROPERTY(QTextDocument* document READ document WRITE setTextDocument NOTIFY documentChanged)
 
   public:
     TextEdit(QWidget *parent = 0);
 
+    void setTextDocument(QTextDocument *document);
+
   Q_SIGNALS:
     void modifiedChanged();
+    void documentChanged();
 
   private:
     bool modified() const;
