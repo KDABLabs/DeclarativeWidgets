@@ -9,6 +9,7 @@ class Editor : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(QTextDocument* document READ document CONSTANT)
+  Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged)
 
   public:
     explicit Editor(QObject *parent = 0);
@@ -16,11 +17,20 @@ class Editor : public QObject
     
     QTextDocument *document() const;
 
+    void setFileName(const QString &fileName);
+    QString fileName() const;
+
+  Q_SIGNALS:
+    void fileNameChanged(const QString &fileName);
+    void requestSaveFileName();
+
   public Q_SLOTS:
     void newDocument();
+    void save();
 
   private:
     QTextDocument *m_document;
+    QString m_fileName;
 };
 
 #endif // EDITOR_H

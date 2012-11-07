@@ -20,6 +20,7 @@ MainWindow {
 
       Action {
         text: qsTr("Save")
+        onTriggered: _editor.save()
       }
 
       Separator {}
@@ -144,5 +145,16 @@ MainWindow {
     }
   }
 
-  Component.onCompleted: textEdit.document = _editor.document
+  Component.onCompleted: {
+    textEdit.document = _editor.document
+    _editor.requestSaveFileName.connect(askForSaveFileName)
+  }
+
+  function askForSaveFileName() {
+    var fileName = FileDialog.getSaveFileName()
+    if (fileName.length > 0) {
+      _editor.fileName = fileName
+      _editor.save()
+    }
+  }
 }
