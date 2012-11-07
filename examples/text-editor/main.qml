@@ -19,6 +19,16 @@ MainWindow {
       }
 
       Action {
+        text: qsTr("Open")
+        onTriggered: {
+          FileDialog.nameFilters = [ qsTr("Plain text files (*.txt)"), qsTr("All files (*.*)") ]
+          var fileName = FileDialog.getOpenFileName()
+          if (fileName.length > 0)
+            _editor.open(fileName);
+        }
+      }
+
+      Action {
         text: qsTr("Save")
         onTriggered: _editor.save()
       }

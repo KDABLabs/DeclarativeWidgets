@@ -26,6 +26,7 @@ class Editor : public QObject
 
   public Q_SLOTS:
     void newDocument();
+    void open(const QString &fileName);
     void save();
 
   private:

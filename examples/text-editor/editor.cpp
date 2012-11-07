@@ -41,6 +41,22 @@ void Editor::newDocument()
   m_document->setModified(false);
 }
 
+void Editor::open(const QString &fileName)
+{
+  if (fileName.isEmpty())
+    return;
+
+  QFile file(fileName);
+  if (!file.open(QIODevice::ReadOnly))
+    return;
+
+  QTextStream stream(&file);
+  m_document->setPlainText(stream.readAll());
+  m_document->setModified(false);
+
+  setFileName(fileName);
+}
+
 void Editor::save()
 {
   if (m_fileName.isEmpty()) {
