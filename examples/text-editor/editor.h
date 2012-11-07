@@ -16,6 +16,9 @@ class Editor : public QObject
     
     QTextDocument *document() const;
 
+  public Q_SLOTS:
+    void newDocument();
+
   private:
     QTextDocument *m_document;
 };

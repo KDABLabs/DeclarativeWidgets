@@ -18,3 +18,8 @@ QTextDocument *Editor::document() const
   return m_document;
 }
 
+void Editor::newDocument()
+{
+  m_document->clear();
+  m_document->setModified(false);
+}

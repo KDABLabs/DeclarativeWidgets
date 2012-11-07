@@ -15,6 +15,7 @@ MainWindow {
       Action {
         id: newAction
         text: qsTr("New")
+        onTriggered: _editor.newDocument()
       }
 
       Action {
