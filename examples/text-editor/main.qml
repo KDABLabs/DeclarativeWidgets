@@ -180,8 +180,8 @@ MainWindow {
   }
 
   StatusBar {
+    id: statusBar
     Label {
-      StatusBar.stretch: 2
       text: "File: " + ( _editor.fileName.length == 0 ? qsTr("unnamed") : _editor.fileName )
     }
   }
@@ -189,6 +189,8 @@ MainWindow {
   Component.onCompleted: {
     textEdit.document = _editor.document
     _editor.requestSaveFileName.connect(askForSaveFileName)
+    _editor.information.connect(informationMessage)
+    _editor.critical.connect(criticalMessage)
   }
 
   function askForSaveFileName() {
@@ -197,5 +199,14 @@ MainWindow {
       _editor.fileName = fileName
       _editor.save()
     }
+  }
+
+  function informationMessage(message) {
+    console.log("information:" + message)
+    statusBar.showMessage(message, 3000)
+  }
+
+  function criticalMessage(message) {
+    MessageBox.critical(qsTr("Error"), message)
   }
 }

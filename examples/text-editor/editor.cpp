@@ -57,8 +57,10 @@ void Editor::open(const QString &fileName)
     return;
 
   QFile file(fileName);
-  if (!file.open(QIODevice::ReadOnly))
+  if (!file.open(QIODevice::ReadOnly)) {
+    emit critical(tr("File %1 can not be read").arg(fileName));
     return;
+  }
 
   QTextStream stream(&file);
   m_document->setPlainText(stream.readAll());
@@ -85,4 +87,5 @@ void Editor::save()
   file.close();
 
   m_document->setModified(false);
+  emit information(tr("File %1 successfully saved").arg(m_fileName));
 }

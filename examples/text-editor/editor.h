@@ -28,6 +28,9 @@ class Editor : public QObject
     void fileNameChanged(const QString &fileName);
     void requestSaveFileName();
 
+    void information(const QString &message);
+    void critical(const QString &message);
+
   public Q_SLOTS:
     void newDocument();
     void open(const QString &fileName);
