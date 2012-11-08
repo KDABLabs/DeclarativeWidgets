@@ -182,7 +182,7 @@ MainWindow {
   StatusBar {
     Label {
       StatusBar.stretch: 2
-      text: "Pos:"
+      text: "File: " + ( _editor.fileName.length == 0 ? qsTr("unnamed") : _editor.fileName )
     }
   }
 
