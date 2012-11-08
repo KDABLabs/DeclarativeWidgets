@@ -5,6 +5,7 @@ MainWindow {
   id: mainWindow
 
   windowTitle: textEdit.modified ? qsTr("Declarative Widget Editor *modified*") : qsTr("Declarative Widget Editor")
+  windowIcon: _editor.iconFromFile(":/editor.png")
 
   size: Qt.size(800, 600)
 
@@ -15,11 +16,14 @@ MainWindow {
       Action {
         id: newAction
         text: qsTr("New")
+        icon: _editor.iconFromTheme("document-new");
         onTriggered: _editor.newDocument()
       }
 
       Action {
+        id: openAction
         text: qsTr("Open")
+        icon: _editor.iconFromTheme("document-open")
         onTriggered: {
           FileDialog.nameFilters = [ qsTr("Plain text files (*.txt)"), qsTr("All files (*.*)") ]
           var fileName = FileDialog.getOpenFileName()
@@ -29,7 +33,9 @@ MainWindow {
       }
 
       Action {
+        id: saveAction
         text: qsTr("Save")
+        icon: _editor.iconFromTheme("document-save")
         onTriggered: _editor.save()
       }
 
@@ -37,12 +43,14 @@ MainWindow {
 
       Action {
         text: qsTr("Print")
+        icon: _editor.iconFromTheme("document-print")
       }
 
       Separator {}
 
       Action {
         text: qsTr("Close")
+        icon: _editor.iconFromTheme("application-exit")
         onTriggered: mainWindow.close()
       }
     }
@@ -51,12 +59,16 @@ MainWindow {
       title: qsTr("Edit")
 
       Action {
+        id: undoAction
         text: qsTr("Undo")
+        icon: _editor.iconFromTheme("edit-undo")
         onTriggered: textEdit.undo()
       }
 
       Action {
+        id: redoAction
         text: qsTr("Redo")
+        icon: _editor.iconFromTheme("edit-redo")
         onTriggered: textEdit.redo()
       }
 
@@ -65,18 +77,21 @@ MainWindow {
       Action {
         id: cutAction
         text: qsTr("Cut")
+        icon: _editor.iconFromTheme("edit-cut")
         onTriggered: textEdit.cut()
       }
 
       Action {
         id: copyAction
         text: qsTr("Copy")
+        icon: _editor.iconFromTheme("edit-copy")
         onTriggered: textEdit.copy()
       }
 
       Action {
         id: pasteAction
         text: qsTr("Paste")
+        icon: _editor.iconFromTheme("edit-paste")
         onTriggered: textEdit.paste()
       }
 
@@ -84,6 +99,7 @@ MainWindow {
 
       Action {
         text: qsTr("Select All")
+        icon: _editor.iconFromTheme("edit-select-all")
         onTriggered: textEdit.selectAll()
       }
     }
@@ -93,11 +109,13 @@ MainWindow {
 
       Action {
         text: qsTr("Enlarge Font")
+        icon: _editor.iconFromTheme("zoom-in")
         onTriggered: textEdit.zoomIn()
       }
 
       Action {
         text: qsTr("Shrink Font")
+        icon: _editor.iconFromTheme("zoom-out")
         onTriggered: textEdit.zoomOut()
       }
     }
@@ -107,6 +125,7 @@ MainWindow {
 
       Action {
         text: qsTr("About")
+        icon: mainWindow.windowIcon
         onTriggered: MessageBox.about(qsTr("About Declarative Widgets Editor Example"),
                                       qsTr("This is an example of a simple text editor written in QML using DeclarativeWidgets"))
       }
@@ -123,10 +142,22 @@ MainWindow {
       action: newAction
     }
 
-    Separator {}
+    ActionItem {
+      action: openAction
+    }
 
-    Label {
-      text: "Zoom"
+    ActionItem {
+      action: saveAction
+    }
+  }
+
+  ToolBar {
+    ActionItem {
+      action: undoAction
+    }
+
+    ActionItem {
+      action: redoAction
     }
   }
 

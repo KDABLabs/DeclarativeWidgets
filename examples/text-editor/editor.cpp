@@ -34,6 +34,16 @@ QString Editor::fileName() const
   return m_fileName;
 }
 
+QIcon Editor::iconFromFile(const QString &fileName) const
+{
+  return QIcon(fileName);
+}
+
+QIcon Editor::iconFromTheme(const QString &iconName) const
+{
+  return QIcon::fromTheme(iconName);
+}
+
 void Editor::newDocument()
 {
   m_fileName = QString();

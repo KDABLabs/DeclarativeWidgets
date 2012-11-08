@@ -12,11 +12,11 @@ SOURCES += \
     main.cpp \
     editor.cpp
 
+HEADERS += \
+    editor.h
+
 RESOURCES += \
     text-editor.qrc
 
 OTHER_FILES += \
     main.qml
-
-HEADERS += \
-    editor.h
