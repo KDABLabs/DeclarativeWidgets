@@ -50,20 +50,20 @@ template <class T>
 class DeclarativeObjectProxy<T, false> : public AbstractDeclarativeObject
 {
   public:
-    DeclarativeObjectProxy(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(new T) {}
+    explicit DeclarativeObjectProxy(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(new T) {}
     ~DeclarativeObjectProxy() { delete m_proxiedObject; }
 
-    virtual QObject *object() const { return m_proxiedObject.data(); }
+    QObject *object() const { return m_proxiedObject.data(); }
 
   protected:
-    virtual void dataAppend(QObject *object)
+    void dataAppend(QObject *object)
     {
       m_children.append(object);
     }
 
-    virtual int dataCount() const { return m_children.count(); }
-    virtual QObject *dataAt(int index) const { return m_children.at(index); }
-    virtual void dataClear()
+    int dataCount() const { return m_children.count(); }
+    QObject *dataAt(int index) const { return m_children.at(index); }
+    void dataClear()
     {
       qDeleteAll(m_children);
       m_children.clear();
@@ -78,20 +78,20 @@ template <class T>
 class DeclarativeObjectProxy<T, true> : public AbstractDeclarativeObject
 {
   public:
-    DeclarativeObjectProxy(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(new T(0)) {}
+    explicit DeclarativeObjectProxy(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(new T(0)) {}
     ~DeclarativeObjectProxy() { delete m_proxiedObject; }
 
     virtual QObject *object() const { return m_proxiedObject.data(); }
 
   protected:
-    virtual void dataAppend(QObject *object)
+    void dataAppend(QObject *object)
     {
       m_children.append(object);
     }
 
-    virtual int dataCount() const { return m_children.count(); }
-    virtual QObject *dataAt(int index) const { return m_children.at(index); }
-    virtual void dataClear()
+    int dataCount() const { return m_children.count(); }
+    QObject *dataAt(int index) const { return m_children.at(index); }
+    void dataClear()
     {
       qDeleteAll(m_children);
       m_children.clear();

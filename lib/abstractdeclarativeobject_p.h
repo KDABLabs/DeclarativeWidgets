@@ -34,8 +34,8 @@ class AbstractDeclarativeObject : public QObject
   Q_CLASSINFO("DefaultProperty", "data")
 
   public:
-    AbstractDeclarativeObject(QObject *parent = 0);
-    virtual ~AbstractDeclarativeObject();
+    explicit AbstractDeclarativeObject(QObject *parent = 0);
+    ~AbstractDeclarativeObject();
 
     virtual QObject* object() const = 0;
 

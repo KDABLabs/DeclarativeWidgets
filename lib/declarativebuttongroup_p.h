@@ -30,7 +30,7 @@ class DeclarativeButtonGroup : public DeclarativeObjectProxy<ButtonGroup>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeButtonGroup(QObject *parent = 0);
+    explicit DeclarativeButtonGroup(QObject *parent = 0);
 };
 
 #endif

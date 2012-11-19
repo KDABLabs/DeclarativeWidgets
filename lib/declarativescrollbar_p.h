@@ -30,7 +30,7 @@ class DeclarativeScrollBar : public DeclarativeWidgetProxy<QScrollBar>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeScrollBar(QObject *parent = 0);
+    explicit DeclarativeScrollBar(QObject *parent = 0);
 };
 
 #endif

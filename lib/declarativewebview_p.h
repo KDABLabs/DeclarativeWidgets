@@ -30,7 +30,7 @@ class DeclarativeWebView : public DeclarativeWidgetProxy<QWebView>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeWebView(QObject *parent = 0);
+    explicit DeclarativeWebView(QObject *parent = 0);
 };
 
 #endif

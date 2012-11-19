@@ -30,7 +30,7 @@ class DeclarativeLabel : public DeclarativeWidgetProxy<QLabel>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeLabel(QObject *parent = 0);
+    explicit DeclarativeLabel(QObject *parent = 0);
 };
 
 #endif

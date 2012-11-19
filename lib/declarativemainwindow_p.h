@@ -30,11 +30,11 @@ class DeclarativeMainWindow : public DeclarativeWidgetProxy<QMainWindow>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeMainWindow(QObject *parent = 0);
+    explicit DeclarativeMainWindow(QObject *parent = 0);
 
   protected:
-    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
-    virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 
 #endif

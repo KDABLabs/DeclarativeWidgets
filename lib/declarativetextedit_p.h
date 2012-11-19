@@ -30,7 +30,7 @@ class DeclarativeTextEdit : public DeclarativeWidgetProxy<TextEdit>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeTextEdit(QObject *parent = 0);
+    explicit DeclarativeTextEdit(QObject *parent = 0);
 };
 
 #endif

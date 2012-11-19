@@ -46,7 +46,7 @@ class DeclarativeInputDialogAttached : public StaticDialogMethodAttached
   Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 
   public:
-    DeclarativeInputDialogAttached(QObject *parent = 0);
+    explicit DeclarativeInputDialogAttached(QObject *parent = 0);
     ~DeclarativeInputDialogAttached();
 
     void setTitle(const QString &title);
@@ -121,7 +121,7 @@ class DeclarativeInputDialog : public DeclarativeWidgetProxy<InputDialog>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeInputDialog(QObject *parent = 0);
+    explicit DeclarativeInputDialog(QObject *parent = 0);
 
     static DeclarativeInputDialogAttached *qmlAttachedProperties(QObject *parent);
 };

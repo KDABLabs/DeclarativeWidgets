@@ -30,7 +30,7 @@ class DeclarativeTreeView : public DeclarativeWidgetProxy<TreeView>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeTreeView(QObject *parent = 0);
+    explicit DeclarativeTreeView(QObject *parent = 0);
 };
 
 #endif

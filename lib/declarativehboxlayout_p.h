@@ -31,7 +31,7 @@ class DeclarativeHBoxLayout : public DeclarativeLayoutProxy<QHBoxLayout>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeHBoxLayout(QObject *parent = 0);
+    explicit DeclarativeHBoxLayout(QObject *parent = 0);
 
     static DeclarativeBoxLayoutAttached *qmlAttachedProperties(QObject *parent);
 

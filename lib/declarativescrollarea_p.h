@@ -30,11 +30,11 @@ class DeclarativeScrollArea : public DeclarativeWidgetProxy<QScrollArea>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeScrollArea(QObject *parent = 0);
+    explicit DeclarativeScrollArea(QObject *parent = 0);
 
   protected:
-    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
-    virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 
 #endif

@@ -30,7 +30,7 @@ class DeclarativePlainTextEdit : public DeclarativeWidgetProxy<QPlainTextEdit>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativePlainTextEdit(QObject *parent = 0);
+    explicit DeclarativePlainTextEdit(QObject *parent = 0);
 };
 
 #endif

@@ -30,7 +30,7 @@ class DeclarativeSlider : public DeclarativeWidgetProxy<QSlider>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeSlider(QObject *parent = 0);
+    explicit DeclarativeSlider(QObject *parent = 0);
 };
 
 #endif

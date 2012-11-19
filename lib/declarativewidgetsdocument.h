@@ -31,7 +31,7 @@ class DeclarativeWidgetsDocument : public QObject
   Q_OBJECT
 
   public:
-    DeclarativeWidgetsDocument(const QUrl &url, QObject *parent = 0);
+    explicit DeclarativeWidgetsDocument(const QUrl &url, QObject *parent = 0);
     ~DeclarativeWidgetsDocument();
 
     void setContextProperty(const QString &name, const QVariant &value);

@@ -34,7 +34,7 @@ class DeclarativeColorDialogAttached : public StaticDialogMethodAttached
   Q_PROPERTY(int options READ options WRITE setOptions NOTIFY optionsChanged)
 
   public:
-    DeclarativeColorDialogAttached(QObject *parent = 0);
+    explicit DeclarativeColorDialogAttached(QObject *parent = 0);
     ~DeclarativeColorDialogAttached();
 
     void setTitle(const QString &title);

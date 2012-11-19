@@ -30,7 +30,7 @@ class DeclarativeAction : public DeclarativeObjectProxy<QAction, true>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeAction(QObject *parent = 0);
+    explicit DeclarativeAction(QObject *parent = 0);
 };
 Q_DECLARE_METATYPE(DeclarativeAction*)
 

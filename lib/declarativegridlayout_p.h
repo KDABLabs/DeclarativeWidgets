@@ -74,7 +74,7 @@ class DeclarativeGridLayout : public DeclarativeLayoutProxy<QGridLayout>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeGridLayout(QObject *parent = 0);
+    explicit DeclarativeGridLayout(QObject *parent = 0);
 
     static DeclarativeGridLayoutAttached *qmlAttachedProperties(QObject *parent);
 

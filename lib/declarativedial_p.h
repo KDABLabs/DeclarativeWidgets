@@ -30,7 +30,7 @@ class DeclarativeDial : public DeclarativeWidgetProxy<QDial>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeDial(QObject *parent = 0);
+    explicit DeclarativeDial(QObject *parent = 0);
 };
 
 #endif

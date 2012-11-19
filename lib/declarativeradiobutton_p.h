@@ -30,7 +30,7 @@ class DeclarativeRadioButton : public DeclarativeWidgetProxy<QRadioButton>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeRadioButton(QObject *parent = 0);
+    explicit DeclarativeRadioButton(QObject *parent = 0);
 };
 
 #endif

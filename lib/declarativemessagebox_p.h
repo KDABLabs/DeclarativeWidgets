@@ -34,7 +34,7 @@ class DeclarativeMessageBoxAttached : public StaticDialogMethodAttached
   Q_PROPERTY(int defaultButton READ defaultButton WRITE setDefaultButton NOTIFY defaultButtonChanged)
 
   public:
-    DeclarativeMessageBoxAttached(QObject *parent = 0);
+    explicit DeclarativeMessageBoxAttached(QObject *parent = 0);
     ~DeclarativeMessageBoxAttached();
 
     void setButtons(int buttons);
@@ -65,7 +65,7 @@ class DeclarativeMessageBox : public DeclarativeObjectProxy<QMessageBox>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeMessageBox(QObject *parent = 0);
+    explicit DeclarativeMessageBox(QObject *parent = 0);
 
     static DeclarativeMessageBoxAttached *qmlAttachedProperties(QObject *parent);
 };

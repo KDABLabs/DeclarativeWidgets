@@ -30,7 +30,7 @@ class DeclarativeWidget : public DeclarativeWidgetProxy<QWidget>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeWidget(QObject *parent = 0);
+    explicit DeclarativeWidget(QObject *parent = 0);
 };
 
 #endif

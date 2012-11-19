@@ -30,7 +30,7 @@ class DeclarativeFrame : public DeclarativeWidgetProxy<QFrame>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeFrame(QObject *parent = 0);
+    explicit DeclarativeFrame(QObject *parent = 0);
 };
 
 #endif

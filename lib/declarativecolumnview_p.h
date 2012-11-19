@@ -30,7 +30,7 @@ class DeclarativeColumnView : public DeclarativeWidgetProxy<ColumnView>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeColumnView(QObject *parent = 0);
+    explicit DeclarativeColumnView(QObject *parent = 0);
 };
 
 #endif

@@ -35,7 +35,7 @@ class DeclarativeFontDialogAttached : public StaticDialogMethodAttached
   Q_PROPERTY(int options READ options WRITE setOptions NOTIFY optionsChanged)
 
   public:
-    DeclarativeFontDialogAttached(QObject *parent = 0);
+    explicit DeclarativeFontDialogAttached(QObject *parent = 0);
     ~DeclarativeFontDialogAttached();
 
     void setTitle(const QString &title);
@@ -66,7 +66,7 @@ class DeclarativeFontDialog : public DeclarativeWidgetProxy<QFontDialog>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeFontDialog(QObject *parent = 0);
+    explicit DeclarativeFontDialog(QObject *parent = 0);
 
     static DeclarativeFontDialogAttached *qmlAttachedProperties(QObject *parent);
 };

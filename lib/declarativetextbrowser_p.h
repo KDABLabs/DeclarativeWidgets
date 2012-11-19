@@ -30,7 +30,7 @@ class DeclarativeTextBrowser : public DeclarativeWidgetProxy<QTextBrowser>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeTextBrowser(QObject *parent = 0);
+    explicit DeclarativeTextBrowser(QObject *parent = 0);
 };
 
 #endif

@@ -30,7 +30,7 @@ class DeclarativeProgressBar : public DeclarativeWidgetProxy<QProgressBar>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeProgressBar(QObject *parent = 0);
+    explicit DeclarativeProgressBar(QObject *parent = 0);
 };
 
 #endif

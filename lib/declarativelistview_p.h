@@ -30,7 +30,7 @@ class DeclarativeListView : public DeclarativeWidgetProxy<ListView>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeListView(QObject *parent = 0);
+    explicit DeclarativeListView(QObject *parent = 0);
 };
 
 #endif

@@ -30,12 +30,12 @@ class DeclarativeMenuBar : public DeclarativeWidgetProxy<QMenuBar>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeMenuBar(QObject *parent = 0);
+    explicit DeclarativeMenuBar(QObject *parent = 0);
 
   protected:
-    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
-    virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
-    virtual void addAction(QAction *action, AbstractDeclarativeObject *declarativeObject);
+    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+    void addAction(QAction *action, AbstractDeclarativeObject *declarativeObject);
 };
 
 #endif

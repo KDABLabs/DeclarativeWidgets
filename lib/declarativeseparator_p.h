@@ -30,7 +30,7 @@ class DeclarativeSeparator : public DeclarativeObjectProxy<QAction, true>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeSeparator(QObject *parent = 0);
+    explicit DeclarativeSeparator(QObject *parent = 0);
 };
 
 #endif

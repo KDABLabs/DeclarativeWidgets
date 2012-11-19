@@ -30,7 +30,7 @@ class DeclarativeActionItem : public DeclarativeObjectProxy<ActionItem>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeActionItem(QObject *parent = 0);
+    explicit DeclarativeActionItem(QObject *parent = 0);
 };
 
 #endif

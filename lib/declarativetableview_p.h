@@ -30,7 +30,7 @@ class DeclarativeTableView : public DeclarativeWidgetProxy<TableView>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeTableView(QObject *parent = 0);
+    explicit DeclarativeTableView(QObject *parent = 0);
 };
 
 #endif

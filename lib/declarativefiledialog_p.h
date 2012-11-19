@@ -36,7 +36,7 @@ class DeclarativeFileDialogAttached : public StaticDialogMethodAttached
   Q_PROPERTY(QString selectedFilter READ selectedFilter NOTIFY selectedFilterChanged)
 
   public:
-    DeclarativeFileDialogAttached(QObject *parent = 0);
+    explicit DeclarativeFileDialogAttached(QObject *parent = 0);
     ~DeclarativeFileDialogAttached();
 
     void setCaption(const QString &caption);
@@ -80,7 +80,7 @@ class DeclarativeFileDialog : public DeclarativeWidgetProxy<FileDialog>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeFileDialog(QObject *parent = 0);
+    explicit DeclarativeFileDialog(QObject *parent = 0);
 
     static DeclarativeFileDialogAttached *qmlAttachedProperties(QObject *parent);
 };

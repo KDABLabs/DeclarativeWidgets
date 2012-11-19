@@ -30,7 +30,7 @@ class DeclarativeToolButton : public DeclarativeWidgetProxy<QToolButton>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeToolButton(QObject *parent = 0);
+    explicit DeclarativeToolButton(QObject *parent = 0);
 };
 
 #endif

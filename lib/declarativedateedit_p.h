@@ -30,7 +30,7 @@ class DeclarativeDateEdit : public DeclarativeWidgetProxy<QDateEdit>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeDateEdit(QObject *parent = 0);
+    explicit DeclarativeDateEdit(QObject *parent = 0);
 };
 
 #endif

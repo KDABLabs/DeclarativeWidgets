@@ -30,7 +30,7 @@ class DeclarativeCommandLinkButton : public DeclarativeWidgetProxy<QCommandLinkB
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeCommandLinkButton(QObject *parent = 0);
+    explicit DeclarativeCommandLinkButton(QObject *parent = 0);
 };
 
 #endif

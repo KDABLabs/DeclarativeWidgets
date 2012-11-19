@@ -30,7 +30,7 @@ class DeclarativeDialogButtonBox : public DeclarativeWidgetProxy<QDialogButtonBo
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeDialogButtonBox(QObject *parent = 0);
+    explicit DeclarativeDialogButtonBox(QObject *parent = 0);
 };
 
 #endif

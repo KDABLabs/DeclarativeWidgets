@@ -30,7 +30,7 @@ class DeclarativeStackedLayout : public DeclarativeLayoutProxy<StackedLayout>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeStackedLayout(QObject *parent = 0);
+    explicit DeclarativeStackedLayout(QObject *parent = 0);
 
   protected:
     void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);

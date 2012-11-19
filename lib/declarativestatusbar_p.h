@@ -32,7 +32,7 @@ class DeclarativeStatusBarAttached : public QObject
   Q_PROPERTY(int stretch READ stretch WRITE setStretch NOTIFY stretchChanged)
 
   public:
-    DeclarativeStatusBarAttached(QObject *parent = 0);
+    explicit DeclarativeStatusBarAttached(QObject *parent = 0);
     ~DeclarativeStatusBarAttached();
 
     void setStretch(int stretch);
@@ -51,13 +51,13 @@ class DeclarativeStatusBar : public DeclarativeWidgetProxy<QStatusBar>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeStatusBar(QObject *parent = 0);
+    explicit DeclarativeStatusBar(QObject *parent = 0);
 
     static DeclarativeStatusBarAttached *qmlAttachedProperties(QObject *object);
 
   protected:
-    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
-    virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 
 QML_DECLARE_TYPEINFO(DeclarativeStatusBar, QML_HAS_ATTACHED_PROPERTIES)

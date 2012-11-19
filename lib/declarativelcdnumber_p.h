@@ -30,7 +30,7 @@ class DeclarativeLCDNumber : public DeclarativeWidgetProxy<QLCDNumber>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeLCDNumber(QObject *parent = 0);
+    explicit DeclarativeLCDNumber(QObject *parent = 0);
 };
 
 #endif

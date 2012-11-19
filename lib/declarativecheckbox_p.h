@@ -30,7 +30,7 @@ class DeclarativeCheckBox : public DeclarativeWidgetProxy<QCheckBox>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeCheckBox(QObject *parent = 0);
+    explicit DeclarativeCheckBox(QObject *parent = 0);
 };
 
 #endif

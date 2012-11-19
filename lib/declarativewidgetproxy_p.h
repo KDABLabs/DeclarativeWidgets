@@ -32,10 +32,10 @@ template <class T>
 class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
 {
   public:
-    DeclarativeWidgetProxy(QObject *parent = 0) : DeclarativeObjectProxy<T>(parent) {}
+    explicit DeclarativeWidgetProxy(QObject *parent = 0) : DeclarativeObjectProxy<T>(parent) {}
 
   protected:
-    virtual void dataAppend(QObject *object)
+    void dataAppend(QObject *object)
     {
         AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
         if (declarativeObject) {

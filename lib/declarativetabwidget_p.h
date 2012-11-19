@@ -33,7 +33,7 @@ class DeclarativeTabWidgetAttached : public QObject
   Q_PROPERTY(QIcon icon READ icon WRITE setIcon NOTIFY iconChanged)
 
   public:
-    DeclarativeTabWidgetAttached(QObject *parent = 0);
+    explicit DeclarativeTabWidgetAttached(QObject *parent = 0);
     ~DeclarativeTabWidgetAttached();
 
     void setLabel(const QString &label);
@@ -58,13 +58,13 @@ class DeclarativeTabWidget : public DeclarativeWidgetProxy<QTabWidget>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeTabWidget(QObject *parent = 0);
+    explicit DeclarativeTabWidget(QObject *parent = 0);
 
     static DeclarativeTabWidgetAttached *qmlAttachedProperties(QObject *object);
 
   protected:
-    virtual void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
-    virtual void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
+    void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 
 QML_DECLARE_TYPEINFO(DeclarativeTabWidget, QML_HAS_ATTACHED_PROPERTIES)

@@ -30,7 +30,7 @@ class DeclarativeCalendarWidget : public DeclarativeWidgetProxy<QCalendarWidget>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeCalendarWidget(QObject *parent = 0);
+    explicit DeclarativeCalendarWidget(QObject *parent = 0);
 };
 
 #endif

@@ -39,7 +39,7 @@ class ActionItem : public QObject
   Q_PROPERTY(QVariant action READ qmlAction WRITE setAction NOTIFY actionChanged)
 
   public:
-    ActionItem(QObject *parent = 0);
+    explicit ActionItem(QObject *parent = 0);
 
     QAction* action();
 
@@ -62,7 +62,7 @@ class ButtonGroup : public QButtonGroup
   Q_PROPERTY(QVariantList buttons READ buttons WRITE setButtons NOTIFY buttonsChanged)
 
   public:
-    ButtonGroup(QObject *parent = 0);
+    explicit ButtonGroup(QObject *parent = 0);
 
   Q_SIGNALS:
     void buttonsChanged();
@@ -82,7 +82,7 @@ class ColumnView : public QColumnView
   Q_PROPERTY(QItemSelectionModel* selectionModel READ selectionModel WRITE setSelectionModel NOTIFY selectionModelChanged)
 
   public:
-    ColumnView(QWidget *parent = 0);
+    explicit ColumnView(QWidget *parent = 0);
 
     void setModel(QAbstractItemModel *model);
     void setSelectionModel(QItemSelectionModel *selectionModel);
@@ -99,7 +99,7 @@ class FileDialog : public QFileDialog
   Q_PROPERTY(QStringList selectedFiles READ selectedFiles)
 
   public:
-    FileDialog(QWidget *parent = 0);
+    explicit FileDialog(QWidget *parent = 0);
 };
 
 class InputDialog : public QInputDialog
@@ -128,7 +128,7 @@ class InputDialog : public QInputDialog
   Q_ENUMS(InputDialogOption)
 
   public:
-    InputDialog(QWidget *parent = 0);
+    explicit InputDialog(QWidget *parent = 0);
 
   Q_SIGNALS:
     void customTextValueChanged();
@@ -144,7 +144,7 @@ class ListView : public QListView
   Q_PROPERTY(QItemSelectionModel* selectionModel READ selectionModel WRITE setSelectionModel NOTIFY selectionModelChanged)
 
   public:
-    ListView(QWidget *parent = 0);
+    explicit ListView(QWidget *parent = 0);
 
     void setModel(QAbstractItemModel *model);
     void setSelectionModel(QItemSelectionModel *selectionModel);
@@ -169,7 +169,7 @@ class TableView : public QTableView
   Q_PROPERTY(QItemSelectionModel* selectionModel READ selectionModel WRITE setSelectionModel NOTIFY selectionModelChanged)
 
   public:
-    TableView(QWidget *parent = 0);
+    explicit TableView(QWidget *parent = 0);
 
     void setModel(QAbstractItemModel *model);
     void setSelectionModel(QItemSelectionModel *selectionModel);
@@ -190,7 +190,7 @@ class TextEdit : public QTextEdit
   Q_PROPERTY(QTextDocument* document READ document WRITE setTextDocument NOTIFY documentChanged)
 
   public:
-    TextEdit(QWidget *parent = 0);
+    explicit TextEdit(QWidget *parent = 0);
 
     void setTextDocument(QTextDocument *document);
 
@@ -210,7 +210,7 @@ class TreeView : public QTreeView
   Q_PROPERTY(QItemSelectionModel* selectionModel READ selectionModel WRITE setSelectionModel NOTIFY selectionModelChanged)
 
   public:
-    TreeView(QWidget *parent = 0);
+    explicit TreeView(QWidget *parent = 0);
 
     void setModel(QAbstractItemModel *model);
     void setSelectionModel(QItemSelectionModel *selectionModel);

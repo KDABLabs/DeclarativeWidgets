@@ -30,7 +30,7 @@ class DeclarativeSpinBox : public DeclarativeWidgetProxy<QSpinBox>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeSpinBox(QObject *parent = 0);
+    explicit DeclarativeSpinBox(QObject *parent = 0);
 };
 
 #endif

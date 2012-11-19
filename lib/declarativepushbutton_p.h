@@ -30,7 +30,7 @@ class DeclarativePushButton : public DeclarativeWidgetProxy<QPushButton>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativePushButton(QObject *parent = 0);
+    explicit DeclarativePushButton(QObject *parent = 0);
 };
 
 #endif

@@ -30,7 +30,7 @@ class DeclarativeGroupBox : public DeclarativeWidgetProxy<QGroupBox>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeGroupBox(QObject *parent = 0);
+    explicit DeclarativeGroupBox(QObject *parent = 0);
 };
 
 #endif

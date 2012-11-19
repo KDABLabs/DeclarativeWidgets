@@ -31,7 +31,7 @@ class DeclarativeVBoxLayout : public DeclarativeLayoutProxy<QVBoxLayout>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeVBoxLayout(QObject *parent = 0);
+    explicit DeclarativeVBoxLayout(QObject *parent = 0);
 
     static DeclarativeBoxLayoutAttached *qmlAttachedProperties(QObject *parent);
 

@@ -30,7 +30,7 @@ class DeclarativeLineEdit : public DeclarativeWidgetProxy<QLineEdit>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeLineEdit(QObject *parent = 0);
+    explicit DeclarativeLineEdit(QObject *parent = 0);
 };
 
 #endif

@@ -30,7 +30,7 @@ class DeclarativeDialog : public DeclarativeWidgetProxy<QDialog>
   DECLARATIVE_OBJECT
 
   public:
-    DeclarativeDialog(QObject *parent = 0);
+    explicit DeclarativeDialog(QObject *parent = 0);
 };
 
 #endif
