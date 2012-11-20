@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>widgets/main.qml</file>
+        <file>qtquick/main.qml</file>
+    </qresource>
+</RCC>
