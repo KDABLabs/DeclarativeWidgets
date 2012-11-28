@@ -82,6 +82,7 @@ MainWindow {
         id: undoAction
         text: qsTr("Undo")
         icon: _editor.iconFromTheme("edit-undo")
+        enabled: _editor.undoAvailable
         onTriggered: textEdit.undo()
       }
 
@@ -89,6 +90,7 @@ MainWindow {
         id: redoAction
         text: qsTr("Redo")
         icon: _editor.iconFromTheme("edit-redo")
+        enabled: _editor.redoAvailable
         onTriggered: textEdit.redo()
       }
 

@@ -27,7 +27,11 @@
 Editor::Editor(QObject *parent)
   : QObject(parent)
   , m_document(new QTextDocument)
+  , m_undoAvailable(false)
+  , m_redoAvailable(false)
 {
+  connect(m_document, SIGNAL(undoAvailable(bool)), SLOT(undoAvailable(bool)));
+  connect(m_document, SIGNAL(redoAvailable(bool)), SLOT(redoAvailable(bool)));
 }
 
 Editor::~Editor()
@@ -38,6 +42,16 @@ Editor::~Editor()
 QTextDocument *Editor::document() const
 {
   return m_document;
+}
+
+bool Editor::undoAvailable() const
+{
+  return m_undoAvailable;
+}
+
+bool Editor::redoAvailable() const
+{
+  return m_redoAvailable;
 }
 
 void Editor::setFileName(const QString &fileName)
@@ -108,4 +122,22 @@ void Editor::save()
 
   m_document->setModified(false);
   emit information(tr("File %1 successfully saved").arg(m_fileName));
+}
+
+void Editor::undoAvailable(bool available)
+{
+  if (m_undoAvailable == available)
+    return;
+
+  m_undoAvailable = available;
+  emit undoAvailableChanged();
+}
+
+void Editor::redoAvailable(bool available)
+{
+  if (m_redoAvailable == available)
+    return;
+
+  m_redoAvailable = available;
+  emit redoAvailableChanged();
 }

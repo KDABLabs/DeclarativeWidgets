@@ -29,14 +29,20 @@ class QTextDocument;
 class Editor : public QObject
 {
   Q_OBJECT
+
   Q_PROPERTY(QTextDocument* document READ document CONSTANT)
   Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged)
+
+  Q_PROPERTY(bool undoAvailable READ undoAvailable NOTIFY undoAvailableChanged)
+  Q_PROPERTY(bool redoAvailable READ redoAvailable NOTIFY redoAvailableChanged)
 
   public:
     explicit Editor(QObject *parent = 0);
     ~Editor();
-    
+
     QTextDocument *document() const;
+    bool undoAvailable() const;
+    bool redoAvailable() const;
 
     void setFileName(const QString &fileName);
     QString fileName() const;
@@ -47,6 +53,8 @@ class Editor : public QObject
   Q_SIGNALS:
     void fileNameChanged(const QString &fileName);
     void requestSaveFileName();
+    void undoAvailableChanged();
+    void redoAvailableChanged();
 
     void information(const QString &message);
     void critical(const QString &message);
@@ -56,9 +64,15 @@ class Editor : public QObject
     void open(const QString &fileName);
     void save();
 
+  private Q_SLOTS:
+    void undoAvailable(bool);
+    void redoAvailable(bool);
+
   private:
     QTextDocument *m_document;
     QString m_fileName;
+    bool m_undoAvailable;
+    bool m_redoAvailable;
 };
 
 #endif // EDITOR_H
