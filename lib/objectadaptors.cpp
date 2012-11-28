@@ -59,15 +59,13 @@ void ActionItem::setAction(const QVariant &action)
   // Check if the placeholder must be replaced with the actual action
   if (m_qAction == m_placeholderAction) {
     const QList<QWidget*> widgets = m_placeholderAction->associatedWidgets();
-    if (!widgets.isEmpty()) {
-      Q_ASSERT(widgets.count() == 1); // The placeholder action can only be plugged into one widget
-
+    foreach (QWidget *widget, widgets) {
       // Replace the placeholder action with the new one
-      widgets.first()->insertAction(m_placeholderAction, newAction);
-      widgets.first()->removeAction(m_placeholderAction);
-
-      m_qAction = newAction;
+      widget->insertAction(m_placeholderAction, newAction);
+      widget->removeAction(m_placeholderAction);
     }
+
+    m_qAction = newAction;
   }
 
   emit actionChanged();
