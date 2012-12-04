@@ -11,14 +11,16 @@ Rectangle {
     
     anchors.top: parent.top
     anchors.horizontalCenter: parent.horizontalCenter
+
+    font.pointSize: 24
   }
 
-  TextInput {
+  Text {
     text: _textInput.text
 
-    onTextChanged: _textInput.text = text
-
     anchors.centerIn: parent
+
+    font.pointSize: 48
   }
 
   MouseArea {
