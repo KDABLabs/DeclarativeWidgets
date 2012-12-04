@@ -45,7 +45,7 @@ class AbstractDeclarativeObject : public QObject
     virtual QObject *dataAt(int) const;
     virtual void dataClear();
 
-    void connectAllSignals(QObject *sender, QObject *receiver, const QSet<QByteArray> &blacklist = QSet<QByteArray>()) const;
+    void connectAllSignals(const QObject *sender, const QObject *receiver, const QSet<QByteArray> &blacklist = QSet<QByteArray>()) const;
 
   private:
     QDeclarativeListProperty<QObject> data();

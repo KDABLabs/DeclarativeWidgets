@@ -57,7 +57,7 @@ void AbstractDeclarativeObject::dataClear()
 {
 }
 
-void AbstractDeclarativeObject::connectAllSignals(QObject *sender, QObject *receiver, const QSet<QByteArray> &blacklist) const
+void AbstractDeclarativeObject::connectAllSignals(const QObject *sender, const QObject *receiver, const QSet<QByteArray> &blacklist) const
 {
   for (int i = 0; i < sender->metaObject()->methodCount(); ++i) {
     const QMetaMethod method = sender->metaObject()->method(i);

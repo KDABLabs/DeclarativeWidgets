@@ -16,6 +16,8 @@ Widget {
 
         function setSource() {
           declarativeView.source = text
+
+          console.log( "baseUrl" + declarativeView.rootContext.baseUrl )
         }
       }
 

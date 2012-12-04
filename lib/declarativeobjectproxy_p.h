@@ -102,6 +102,41 @@ class DeclarativeObjectProxy<T, true> : public AbstractDeclarativeObject
     QVector<QObject*> m_children;
 };
 
+template <class T>
+class DeclarativeObjectProxy2 : public AbstractDeclarativeObject
+{
+  public:
+    explicit DeclarativeObjectProxy2(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(0) {}
+    ~DeclarativeObjectProxy2() { delete m_proxiedObject; }
+
+    QObject *object() const {
+      if (!m_proxiedObject)
+        createProxiedObject();
+
+      return m_proxiedObject.data();
+    }
+
+  protected:
+    virtual void createProxiedObject() const = 0;
+
+    void dataAppend(QObject *object)
+    {
+      m_children.append(object);
+    }
+
+    int dataCount() const { return m_children.count(); }
+    QObject *dataAt(int index) const { return m_children.at(index); }
+    void dataClear()
+    {
+      qDeleteAll(m_children);
+      m_children.clear();
+    }
+
+  protected:
+    mutable QPointer<T> m_proxiedObject;
+    QVector<QObject*> m_children;
+};
+
 //TODO: Find a solution to make the macro public but the usage of QMetaObjectBuilder private
 
 #include "qmetaobjectbuilder_p.h"

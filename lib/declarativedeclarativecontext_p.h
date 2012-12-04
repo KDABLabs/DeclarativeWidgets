@@ -18,19 +18,24 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef DECLARATIVEDECLARATIVEVIEW_P_H
-#define DECLARATIVEDECLARATIVEVIEW_P_H
+#ifndef DECLARATIVECONTEXT_P_H
+#define DECLARATIVECONTEXT_P_H
 
-#include "declarativewidgetproxy_p.h"
+#include "declarativeobjectproxy_p.h"
 
 #include "objectadaptors_p.h"
 
-class DeclarativeDeclarativeView : public DeclarativeWidgetProxy<DeclarativeView>
+class DeclarativeDeclarativeContext : public DeclarativeObjectProxy2<DeclarativeContext>
 {
   DECLARATIVE_OBJECT
 
   public:
-    explicit DeclarativeDeclarativeView(QObject *parent = 0);
+    explicit DeclarativeDeclarativeContext(QObject *parent = 0);
+
+  protected:
+    void createProxiedObject() const;
+
+    void dataAppend(QObject *object);
 };
 
 #endif

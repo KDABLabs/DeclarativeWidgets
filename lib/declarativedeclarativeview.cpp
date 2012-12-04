@@ -21,10 +21,10 @@
 #include "declarativedeclarativeview_p.h"
 
 DeclarativeDeclarativeView::DeclarativeDeclarativeView(QObject *parent)
-  : DeclarativeWidgetProxy<QDeclarativeView>(parent)
+  : DeclarativeWidgetProxy<DeclarativeView>(parent)
 {
   connectAllSignals(m_proxiedObject, this);
 }
 
-CUSTOM_METAOBJECT(DeclarativeDeclarativeView, QDeclarativeView)
+CUSTOM_METAOBJECT(DeclarativeDeclarativeView, DeclarativeView)
 

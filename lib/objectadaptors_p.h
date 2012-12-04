@@ -24,9 +24,12 @@
 #include <QAction>
 #include <QButtonGroup>
 #include <QColumnView>
+#include <QDeclarativeContext>
+#include <QDeclarativeView>
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QListView>
+#include <QPointer>
 #include <QStackedLayout>
 #include <QTableView>
 #include <QTextEdit>
@@ -90,6 +93,88 @@ class ColumnView : public QColumnView
   Q_SIGNALS:
     void modelChanged(QAbstractItemModel*);
     void selectionModelChanged(QItemSelectionModel*);
+};
+
+class DeclarativeContext : public QObject
+{
+  Q_OBJECT
+  Q_PROPERTY(QUrl baseUrl READ baseUrl WRITE setBaseUrl NOTIFY baseUrlChanged)
+
+  public:
+    explicit DeclarativeContext(QDeclarativeEngine *engine, QObject *parent = 0);
+    explicit DeclarativeContext(DeclarativeContext *parentContext, QObject *parent = 0);
+    ~DeclarativeContext();
+
+    void setBaseUrl(const QUrl &url);
+    QUrl baseUrl() const;
+
+    static DeclarativeContext *createWrapper(QDeclarativeContext *context, QObject *parent = 0);
+
+    QDeclarativeContext *context() const { return m_context.data(); }
+
+    void setContextProperty(const QString &name, const QVariant &value);
+
+  Q_SIGNALS:
+    void baseUrlChanged(const QUrl &url);
+
+  private:
+    QPointer<QDeclarativeContext> m_context;
+
+    DeclarativeContext(QObject *parent);
+};
+
+Q_DECLARE_METATYPE(DeclarativeContext*)
+
+class DeclarativeContextProperty : public QObject
+{
+  Q_OBJECT
+  Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+  Q_PROPERTY(QVariant value READ value WRITE setValue NOTIFY valueChanged)
+
+  public:
+    explicit DeclarativeContextProperty(QObject *parent = 0);
+
+    void setName(const QString &name);
+    QString name() const;
+
+    void setValue(const QVariant &value);
+    QVariant value() const;
+
+    bool isValid() const;
+
+    void setContext(DeclarativeContext *context);
+
+  Q_SIGNALS:
+    void nameChanged(const QString &name);
+    void valueChanged(const QVariant &value);
+
+  private:
+    QString m_name;
+    QVariant m_value;
+    QPointer<DeclarativeContext> m_context;
+
+    void setOnContext();
+};
+
+
+class DeclarativeView : public QDeclarativeView
+{
+  Q_OBJECT
+  Q_PROPERTY(QObject* rootContext READ declarativeRootContext WRITE setDeclarativeRootContext
+             NOTIFY declarativeRootContextChanged)
+
+  public:
+    explicit DeclarativeView(QWidget *parent = 0);
+    ~DeclarativeView();
+
+    void setDeclarativeRootContext(QObject *context);
+    QObject *declarativeRootContext() const;
+
+  Q_SIGNALS:
+    void declarativeRootContextChanged();
+
+  private:
+    QPointer<DeclarativeContext> m_rootContext;
 };
 
 class FileDialog : public QFileDialog
