@@ -5,6 +5,7 @@ SUBDIRS += text-editor bookstore
 OTHER_FILES += \
     animation.qml \
     browser.qml \
+    declarativeview.qml \
     dialogs.qml \
     editor.qml \
     gallery.qml \
