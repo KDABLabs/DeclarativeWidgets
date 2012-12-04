@@ -17,6 +17,7 @@ HEADERS = \
   declarativecommandlinkbutton_p.h \
   declarativedateedit_p.h \
   declarativedatetimeedit_p.h \
+  declarativedeclarativeview_p.h \
   declarativedialogbuttonbox_p.h \
   declarativedialog_p.h \
   declarativedial_p.h \
@@ -81,6 +82,7 @@ SOURCES = \
   declarativecommandlinkbutton.cpp \
   declarativedateedit.cpp \
   declarativedatetimeedit.cpp \
+  declarativedeclarativeview.cpp \
   declarativedial.cpp \
   declarativedialogbuttonbox.cpp \
   declarativedialog.cpp \

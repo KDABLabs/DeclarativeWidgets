@@ -31,6 +31,7 @@
 #include "declarativecommandlinkbutton_p.h"
 #include "declarativedateedit_p.h"
 #include "declarativedatetimeedit_p.h"
+#include "declarativedeclarativeview_p.h"
 #include "declarativedialogbuttonbox_p.h"
 #include "declarativedialog_p.h"
 #include "declarativedial_p.h"
@@ -131,6 +132,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeCommandLinkButton>("QtGui", 1, 0, "CommandLinkButton");
   qmlRegisterType<DeclarativeDateEdit>("QtGui", 1, 0, "DateEdit");
   qmlRegisterType<DeclarativeDateTimeEdit>("QtGui", 1, 0, "DateTimeEdit");
+  qmlRegisterType<DeclarativeDeclarativeView>("QtGui", 1, 0, "DeclarativeView");
   qmlRegisterType<DeclarativeDial>("QtGui", 1, 0, "Dial");
   qmlRegisterType<DeclarativeDialog>("QtGui", 1, 0, "Dialog");
   qmlRegisterType<DeclarativeDialogButtonBox>("QtGui", 1, 0, "DialogButtonBox");
