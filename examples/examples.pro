@@ -6,6 +6,7 @@ OTHER_FILES += \
     animation.qml \
     browser.qml \
     declarativeview.qml \
+    declarativeview_qqtest.qml \
     dialogs.qml \
     editor.qml \
     gallery.qml \

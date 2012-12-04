@@ -16,8 +16,6 @@ Widget {
 
         function setSource() {
           declarativeView.source = text
-
-          console.log( "baseUrl" + declarativeView.rootContext.baseUrl )
         }
       }
 
@@ -40,6 +38,19 @@ Widget {
       id: declarativeView
 
       VBoxLayout.stretch: 1
+
+      rootContext: DeclarativeContext {
+        DeclarativeContextProperty {
+          name: "_textInput"
+          value: textInput
+        }
+      }
+    }
+
+    LineEdit {
+      id: textInput
+
+      placeholderText: qsTr("Type any text here")
     }
   }
 }
