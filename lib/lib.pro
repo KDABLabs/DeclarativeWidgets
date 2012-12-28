@@ -32,6 +32,7 @@ HEADERS = \
   declarativehboxlayout_p.h \
   declarativeinputdialog_p.h \
   declarativelabel_p.h \
+  declarativelayoutextension.h \
   declarativelayoutproxy_p.h \
   declarativelcdnumber_p.h \
   declarativelineedit_p.h \
@@ -40,6 +41,7 @@ HEADERS = \
   declarativemenubar_p.h \
   declarativemenu_p.h \
   declarativemessagebox_p.h \
+  declarativeobjectextension.h \
   declarativeobjectproxy_p.h \
   declarativeplaintextedit_p.h \
   declarativeprogressbar_p.h \
@@ -63,6 +65,7 @@ HEADERS = \
   declarativetreeview_p.h \
   declarativevboxlayout_p.h \
   declarativewebview_p.h \
+  declarativewidgetextension.h \
   declarativewidget_p.h \
   declarativewidgetproxy_p.h \
   declarativewidgetsdocument.h \
@@ -98,6 +101,7 @@ SOURCES = \
   declarativehboxlayout.cpp \
   declarativeinputdialog.cpp \
   declarativelabel.cpp \
+  declarativelayoutextension.cpp \
   declarativelcdnumber.cpp \
   declarativelineedit.cpp \
   declarativelistview.cpp \
@@ -105,6 +109,7 @@ SOURCES = \
   declarativemenubar.cpp \
   declarativemenu.cpp \
   declarativemessagebox.cpp \
+  declarativeobjectextension.cpp \
   declarativeplaintextedit.cpp \
   declarativeprogressbar.cpp \
   declarativepushbutton.cpp \
@@ -128,8 +133,8 @@ SOURCES = \
   declarativevboxlayout.cpp \
   declarativewebview.cpp \
   declarativewidget.cpp \
+  declarativewidgetextension.cpp \
   declarativewidgetsdocument.cpp \
   objectadaptors.cpp \
   qmetaobjectbuilder.cpp \
   staticdialogmethodattached.cpp
-

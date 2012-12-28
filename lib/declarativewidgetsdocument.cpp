@@ -220,6 +220,8 @@ QWidget* DeclarativeWidgetsDocument::createWidget()
   AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
 
   if (!declarativeObject) {
+    QWidget *widget = qobject_cast<QWidget*>(object);
+    if (widget) return widget;
     qWarning("Root element is no AbstractDeclarativeObject subclass");
     return 0;
   }
