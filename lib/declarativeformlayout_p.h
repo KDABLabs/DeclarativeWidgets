@@ -21,8 +21,9 @@
 #ifndef DECLARATIVEFORMLAYOUT_P_H
 #define DECLARATIVEFORMLAYOUT_P_H
 
-#include "declarativelayoutproxy_p.h"
+#include "declarativelayoutextension.h"
 
+#include <qdeclarative.h>
 #include <QFormLayout>
 
 class DeclarativeFormLayoutAttached : public QObject
@@ -46,20 +47,33 @@ class DeclarativeFormLayoutAttached : public QObject
     Private *const d;
 };
 
-class DeclarativeFormLayout : public DeclarativeLayoutProxy<QFormLayout>
+class DeclarativeFormLayout : public QFormLayout
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
 
   public:
     explicit DeclarativeFormLayout(QObject *parent = 0);
 
     static DeclarativeFormLayoutAttached *qmlAttachedProperties(QObject *parent);
-
-  protected:
-    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
-    void addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 
 QML_DECLARE_TYPEINFO(DeclarativeFormLayout, QML_HAS_ATTACHED_PROPERTIES)
+
+class DeclarativeFormLayoutExtension : public DeclarativeLayoutExtension
+{
+  Q_OBJECT
+
+  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
+  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+
+  Q_CLASSINFO("DefaultProperty", "data")
+
+  public:
+    explicit DeclarativeFormLayoutExtension(QObject *parent = 0);
+
+  protected:
+    void addWidget(QWidget *widget);
+    void addLayout(QLayout *layout);
+};
 
 #endif

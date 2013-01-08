@@ -20,21 +20,34 @@
 
 #include "declarativestackedlayout_p.h"
 
+#include <QDeclarativeInfo>
+#include <QWidget>
+
 DeclarativeStackedLayout::DeclarativeStackedLayout(QObject *parent)
-  : DeclarativeLayoutProxy<StackedLayout>(parent)
+  : QStackedLayout()
 {
-  connectAllSignals(m_proxiedObject, this);
+  setParent(qobject_cast<QWidget*>(parent));
 }
 
-void DeclarativeStackedLayout::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+DeclarativeStackedLayoutExtension::DeclarativeStackedLayoutExtension(QObject *parent)
+  : DeclarativeLayoutExtension(parent)
 {
-  m_proxiedObject->addWidget(widget);
-  m_children.append(declarativeObject);
 }
 
-void DeclarativeStackedLayout::addLayout(QLayout*, AbstractDeclarativeObject *declarativeObject)
+int DeclarativeStackedLayoutExtension::count() const
 {
-  qmlInfo(declarativeObject) << "StackedLayout does not support child layouts";
+  QStackedLayout *stackedLayout = qobject_cast<QStackedLayout*>(extendedLayout());
+  Q_ASSERT(stackedLayout);
+
+  return stackedLayout->count();
 }
 
-CUSTOM_METAOBJECT(DeclarativeStackedLayout, StackedLayout)
+void DeclarativeStackedLayoutExtension::addWidget(QWidget *widget)
+{
+  extendedLayout()->addWidget(widget);
+}
+
+void DeclarativeStackedLayoutExtension::addLayout(QLayout*)
+{
+  qmlInfo(extendedLayout()) << "StackedLayout does not support child layouts";
+}

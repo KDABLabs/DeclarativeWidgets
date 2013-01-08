@@ -239,13 +239,6 @@ class ListView : public QListView
     void selectionModelChanged(QItemSelectionModel*);
 };
 
-class StackedLayout : public QStackedLayout
-{
-  Q_OBJECT
-
-  Q_PROPERTY(int count READ count)
-};
-
 class TableView : public QTableView
 {
   Q_OBJECT

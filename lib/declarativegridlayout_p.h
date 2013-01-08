@@ -21,8 +21,9 @@
 #ifndef DECLARATIVEGRIDLAYOUT_P_H
 #define DECLARATIVEGRIDLAYOUT_P_H
 
-#include "declarativelayoutproxy_p.h"
+#include "declarativelayoutextension.h"
 
+#include <qdeclarative.h>
 #include <QGridLayout>
 
 class DeclarativeGridLayoutAttached : public QObject
@@ -69,20 +70,33 @@ class DeclarativeGridLayoutAttached : public QObject
     Private *const d;
 };
 
-class DeclarativeGridLayout : public DeclarativeLayoutProxy<QGridLayout>
+class DeclarativeGridLayout : public QGridLayout
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
 
   public:
     explicit DeclarativeGridLayout(QObject *parent = 0);
 
     static DeclarativeGridLayoutAttached *qmlAttachedProperties(QObject *parent);
-
-  protected:
-    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
-    void addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 
 QML_DECLARE_TYPEINFO(DeclarativeGridLayout, QML_HAS_ATTACHED_PROPERTIES)
+
+class DeclarativeGridLayoutExtension : public DeclarativeLayoutExtension
+{
+  Q_OBJECT
+
+  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
+  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+
+  Q_CLASSINFO("DefaultProperty", "data")
+
+  public:
+    explicit DeclarativeGridLayoutExtension(QObject *parent = 0);
+
+  protected:
+    void addWidget(QWidget *widget);
+    void addLayout(QLayout *layout);
+};
 
 #endif

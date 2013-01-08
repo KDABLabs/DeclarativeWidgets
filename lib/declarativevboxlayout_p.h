@@ -22,24 +22,38 @@
 #define DECLARATIVEVBOXLAYOUT_P_H
 
 #include "declarativeboxlayout_p.h"
-#include "declarativelayoutproxy_p.h"
+#include "declarativelayoutextension.h"
 
+#include <qdeclarative.h>
 #include <QVBoxLayout>
 
-class DeclarativeVBoxLayout : public DeclarativeLayoutProxy<QVBoxLayout>
+class DeclarativeVBoxLayout : public QVBoxLayout
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
 
   public:
     explicit DeclarativeVBoxLayout(QObject *parent = 0);
 
     static DeclarativeBoxLayoutAttached *qmlAttachedProperties(QObject *parent);
-
-  protected:
-    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
-    void addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 
 QML_DECLARE_TYPEINFO(DeclarativeVBoxLayout, QML_HAS_ATTACHED_PROPERTIES)
+
+class DeclarativeVBoxLayoutExtension : public DeclarativeLayoutExtension
+{
+  Q_OBJECT
+
+  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
+  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+
+  Q_CLASSINFO("DefaultProperty", "data")
+
+  public:
+    explicit DeclarativeVBoxLayoutExtension(QObject *parent = 0);
+
+  protected:
+    void addWidget(QWidget *widget);
+    void addLayout(QLayout *layout);
+};
 
 #endif

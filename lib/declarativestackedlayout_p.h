@@ -21,20 +21,37 @@
 #ifndef DECLARATIVESTACKEDLAYOUT_P_H
 #define DECLARATIVESTACKEDLAYOUT_P_H
 
-#include "declarativelayoutproxy_p.h"
+#include "declarativelayoutextension.h"
 
-#include "objectadaptors_p.h"
+#include <qdeclarative.h>
+#include <QStackedLayout>
 
-class DeclarativeStackedLayout : public DeclarativeLayoutProxy<StackedLayout>
+class DeclarativeStackedLayout : public QStackedLayout
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
 
   public:
     explicit DeclarativeStackedLayout(QObject *parent = 0);
+};
+
+class DeclarativeStackedLayoutExtension : public DeclarativeLayoutExtension
+{
+  Q_OBJECT
+
+  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
+  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(int count READ count)
+
+  Q_CLASSINFO("DefaultProperty", "data")
+
+  public:
+    explicit DeclarativeStackedLayoutExtension(QObject *parent = 0);
+
+    int count() const;
 
   protected:
-    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
-    void addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+    void addWidget(QWidget *widget);
+    void addLayout(QLayout *layout);
 };
 
 #endif

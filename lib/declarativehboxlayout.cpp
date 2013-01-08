@@ -20,64 +20,71 @@
 
 #include "declarativehboxlayout_p.h"
 
+#include <QDeclarativeInfo>
+#include <QWidget>
+
 DeclarativeHBoxLayout::DeclarativeHBoxLayout(QObject *parent)
-  : DeclarativeLayoutProxy<QHBoxLayout>(parent)
+  : QHBoxLayout()
 {
-  connectAllSignals(m_proxiedObject, this);
+  setParent(qobject_cast<QWidget*>(parent));
 }
 
 DeclarativeBoxLayoutAttached *DeclarativeHBoxLayout::qmlAttachedProperties(QObject *parent)
 {
-  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(parent);
-  if (declarativeObject) {
-    QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
-    if (widget)
-      return new DeclarativeBoxLayoutAttached(widget, parent);
+  QWidget *widget = qobject_cast<QWidget*>(parent);
+  if (widget)
+    return new DeclarativeBoxLayoutAttached(widget, parent);
 
-    QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
-    if (layout)
-      return new DeclarativeBoxLayoutAttached(layout, parent);
-  }
+  QLayout *layout = qobject_cast<QLayout*>(parent);
+  if (layout)
+    return new DeclarativeBoxLayoutAttached(layout, parent);
 
   qmlInfo(parent) << "Can only attach HBoxLayout to widgets and layouts";
   return 0;
 }
 
-void DeclarativeHBoxLayout::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+DeclarativeHBoxLayoutExtension::DeclarativeHBoxLayoutExtension(QObject *parent)
+  : DeclarativeLayoutExtension(parent)
 {
+}
+
+void DeclarativeHBoxLayoutExtension::addWidget(QWidget *widget)
+{
+  QHBoxLayout *hboxLayout = qobject_cast<QHBoxLayout*>(extendedLayout());
+  Q_ASSERT(hboxLayout);
+
   int stretch = 0;
   Qt::Alignment alignment = 0;
 
-  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeHBoxLayout>(declarativeObject, false);
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeHBoxLayout>(widget, false);
   DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
   if (properties) {
     stretch = properties->stretch();
     alignment = properties->alignment();
 
-    properties->setParentLayout(m_proxiedObject);
+    properties->setParentLayout(hboxLayout);
   }
 
-  m_proxiedObject->addWidget(widget, stretch, alignment);
-  m_children.append(declarativeObject);
+  hboxLayout->addWidget(widget, stretch, alignment);
 }
 
-void DeclarativeHBoxLayout::addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+void DeclarativeHBoxLayoutExtension::addLayout(QLayout *layout)
 {
+  QHBoxLayout *hboxLayout = qobject_cast<QHBoxLayout*>(extendedLayout());
+  Q_ASSERT(hboxLayout);
+
   int stretch = 0;
   Qt::Alignment alignment = 0;
 
-  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeHBoxLayout>(declarativeObject, false);
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeHBoxLayout>(layout, false);
   DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
   if (properties) {
     stretch = properties->stretch();
     alignment = properties->alignment();
 
-    properties->setParentLayout(m_proxiedObject);
+    properties->setParentLayout(hboxLayout);
   }
 
-  m_proxiedObject->addLayout(layout, stretch);
-  m_proxiedObject->setAlignment(layout, alignment);
-  m_children.append(declarativeObject);
+  hboxLayout->addLayout(layout, stretch);
+  hboxLayout->setAlignment(layout, alignment);
 }
-
-CUSTOM_METAOBJECT(DeclarativeHBoxLayout, QHBoxLayout)

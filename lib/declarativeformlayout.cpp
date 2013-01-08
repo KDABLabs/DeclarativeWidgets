@@ -20,6 +20,9 @@
 
 #include "declarativeformlayout_p.h"
 
+#include <QDeclarativeInfo>
+#include <QWidget>
+
 class DeclarativeFormLayoutAttached::Private
 {
   public:
@@ -51,45 +54,59 @@ QString DeclarativeFormLayoutAttached::label() const
 }
 
 // DeclarativeFormLayout
-DeclarativeFormLayout::DeclarativeFormLayout(QObject *parent) : DeclarativeLayoutProxy<QFormLayout>(parent)
+DeclarativeFormLayout::DeclarativeFormLayout(QObject *parent) : QFormLayout()
 {
-  connectAllSignals(m_proxiedObject, this);
+  setParent(qobject_cast<QWidget*>(parent));
 }
 
 DeclarativeFormLayoutAttached *DeclarativeFormLayout::qmlAttachedProperties(QObject *parent)
 {
-  return new DeclarativeFormLayoutAttached(parent);
+  QWidget *widget = qobject_cast<QWidget*>(parent);
+  if (widget)
+    return new DeclarativeFormLayoutAttached(parent);
+
+  QLayout *layout = qobject_cast<QLayout*>(parent);
+  if (layout)
+    return new DeclarativeFormLayoutAttached(parent);
+
+  qmlInfo(parent) << "Can only attach FormLayout to widgets and layouts";
+  return 0;
 }
 
-void DeclarativeFormLayout::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+DeclarativeFormLayoutExtension::DeclarativeFormLayoutExtension(QObject *parent)
+  : DeclarativeLayoutExtension(parent)
 {
-  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeFormLayout>(declarativeObject, false);
+}
+
+void DeclarativeFormLayoutExtension::addWidget(QWidget *widget)
+{
+  QFormLayout *formLayout = qobject_cast<QFormLayout*>(extendedLayout());
+  Q_ASSERT(formLayout);
+
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeFormLayout>(widget, false);
   DeclarativeFormLayoutAttached *properties = qobject_cast<DeclarativeFormLayoutAttached*>(attachedProperties);
   if (properties) {
     if (!properties->label().isEmpty()) {
-      m_proxiedObject->addRow(properties->label(), widget);
-      m_children.append(declarativeObject);
+      formLayout->addRow(properties->label(), widget);
       return;
     }
   }
 
-  m_proxiedObject->addRow(widget);
-  m_children.append(declarativeObject);
+  formLayout->addRow(widget);
 }
 
-void DeclarativeFormLayout::addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+void DeclarativeFormLayoutExtension::addLayout(QLayout *layout)
 {
-  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeFormLayout>(declarativeObject, false);
+  QFormLayout *formLayout = qobject_cast<QFormLayout*>(extendedLayout());
+  Q_ASSERT(formLayout);
+
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeFormLayout>(layout, false);
   DeclarativeFormLayoutAttached *properties = qobject_cast<DeclarativeFormLayoutAttached*>(attachedProperties);
   if (properties) {
     if (!properties->label().isEmpty()) {
-      m_proxiedObject->addRow(properties->label(), layout);
-      m_children.append(declarativeObject);
+      formLayout->addRow(properties->label(), layout);
       return;
     }
   }
-  m_proxiedObject->addRow(layout);
-  m_children.append(declarativeObject);
+  formLayout->addRow(layout);
 }
-
-CUSTOM_METAOBJECT(DeclarativeFormLayout, QFormLayout)

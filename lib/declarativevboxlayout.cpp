@@ -20,64 +20,71 @@
 
 #include "declarativevboxlayout_p.h"
 
+#include <QDeclarativeInfo>
+#include <QWidget>
+
 DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent)
-  : DeclarativeLayoutProxy<QVBoxLayout>(parent)
+  : QVBoxLayout()
 {
-  connectAllSignals(m_proxiedObject, this);
+  setParent(qobject_cast<QWidget*>(parent));
 }
 
 DeclarativeBoxLayoutAttached *DeclarativeVBoxLayout::qmlAttachedProperties(QObject *parent)
 {
-  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(parent);
-  if (declarativeObject) {
-    QWidget *widget = qobject_cast<QWidget*>(declarativeObject->object());
-    if (widget)
-      return new DeclarativeBoxLayoutAttached(widget, parent);
+  QWidget *widget = qobject_cast<QWidget*>(parent);
+  if (widget)
+    return new DeclarativeBoxLayoutAttached(widget, parent);
 
-    QLayout *layout = qobject_cast<QLayout*>(declarativeObject->object());
-    if (layout)
-      return new DeclarativeBoxLayoutAttached(layout, parent);
-  }
+  QLayout *layout = qobject_cast<QLayout*>(parent);
+  if (layout)
+    return new DeclarativeBoxLayoutAttached(layout, parent);
 
   qmlInfo(parent) << "Can only attach VBoxLayout to widgets and layouts";
   return 0;
 }
 
-void DeclarativeVBoxLayout::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+DeclarativeVBoxLayoutExtension::DeclarativeVBoxLayoutExtension(QObject *parent)
+  : DeclarativeLayoutExtension(parent)
 {
+}
+
+void DeclarativeVBoxLayoutExtension::addWidget(QWidget *widget)
+{
+  QVBoxLayout *vboxLayout = qobject_cast<QVBoxLayout*>(extendedLayout());
+  Q_ASSERT(vboxLayout);
+
   int stretch = 0;
   Qt::Alignment alignment = 0;
 
-  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeVBoxLayout>(declarativeObject, false);
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeVBoxLayout>(widget, false);
   DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
   if (properties) {
     stretch = properties->stretch();
     alignment = properties->alignment();
 
-    properties->setParentLayout(m_proxiedObject);
+    properties->setParentLayout(vboxLayout);
   }
 
-  m_proxiedObject->addWidget(widget, stretch, alignment);
-  m_children.append(declarativeObject);
+  vboxLayout->addWidget(widget, stretch, alignment);
 }
 
-void DeclarativeVBoxLayout::addLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+void DeclarativeVBoxLayoutExtension::addLayout(QLayout *layout)
 {
+  QVBoxLayout *vboxLayout = qobject_cast<QVBoxLayout*>(extendedLayout());
+  Q_ASSERT(vboxLayout);
+
   int stretch = 0;
   Qt::Alignment alignment = 0;
 
-  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeVBoxLayout>(declarativeObject, false);
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeVBoxLayout>(layout, false);
   DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
   if (properties) {
     stretch = properties->stretch();
     alignment = properties->alignment();
 
-    properties->setParentLayout(m_proxiedObject);
+    properties->setParentLayout(vboxLayout);
   }
 
-  m_proxiedObject->addLayout(layout, stretch);
-  m_proxiedObject->setAlignment(layout, alignment);
-  m_children.append(declarativeObject);
+  vboxLayout->addLayout(layout, stretch);
+  vboxLayout->setAlignment(layout, alignment);
 }
-
-CUSTOM_METAOBJECT(DeclarativeVBoxLayout, QVBoxLayout)
