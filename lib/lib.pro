@@ -55,7 +55,7 @@ HEADERS = \
   declarativetableview_p.h \
   declarativetabwidget_p.h \
   declarativetextbrowser_p.h \
-  declarativetextedit_p.h \
+  declarativetexteditextension_p.h \
   declarativetimeedit_p.h \
   declarativetoolbar_p.h \
   declarativetoolbutton_p.h \
@@ -119,7 +119,7 @@ SOURCES = \
   declarativetableview.cpp \
   declarativetabwidget.cpp \
   declarativetextbrowser.cpp \
-  declarativetextedit.cpp \
+  declarativetexteditextension.cpp \
   declarativetimeedit.cpp \
   declarativetoolbar.cpp \
   declarativetoolbutton.cpp \

@@ -30,9 +30,7 @@
 #include <QInputDialog>
 #include <QListView>
 #include <QPointer>
-#include <QStackedLayout>
 #include <QTableView>
-#include <QTextEdit>
 #include <QTreeView>
 
 class ActionItem : public QObject
@@ -255,29 +253,6 @@ class TableView : public QTableView
   Q_SIGNALS:
     void modelChanged(QAbstractItemModel*);
     void selectionModelChanged(QItemSelectionModel*);
-};
-
-class TextEdit : public QTextEdit
-{
-  Q_OBJECT
-
-  // TODO
-  // ideally QTextDocument's property declaration for modified would include the modificationChanged signal
-  // as its NOTIFY, this and setTextDocument could then be removed
-  Q_PROPERTY(bool modified READ modified NOTIFY modifiedChanged)
-  Q_PROPERTY(QTextDocument* document READ document WRITE setTextDocument NOTIFY documentChanged)
-
-  public:
-    explicit TextEdit(QWidget *parent = 0);
-
-    void setTextDocument(QTextDocument *document);
-
-  Q_SIGNALS:
-    void modifiedChanged();
-    void documentChanged();
-
-  private:
-    bool modified() const;
 };
 
 class TreeView : public QTreeView

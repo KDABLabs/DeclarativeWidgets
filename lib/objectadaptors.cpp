@@ -383,41 +383,6 @@ void TableView::setSelectionModel(QItemSelectionModel *selectionModel)
   emit selectionModelChanged(selectionModel);
 }
 
-// TextEdit
-TextEdit::TextEdit(QWidget *parent)
-  : QTextEdit(parent)
-{
-  connect(document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(modifiedChanged()));
-}
-
-void TextEdit::setTextDocument(QTextDocument *document)
-{
-  if (document == 0)
-    return;
-
-  if (this->document() == document)
-    return;
-
-  if (this->document()) {
-    disconnect(this->document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(modifiedChanged()));
-  }
-
-  const bool oldModified = modified();
-
-  setDocument(document);
-  connect(document, SIGNAL(modificationChanged(bool)), this, SIGNAL(modifiedChanged()));
-
-  emit documentChanged();
-
-  if (oldModified != modified())
-    emit modifiedChanged();
-}
-
-bool TextEdit::modified() const
-{
-  return document()->isModified();
-}
-
 // TreeView
 TreeView::TreeView(QWidget *parent)
   : QTreeView(parent)
