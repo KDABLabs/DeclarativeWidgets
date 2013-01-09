@@ -33,7 +33,6 @@ HEADERS = \
   declarativelayoutextension.h \
   declarativelayoutproxy_p.h \
   declarativelcdnumber_p.h \
-  declarativelineedit_p.h \
   declarativelistview_p.h \
   declarativemainwindow_p.h \
   declarativemenubar_p.h \
@@ -97,7 +96,6 @@ SOURCES = \
   declarativeinputdialog.cpp \
   declarativelayoutextension.cpp \
   declarativelcdnumber.cpp \
-  declarativelineedit.cpp \
   declarativelistview.cpp \
   declarativemainwindow.cpp \
   declarativemenubar.cpp \
