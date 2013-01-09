@@ -20,6 +20,9 @@
 
 #include "declarativetabwidget_p.h"
 
+#include <QDeclarativeInfo>
+#include <QPointer>
+
 class DeclarativeTabWidgetAttached::Private
 {
   public:
@@ -79,37 +82,8 @@ void DeclarativeTabWidgetAttached::setAssociation(QTabWidget *widget, int index)
 }
 
 DeclarativeTabWidget::DeclarativeTabWidget(QObject *parent)
-  : DeclarativeWidgetProxy<QTabWidget>(parent)
+  : QTabWidget(qobject_cast<QWidget*>(parent))
 {
-  connectAllSignals(m_proxiedObject, this);
-}
-
-void DeclarativeTabWidget::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
-{
-  // TODO: error when layout is set
-
-  m_children.append(declarativeObject);
-
-  QString label;
-  QIcon icon;
-
-  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeTabWidget>(declarativeObject, false);
-  DeclarativeTabWidgetAttached *tabHeader = qobject_cast<DeclarativeTabWidgetAttached*>(attachedProperties);
-  if (tabHeader) {
-    label = tabHeader->label();
-    icon = tabHeader->icon();
-  }
-
-  const int index = m_proxiedObject->addTab(widget, icon, label);
-  if (tabHeader)
-    tabHeader->setAssociation(m_proxiedObject, index);
-}
-
-void DeclarativeTabWidget::setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
-{
-  Q_UNUSED(layout);
-  Q_UNUSED(declarativeObject);
-  qmlInfo(this) << "Can not add QLayout to QTabWidget";
 }
 
 DeclarativeTabWidgetAttached *DeclarativeTabWidget::qmlAttachedProperties(QObject *object)
@@ -117,4 +91,35 @@ DeclarativeTabWidgetAttached *DeclarativeTabWidget::qmlAttachedProperties(QObjec
   return new DeclarativeTabWidgetAttached(object);
 }
 
-CUSTOM_METAOBJECT(DeclarativeTabWidget, QTabWidget)
+DeclarativeTabWidgetExtension::DeclarativeTabWidgetExtension(QObject *parent)
+  : DeclarativeWidgetExtension(parent)
+{
+}
+
+void DeclarativeTabWidgetExtension::addWidget(QWidget *widget)
+{
+  QTabWidget *tabWidget = qobject_cast<QTabWidget*>(extendedWidget());
+  Q_ASSERT(tabWidget);
+
+  // TODO: error when layout is set
+
+  QString label;
+  QIcon icon;
+
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeTabWidget>(widget, false);
+  DeclarativeTabWidgetAttached *tabHeader = qobject_cast<DeclarativeTabWidgetAttached*>(attachedProperties);
+  if (tabHeader) {
+    label = tabHeader->label();
+    icon = tabHeader->icon();
+  }
+
+  const int index = tabWidget->addTab(widget, icon, label);
+  if (tabHeader)
+    tabHeader->setAssociation(tabWidget, index);
+}
+
+void DeclarativeTabWidgetExtension::setLayout(QLayout *layout)
+{
+  Q_UNUSED(layout);
+  qmlInfo(extendedWidget()) << "Can not add QLayout to QTabWidget";
+}

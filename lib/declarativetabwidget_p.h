@@ -21,8 +21,9 @@
 #ifndef DECLARATIVETABWIDGET_P_H
 #define DECLARATIVETABWIDGET_P_H
 
-#include "declarativewidgetproxy_p.h"
+#include "declarativewidgetextension.h"
 
+#include <qdeclarative.h>
 #include <QTabWidget>
 
 class DeclarativeTabWidgetAttached : public QObject
@@ -53,20 +54,33 @@ class DeclarativeTabWidgetAttached : public QObject
     Private *const d;
 };
 
-class DeclarativeTabWidget : public DeclarativeWidgetProxy<QTabWidget>
+class DeclarativeTabWidget : public QTabWidget
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
 
   public:
     explicit DeclarativeTabWidget(QObject *parent = 0);
 
     static DeclarativeTabWidgetAttached *qmlAttachedProperties(QObject *object);
-
-  protected:
-    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
-    void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
 };
 
 QML_DECLARE_TYPEINFO(DeclarativeTabWidget, QML_HAS_ATTACHED_PROPERTIES)
+
+class DeclarativeTabWidgetExtension : public DeclarativeWidgetExtension
+{
+  Q_OBJECT
+
+  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
+  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+
+  Q_CLASSINFO("DefaultProperty", "data")
+
+  public:
+    explicit DeclarativeTabWidgetExtension(QObject *parent = 0);
+
+  protected:
+    void addWidget(QWidget *widget);
+    void setLayout(QLayout *layout);
+};
 
 #endif
