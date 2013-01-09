@@ -60,7 +60,7 @@ class DeclarativeWidgetProxy : public DeclarativeObjectProxy<T>
 
           DeclarativeActionItem *declarativeActionItem = dynamic_cast<DeclarativeActionItem*>(object);
           if (declarativeActionItem) {
-            addAction(qobject_cast<ActionItem*>(declarativeActionItem->object())->action(), declarativeObject);
+            addAction(declarativeActionItem->action(), declarativeObject);
             return;
           }
 

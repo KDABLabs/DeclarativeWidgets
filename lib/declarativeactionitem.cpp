@@ -20,10 +20,54 @@
 
 #include "declarativeactionitem_p.h"
 
+#include "declarativeaction_p.h"
+
 DeclarativeActionItem::DeclarativeActionItem(QObject *parent)
-  : DeclarativeObjectProxy<ActionItem>(parent)
+  : QObject(parent)
+  , m_placeholderAction(new QAction(this))
+  , m_qAction(m_placeholderAction)
 {
-  connectAllSignals(m_proxiedObject, this);
 }
 
-CUSTOM_METAOBJECT(DeclarativeActionItem, ActionItem)
+QAction* DeclarativeActionItem::action()
+{
+  return m_qAction;
+}
+
+void DeclarativeActionItem::setAction(const QVariant &action)
+{
+  if (m_action == action)
+    return;
+
+  m_action = action;
+
+  QObject *object = m_action.value<QObject*>();
+
+  // Is the passed action a QAction ...
+  QAction *newAction = qobject_cast<QAction*>(object);
+
+  // ... or a DeclarativeAction
+  DeclarativeAction *declarativeAction = dynamic_cast<DeclarativeAction*>(object);
+  if (declarativeAction) {
+    newAction = qobject_cast<QAction*>(declarativeAction->object());
+  }
+
+  // Check if the placeholder must be replaced with the actual action
+  if (m_qAction == m_placeholderAction) {
+    const QList<QWidget*> widgets = m_placeholderAction->associatedWidgets();
+    foreach (QWidget *widget, widgets) {
+      // Replace the placeholder action with the new one
+      widget->insertAction(m_placeholderAction, newAction);
+      widget->removeAction(m_placeholderAction);
+    }
+
+    m_qAction = newAction;
+  }
+
+  emit actionChanged();
+}
+
+QVariant DeclarativeActionItem::qmlAction() const
+{
+  return m_action;
+}

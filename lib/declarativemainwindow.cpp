@@ -20,6 +20,7 @@
 
 #include "declarativemainwindow_p.h"
 
+#include <QDialog>
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QToolBar>

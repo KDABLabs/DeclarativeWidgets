@@ -1,6 +1,7 @@
 #include "declarativewidgetextension.h"
 
 #include "abstractdeclarativeobject_p.h"
+#include "declarativeactionitem_p.h"
 
 #include <QAction>
 #include <QDeclarativeInfo>
@@ -35,6 +36,11 @@ void DeclarativeWidgetExtension::dataAppend(QObject *object)
   if (layout) {
     setLayout(layout);
     return;
+  }
+
+  DeclarativeActionItem *actionItem = qobject_cast<DeclarativeActionItem*>(object);
+  if (actionItem) {
+    addAction(actionItem->action());
   }
 
   AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);

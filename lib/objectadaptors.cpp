@@ -20,61 +20,11 @@
 
 #include "objectadaptors_p.h"
 
-#include "declarativeaction_p.h"
+#include "abstractdeclarativeobject_p.h"
 
 #include <QAbstractButton>
 #include <QDebug>
-
-// ActionItem
-ActionItem::ActionItem(QObject *parent)
-  : QObject(parent)
-  , m_placeholderAction(new QAction(this))
-  , m_qAction(m_placeholderAction)
-{
-}
-
-QAction* ActionItem::action()
-{
-  return m_qAction;
-}
-
-void ActionItem::setAction(const QVariant &action)
-{
-  if (m_action == action)
-    return;
-
-  m_action = action;
-
-  QObject *object = m_action.value<QObject*>();
-
-  // Is the passed action a QAction ...
-  QAction *newAction = qobject_cast<QAction*>(object);
-
-  // ... or a DeclarativeAction
-  DeclarativeAction *declarativeAction = dynamic_cast<DeclarativeAction*>(object);
-  if (declarativeAction) {
-    newAction = qobject_cast<QAction*>(declarativeAction->object());
-  }
-
-  // Check if the placeholder must be replaced with the actual action
-  if (m_qAction == m_placeholderAction) {
-    const QList<QWidget*> widgets = m_placeholderAction->associatedWidgets();
-    foreach (QWidget *widget, widgets) {
-      // Replace the placeholder action with the new one
-      widget->insertAction(m_placeholderAction, newAction);
-      widget->removeAction(m_placeholderAction);
-    }
-
-    m_qAction = newAction;
-  }
-
-  emit actionChanged();
-}
-
-QVariant ActionItem::qmlAction() const
-{
-  return m_action;
-}
+#include <QDeclarativeInfo>
 
 // ColumnView
 ColumnView::ColumnView(QWidget *parent)

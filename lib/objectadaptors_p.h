@@ -21,7 +21,6 @@
 #ifndef OBJECTADAPTORS_P_H
 #define OBJECTADAPTORS_P_H
 
-#include <QAction>
 #include <QColumnView>
 #include <QDeclarativeContext>
 #include <QDeclarativeView>
@@ -31,29 +30,6 @@
 #include <QPointer>
 #include <QTableView>
 #include <QTreeView>
-
-class ActionItem : public QObject
-{
-  Q_OBJECT
-
-  Q_PROPERTY(QVariant action READ qmlAction WRITE setAction NOTIFY actionChanged)
-
-  public:
-    explicit ActionItem(QObject *parent = 0);
-
-    QAction* action();
-
-  Q_SIGNALS:
-    void actionChanged();
-
-  private:
-    void setAction(const QVariant &action);
-    QVariant qmlAction() const;
-
-    QVariant m_action;
-    QAction* m_placeholderAction;
-    QAction* m_qAction;
-};
 
 class ColumnView : public QColumnView
 {
