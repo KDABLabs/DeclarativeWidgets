@@ -11,7 +11,6 @@ HEADERS = \
   declarativeboxlayout_p.h \
   declarativebuttongroup_p.h \
   declarativecalendarwidget_p.h \
-  declarativecheckbox_p.h \
   declarativecolordialog_p.h \
   declarativecolumnview_p.h \
   declarativecommandlinkbutton_p.h \
@@ -78,7 +77,6 @@ SOURCES = \
   declarativeboxlayout.cpp \
   declarativebuttongroup.cpp \
   declarativecalendarwidget.cpp \
-  declarativecheckbox.cpp \
   declarativecolordialog.cpp \
   declarativecolumnview.cpp \
   declarativecommandlinkbutton.cpp \
