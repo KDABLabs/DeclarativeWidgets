@@ -60,7 +60,6 @@ HEADERS = \
   declarativetreeview_p.h \
   declarativevboxlayout_p.h \
   declarativewidgetextension.h \
-  declarativewidget_p.h \
   declarativewidgetproxy_p.h \
   declarativewidgetsdocument.h \
   objectadaptors_p.h \
@@ -120,7 +119,6 @@ SOURCES = \
   declarativetoolbutton.cpp \
   declarativetreeview.cpp \
   declarativevboxlayout.cpp \
-  declarativewidget.cpp \
   declarativewidgetextension.cpp \
   declarativewidgetsdocument.cpp \
   objectadaptors.cpp \
