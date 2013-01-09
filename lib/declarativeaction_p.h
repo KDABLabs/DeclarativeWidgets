@@ -25,6 +25,8 @@
 
 #include <QAction>
 
+// QAction cannot be created without constructor argument, so we need to wrap it
+
 class DeclarativeAction : public DeclarativeObjectProxy<QAction, true>
 {
   DECLARATIVE_OBJECT
