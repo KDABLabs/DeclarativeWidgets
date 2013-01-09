@@ -23,9 +23,8 @@
 // The declarative widget wrappers
 #include "declarativeactionitem_p.h"
 #include "declarativeaction_p.h"
-#include "declarativebuttongroup_p.h"
+#include "declarativebuttongroupextension_p.h"
 #include "declarativecalendarwidget_p.h"
-#include "declarativecheckbox_p.h"
 #include "declarativecolordialog_p.h"
 #include "declarativecolumnview_p.h"
 #include "declarativecommandlinkbutton_p.h"
@@ -45,9 +44,7 @@
 #include "declarativegroupbox_p.h"
 #include "declarativehboxlayout_p.h"
 #include "declarativeinputdialog_p.h"
-#include "declarativelabel_p.h"
 #include "declarativelcdnumber_p.h"
-#include "declarativelineedit_p.h"
 #include "declarativelistview_p.h"
 #include "declarativemainwindow_p.h"
 #include "declarativemenubar_p.h"
@@ -55,8 +52,6 @@
 #include "declarativemessagebox_p.h"
 #include "declarativeplaintextedit_p.h"
 #include "declarativeprogressbar_p.h"
-#include "declarativepushbutton_p.h"
-#include "declarativeradiobutton_p.h"
 #include "declarativescrollarea_p.h"
 #include "declarativescrollbar_p.h"
 #include "declarativeseparator_p.h"
@@ -68,20 +63,24 @@
 #include "declarativetableview_p.h"
 #include "declarativetabwidget_p.h"
 #include "declarativetextbrowser_p.h"
-#include "declarativetextedit_p.h"
+#include "declarativetexteditextension_p.h"
 #include "declarativetimeedit_p.h"
 #include "declarativetoolbar_p.h"
 #include "declarativetoolbutton_p.h"
 #include "declarativetreeview_p.h"
 #include "declarativevboxlayout_p.h"
-#include "declarativewebview_p.h"
-#include "declarativewidget_p.h"
+#include "declarativewidgetextension.h"
 
+#include <QButtonGroup>
+#include <QCheckBox>
 #include <QCoreApplication>
 #include <QDebug>
 #include <QDeclarativeComponent>
 #include <QDeclarativeContext>
 #include <QDeclarativeEngine>
+#include <QLabel>
+#include <QRadioButton>
+#include <QWebView>
 
 class DeclarativeWidgetsDocument::Private
 {
@@ -104,27 +103,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   : QObject(parent)
   , d(new Private(this, url))
 {
-  qmlRegisterType<QAbstractItemModel>();
-  qmlRegisterType<QItemSelectionModel>();
-  qmlRegisterType<DeclarativeContext>();
-
-  // objects
-  qmlRegisterType<QAction>();
-  qmlRegisterType<DeclarativeAction>("QtGui", 1, 0, "Action");
-  qmlRegisterType<DeclarativeActionItem>("QtGui", 1, 0, "ActionItem");
-  qmlRegisterType<DeclarativeButtonGroup>("QtGui", 1, 0, "ButtonGroup");
-  qmlRegisterType<DeclarativeSeparator>("QtGui", 1, 0, "Separator");
-
-  // layouts
-  qmlRegisterType<DeclarativeBoxLayoutAttached>();
-  qmlRegisterType<DeclarativeFormLayoutAttached>();
-  qmlRegisterType<DeclarativeGridLayoutAttached>();
-  qmlRegisterType<DeclarativeFormLayout>("QtGui", 1, 0, "FormLayout");
-  qmlRegisterType<DeclarativeGridLayout>("QtGui", 1, 0, "GridLayout");
-  qmlRegisterType<DeclarativeHBoxLayout>("QtGui", 1, 0, "HBoxLayout");
-  qmlRegisterType<DeclarativeStackedLayout>("QtGui", 1, 0, "StackedLayout");
-  qmlRegisterType<DeclarativeVBoxLayout>("QtGui", 1, 0, "VBoxLayout");
-
+  /*
   // widgets
   qmlRegisterType<DeclarativeCalendarWidget>("QtGui", 1, 0, "CalendarWidget");
   qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
@@ -151,18 +130,14 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeInputDialog>("QtGui", 1, 0, "InputDialog");
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
   qmlRegisterType<DeclarativeLCDNumber>("QtGui", 1, 0, "LCDNumber");
-  qmlRegisterType<DeclarativeLineEdit>("QtGui", 1, 0, "LineEdit");
   qmlRegisterType<DeclarativeListView>("QtGui", 1, 0, "ListView");
   qmlRegisterType<DeclarativeMainWindow>("QtGui", 1, 0, "MainWindow");
   qmlRegisterType<DeclarativeMenu>("QtGui", 1, 0, "Menu");
   qmlRegisterType<DeclarativeMenuBar>("QtGui", 1, 0, "MenuBar");
   qmlRegisterType<DeclarativeMessageBoxAttached>();
   qmlRegisterType<DeclarativeMessageBox>("QtGui", 1, 0, "MessageBox");
-  qmlRegisterType<QTextDocument>();
   qmlRegisterType<DeclarativePlainTextEdit>("QtGui", 1, 0, "PlainTextEdit");
   qmlRegisterType<DeclarativeProgressBar>("QtGui", 1, 0, "ProgressBar");
-  qmlRegisterType<DeclarativePushButton>("QtGui", 1, 0, "PushButton");
-  qmlRegisterType<DeclarativeRadioButton>("QtGui", 1, 0, "RadioButton");
   qmlRegisterType<DeclarativeScrollArea>("QtGui", 1, 0, "ScrollArea");
   qmlRegisterType<DeclarativeScrollBar>("QtGui", 1, 0, "ScrollBar");
   qmlRegisterType<DeclarativeSlider>("QtGui", 1, 0, "Slider");
@@ -172,15 +147,41 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeStatusBar>("QtGui", 1, 0, "StatusBar");
   qmlRegisterType<DeclarativeTableView>("QtGui", 1, 0, "TableView");
   qmlRegisterType<DeclarativeTabWidgetAttached>();
-  qmlRegisterType<DeclarativeTabWidget>("QtGui", 1, 0, "TabWidget");
   qmlRegisterType<DeclarativeTextBrowser>("QtGui", 1, 0, "TextBrowser");
-  qmlRegisterType<DeclarativeTextEdit>("QtGui", 1, 0, "TextEdit");
   qmlRegisterType<DeclarativeTimeEdit>("QtGui", 1, 0, "TimeEdit");
   qmlRegisterType<DeclarativeToolBar>("QtGui", 1, 0, "ToolBar");
   qmlRegisterType<DeclarativeToolButton>("QtGui", 1, 0, "ToolButton");
   qmlRegisterType<DeclarativeTreeView>("QtGui", 1, 0, "TreeView");
-  qmlRegisterType<DeclarativeWebView>("QtGui", 1, 0, "WebView");
-  qmlRegisterType<DeclarativeWidget>("QtGui", 1, 0, "Widget");
+  */
+
+  // objects
+  qmlRegisterType<QAbstractItemModel>();
+  qmlRegisterType<QAction>();
+  qmlRegisterType<DeclarativeAction>("QtGui", 1, 0, "Action");
+  qmlRegisterExtendedType<DeclarativeActionItem, DeclarativeObjectExtension>("QtGui", 1, 0, "ActionItem");
+  qmlRegisterExtendedType<QButtonGroup, DeclarativeButtonGroupExtension>("QtGui", 1, 0, "ButtonGroup");
+  qmlRegisterType<DeclarativeContext>();
+  qmlRegisterType<QItemSelectionModel>();
+  qmlRegisterType<DeclarativeSeparator>("QtGui", 1, 0, "Separator");
+  qmlRegisterType<QTextDocument>();
+
+  // layouts
+  qmlRegisterExtendedType<DeclarativeFormLayout, DeclarativeFormLayoutExtension>("QtGui", 1, 0, "FormLayout");
+  qmlRegisterExtendedType<DeclarativeHBoxLayout, DeclarativeHBoxLayoutExtension>("QtGui", 1, 0, "HBoxLayout");
+  qmlRegisterExtendedType<DeclarativeGridLayout, DeclarativeGridLayoutExtension>("QtGui", 1, 0, "GridLayout");
+  qmlRegisterExtendedType<DeclarativeStackedLayout, DeclarativeStackedLayoutExtension>("QtGui", 1, 0, "StackedLayout");
+  qmlRegisterExtendedType<DeclarativeVBoxLayout, DeclarativeVBoxLayoutExtension>("QtGui", 1, 0, "VBoxLayout");
+
+  // widgets
+  qmlRegisterExtendedType<QCheckBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "CheckBox");
+  qmlRegisterExtendedType<QLabel, DeclarativeWidgetExtension>("QtGui", 1, 0, "Label");
+  qmlRegisterExtendedType<QLineEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "LineEdit");
+  qmlRegisterExtendedType<QPushButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "PushButton");
+  qmlRegisterExtendedType<QRadioButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "RadioButton");
+  qmlRegisterExtendedType<DeclarativeTabWidget, DeclarativeTabWidgetExtension>("QtGui", 1, 0, "TabWidget");
+  qmlRegisterExtendedType<QTextEdit, DeclarativeTextEditExtension>("QtGui", 1, 0, "TextEdit");
+  qmlRegisterExtendedType<QWebView, DeclarativeWidgetExtension>("QtGui", 1, 0, "WebView");
+  qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>("QtGui", 1, 0, "Widget");
 
   d->m_component->loadUrl(d->m_url);
   if (d->m_component->isError()) {
@@ -219,14 +220,17 @@ QWidget* DeclarativeWidgetsDocument::createWidget()
 
   AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
 
-  if (!declarativeObject) {
-    QWidget *widget = qobject_cast<QWidget*>(object);
-    if (widget) return widget;
-    qWarning("Root element is no AbstractDeclarativeObject subclass");
-    return 0;
+  if (declarativeObject) {
+    declarativeObject->setParent(this);
+    return qobject_cast<QWidget*>(declarativeObject->object());
   }
 
-  declarativeObject->setParent(this);
+  qWarning("Root element is no AbstractDeclarativeObject subclass");
 
-  return qobject_cast<QWidget*>(declarativeObject->object());
+  QWidget *widget = qobject_cast<QWidget*>(object);
+  if (widget)
+    return widget;
+
+  qFatal("Root Element is neither ab AbstractDeclarativeObject nor a widget");
+  return 0;
 }
