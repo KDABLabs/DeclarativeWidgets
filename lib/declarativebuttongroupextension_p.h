@@ -18,19 +18,38 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef DECLARATIVEBUTTONGROUP_P_H
-#define DECLARATIVEBUTTONGROUP_P_H
+#ifndef DECLARATIVEBUTTONGROUPEXTENSION_P_H
+#define DECLARATIVEBUTTONGROUPEXTENSION_P_H
 
-#include "declarativeobjectproxy_p.h"
+#include "declarativeobjectextension.h"
 
-#include "objectadaptors_p.h"
+#include <QVariantList>
 
-class DeclarativeButtonGroup : public DeclarativeObjectProxy<ButtonGroup>
+class QButtonGroup;
+
+class DeclarativeButtonGroupExtension : public DeclarativeObjectExtension
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
+
+  Q_PROPERTY(QVariantList buttons READ buttons WRITE setButtons NOTIFY buttonsChanged)
+
+  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
+  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+
+  Q_CLASSINFO("DefaultProperty", "data")
 
   public:
-    explicit DeclarativeButtonGroup(QObject *parent = 0);
+    explicit DeclarativeButtonGroupExtension(QObject *parent = 0);
+
+  Q_SIGNALS:
+    void buttonsChanged();
+
+  private:
+    void setButtons(const QVariantList &buttons);
+    QVariantList buttons() const;
+    QButtonGroup *buttonGroup() const;
+
+    QVariantList m_buttons;
 };
 
 #endif

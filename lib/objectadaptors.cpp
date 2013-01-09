@@ -76,53 +76,6 @@ QVariant ActionItem::qmlAction() const
   return m_action;
 }
 
-// ButtonGroup
-ButtonGroup::ButtonGroup(QObject *parent)
-  : QButtonGroup(parent)
-{
-}
-
-void ButtonGroup::setButtons(const QVariantList &buttons)
-{
-  if (m_buttons == buttons)
-    return;
-
-  // First remove the old buttons ...
-  foreach (const QVariant &variant, m_buttons) {
-    QObject *object = variant.value<QObject*>();
-    if (object) {
-      AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
-      if (declarativeObject) {
-        QAbstractButton *button = qobject_cast<QAbstractButton*>(declarativeObject->object());
-        if (button)
-          QButtonGroup::removeButton(button);
-      }
-    }
-  }
-
-  m_buttons = buttons;
-
-  // ... then add the new ones
-  foreach (const QVariant &variant, m_buttons) {
-    QObject *object = variant.value<QObject*>();
-    if (object) {
-      AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
-      if (declarativeObject) {
-        QAbstractButton *button = qobject_cast<QAbstractButton*>(declarativeObject->object());
-        if (button)
-          QButtonGroup::addButton(button);
-      }
-    }
-  }
-
-  emit buttonsChanged();
-}
-
-QVariantList ButtonGroup::buttons() const
-{
-  return m_buttons;
-}
-
 // ColumnView
 ColumnView::ColumnView(QWidget *parent)
   : QColumnView(parent)

@@ -22,7 +22,6 @@
 #define OBJECTADAPTORS_P_H
 
 #include <QAction>
-#include <QButtonGroup>
 #include <QColumnView>
 #include <QDeclarativeContext>
 #include <QDeclarativeView>
@@ -54,25 +53,6 @@ class ActionItem : public QObject
     QVariant m_action;
     QAction* m_placeholderAction;
     QAction* m_qAction;
-};
-
-class ButtonGroup : public QButtonGroup
-{
-  Q_OBJECT
-
-  Q_PROPERTY(QVariantList buttons READ buttons WRITE setButtons NOTIFY buttonsChanged)
-
-  public:
-    explicit ButtonGroup(QObject *parent = 0);
-
-  Q_SIGNALS:
-    void buttonsChanged();
-
-  private:
-    void setButtons(const QVariantList &buttons);
-    QVariantList buttons() const;
-
-    QVariantList m_buttons;
 };
 
 class ColumnView : public QColumnView

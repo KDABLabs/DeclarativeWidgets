@@ -9,7 +9,7 @@ HEADERS = \
   declarativeactionitem_p.h \
   declarativeaction_p.h \
   declarativeboxlayout_p.h \
-  declarativebuttongroup_p.h \
+  declarativebuttongroupextension_p.h \
   declarativecalendarwidget_p.h \
   declarativecolordialog_p.h \
   declarativecolumnview_p.h \
@@ -75,7 +75,7 @@ SOURCES = \
   declarativeaction.cpp \
   declarativeactionitem.cpp \
   declarativeboxlayout.cpp \
-  declarativebuttongroup.cpp \
+  declarativebuttongroupextension.cpp \
   declarativecalendarwidget.cpp \
   declarativecolordialog.cpp \
   declarativecolumnview.cpp \
