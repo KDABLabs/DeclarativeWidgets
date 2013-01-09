@@ -43,7 +43,6 @@ HEADERS = \
   declarativeobjectproxy_p.h \
   declarativeplaintextedit_p.h \
   declarativeprogressbar_p.h \
-  declarativeradiobutton_p.h \
   declarativescrollarea_p.h \
   declarativescrollbar_p.h \
   declarativeseparator_p.h \
@@ -107,7 +106,6 @@ SOURCES = \
   declarativeobjectextension.cpp \
   declarativeplaintextedit.cpp \
   declarativeprogressbar.cpp \
-  declarativeradiobutton.cpp \
   declarativescrollarea.cpp \
   declarativescrollbar.cpp \
   declarativeseparator.cpp \
