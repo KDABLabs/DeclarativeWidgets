@@ -31,7 +31,6 @@ HEADERS = \
   declarativegroupbox_p.h \
   declarativehboxlayout_p.h \
   declarativeinputdialog_p.h \
-  declarativelabel_p.h \
   declarativelayoutextension.h \
   declarativelayoutproxy_p.h \
   declarativelcdnumber_p.h \
@@ -99,7 +98,6 @@ SOURCES = \
   declarativegroupbox.cpp \
   declarativehboxlayout.cpp \
   declarativeinputdialog.cpp \
-  declarativelabel.cpp \
   declarativelayoutextension.cpp \
   declarativelcdnumber.cpp \
   declarativelineedit.cpp \
