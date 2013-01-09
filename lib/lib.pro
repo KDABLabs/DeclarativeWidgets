@@ -59,7 +59,6 @@ HEADERS = \
   declarativetoolbutton_p.h \
   declarativetreeview_p.h \
   declarativevboxlayout_p.h \
-  declarativewebview_p.h \
   declarativewidgetextension.h \
   declarativewidget_p.h \
   declarativewidgetproxy_p.h \
@@ -121,7 +120,6 @@ SOURCES = \
   declarativetoolbutton.cpp \
   declarativetreeview.cpp \
   declarativevboxlayout.cpp \
-  declarativewebview.cpp \
   declarativewidget.cpp \
   declarativewidgetextension.cpp \
   declarativewidgetsdocument.cpp \
