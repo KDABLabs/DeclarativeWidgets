@@ -18,24 +18,31 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef DECLARATIVEMENU_P_H
-#define DECLARATIVEMENU_P_H
+#ifndef DECLARATIVETOOLBAR_P_H
+#define DECLARATIVETOOLBAR_P_H
 
-#include "declarativewidgetproxy_p.h"
+#include "declarativewidgetextension.h"
 
-#include <QMenu>
+class QToolBar;
 
-class DeclarativeMenu : public DeclarativeWidgetProxy<QMenu>
+class DeclarativeToolBarExtension : public DeclarativeWidgetExtension
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
+
+  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
+  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+
+  Q_CLASSINFO("DefaultProperty", "data")
 
   public:
-    explicit DeclarativeMenu(QObject *parent = 0);
+    explicit DeclarativeToolBarExtension(QObject *parent = 0);
+
+    QToolBar *extendedToolBar() const;
 
   protected:
-    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
-    void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
-    void addAction(QAction *action, AbstractDeclarativeObject *declarativeObject);
+    void addWidget(QWidget *widget);
+    void setLayout(QLayout *layout);
+    void addAction(QAction *action);
 };
 
 #endif

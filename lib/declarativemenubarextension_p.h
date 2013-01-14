@@ -21,21 +21,28 @@
 #ifndef DECLARATIVEMENUBAR_P_H
 #define DECLARATIVEMENUBAR_P_H
 
-#include "declarativewidgetproxy_p.h"
+#include "declarativewidgetextension.h"
 
-#include <QMenuBar>
+class QMenuBar;
 
-class DeclarativeMenuBar : public DeclarativeWidgetProxy<QMenuBar>
+class DeclarativeMenuBarExtension : public DeclarativeWidgetExtension
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
+
+  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
+  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+
+  Q_CLASSINFO("DefaultProperty", "data")
 
   public:
-    explicit DeclarativeMenuBar(QObject *parent = 0);
+    explicit DeclarativeMenuBarExtension(QObject *parent = 0);
+
+    QMenuBar *extendedMenuBar() const;
 
   protected:
-    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
-    void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
-    void addAction(QAction *action, AbstractDeclarativeObject *declarativeObject);
+    void addWidget(QWidget *widget);
+    void setLayout(QLayout *layout);
+    void addAction(QAction *action);
 };
 
 #endif

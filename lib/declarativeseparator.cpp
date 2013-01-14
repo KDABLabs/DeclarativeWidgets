@@ -21,9 +21,7 @@
 #include "declarativeseparator_p.h"
 
 DeclarativeSeparator::DeclarativeSeparator(QObject *parent)
-  : DeclarativeObjectProxy<QAction, true>(parent)
+  : QAction(parent)
 {
-  connectAllSignals(m_proxiedObject, this);
+  setSeparator(true);
 }
-
-CUSTOM_METAOBJECT(DeclarativeSeparator, QAction)

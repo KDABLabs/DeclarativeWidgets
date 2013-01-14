@@ -18,9 +18,31 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "declarativeaction_p.h"
+#ifndef DECLARATIVEMENU_P_H
+#define DECLARATIVEMENU_P_H
 
-DeclarativeAction::DeclarativeAction(QObject *parent)
-  : QAction(parent)
+#include "declarativewidgetextension.h"
+
+class QMenu;
+
+class DeclarativeMenuExtension : public DeclarativeWidgetExtension
 {
-}
+  Q_OBJECT
+
+  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
+  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+
+  Q_CLASSINFO("DefaultProperty", "data")
+
+  public:
+    explicit DeclarativeMenuExtension(QObject *parent = 0);
+
+    QMenu *extendedMenu() const;
+
+  protected:
+    void addWidget(QWidget *widget);
+    void setLayout(QLayout *layout);
+    void addAction(QAction *action);
+};
+
+#endif

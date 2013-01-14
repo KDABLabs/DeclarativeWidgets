@@ -43,14 +43,8 @@ void DeclarativeActionItem::setAction(const QVariant &action)
 
   QObject *object = m_action.value<QObject*>();
 
-  // Is the passed action a QAction ...
+  // Is the passed action a QAction
   QAction *newAction = qobject_cast<QAction*>(object);
-
-  // ... or a DeclarativeAction
-  DeclarativeAction *declarativeAction = dynamic_cast<DeclarativeAction*>(object);
-  if (declarativeAction) {
-    newAction = qobject_cast<QAction*>(declarativeAction->object());
-  }
 
   // Check if the placeholder must be replaced with the actual action
   if (m_qAction == m_placeholderAction) {

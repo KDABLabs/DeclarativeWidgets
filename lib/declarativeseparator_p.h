@@ -21,13 +21,11 @@
 #ifndef DECLARATIVESEPARATOR_P_H
 #define DECLARATIVESEPARATOR_P_H
 
-#include "declarativeobjectproxy_p.h"
-
 #include <QAction>
 
-class DeclarativeSeparator : public DeclarativeObjectProxy<QAction, true>
+class DeclarativeSeparator : public QAction
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
 
   public:
     explicit DeclarativeSeparator(QObject *parent = 0);

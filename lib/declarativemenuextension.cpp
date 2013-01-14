@@ -18,24 +18,42 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef DECLARATIVETOOLBAR_P_H
-#define DECLARATIVETOOLBAR_P_H
+#include "declarativemenuextension_p.h"
 
-#include "declarativewidgetproxy_p.h"
+#include <QDeclarativeInfo>
+#include <QMenu>
 
-#include <QToolBar>
-
-class DeclarativeToolBar : public DeclarativeWidgetProxy<QToolBar>
+DeclarativeMenuExtension::DeclarativeMenuExtension(QObject *parent)
+  : DeclarativeWidgetExtension(parent)
 {
-  DECLARATIVE_OBJECT
+}
 
-  public:
-    explicit DeclarativeToolBar(QObject *parent = 0);
+QMenu *DeclarativeMenuExtension::extendedMenu() const
+{
+  QMenu *menu = qobject_cast<QMenu*>(extendedWidget());
+  Q_ASSERT(menu);
 
-  protected:
-    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
-    void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
-    void addAction(QAction *action, AbstractDeclarativeObject *declarativeObject);
-};
+  return menu;
+}
 
-#endif
+void DeclarativeMenuExtension::addWidget(QWidget *widget)
+{
+  QMenu *menu = qobject_cast<QMenu*>(widget);
+  if (!menu) {
+    qmlInfo(extendedMenu()) << "The Menu can only contain Menu, Action, ActionItem or Separator";
+    return;
+  }
+
+  extendedMenu()->addMenu(menu);
+}
+
+void DeclarativeMenuExtension::setLayout(QLayout *layout)
+{
+  Q_UNUSED(layout);
+  qmlInfo(extendedMenu()) << "Can not set a Layout to a Menu";
+}
+
+void DeclarativeMenuExtension::addAction(QAction *action)
+{
+  extendedMenu()->addAction(action);
+}

@@ -35,8 +35,8 @@ HEADERS = \
   declarativelcdnumber_p.h \
   declarativelistview_p.h \
   declarativemainwindowextension_p.h \
-  declarativemenubar_p.h \
-  declarativemenu_p.h \
+  declarativemenubarextension_p.h \
+  declarativemenuextension_p.h \
   declarativemessagebox_p.h \
   declarativeobjectextension.h \
   declarativeobjectproxy_p.h \
@@ -55,7 +55,7 @@ HEADERS = \
   declarativetextbrowser_p.h \
   declarativetexteditextension_p.h \
   declarativetimeedit_p.h \
-  declarativetoolbar_p.h \
+  declarativetoolbarextension_p.h \
   declarativetoolbutton_p.h \
   declarativetreeview_p.h \
   declarativevboxlayout_p.h \
@@ -96,8 +96,8 @@ SOURCES = \
   declarativelcdnumber.cpp \
   declarativelistview.cpp \
   declarativemainwindowextension.cpp \
-  declarativemenubar.cpp \
-  declarativemenu.cpp \
+  declarativemenubarextension.cpp \
+  declarativemenuextension.cpp \
   declarativemessagebox.cpp \
   declarativeobjectextension.cpp \
   declarativeplaintextedit.cpp \
@@ -115,7 +115,7 @@ SOURCES = \
   declarativetextbrowser.cpp \
   declarativetexteditextension.cpp \
   declarativetimeedit.cpp \
-  declarativetoolbar.cpp \
+  declarativetoolbarextension.cpp \
   declarativetoolbutton.cpp \
   declarativetreeview.cpp \
   declarativevboxlayout.cpp \

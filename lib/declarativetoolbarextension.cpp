@@ -18,9 +18,36 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "declarativeaction_p.h"
+#include "declarativetoolbarextension_p.h"
 
-DeclarativeAction::DeclarativeAction(QObject *parent)
-  : QAction(parent)
+#include <QDeclarativeInfo>
+#include <QToolBar>
+
+DeclarativeToolBarExtension::DeclarativeToolBarExtension(QObject *parent)
+  : DeclarativeWidgetExtension(parent)
 {
+}
+
+QToolBar *DeclarativeToolBarExtension::extendedToolBar() const
+{
+  QToolBar *toolBar = qobject_cast<QToolBar*>(extendedWidget());
+  Q_ASSERT(toolBar);
+
+  return toolBar;
+}
+
+void DeclarativeToolBarExtension::addWidget(QWidget *widget)
+{
+  extendedToolBar()->addWidget(widget);
+}
+
+void DeclarativeToolBarExtension::setLayout(QLayout *layout)
+{
+  Q_UNUSED(layout);
+  qmlInfo(extendedToolBar()) << "Can not set a Layout to a ToolBar";
+}
+
+void DeclarativeToolBarExtension::addAction(QAction *action)
+{
+  extendedToolBar()->addAction(action);
 }

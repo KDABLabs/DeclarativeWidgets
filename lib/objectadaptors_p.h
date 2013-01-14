@@ -26,6 +26,7 @@
 #include <QDeclarativeView>
 #include <QFileDialog>
 #include <QInputDialog>
+#include <QMenu>
 #include <QListView>
 #include <QPointer>
 #include <QTableView>
@@ -173,6 +174,16 @@ class InputDialog : public QInputDialog
     void customTextValueChanged();
     void customIntValueChanged();
     void customDoubleValueChanged();
+};
+
+class Menu : public QMenu
+{
+  Q_OBJECT
+
+public:
+  Menu() : QMenu(), originalWindowFlags(windowFlags()) {}
+
+  const Qt::WindowFlags originalWindowFlags;
 };
 
 class ListView : public QListView

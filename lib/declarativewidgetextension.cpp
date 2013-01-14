@@ -1,7 +1,7 @@
 #include "declarativewidgetextension.h"
 
-#include "abstractdeclarativeobject_p.h"
 #include "declarativeactionitem_p.h"
+#include "objectadaptors_p.h"
 
 #include <QAction>
 #include <QDeclarativeInfo>
@@ -28,6 +28,12 @@ void DeclarativeWidgetExtension::dataAppend(QObject *object)
 
   QWidget *widget = qobject_cast<QWidget*>(object);
   if (widget) {
+
+    // restore widget flags for menus
+    Menu *menu = qobject_cast<Menu*>(widget);
+    if (menu)
+      menu->setParent(menu->parentWidget(), menu->originalWindowFlags);
+
     addWidget(widget);
     return;
   }
@@ -38,18 +44,16 @@ void DeclarativeWidgetExtension::dataAppend(QObject *object)
     return;
   }
 
+  QAction *action = qobject_cast<QAction*>(object);
+  if (action) {
+    addAction(action);
+    return;
+  }
+
   DeclarativeActionItem *actionItem = qobject_cast<DeclarativeActionItem*>(object);
   if (actionItem) {
     addAction(actionItem->action());
-  }
-
-  AbstractDeclarativeObject *declarativeObject = dynamic_cast<AbstractDeclarativeObject*>(object);
-  if (declarativeObject) {
-    QAction *action = qobject_cast<QAction*>(declarativeObject->object());
-    if (action) {
-      addAction(action);
-      return;
-    }
+    return;
   }
 }
 

@@ -21,19 +21,14 @@
 #ifndef DECLARATIVEACTION_P_H
 #define DECLARATIVEACTION_P_H
 
-#include "declarativeobjectproxy_p.h"
-
 #include <QAction>
 
-// QAction cannot be created without constructor argument, so we need to wrap it
-
-class DeclarativeAction : public DeclarativeObjectProxy<QAction, true>
+class DeclarativeAction : public QAction
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
 
   public:
     explicit DeclarativeAction(QObject *parent = 0);
 };
-Q_DECLARE_METATYPE(DeclarativeAction*)
 
 #endif

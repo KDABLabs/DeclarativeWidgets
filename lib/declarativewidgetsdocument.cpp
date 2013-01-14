@@ -47,8 +47,8 @@
 #include "declarativelcdnumber_p.h"
 #include "declarativelistview_p.h"
 #include "declarativemainwindowextension_p.h"
-#include "declarativemenubar_p.h"
-#include "declarativemenu_p.h"
+#include "declarativemenubarextension_p.h"
+#include "declarativemenuextension_p.h"
 #include "declarativemessagebox_p.h"
 #include "declarativeplaintextedit_p.h"
 #include "declarativeprogressbar_p.h"
@@ -65,7 +65,7 @@
 #include "declarativetextbrowser_p.h"
 #include "declarativetexteditextension_p.h"
 #include "declarativetimeedit_p.h"
-#include "declarativetoolbar_p.h"
+#include "declarativetoolbarextension_p.h"
 #include "declarativetoolbutton_p.h"
 #include "declarativetreeview_p.h"
 #include "declarativevboxlayout_p.h"
@@ -80,9 +80,9 @@
 #include <QDeclarativeEngine>
 #include <QLabel>
 #include <QMainWindow>
-#include <QMenu>
 #include <QMenuBar>
 #include <QRadioButton>
+#include <QToolBar>
 #include <QWebView>
 
 class DeclarativeWidgetsDocument::Private
@@ -134,8 +134,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
   qmlRegisterType<DeclarativeLCDNumber>("QtGui", 1, 0, "LCDNumber");
   qmlRegisterType<DeclarativeListView>("QtGui", 1, 0, "ListView");
-  qmlRegisterType<DeclarativeMenu>("QtGui", 1, 0, "Menu");
-  qmlRegisterType<DeclarativeMenuBar>("QtGui", 1, 0, "MenuBar");
   qmlRegisterType<DeclarativeMessageBoxAttached>();
   qmlRegisterType<DeclarativeMessageBox>("QtGui", 1, 0, "MessageBox");
   qmlRegisterType<DeclarativePlainTextEdit>("QtGui", 1, 0, "PlainTextEdit");
@@ -151,7 +149,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeTabWidgetAttached>();
   qmlRegisterType<DeclarativeTextBrowser>("QtGui", 1, 0, "TextBrowser");
   qmlRegisterType<DeclarativeTimeEdit>("QtGui", 1, 0, "TimeEdit");
-  qmlRegisterType<DeclarativeToolBar>("QtGui", 1, 0, "ToolBar");
   qmlRegisterType<DeclarativeToolButton>("QtGui", 1, 0, "ToolButton");
   qmlRegisterType<DeclarativeTreeView>("QtGui", 1, 0, "TreeView");
   */
@@ -159,12 +156,12 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   // objects
   qmlRegisterType<QAbstractItemModel>();
   qmlRegisterType<QAction>();
-  qmlRegisterType<DeclarativeAction>("QtGui", 1, 0, "Action");
+  qmlRegisterExtendedType<DeclarativeAction, DeclarativeObjectExtension>("QtGui", 1, 0, "Action");
   qmlRegisterExtendedType<DeclarativeActionItem, DeclarativeObjectExtension>("QtGui", 1, 0, "ActionItem");
   qmlRegisterExtendedType<QButtonGroup, DeclarativeButtonGroupExtension>("QtGui", 1, 0, "ButtonGroup");
   qmlRegisterType<DeclarativeContext>();
   qmlRegisterType<QItemSelectionModel>();
-  qmlRegisterType<DeclarativeSeparator>("QtGui", 1, 0, "Separator");
+  qmlRegisterExtendedType<DeclarativeSeparator, DeclarativeObjectExtension>("QtGui", 1, 0, "Separator");
   qmlRegisterType<QTextDocument>();
 
   // layouts
@@ -179,10 +176,13 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QLabel, DeclarativeWidgetExtension>("QtGui", 1, 0, "Label");
   qmlRegisterExtendedType<QLineEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "LineEdit");
   qmlRegisterExtendedType<QMainWindow, DeclarativeMainWindowExtension>("QtGui", 1, 0, "MainWindow");
+  qmlRegisterExtendedType<Menu, DeclarativeMenuExtension>("QtGui", 1, 0, "Menu");
+  qmlRegisterExtendedType<QMenuBar, DeclarativeMenuBarExtension>("QtGui", 1, 0, "MenuBar");
   qmlRegisterExtendedType<QPushButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "PushButton");
   qmlRegisterExtendedType<QRadioButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "RadioButton");
   qmlRegisterExtendedType<DeclarativeTabWidget, DeclarativeTabWidgetExtension>("QtGui", 1, 0, "TabWidget");
   qmlRegisterExtendedType<QTextEdit, DeclarativeTextEditExtension>("QtGui", 1, 0, "TextEdit");
+  qmlRegisterExtendedType<QToolBar, DeclarativeToolBarExtension>("QtGui", 1, 0, "ToolBar");
   qmlRegisterExtendedType<QWebView, DeclarativeWidgetExtension>("QtGui", 1, 0, "WebView");
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>("QtGui", 1, 0, "Widget");
 
