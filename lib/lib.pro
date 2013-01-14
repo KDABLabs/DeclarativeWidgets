@@ -34,7 +34,7 @@ HEADERS = \
   declarativelayoutproxy_p.h \
   declarativelcdnumber_p.h \
   declarativelistview_p.h \
-  declarativemainwindow_p.h \
+  declarativemainwindowextension_p.h \
   declarativemenubar_p.h \
   declarativemenu_p.h \
   declarativemessagebox_p.h \
@@ -95,7 +95,7 @@ SOURCES = \
   declarativelayoutextension.cpp \
   declarativelcdnumber.cpp \
   declarativelistview.cpp \
-  declarativemainwindow.cpp \
+  declarativemainwindowextension.cpp \
   declarativemenubar.cpp \
   declarativemenu.cpp \
   declarativemessagebox.cpp \

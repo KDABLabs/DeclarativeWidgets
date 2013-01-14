@@ -46,7 +46,7 @@
 #include "declarativeinputdialog_p.h"
 #include "declarativelcdnumber_p.h"
 #include "declarativelistview_p.h"
-#include "declarativemainwindow_p.h"
+#include "declarativemainwindowextension_p.h"
 #include "declarativemenubar_p.h"
 #include "declarativemenu_p.h"
 #include "declarativemessagebox_p.h"
@@ -79,6 +79,9 @@
 #include <QDeclarativeContext>
 #include <QDeclarativeEngine>
 #include <QLabel>
+#include <QMainWindow>
+#include <QMenu>
+#include <QMenuBar>
 #include <QRadioButton>
 #include <QWebView>
 
@@ -131,7 +134,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
   qmlRegisterType<DeclarativeLCDNumber>("QtGui", 1, 0, "LCDNumber");
   qmlRegisterType<DeclarativeListView>("QtGui", 1, 0, "ListView");
-  qmlRegisterType<DeclarativeMainWindow>("QtGui", 1, 0, "MainWindow");
   qmlRegisterType<DeclarativeMenu>("QtGui", 1, 0, "Menu");
   qmlRegisterType<DeclarativeMenuBar>("QtGui", 1, 0, "MenuBar");
   qmlRegisterType<DeclarativeMessageBoxAttached>();
@@ -176,6 +178,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QCheckBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "CheckBox");
   qmlRegisterExtendedType<QLabel, DeclarativeWidgetExtension>("QtGui", 1, 0, "Label");
   qmlRegisterExtendedType<QLineEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "LineEdit");
+  qmlRegisterExtendedType<QMainWindow, DeclarativeMainWindowExtension>("QtGui", 1, 0, "MainWindow");
   qmlRegisterExtendedType<QPushButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "PushButton");
   qmlRegisterExtendedType<QRadioButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "RadioButton");
   qmlRegisterExtendedType<DeclarativeTabWidget, DeclarativeTabWidgetExtension>("QtGui", 1, 0, "TabWidget");

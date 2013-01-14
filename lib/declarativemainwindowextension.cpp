@@ -18,20 +18,29 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "declarativemainwindow_p.h"
+#include "declarativemainwindowextension_p.h"
 
+#include <QDeclarativeInfo>
 #include <QDialog>
+#include <QMainWindow>
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QToolBar>
 
-DeclarativeMainWindow::DeclarativeMainWindow(QObject *parent)
-  : DeclarativeWidgetProxy<QMainWindow>(parent)
+DeclarativeMainWindowExtension::DeclarativeMainWindowExtension(QObject *parent)
+  : DeclarativeWidgetExtension(parent)
 {
-  connectAllSignals(m_proxiedObject, this);
 }
 
-void DeclarativeMainWindow::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+QMainWindow *DeclarativeMainWindowExtension::extendedMainWindow() const
+{
+  QMainWindow *mainWindow = qobject_cast<QMainWindow*>(extendedWidget());
+  Q_ASSERT(mainWindow);
+
+  return mainWindow;
+}
+
+void DeclarativeMainWindowExtension::addWidget(QWidget *widget)
 {
   QMenuBar *menuBar = qobject_cast<QMenuBar*>(widget);
   QToolBar *toolBar = qobject_cast<QToolBar*>(widget);
@@ -39,31 +48,26 @@ void DeclarativeMainWindow::addWidget(QWidget *widget, AbstractDeclarativeObject
   QDialog *dialog = qobject_cast<QDialog*>(widget);
 
   if (menuBar) {
-    m_proxiedObject->setMenuBar(menuBar);
+    extendedMainWindow()->setMenuBar(menuBar);
   } else if (toolBar) {
-    m_proxiedObject->addToolBar(toolBar);
+    extendedMainWindow()->addToolBar(toolBar);
   } else if (statusBar) {
-    m_proxiedObject->setStatusBar(statusBar);
+    extendedMainWindow()->setStatusBar(statusBar);
   } else if (dialog) {
     // We allow to place dialogs on the mainwindow
-    dialog->setParent(m_proxiedObject, dialog->windowFlags());
+    dialog->setParent(extendedMainWindow(), dialog->windowFlags());
   } else if (widget) {
-    if (m_proxiedObject->centralWidget()) {
-      qmlInfo(declarativeObject) << "The QMainWindow contains a central widget already";
+    if (extendedMainWindow()->centralWidget()) {
+      qmlInfo(extendedMainWindow()) << "The MainWindow already contains a central widget";
       return;
     }
 
-    m_proxiedObject->setCentralWidget(widget);
+    extendedMainWindow()->setCentralWidget(widget);
   }
-
-  m_children.append(declarativeObject);
 }
 
-void DeclarativeMainWindow::setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+void DeclarativeMainWindowExtension::setLayout(QLayout *layout)
 {
   Q_UNUSED(layout);
-  Q_UNUSED(declarativeObject);
-  qmlInfo(this) << "Can not set a QLayout to a QMainWindow";
+  qmlInfo(this) << "Can not set a Layout to a MainWindow";
 }
-
-CUSTOM_METAOBJECT(DeclarativeMainWindow, QMainWindow)
