@@ -21,10 +21,9 @@
 #ifndef DECLARATIVEMESSAGEBOX_P_H
 #define DECLARATIVEMESSAGEBOX_P_H
 
-#include "declarativeobjectproxy_p.h"
-
 #include "staticdialogmethodattached_p.h"
 
+#include <qdeclarative.h>
 #include <QMessageBox>
 
 class DeclarativeMessageBoxAttached : public StaticDialogMethodAttached
@@ -60,12 +59,12 @@ class DeclarativeMessageBoxAttached : public StaticDialogMethodAttached
     Private *const d;
 };
 
-class DeclarativeMessageBox : public DeclarativeObjectProxy<QMessageBox>
+class DeclarativeMessageBox : public QMessageBox
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
 
   public:
-    explicit DeclarativeMessageBox(QObject *parent = 0);
+    explicit DeclarativeMessageBox(QWidget *parent = 0);
 
     static DeclarativeMessageBoxAttached *qmlAttachedProperties(QObject *parent);
 };

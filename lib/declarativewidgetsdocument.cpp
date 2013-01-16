@@ -131,8 +131,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
   qmlRegisterType<DeclarativeLCDNumber>("QtGui", 1, 0, "LCDNumber");
   qmlRegisterType<DeclarativeListView>("QtGui", 1, 0, "ListView");
-  qmlRegisterType<DeclarativeMessageBoxAttached>();
-  qmlRegisterType<DeclarativeMessageBox>("QtGui", 1, 0, "MessageBox");
   qmlRegisterType<DeclarativePlainTextEdit>("QtGui", 1, 0, "PlainTextEdit");
   qmlRegisterType<DeclarativeProgressBar>("QtGui", 1, 0, "ProgressBar");
   qmlRegisterType<DeclarativeScrollArea>("QtGui", 1, 0, "ScrollArea");
@@ -176,6 +174,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QMainWindow, DeclarativeMainWindowExtension>("QtGui", 1, 0, "MainWindow");
   qmlRegisterExtendedType<Menu, DeclarativeMenuExtension>("QtGui", 1, 0, "Menu");
   qmlRegisterExtendedType<QMenuBar, DeclarativeMenuBarExtension>("QtGui", 1, 0, "MenuBar");
+  qmlRegisterExtendedType<DeclarativeMessageBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "MessageBox");
   qmlRegisterExtendedType<QPushButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "PushButton");
   qmlRegisterExtendedType<QRadioButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "RadioButton");
   qmlRegisterExtendedType<DeclarativeStatusBar, DeclarativeStatusBarExtension>("QtGui", 1, 0, "StatusBar");

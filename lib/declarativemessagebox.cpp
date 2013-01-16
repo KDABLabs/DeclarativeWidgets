@@ -103,14 +103,14 @@ int DeclarativeMessageBoxAttached::warning(const QString &title, const QString &
   return QMessageBox::warning(bestParentWindow(), title, text, d->buttons, d->defaultButton);
 }
 
-DeclarativeMessageBox::DeclarativeMessageBox(QObject *parent) : DeclarativeObjectProxy<QMessageBox>(parent)
+Q_DECLARE_METATYPE(Qt::WindowFlags)
+
+DeclarativeMessageBox::DeclarativeMessageBox(QWidget *parent) : QMessageBox(parent)
 {
-  connectAllSignals(m_proxiedObject, this);
+  setProperty("originalWindowFlags", QVariant::fromValue(windowFlags()));
 }
 
 DeclarativeMessageBoxAttached *DeclarativeMessageBox::qmlAttachedProperties(QObject *parent)
 {
   return new DeclarativeMessageBoxAttached(parent);
 }
-
-CUSTOM_METAOBJECT(DeclarativeMessageBox, QMessageBox)
