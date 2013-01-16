@@ -109,8 +109,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   // widgets
   qmlRegisterType<DeclarativeCalendarWidget>("QtGui", 1, 0, "CalendarWidget");
   qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
-  qmlRegisterType<DeclarativeColorDialogAttached>();
-  qmlRegisterType<DeclarativeColorDialog>("QtGui", 1, 0, "ColorDialog");
   qmlRegisterType<DeclarativeColumnView>("QtGui", 1, 0, "ColumnView");
   qmlRegisterType<DeclarativeCommandLinkButton>("QtGui", 1, 0, "CommandLinkButton");
   qmlRegisterType<DeclarativeDateEdit>("QtGui", 1, 0, "DateEdit");
@@ -165,6 +163,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
 
   // widgets
   qmlRegisterExtendedType<QCheckBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "CheckBox");
+  qmlRegisterExtendedType<DeclarativeColorDialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "ColorDialog");
   qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "Dialog");
   qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "DialogButtonBox");
   qmlRegisterExtendedType<DeclarativeFileDialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "FileDialog");

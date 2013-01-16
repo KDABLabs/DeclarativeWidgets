@@ -21,10 +21,9 @@
 #ifndef DECLARATIVECOLORDIALOG_P_H
 #define DECLARATIVECOLORDIALOG_P_H
 
-#include "declarativewidgetproxy_p.h"
-
 #include "staticdialogmethodattached_p.h"
 
+#include <qdeclarative.h>
 #include <QColorDialog>
 
 class DeclarativeColorDialogAttached : public StaticDialogMethodAttached
@@ -55,12 +54,12 @@ class DeclarativeColorDialogAttached : public StaticDialogMethodAttached
     Private *const d;
 };
 
-class DeclarativeColorDialog : public DeclarativeWidgetProxy<QColorDialog>
+class DeclarativeColorDialog : public QColorDialog
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
 
   public:
-    DeclarativeColorDialog(QObject *parent = 0);
+    DeclarativeColorDialog(QWidget *parent = 0);
 
     static DeclarativeColorDialogAttached *qmlAttachedProperties(QObject *parent);
 };

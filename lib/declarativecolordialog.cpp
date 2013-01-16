@@ -86,14 +86,11 @@ QColor DeclarativeColorDialogAttached::getColor(const QColor &initialColor)
     return QColorDialog::getColor(initialColor, parent);
 }
 
-DeclarativeColorDialog::DeclarativeColorDialog(QObject *parent) : DeclarativeWidgetProxy<QColorDialog>(parent)
+DeclarativeColorDialog::DeclarativeColorDialog(QWidget *parent) : QColorDialog(parent)
 {
-  connectAllSignals(m_proxiedObject, this);
 }
 
 DeclarativeColorDialogAttached *DeclarativeColorDialog::qmlAttachedProperties(QObject *parent)
 {
   return new DeclarativeColorDialogAttached(parent);
 }
-
-CUSTOM_METAOBJECT(DeclarativeColorDialog, QColorDialog)
