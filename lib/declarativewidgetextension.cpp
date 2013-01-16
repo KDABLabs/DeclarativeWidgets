@@ -29,10 +29,11 @@ void DeclarativeWidgetExtension::dataAppend(QObject *object)
   QWidget *widget = qobject_cast<QWidget*>(object);
   if (widget) {
 
-    // restore widget flags for menus
-    Menu *menu = qobject_cast<Menu*>(widget);
-    if (menu)
-      menu->setParent(menu->parentWidget(), menu->originalWindowFlags);
+    // restore widget flags for dialogs, menus
+    const QVariant originalWindowFlags = widget->property("originalWindowFlags");
+    if (originalWindowFlags.isValid() && originalWindowFlags.canConvert<Qt::WindowFlags>()) {
+      widget->setParent(widget->parentWidget(), originalWindowFlags.value<Qt::WindowFlags>());
+    }
 
     addWidget(widget);
     return;

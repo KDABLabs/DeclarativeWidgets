@@ -132,6 +132,19 @@ class DeclarativeView : public QDeclarativeView
     QPointer<DeclarativeContext> m_rootContext;
 };
 
+class Dialog : public QDialog
+{
+  Q_OBJECT
+
+public:
+  Dialog() : QDialog()
+  {
+    setProperty("originalWindowFlags", QVariant::fromValue(windowFlags()));
+  }
+};
+
+Q_DECLARE_METATYPE(Qt::WindowFlags)
+
 class FileDialog : public QFileDialog
 {
   Q_OBJECT
@@ -181,9 +194,10 @@ class Menu : public QMenu
   Q_OBJECT
 
 public:
-  Menu() : QMenu(), originalWindowFlags(windowFlags()) {}
-
-  const Qt::WindowFlags originalWindowFlags;
+  Menu() : QMenu()
+  {
+    setProperty("originalWindowFlags", QVariant::fromValue(windowFlags()));
+  }
 };
 
 class ListView : public QListView

@@ -18,8 +18,6 @@ HEADERS = \
   declarativedatetimeedit_p.h \
   declarativedeclarativecontext_p.h \
   declarativedeclarativeview_p.h \
-  declarativedialogbuttonbox_p.h \
-  declarativedialog_p.h \
   declarativedial_p.h \
   declarativedoublespinbox_p.h \
   declarativefiledialog_p.h \
@@ -81,8 +79,6 @@ SOURCES = \
   declarativedeclarativecontext.cpp \
   declarativedeclarativeview.cpp \
   declarativedial.cpp \
-  declarativedialogbuttonbox.cpp \
-  declarativedialog.cpp \
   declarativedoublespinbox.cpp \
   declarativefiledialog.cpp \
   declarativefontdialog.cpp \

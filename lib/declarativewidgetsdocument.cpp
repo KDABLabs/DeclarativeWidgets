@@ -32,8 +32,6 @@
 #include "declarativedatetimeedit_p.h"
 #include "declarativedeclarativecontext_p.h"
 #include "declarativedeclarativeview_p.h"
-#include "declarativedialogbuttonbox_p.h"
-#include "declarativedialog_p.h"
 #include "declarativedial_p.h"
 #include "declarativedoublespinbox_p.h"
 #include "declarativefiledialog_p.h"
@@ -78,6 +76,7 @@
 #include <QDeclarativeComponent>
 #include <QDeclarativeContext>
 #include <QDeclarativeEngine>
+#include <QDialogButtonBox>
 #include <QLabel>
 #include <QMainWindow>
 #include <QMenuBar>
@@ -120,8 +119,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeContextProperty>("QtGui", 1, 0, "DeclarativeContextProperty");
   qmlRegisterType<DeclarativeDeclarativeView>("QtGui", 1, 0, "DeclarativeView");
   qmlRegisterType<DeclarativeDial>("QtGui", 1, 0, "Dial");
-  qmlRegisterType<DeclarativeDialog>("QtGui", 1, 0, "Dialog");
-  qmlRegisterType<DeclarativeDialogButtonBox>("QtGui", 1, 0, "DialogButtonBox");
   qmlRegisterType<DeclarativeDoubleSpinBox>("QtGui", 1, 0, "DoubleSpinBox");
   qmlRegisterType<DeclarativeFileDialogAttached>();
   qmlRegisterType<DeclarativeFileDialog>("QtGui", 1, 0, "FileDialog");
@@ -173,6 +170,8 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
 
   // widgets
   qmlRegisterExtendedType<QCheckBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "CheckBox");
+  qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "Dialog");
+  qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "DialogButtonBox");
   qmlRegisterExtendedType<QLabel, DeclarativeWidgetExtension>("QtGui", 1, 0, "Label");
   qmlRegisterExtendedType<QLineEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "LineEdit");
   qmlRegisterExtendedType<QMainWindow, DeclarativeMainWindowExtension>("QtGui", 1, 0, "MainWindow");
