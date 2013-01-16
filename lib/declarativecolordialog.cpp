@@ -86,8 +86,11 @@ QColor DeclarativeColorDialogAttached::getColor(const QColor &initialColor)
     return QColorDialog::getColor(initialColor, parent);
 }
 
+Q_DECLARE_METATYPE(Qt::WindowFlags)
+
 DeclarativeColorDialog::DeclarativeColorDialog(QWidget *parent) : QColorDialog(parent)
 {
+  setProperty("originalWindowFlags", QVariant::fromValue(windowFlags()));
 }
 
 DeclarativeColorDialogAttached *DeclarativeColorDialog::qmlAttachedProperties(QObject *parent)

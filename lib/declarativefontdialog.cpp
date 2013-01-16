@@ -109,9 +109,12 @@ void DeclarativeFontDialogAttached::setDialogAccepted(bool accepted)
   emit dialogAcceptedChanged(accepted);
 }
 
+Q_DECLARE_METATYPE(Qt::WindowFlags)
+
 DeclarativeFontDialog::DeclarativeFontDialog(QWidget *parent)
   : QFontDialog(parent)
 {
+  setProperty("originalWindowFlags", QVariant::fromValue(windowFlags()));
 }
 
 DeclarativeFontDialogAttached *DeclarativeFontDialog::qmlAttachedProperties(QObject *parent)

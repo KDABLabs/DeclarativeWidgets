@@ -275,8 +275,12 @@ void DeclarativeInputDialogAttached::setDialogAccepted(bool accepted)
   emit dialogAcceptedChanged(accepted);
 }
 
+Q_DECLARE_METATYPE(Qt::WindowFlags)
+
 DeclarativeInputDialog::DeclarativeInputDialog(QWidget *parent) : QInputDialog(parent)
 {
+  setProperty("originalWindowFlags", QVariant::fromValue(windowFlags()));
+
   connect(this, SIGNAL(textValueChanged(QString)), this, SIGNAL(customTextValueChanged()));
   connect(this, SIGNAL(intValueChanged(int)), this, SIGNAL(customIntValueChanged()));
   connect(this, SIGNAL(doubleValueChanged(double)), this, SIGNAL(customDoubleValueChanged()));

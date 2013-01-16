@@ -156,10 +156,12 @@ void DeclarativeFileDialogAttached::setSelectedFilter(const QString &filter)
   emit selectedFilterChanged(filter);
 }
 
+Q_DECLARE_METATYPE(Qt::WindowFlags)
 
 DeclarativeFileDialog::DeclarativeFileDialog(QWidget *parent)
   : QFileDialog(parent)
 {
+  setProperty("originalWindowFlags", QVariant::fromValue(windowFlags()));
 }
 
 DeclarativeFileDialogAttached *DeclarativeFileDialog::qmlAttachedProperties(QObject *parent)
