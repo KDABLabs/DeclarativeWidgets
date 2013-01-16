@@ -109,15 +109,12 @@ void DeclarativeFontDialogAttached::setDialogAccepted(bool accepted)
   emit dialogAcceptedChanged(accepted);
 }
 
-DeclarativeFontDialog::DeclarativeFontDialog(QObject *parent)
-  : DeclarativeWidgetProxy<QFontDialog>(parent)
+DeclarativeFontDialog::DeclarativeFontDialog(QWidget *parent)
+  : QFontDialog(parent)
 {
-  connectAllSignals(m_proxiedObject, this);
 }
 
 DeclarativeFontDialogAttached *DeclarativeFontDialog::qmlAttachedProperties(QObject *parent)
 {
   return new DeclarativeFontDialogAttached(parent);
 }
-
-CUSTOM_METAOBJECT(DeclarativeFontDialog, QFontDialog)

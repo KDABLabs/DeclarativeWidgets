@@ -21,10 +21,9 @@
 #ifndef DECLARATIVEFONTDIALOG_P_H
 #define DECLARATIVEFONTDIALOG_P_H
 
-#include "declarativewidgetproxy_p.h"
-
 #include "staticdialogmethodattached_p.h"
 
+#include <qdeclarative.h>
 #include <QFontDialog>
 
 class DeclarativeFontDialogAttached : public StaticDialogMethodAttached
@@ -61,12 +60,12 @@ class DeclarativeFontDialogAttached : public StaticDialogMethodAttached
     Private *const d;
 };
 
-class DeclarativeFontDialog : public DeclarativeWidgetProxy<QFontDialog>
+class DeclarativeFontDialog : public QFontDialog
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
 
   public:
-    explicit DeclarativeFontDialog(QObject *parent = 0);
+    explicit DeclarativeFontDialog(QWidget *parent = 0);
 
     static DeclarativeFontDialogAttached *qmlAttachedProperties(QObject *parent);
 };
