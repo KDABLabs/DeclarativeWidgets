@@ -20,6 +20,8 @@
 
 #include "declarativestatusbar_p.h"
 
+#include <QDeclarativeInfo>
+
 class DeclarativeStatusBarAttached::Private
 {
   public:
@@ -51,34 +53,9 @@ int DeclarativeStatusBarAttached::stretch() const
   return d->stretch;
 }
 
-DeclarativeStatusBar::DeclarativeStatusBar(QObject *parent)
-  : DeclarativeWidgetProxy<QStatusBar>(parent)
+DeclarativeStatusBar::DeclarativeStatusBar(QWidget *parent)
+  : QStatusBar(parent)
 {
-  connectAllSignals(m_proxiedObject, this);
-}
-
-void DeclarativeStatusBar::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
-{
-  // TODO: error when layout is set
-
-  m_children.append(declarativeObject);
-
-  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeStatusBar>(declarativeObject, false);
-  DeclarativeStatusBarAttached *attached = qobject_cast<DeclarativeStatusBarAttached*>(attachedProperties);
-
-  int stretch = 0;
-  if (attached) {
-    stretch = attached->stretch();
-  }
-
-  m_proxiedObject->addPermanentWidget(widget, stretch);
-}
-
-void DeclarativeStatusBar::setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
-{
-  Q_UNUSED(layout);
-  Q_UNUSED(declarativeObject);
-  qmlInfo(this) << "Can not add QLayout to QStatusBar";
 }
 
 DeclarativeStatusBarAttached *DeclarativeStatusBar::qmlAttachedProperties(QObject *object)
@@ -86,4 +63,36 @@ DeclarativeStatusBarAttached *DeclarativeStatusBar::qmlAttachedProperties(QObjec
   return new DeclarativeStatusBarAttached(object);
 }
 
-CUSTOM_METAOBJECT(DeclarativeStatusBar, QStatusBar)
+DeclarativeStatusBarExtension::DeclarativeStatusBarExtension(QObject *parent)
+  : DeclarativeWidgetExtension(parent)
+{
+}
+
+QStatusBar *DeclarativeStatusBarExtension::extendedStatusBar() const
+{
+  QStatusBar *statusBar = qobject_cast<QStatusBar*>(extendedWidget());
+  Q_ASSERT(statusBar);
+
+  return statusBar;
+}
+
+void DeclarativeStatusBarExtension::addWidget(QWidget *widget)
+{
+  // TODO: error when layout is set
+
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeStatusBar>(widget, false);
+  DeclarativeStatusBarAttached *attached = qobject_cast<DeclarativeStatusBarAttached*>(attachedProperties);
+
+  int stretch = 0;
+  if (attached) {
+    stretch = attached->stretch();
+  }
+
+  extendedStatusBar()->addPermanentWidget(widget, stretch);
+}
+
+void DeclarativeStatusBarExtension::setLayout(QLayout *layout)
+{
+  Q_UNUSED(layout);
+  qmlInfo(extendedStatusBar()) << "Can not add Layout to StatusBar";
+}
