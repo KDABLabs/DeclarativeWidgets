@@ -217,15 +217,6 @@ QObject *DeclarativeView::declarativeRootContext() const
   return m_rootContext;
 }
 
-// InputDialog
-InputDialog::InputDialog(QWidget *parent)
-  : QInputDialog(parent)
-{
-  connect(this, SIGNAL(textValueChanged(QString)), this, SIGNAL(customTextValueChanged()));
-  connect(this, SIGNAL(intValueChanged(int)), this, SIGNAL(customIntValueChanged()));
-  connect(this, SIGNAL(doubleValueChanged(double)), this, SIGNAL(customDoubleValueChanged()));
-}
-
 // ListView
 ListView::ListView(QWidget *parent)
   : QListView(parent)

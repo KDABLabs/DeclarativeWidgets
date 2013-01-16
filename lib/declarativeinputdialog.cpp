@@ -275,14 +275,14 @@ void DeclarativeInputDialogAttached::setDialogAccepted(bool accepted)
   emit dialogAcceptedChanged(accepted);
 }
 
-DeclarativeInputDialog::DeclarativeInputDialog(QObject *parent) : DeclarativeWidgetProxy<InputDialog>(parent)
+DeclarativeInputDialog::DeclarativeInputDialog(QWidget *parent) : QInputDialog(parent)
 {
-  connectAllSignals(m_proxiedObject, this);
+  connect(this, SIGNAL(textValueChanged(QString)), this, SIGNAL(customTextValueChanged()));
+  connect(this, SIGNAL(intValueChanged(int)), this, SIGNAL(customIntValueChanged()));
+  connect(this, SIGNAL(doubleValueChanged(double)), this, SIGNAL(customDoubleValueChanged()));
 }
 
 DeclarativeInputDialogAttached *DeclarativeInputDialog::qmlAttachedProperties(QObject *parent)
 {
   return new DeclarativeInputDialogAttached(parent);
 }
-
-CUSTOM_METAOBJECT(DeclarativeInputDialog, InputDialog)

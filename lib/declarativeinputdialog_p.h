@@ -21,10 +21,10 @@
 #ifndef DECLARATIVEINPUTDIALOG_P_H
 #define DECLARATIVEINPUTDIALOG_P_H
 
-#include "declarativewidgetproxy_p.h"
-
-#include "objectadaptors_p.h"
 #include "staticdialogmethodattached_p.h"
+
+#include <qdeclarative.h>
+#include <QInputDialog>
 
 class DeclarativeInputDialogAttached : public StaticDialogMethodAttached
 {
@@ -116,14 +116,40 @@ class DeclarativeInputDialogAttached : public StaticDialogMethodAttached
     Private *const d;
 };
 
-class DeclarativeInputDialog : public DeclarativeWidgetProxy<InputDialog>
+class DeclarativeInputDialog : public QInputDialog
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
+
+  Q_PROPERTY(InputMode inputMode READ inputMode WRITE setInputMode)
+  Q_PROPERTY(QString labelText READ labelText WRITE setLabelText)
+  Q_PROPERTY(InputDialogOptions options READ options WRITE setOptions)
+  Q_PROPERTY(QString textValue READ textValue WRITE setTextValue NOTIFY customTextValueChanged)
+  Q_PROPERTY(int intValue READ intValue WRITE setIntValue NOTIFY customIntValueChanged)
+  Q_PROPERTY(int doubleValue READ doubleValue WRITE setDoubleValue NOTIFY customDoubleValueChanged)
+  Q_PROPERTY(QLineEdit::EchoMode textEchoMode READ textEchoMode WRITE setTextEchoMode)
+  Q_PROPERTY(bool comboBoxEditable READ isComboBoxEditable WRITE setComboBoxEditable)
+  Q_PROPERTY(QStringList comboBoxItems READ comboBoxItems WRITE setComboBoxItems)
+  Q_PROPERTY(int intMinimum READ intMinimum WRITE setIntMinimum)
+  Q_PROPERTY(int intMaximum READ intMaximum WRITE setIntMaximum)
+  Q_PROPERTY(int intStep READ intStep WRITE setIntStep)
+  Q_PROPERTY(double doubleMinimum READ doubleMinimum WRITE setDoubleMinimum)
+  Q_PROPERTY(double doubleMaximum READ doubleMaximum WRITE setDoubleMaximum)
+  Q_PROPERTY(int doubleDecimals READ doubleDecimals WRITE setDoubleDecimals)
+  Q_PROPERTY(QString okButtonText READ okButtonText WRITE setOkButtonText)
+  Q_PROPERTY(QString cancelButtonText READ cancelButtonText WRITE setCancelButtonText)
+
+  Q_ENUMS(InputMode)
+  Q_ENUMS(InputDialogOption)
 
   public:
-    explicit DeclarativeInputDialog(QObject *parent = 0);
+    explicit DeclarativeInputDialog(QWidget *parent = 0);
 
     static DeclarativeInputDialogAttached *qmlAttachedProperties(QObject *parent);
+
+  Q_SIGNALS:
+    void customTextValueChanged();
+    void customIntValueChanged();
+    void customDoubleValueChanged();
 };
 
 QML_DECLARE_TYPEINFO(DeclarativeInputDialog, QML_HAS_ATTACHED_PROPERTIES)
