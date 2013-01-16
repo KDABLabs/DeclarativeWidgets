@@ -157,15 +157,12 @@ void DeclarativeFileDialogAttached::setSelectedFilter(const QString &filter)
 }
 
 
-DeclarativeFileDialog::DeclarativeFileDialog(QObject *parent)
-  : DeclarativeWidgetProxy<FileDialog>(parent)
+DeclarativeFileDialog::DeclarativeFileDialog(QWidget *parent)
+  : QFileDialog(parent)
 {
-  connectAllSignals(m_proxiedObject, this);
 }
 
 DeclarativeFileDialogAttached *DeclarativeFileDialog::qmlAttachedProperties(QObject *parent)
 {
   return new DeclarativeFileDialogAttached(parent);
 }
-
-CUSTOM_METAOBJECT(DeclarativeFileDialog, FileDialog)

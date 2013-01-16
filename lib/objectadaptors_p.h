@@ -24,7 +24,6 @@
 #include <QColumnView>
 #include <QDeclarativeContext>
 #include <QDeclarativeView>
-#include <QFileDialog>
 #include <QInputDialog>
 #include <QMenu>
 #include <QListView>
@@ -144,16 +143,6 @@ public:
 };
 
 Q_DECLARE_METATYPE(Qt::WindowFlags)
-
-class FileDialog : public QFileDialog
-{
-  Q_OBJECT
-
-  Q_PROPERTY(QStringList selectedFiles READ selectedFiles)
-
-  public:
-    explicit FileDialog(QWidget *parent = 0);
-};
 
 class InputDialog : public QInputDialog
 {

@@ -120,8 +120,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeDeclarativeView>("QtGui", 1, 0, "DeclarativeView");
   qmlRegisterType<DeclarativeDial>("QtGui", 1, 0, "Dial");
   qmlRegisterType<DeclarativeDoubleSpinBox>("QtGui", 1, 0, "DoubleSpinBox");
-  qmlRegisterType<DeclarativeFileDialogAttached>();
-  qmlRegisterType<DeclarativeFileDialog>("QtGui", 1, 0, "FileDialog");
   qmlRegisterType<DeclarativeFontDialogAttached>();
   qmlRegisterType<DeclarativeFontDialog>("QtGui", 1, 0, "FontDialog");
   qmlRegisterType<DeclarativeFrame>("QtGui", 1, 0, "Frame");
@@ -169,6 +167,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QCheckBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "CheckBox");
   qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "Dialog");
   qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "DialogButtonBox");
+  qmlRegisterExtendedType<DeclarativeFileDialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "FileDialog");
   qmlRegisterExtendedType<QLabel, DeclarativeWidgetExtension>("QtGui", 1, 0, "Label");
   qmlRegisterExtendedType<QLineEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "LineEdit");
   qmlRegisterExtendedType<QMainWindow, DeclarativeMainWindowExtension>("QtGui", 1, 0, "MainWindow");

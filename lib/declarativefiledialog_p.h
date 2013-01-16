@@ -21,10 +21,10 @@
 #ifndef DECLARATIVEFILEDIALOG_P_H
 #define DECLARATIVEFILEDIALOG_P_H
 
-#include "declarativewidgetproxy_p.h"
-
-#include "objectadaptors_p.h"
 #include "staticdialogmethodattached_p.h"
+
+#include <qdeclarative.h>
+#include <QFileDialog>
 
 class DeclarativeFileDialogAttached : public StaticDialogMethodAttached
 {
@@ -75,12 +75,14 @@ class DeclarativeFileDialogAttached : public StaticDialogMethodAttached
     Private *const d;
 };
 
-class DeclarativeFileDialog : public DeclarativeWidgetProxy<FileDialog>
+class DeclarativeFileDialog : public QFileDialog
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
+
+  Q_PROPERTY(QStringList selectedFiles READ selectedFiles)
 
   public:
-    explicit DeclarativeFileDialog(QObject *parent = 0);
+    explicit DeclarativeFileDialog(QWidget *parent = 0);
 
     static DeclarativeFileDialogAttached *qmlAttachedProperties(QObject *parent);
 };

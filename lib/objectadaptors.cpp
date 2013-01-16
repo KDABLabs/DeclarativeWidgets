@@ -217,12 +217,6 @@ QObject *DeclarativeView::declarativeRootContext() const
   return m_rootContext;
 }
 
-// FileDialog
-FileDialog::FileDialog(QWidget *parent)
-  : QFileDialog(parent)
-{
-}
-
 // InputDialog
 InputDialog::InputDialog(QWidget *parent)
   : QInputDialog(parent)
