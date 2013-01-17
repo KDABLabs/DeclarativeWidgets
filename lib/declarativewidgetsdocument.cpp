@@ -63,7 +63,6 @@
 #include "declarativetexteditextension_p.h"
 #include "declarativetimeedit_p.h"
 #include "declarativetoolbarextension_p.h"
-#include "declarativetreeview_p.h"
 #include "declarativevboxlayout_p.h"
 #include "declarativewidgetextension.h"
 
@@ -83,6 +82,7 @@
 #include <QRadioButton>
 #include <QToolBar>
 #include <QToolButton>
+#include <QTreeView>
 #include <QWebView>
 
 class DeclarativeWidgetsDocument::Private
@@ -134,7 +134,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeTabWidgetAttached>();
   qmlRegisterType<DeclarativeTextBrowser>("QtGui", 1, 0, "TextBrowser");
   qmlRegisterType<DeclarativeTimeEdit>("QtGui", 1, 0, "TimeEdit");
-  qmlRegisterType<DeclarativeTreeView>("QtGui", 1, 0, "TreeView");
   */
 
   // objects
@@ -178,6 +177,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QTextEdit, DeclarativeTextEditExtension>("QtGui", 1, 0, "TextEdit");
   qmlRegisterExtendedType<QToolBar, DeclarativeToolBarExtension>("QtGui", 1, 0, "ToolBar");
   qmlRegisterExtendedType<QToolButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "ToolButton");
+  qmlRegisterExtendedType<QTreeView, DeclarativeItemViewExtension>("QtGui", 1, 0, "TreeView");
   qmlRegisterExtendedType<QWebView, DeclarativeWidgetExtension>("QtGui", 1, 0, "WebView");
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>("QtGui", 1, 0, "Widget");
 

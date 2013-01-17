@@ -28,7 +28,6 @@
 #include <QMenu>
 #include <QPointer>
 #include <QTableView>
-#include <QTreeView>
 
 class ColumnView : public QColumnView
 {
@@ -163,24 +162,6 @@ class TableView : public QTableView
 
   public:
     explicit TableView(QWidget *parent = 0);
-
-    void setModel(QAbstractItemModel *model);
-    void setSelectionModel(QItemSelectionModel *selectionModel);
-
-  Q_SIGNALS:
-    void modelChanged(QAbstractItemModel*);
-    void selectionModelChanged(QItemSelectionModel*);
-};
-
-class TreeView : public QTreeView
-{
-  Q_OBJECT
-
-  Q_PROPERTY(QAbstractItemModel* model READ model WRITE setModel NOTIFY modelChanged)
-  Q_PROPERTY(QItemSelectionModel* selectionModel READ selectionModel WRITE setSelectionModel NOTIFY selectionModelChanged)
-
-  public:
-    explicit TreeView(QWidget *parent = 0);
 
     void setModel(QAbstractItemModel *model);
     void setSelectionModel(QItemSelectionModel *selectionModel);

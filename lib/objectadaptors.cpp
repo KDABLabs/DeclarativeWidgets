@@ -243,30 +243,3 @@ void TableView::setSelectionModel(QItemSelectionModel *selectionModel)
 
   emit selectionModelChanged(selectionModel);
 }
-
-// TreeView
-TreeView::TreeView(QWidget *parent)
-  : QTreeView(parent)
-{
-}
-
-void TreeView::setModel(QAbstractItemModel *model)
-{
-  if (this->model() == model)
-    return;
-
-  QTreeView::setModel(model);
-
-  emit modelChanged(model);
-  emit selectionModelChanged(selectionModel());
-}
-
-void TreeView::setSelectionModel(QItemSelectionModel *selectionModel)
-{
-  if (this->selectionModel() == selectionModel)
-    return;
-
-  QTreeView::setSelectionModel(selectionModel);
-
-  emit selectionModelChanged(selectionModel);
-}
