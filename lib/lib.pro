@@ -54,7 +54,6 @@ HEADERS = \
   declarativetexteditextension_p.h \
   declarativetimeedit_p.h \
   declarativetoolbarextension_p.h \
-  declarativetoolbutton_p.h \
   declarativetreeview_p.h \
   declarativevboxlayout_p.h \
   declarativewidgetextension.h \
@@ -112,7 +111,6 @@ SOURCES = \
   declarativetexteditextension.cpp \
   declarativetimeedit.cpp \
   declarativetoolbarextension.cpp \
-  declarativetoolbutton.cpp \
   declarativetreeview.cpp \
   declarativevboxlayout.cpp \
   declarativewidgetextension.cpp \
