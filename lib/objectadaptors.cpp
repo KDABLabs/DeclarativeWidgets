@@ -216,30 +216,3 @@ QObject *DeclarativeView::declarativeRootContext() const
 {
   return m_rootContext;
 }
-
-// TableView
-TableView::TableView(QWidget *parent)
-  : QTableView(parent)
-{
-}
-
-void TableView::setModel(QAbstractItemModel *model)
-{
-  if (this->model() == model)
-    return;
-
-  QTableView::setModel(model);
-
-  emit modelChanged(model);
-  emit selectionModelChanged(selectionModel());
-}
-
-void TableView::setSelectionModel(QItemSelectionModel *selectionModel)
-{
-  if (this->selectionModel() == selectionModel)
-    return;
-
-  QTableView::setSelectionModel(selectionModel);
-
-  emit selectionModelChanged(selectionModel);
-}

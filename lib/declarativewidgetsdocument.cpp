@@ -57,7 +57,6 @@
 #include "declarativestackedlayout_p.h"
 #include "declarativestackedwidget_p.h"
 #include "declarativestatusbar_p.h"
-#include "declarativetableview_p.h"
 #include "declarativetabwidget_p.h"
 #include "declarativetextbrowser_p.h"
 #include "declarativetexteditextension_p.h"
@@ -80,6 +79,7 @@
 #include <QMainWindow>
 #include <QMenuBar>
 #include <QRadioButton>
+#include <QTableView>
 #include <QToolBar>
 #include <QToolButton>
 #include <QTreeView>
@@ -130,7 +130,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeSpinBox>("QtGui", 1, 0, "SpinBox");
   qmlRegisterType<DeclarativeStackedWidget>("QtGui", 1, 0, "StackedWidget");
   qmlRegisterType<DeclarativeStatusBarAttached>();
-  qmlRegisterType<DeclarativeTableView>("QtGui", 1, 0, "TableView");
   qmlRegisterType<DeclarativeTabWidgetAttached>();
   qmlRegisterType<DeclarativeTextBrowser>("QtGui", 1, 0, "TextBrowser");
   qmlRegisterType<DeclarativeTimeEdit>("QtGui", 1, 0, "TimeEdit");
@@ -173,6 +172,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QPushButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "PushButton");
   qmlRegisterExtendedType<QRadioButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "RadioButton");
   qmlRegisterExtendedType<DeclarativeStatusBar, DeclarativeStatusBarExtension>("QtGui", 1, 0, "StatusBar");
+  qmlRegisterExtendedType<QTableView, DeclarativeItemViewExtension>("QtGui", 1, 0, "TableView");
   qmlRegisterExtendedType<DeclarativeTabWidget, DeclarativeTabWidgetExtension>("QtGui", 1, 0, "TabWidget");
   qmlRegisterExtendedType<QTextEdit, DeclarativeTextEditExtension>("QtGui", 1, 0, "TextEdit");
   qmlRegisterExtendedType<QToolBar, DeclarativeToolBarExtension>("QtGui", 1, 0, "ToolBar");

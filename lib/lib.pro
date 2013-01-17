@@ -47,7 +47,6 @@ HEADERS = \
   declarativestackedlayout_p.h \
   declarativestackedwidget_p.h \
   declarativestatusbar_p.h \
-  declarativetableview_p.h \
   declarativetabwidget_p.h \
   declarativetextbrowser_p.h \
   declarativetexteditextension_p.h \
@@ -102,7 +101,6 @@ SOURCES = \
   declarativestackedlayout.cpp \
   declarativestackedwidget.cpp \
   declarativestatusbar.cpp \
-  declarativetableview.cpp \
   declarativetabwidget.cpp \
   declarativetextbrowser.cpp \
   declarativetexteditextension.cpp \
