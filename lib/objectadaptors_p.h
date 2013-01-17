@@ -26,7 +26,6 @@
 #include <QDeclarativeView>
 #include <QDialog>
 #include <QMenu>
-#include <QListView>
 #include <QPointer>
 #include <QTableView>
 #include <QTreeView>
@@ -153,24 +152,6 @@ public:
   {
     setProperty("originalWindowFlags", QVariant::fromValue(windowFlags()));
   }
-};
-
-class ListView : public QListView
-{
-  Q_OBJECT
-
-  Q_PROPERTY(QAbstractItemModel* model READ model WRITE setModel NOTIFY modelChanged)
-  Q_PROPERTY(QItemSelectionModel* selectionModel READ selectionModel WRITE setSelectionModel NOTIFY selectionModelChanged)
-
-  public:
-    explicit ListView(QWidget *parent = 0);
-
-    void setModel(QAbstractItemModel *model);
-    void setSelectionModel(QItemSelectionModel *selectionModel);
-
-  Q_SIGNALS:
-    void modelChanged(QAbstractItemModel*);
-    void selectionModelChanged(QItemSelectionModel*);
 };
 
 class TableView : public QTableView

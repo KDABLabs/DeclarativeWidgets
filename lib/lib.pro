@@ -27,10 +27,10 @@ HEADERS = \
   declarativegroupbox_p.h \
   declarativehboxlayout_p.h \
   declarativeinputdialog_p.h \
+  declarativeitemviewextension_p.h \
   declarativelayoutextension.h \
   declarativelayoutproxy_p.h \
   declarativelcdnumber_p.h \
-  declarativelistview_p.h \
   declarativemainwindowextension_p.h \
   declarativemenubarextension_p.h \
   declarativemenuextension_p.h \
@@ -85,9 +85,9 @@ SOURCES = \
   declarativegroupbox.cpp \
   declarativehboxlayout.cpp \
   declarativeinputdialog.cpp \
+  declarativeitemviewextension.cpp \
   declarativelayoutextension.cpp \
   declarativelcdnumber.cpp \
-  declarativelistview.cpp \
   declarativemainwindowextension.cpp \
   declarativemenubarextension.cpp \
   declarativemenuextension.cpp \
