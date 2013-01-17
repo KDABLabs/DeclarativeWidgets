@@ -26,33 +26,6 @@
 #include <QDebug>
 #include <QDeclarativeInfo>
 
-// ColumnView
-ColumnView::ColumnView(QWidget *parent)
-  : QColumnView(parent)
-{
-}
-
-void ColumnView::setModel(QAbstractItemModel *model)
-{
-  if (this->model() == model)
-    return;
-
-  QColumnView::setModel(model);
-
-  emit modelChanged(model);
-  emit selectionModelChanged(selectionModel());
-}
-
-void ColumnView::setSelectionModel(QItemSelectionModel *selectionModel)
-{
-  if (this->selectionModel() == selectionModel)
-    return;
-
-  QColumnView::setSelectionModel(selectionModel);
-
-  emit selectionModelChanged(selectionModel);
-}
-
 // DeclarativeContext
 DeclarativeContext::DeclarativeContext(QDeclarativeEngine *engine, QObject *parent)
   : QObject(parent),
