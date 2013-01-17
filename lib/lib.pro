@@ -13,7 +13,6 @@ HEADERS = \
   declarativecalendarwidget_p.h \
   declarativecolordialog_p.h \
   declarativecolumnview_p.h \
-  declarativecommandlinkbutton_p.h \
   declarativedateedit_p.h \
   declarativedatetimeedit_p.h \
   declarativedeclarativecontext_p.h \
@@ -72,7 +71,6 @@ SOURCES = \
   declarativecalendarwidget.cpp \
   declarativecolordialog.cpp \
   declarativecolumnview.cpp \
-  declarativecommandlinkbutton.cpp \
   declarativedateedit.cpp \
   declarativedatetimeedit.cpp \
   declarativedeclarativecontext.cpp \
