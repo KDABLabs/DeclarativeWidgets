@@ -34,7 +34,6 @@ HEADERS = \
   declarativemessagebox_p.h \
   declarativeobjectextension.h \
   declarativeobjectproxy_p.h \
-  declarativeplaintextedit_p.h \
   declarativeprogressbar_p.h \
   declarativescrollareaextension_p.h \
   declarativescrollbar_p.h \
@@ -84,7 +83,6 @@ SOURCES = \
   declarativemenuextension.cpp \
   declarativemessagebox.cpp \
   declarativeobjectextension.cpp \
-  declarativeplaintextedit.cpp \
   declarativeprogressbar.cpp \
   declarativescrollareaextension.cpp \
   declarativescrollbar.cpp \
