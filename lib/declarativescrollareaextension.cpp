@@ -18,30 +18,37 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "declarativescrollarea_p.h"
+#include "declarativescrollareaextension_p.h"
 
-DeclarativeScrollArea::DeclarativeScrollArea(QObject *parent)
-  : DeclarativeWidgetProxy<QScrollArea>(parent)
+#include <QDeclarativeInfo>
+#include <QScrollArea>
+
+DeclarativeScrollAreaExtension::DeclarativeScrollAreaExtension(QObject *parent)
+  : DeclarativeWidgetExtension(parent)
 {
-  connectAllSignals(m_proxiedObject, this);
 }
 
-void DeclarativeScrollArea::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+QScrollArea *DeclarativeScrollAreaExtension::extendedScrollArea() const
 {
-  if (m_proxiedObject->widget()) {
-    qmlInfo(declarativeObject) << "Can not add multiple Widgets to ScrollArea";
+  QScrollArea *scrollArea = qobject_cast<QScrollArea*>(extendedWidget());
+  Q_ASSERT(scrollArea);
+
+  return scrollArea;
+}
+
+void DeclarativeScrollAreaExtension::addWidget(QWidget *widget)
+{
+  QScrollArea *scrollArea = extendedScrollArea();
+
+  if (scrollArea->widget()) {
+    qmlInfo(scrollArea) << "Can not add multiple Widgets to ScrollArea";
   } else {
-    m_proxiedObject->setWidget(widget);
+    scrollArea->setWidget(widget);
   }
-
-  m_children.append(declarativeObject);
 }
 
-void DeclarativeScrollArea::setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject)
+void DeclarativeScrollAreaExtension::setLayout(QLayout *layout)
 {
   Q_UNUSED(layout);
-  Q_UNUSED(declarativeObject);
-  qmlInfo(this) << "Can not add Layout to ScrollArea";
+  qmlInfo(extendedScrollArea()) << "Can not add Layout to ScrollArea";
 }
-
-CUSTOM_METAOBJECT(DeclarativeScrollArea, QScrollArea)

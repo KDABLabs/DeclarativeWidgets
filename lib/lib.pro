@@ -37,7 +37,7 @@ HEADERS = \
   declarativeobjectproxy_p.h \
   declarativeplaintextedit_p.h \
   declarativeprogressbar_p.h \
-  declarativescrollarea_p.h \
+  declarativescrollareaextension_p.h \
   declarativescrollbar_p.h \
   declarativeseparator_p.h \
   declarativespinbox_p.h \
@@ -88,7 +88,7 @@ SOURCES = \
   declarativeobjectextension.cpp \
   declarativeplaintextedit.cpp \
   declarativeprogressbar.cpp \
-  declarativescrollarea.cpp \
+  declarativescrollareaextension.cpp \
   declarativescrollbar.cpp \
   declarativeseparator.cpp \
   declarativespinbox.cpp \
