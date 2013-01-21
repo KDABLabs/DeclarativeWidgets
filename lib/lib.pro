@@ -12,7 +12,6 @@ HEADERS = \
   declarativebuttongroupextension_p.h \
   declarativecalendarwidget_p.h \
   declarativecolordialog_p.h \
-  declarativedateedit_p.h \
   declarativedatetimeedit_p.h \
   declarativedeclarativecontext_p.h \
   declarativedeclarativeview_p.h \
@@ -60,7 +59,6 @@ SOURCES = \
   declarativebuttongroupextension.cpp \
   declarativecalendarwidget.cpp \
   declarativecolordialog.cpp \
-  declarativedateedit.cpp \
   declarativedatetimeedit.cpp \
   declarativedeclarativecontext.cpp \
   declarativedeclarativeview.cpp \
