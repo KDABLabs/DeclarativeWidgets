@@ -43,7 +43,6 @@ HEADERS = \
   declarativetabwidget_p.h \
   declarativetextbrowser_p.h \
   declarativetexteditextension_p.h \
-  declarativetimeedit_p.h \
   declarativetoolbarextension_p.h \
   declarativevboxlayout_p.h \
   declarativewidgetextension.h \
@@ -90,7 +89,6 @@ SOURCES = \
   declarativetabwidget.cpp \
   declarativetextbrowser.cpp \
   declarativetexteditextension.cpp \
-  declarativetimeedit.cpp \
   declarativetoolbarextension.cpp \
   declarativevboxlayout.cpp \
   declarativewidgetextension.cpp \
