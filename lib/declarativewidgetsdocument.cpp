@@ -24,7 +24,6 @@
 #include "declarativeactionitem_p.h"
 #include "declarativeaction_p.h"
 #include "declarativebuttongroupextension_p.h"
-#include "declarativecalendarwidget_p.h"
 #include "declarativecolordialog_p.h"
 #include "declarativedeclarativecontext_p.h"
 #include "declarativedeclarativeview_p.h"
@@ -53,6 +52,7 @@
 #include "declarativewidgetextension.h"
 
 #include <QButtonGroup>
+#include <QCalendarWidget>
 #include <QCheckBox>
 #include <QColumnView>
 #include <QCommandLinkButton>
@@ -104,7 +104,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
 {
   /*
   // widgets
-  qmlRegisterType<DeclarativeCalendarWidget>("QtGui", 1, 0, "CalendarWidget");
   qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
   qmlRegisterType<DeclarativeDeclarativeContext>("QtGui", 1, 0, "DeclarativeContext");
   qmlRegisterType<DeclarativeContextProperty>("QtGui", 1, 0, "DeclarativeContextProperty");
@@ -135,6 +134,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<DeclarativeVBoxLayout, DeclarativeVBoxLayoutExtension>("QtGui", 1, 0, "VBoxLayout");
 
   // widgets
+  qmlRegisterExtendedType<QCalendarWidget, DeclarativeWidgetExtension>("QtGui", 1, 0, "CalendarWidget");
   qmlRegisterExtendedType<QCheckBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "CheckBox");
   qmlRegisterExtendedType<DeclarativeColorDialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "ColorDialog");
   qmlRegisterExtendedType<QColumnView, DeclarativeItemViewExtension>("QtGui", 1, 0, "ColumnView");
