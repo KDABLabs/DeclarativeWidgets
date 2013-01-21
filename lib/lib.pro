@@ -21,7 +21,6 @@ HEADERS = \
   declarativefiledialog_p.h \
   declarativefontdialog_p.h \
   declarativeformlayout_p.h \
-  declarativeframe_p.h \
   declarativegridlayout_p.h \
   declarativehboxlayout_p.h \
   declarativeinputdialog_p.h \
@@ -74,7 +73,6 @@ SOURCES = \
   declarativefiledialog.cpp \
   declarativefontdialog.cpp \
   declarativeformlayout.cpp \
-  declarativeframe.cpp \
   declarativegridlayout.cpp \
   declarativehboxlayout.cpp \
   declarativeinputdialog.cpp \

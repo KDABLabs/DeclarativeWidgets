@@ -35,7 +35,6 @@
 #include "declarativefiledialog_p.h"
 #include "declarativefontdialog_p.h"
 #include "declarativeformlayout_p.h"
-#include "declarativeframe_p.h"
 #include "declarativegridlayout_p.h"
 #include "declarativehboxlayout_p.h"
 #include "declarativeinputdialog_p.h"
@@ -116,7 +115,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeDeclarativeView>("QtGui", 1, 0, "DeclarativeView");
   qmlRegisterType<DeclarativeDial>("QtGui", 1, 0, "Dial");
   qmlRegisterType<DeclarativeDoubleSpinBox>("QtGui", 1, 0, "DoubleSpinBox");
-  qmlRegisterType<DeclarativeFrame>("QtGui", 1, 0, "Frame");
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
   qmlRegisterType<DeclarativeLCDNumber>("QtGui", 1, 0, "LCDNumber");
   qmlRegisterType<DeclarativePlainTextEdit>("QtGui", 1, 0, "PlainTextEdit");
@@ -156,6 +154,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "Dialog");
   qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "DialogButtonBox");
   qmlRegisterExtendedType<DeclarativeFileDialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "FileDialog");
+  qmlRegisterExtendedType<QFrame, DeclarativeWidgetExtension>("QtGui", 1, 0, "Frame");
   qmlRegisterExtendedType<DeclarativeFontDialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "FontDialog");
   qmlRegisterExtendedType<QGroupBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "GroupBox");
   qmlRegisterExtendedType<DeclarativeInputDialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "InputDialog");
