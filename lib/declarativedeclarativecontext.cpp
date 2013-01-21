@@ -23,7 +23,7 @@
 #include <QDeclarativeView>
 
 DeclarativeDeclarativeContext::DeclarativeDeclarativeContext(QObject *parent)
-  : DeclarativeObjectProxy2<DeclarativeContext>(parent)
+  : DeclarativeObjectProxy<DeclarativeContext>(parent)
 {
 }
 
@@ -61,7 +61,7 @@ void DeclarativeDeclarativeContext::dataAppend(QObject *object)
     contextProperty->setContext(m_proxiedObject);
   }
 
-  DeclarativeObjectProxy2<DeclarativeContext>::dataAppend(object);
+  DeclarativeObjectProxy<DeclarativeContext>::dataAppend(object);
 }
 
 CUSTOM_METAOBJECT(DeclarativeDeclarativeContext, DeclarativeContext)

@@ -103,15 +103,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   : QObject(parent)
   , d(new Private(this, url))
 {
-  /*
-  // widgets
-  qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
-  qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
-  qmlRegisterType<DeclarativeStatusBarAttached>();
-  qmlRegisterType<DeclarativeTabWidgetAttached>();
-  qmlRegisterType<DeclarativeContext>();
-  */
-
   // objects
   qmlRegisterType<QAbstractItemModel>();
   qmlRegisterType<QAction>();

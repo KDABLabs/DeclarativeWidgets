@@ -21,7 +21,6 @@ HEADERS = \
   declarativeinputdialog_p.h \
   declarativeitemviewextension_p.h \
   declarativelayoutextension.h \
-  declarativelayoutproxy_p.h \
   declarativemainwindowextension_p.h \
   declarativemenubarextension_p.h \
   declarativemenuextension_p.h \
@@ -38,7 +37,6 @@ HEADERS = \
   declarativetoolbarextension_p.h \
   declarativevboxlayout_p.h \
   declarativewidgetextension.h \
-  declarativewidgetproxy_p.h \
   declarativewidgetsdocument.h \
   objectadaptors_p.h \
   qmetaobjectbuilder_p.h \

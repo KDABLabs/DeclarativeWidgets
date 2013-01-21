@@ -25,7 +25,7 @@
 
 #include "objectadaptors_p.h"
 
-class DeclarativeDeclarativeContext : public DeclarativeObjectProxy2<DeclarativeContext>
+class DeclarativeDeclarativeContext : public DeclarativeObjectProxy<DeclarativeContext>
 {
   DECLARATIVE_OBJECT
 

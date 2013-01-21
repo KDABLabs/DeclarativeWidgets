@@ -40,74 +40,12 @@
     virtual int qt_metacall(QMetaObject::Call, int, void **); \
   private: \
 
-
-template <class T, bool needsParentInitialization = false>
+template <class T>
 class DeclarativeObjectProxy : public AbstractDeclarativeObject
 {
-};
-
-template <class T>
-class DeclarativeObjectProxy<T, false> : public AbstractDeclarativeObject
-{
   public:
-    explicit DeclarativeObjectProxy(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(new T) {}
+    explicit DeclarativeObjectProxy(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(0) {}
     ~DeclarativeObjectProxy() { delete m_proxiedObject; }
-
-    QObject *object() const { return m_proxiedObject.data(); }
-
-  protected:
-    void dataAppend(QObject *object)
-    {
-      m_children.append(object);
-    }
-
-    int dataCount() const { return m_children.count(); }
-    QObject *dataAt(int index) const { return m_children.at(index); }
-    void dataClear()
-    {
-      qDeleteAll(m_children);
-      m_children.clear();
-    }
-
-  protected:
-    QPointer<T> m_proxiedObject;
-    QVector<QObject*> m_children;
-};
-
-template <class T>
-class DeclarativeObjectProxy<T, true> : public AbstractDeclarativeObject
-{
-  public:
-    explicit DeclarativeObjectProxy(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(new T(0)) {}
-    ~DeclarativeObjectProxy() { delete m_proxiedObject; }
-
-    virtual QObject *object() const { return m_proxiedObject.data(); }
-
-  protected:
-    void dataAppend(QObject *object)
-    {
-      m_children.append(object);
-    }
-
-    int dataCount() const { return m_children.count(); }
-    QObject *dataAt(int index) const { return m_children.at(index); }
-    void dataClear()
-    {
-      qDeleteAll(m_children);
-      m_children.clear();
-    }
-
-  protected:
-    QPointer<T> m_proxiedObject;
-    QVector<QObject*> m_children;
-};
-
-template <class T>
-class DeclarativeObjectProxy2 : public AbstractDeclarativeObject
-{
-  public:
-    explicit DeclarativeObjectProxy2(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(0) {}
-    ~DeclarativeObjectProxy2() { delete m_proxiedObject; }
 
     QObject *object() const {
       if (!m_proxiedObject)
