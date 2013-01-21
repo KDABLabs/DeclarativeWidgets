@@ -41,7 +41,6 @@ HEADERS = \
   declarativescrollarea_p.h \
   declarativescrollbar_p.h \
   declarativeseparator_p.h \
-  declarativeslider_p.h \
   declarativespinbox_p.h \
   declarativestackedlayout_p.h \
   declarativestackedwidget_p.h \
@@ -94,7 +93,6 @@ SOURCES = \
   declarativescrollarea.cpp \
   declarativescrollbar.cpp \
   declarativeseparator.cpp \
-  declarativeslider.cpp \
   declarativespinbox.cpp \
   declarativestackedlayout.cpp \
   declarativestackedwidget.cpp \
