@@ -18,23 +18,30 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "declarativestackedwidget_p.h"
+#include "declarativestackedwidgetextension_p.h"
 
-DeclarativeStackedWidget::DeclarativeStackedWidget(QObject *parent)
-  : DeclarativeWidgetProxy<QStackedWidget>(parent)
+#include <QDeclarativeInfo>
+#include <QStackedWidget>
+
+DeclarativeStackedWidgetExtension::DeclarativeStackedWidgetExtension(QObject *parent)
+  : DeclarativeWidgetExtension(parent)
 {
-  connectAllSignals(m_proxiedObject, this);
 }
 
-void DeclarativeStackedWidget::addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject)
+QStackedWidget *DeclarativeStackedWidgetExtension::extendedStackedWidget() const
 {
-  m_proxiedObject->addWidget(widget);
-  m_children.append(declarativeObject);
+  QStackedWidget *stackedWidget = qobject_cast<QStackedWidget*>(extendedWidget());
+  Q_ASSERT(stackedWidget);
+
+  return stackedWidget;
 }
 
-void DeclarativeStackedWidget::setLayout(QLayout*, AbstractDeclarativeObject *declarativeObject)
+void DeclarativeStackedWidgetExtension::addWidget(QWidget *widget)
 {
-  qmlInfo(declarativeObject) << "StackedWidget does not support child layouts";
+  extendedStackedWidget()->addWidget(widget);
 }
 
-CUSTOM_METAOBJECT(DeclarativeStackedWidget, QStackedWidget)
+void DeclarativeStackedWidgetExtension::setLayout(QLayout*)
+{
+  qmlInfo(extendedStackedWidget()) << "StackedWidget does not support child layouts";
+}

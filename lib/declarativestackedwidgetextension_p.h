@@ -18,23 +18,30 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef DECLARATIVESTACKEDWIDGET_P_H
-#define DECLARATIVESTACKEDWIDGET_P_H
+#ifndef DECLARATIVESTACKEDWIDGETEXTENSION_P_H
+#define DECLARATIVESTACKEDWIDGETEXTENSION_P_H
 
-#include "declarativewidgetproxy_p.h"
+#include "declarativewidgetextension.h"
 
-#include <QStackedWidget>
+class QStackedWidget;
 
-class DeclarativeStackedWidget : public DeclarativeWidgetProxy<QStackedWidget>
+class DeclarativeStackedWidgetExtension : public DeclarativeWidgetExtension
 {
-  DECLARATIVE_OBJECT
+  Q_OBJECT
+
+  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
+  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+
+  Q_CLASSINFO("DefaultProperty", "data")
 
   public:
-    explicit DeclarativeStackedWidget(QObject *parent = 0);
+    explicit DeclarativeStackedWidgetExtension(QObject *parent = 0);
+
+    QStackedWidget *extendedStackedWidget() const;
 
   protected:
-    void addWidget(QWidget *widget, AbstractDeclarativeObject *declarativeObject);
-    void setLayout(QLayout *layout, AbstractDeclarativeObject *declarativeObject);
+    void addWidget(QWidget *widget);
+    void setLayout(QLayout *layout);
 };
 
 #endif

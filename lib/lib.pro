@@ -41,7 +41,7 @@ HEADERS = \
   declarativeseparator_p.h \
   declarativespinbox_p.h \
   declarativestackedlayout_p.h \
-  declarativestackedwidget_p.h \
+  declarativestackedwidgetextension_p.h \
   declarativestatusbar_p.h \
   declarativetabwidget_p.h \
   declarativetextbrowser_p.h \
@@ -91,7 +91,7 @@ SOURCES = \
   declarativeseparator.cpp \
   declarativespinbox.cpp \
   declarativestackedlayout.cpp \
-  declarativestackedwidget.cpp \
+  declarativestackedwidgetextension.cpp \
   declarativestatusbar.cpp \
   declarativetabwidget.cpp \
   declarativetextbrowser.cpp \
