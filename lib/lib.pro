@@ -28,7 +28,6 @@ HEADERS = \
   declarativemessagebox_p.h \
   declarativeobjectextension.h \
   declarativeobjectproxy_p.h \
-  declarativeprogressbar_p.h \
   declarativescrollareaextension_p.h \
   declarativeseparator_p.h \
   declarativestackedlayout_p.h \
@@ -67,7 +66,6 @@ SOURCES = \
   declarativemenuextension.cpp \
   declarativemessagebox.cpp \
   declarativeobjectextension.cpp \
-  declarativeprogressbar.cpp \
   declarativescrollareaextension.cpp \
   declarativeseparator.cpp \
   declarativestackedlayout.cpp \
