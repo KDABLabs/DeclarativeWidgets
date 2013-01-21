@@ -42,7 +42,6 @@
 #include "declarativemessagebox_p.h"
 #include "declarativeprogressbar_p.h"
 #include "declarativescrollareaextension_p.h"
-#include "declarativescrollbar_p.h"
 #include "declarativeseparator_p.h"
 #include "declarativestackedlayout_p.h"
 #include "declarativestackedwidgetextension_p.h"
@@ -74,6 +73,7 @@
 #include <QMenuBar>
 #include <QPlainTextEdit>
 #include <QRadioButton>
+#include <QScrollBar>
 #include <QStackedWidget>
 #include <QTableView>
 #include <QToolBar>
@@ -112,7 +112,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
   qmlRegisterType<DeclarativeLCDNumber>("QtGui", 1, 0, "LCDNumber");
   qmlRegisterType<DeclarativeProgressBar>("QtGui", 1, 0, "ProgressBar");
-  qmlRegisterType<DeclarativeScrollBar>("QtGui", 1, 0, "ScrollBar");
   qmlRegisterType<DeclarativeStatusBarAttached>();
   qmlRegisterType<DeclarativeTabWidgetAttached>();
   qmlRegisterType<DeclarativeTextBrowser>("QtGui", 1, 0, "TextBrowser");
@@ -163,6 +162,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QPushButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "PushButton");
   qmlRegisterExtendedType<QRadioButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "RadioButton");
   qmlRegisterExtendedType<QScrollArea, DeclarativeScrollAreaExtension>("QtGui", 1, 0, "ScrollArea");
+  qmlRegisterExtendedType<QScrollBar, DeclarativeWidgetExtension>("QtGui", 1, 0, "ScrollBar");
   qmlRegisterExtendedType<QSlider, DeclarativeWidgetExtension>("QtGui", 1, 0, "Slider");
   qmlRegisterExtendedType<QStackedWidget, DeclarativeStackedWidgetExtension>("QtGui", 1, 0, "StackedWidget");
   qmlRegisterExtendedType<QSpinBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "SpinBox");

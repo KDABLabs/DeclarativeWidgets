@@ -32,7 +32,6 @@ HEADERS = \
   declarativeobjectproxy_p.h \
   declarativeprogressbar_p.h \
   declarativescrollareaextension_p.h \
-  declarativescrollbar_p.h \
   declarativeseparator_p.h \
   declarativestackedlayout_p.h \
   declarativestackedwidgetextension_p.h \
@@ -75,7 +74,6 @@ SOURCES = \
   declarativeobjectextension.cpp \
   declarativeprogressbar.cpp \
   declarativescrollareaextension.cpp \
-  declarativescrollbar.cpp \
   declarativeseparator.cpp \
   declarativestackedlayout.cpp \
   declarativestackedwidgetextension.cpp \
