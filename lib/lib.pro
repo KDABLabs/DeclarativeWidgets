@@ -17,7 +17,6 @@ HEADERS = \
   declarativedeclarativecontext_p.h \
   declarativedeclarativeview_p.h \
   declarativedial_p.h \
-  declarativedoublespinbox_p.h \
   declarativefiledialog_p.h \
   declarativefontdialog_p.h \
   declarativeformlayout_p.h \
@@ -67,7 +66,6 @@ SOURCES = \
   declarativedeclarativecontext.cpp \
   declarativedeclarativeview.cpp \
   declarativedial.cpp \
-  declarativedoublespinbox.cpp \
   declarativefiledialog.cpp \
   declarativefontdialog.cpp \
   declarativeformlayout.cpp \

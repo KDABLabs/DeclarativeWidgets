@@ -31,7 +31,6 @@
 #include "declarativedeclarativecontext_p.h"
 #include "declarativedeclarativeview_p.h"
 #include "declarativedial_p.h"
-#include "declarativedoublespinbox_p.h"
 #include "declarativefiledialog_p.h"
 #include "declarativefontdialog_p.h"
 #include "declarativeformlayout_p.h"
@@ -69,6 +68,7 @@
 #include <QDeclarativeContext>
 #include <QDeclarativeEngine>
 #include <QDialogButtonBox>
+#include <QDoubleSpinBox>
 #include <QGroupBox>
 #include <QLabel>
 #include <QListView>
@@ -114,7 +114,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeContextProperty>("QtGui", 1, 0, "DeclarativeContextProperty");
   qmlRegisterType<DeclarativeDeclarativeView>("QtGui", 1, 0, "DeclarativeView");
   qmlRegisterType<DeclarativeDial>("QtGui", 1, 0, "Dial");
-  qmlRegisterType<DeclarativeDoubleSpinBox>("QtGui", 1, 0, "DoubleSpinBox");
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
   qmlRegisterType<DeclarativeLCDNumber>("QtGui", 1, 0, "LCDNumber");
   qmlRegisterType<DeclarativeProgressBar>("QtGui", 1, 0, "ProgressBar");
@@ -150,6 +149,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QCommandLinkButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "CommandLinkButton");
   qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "Dialog");
   qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "DialogButtonBox");
+  qmlRegisterExtendedType<QDoubleSpinBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "DoubleSpinBox");
   qmlRegisterExtendedType<DeclarativeFileDialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "FileDialog");
   qmlRegisterExtendedType<QFrame, DeclarativeWidgetExtension>("QtGui", 1, 0, "Frame");
   qmlRegisterExtendedType<DeclarativeFontDialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "FontDialog");
