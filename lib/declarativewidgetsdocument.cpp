@@ -26,10 +26,8 @@
 #include "declarativebuttongroupextension_p.h"
 #include "declarativecalendarwidget_p.h"
 #include "declarativecolordialog_p.h"
-#include "declarativedatetimeedit_p.h"
 #include "declarativedeclarativecontext_p.h"
 #include "declarativedeclarativeview_p.h"
-#include "declarativedial_p.h"
 #include "declarativefiledialog_p.h"
 #include "declarativefontdialog_p.h"
 #include "declarativeformlayout_p.h"
@@ -61,10 +59,12 @@
 #include <QColumnView>
 #include <QCommandLinkButton>
 #include <QCoreApplication>
+#include <QDateTimeEdit>
 #include <QDebug>
 #include <QDeclarativeComponent>
 #include <QDeclarativeContext>
 #include <QDeclarativeEngine>
+#include <QDial>
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
 #include <QGroupBox>
@@ -106,11 +106,9 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   // widgets
   qmlRegisterType<DeclarativeCalendarWidget>("QtGui", 1, 0, "CalendarWidget");
   qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
-  qmlRegisterType<DeclarativeDateTimeEdit>("QtGui", 1, 0, "DateTimeEdit");
   qmlRegisterType<DeclarativeDeclarativeContext>("QtGui", 1, 0, "DeclarativeContext");
   qmlRegisterType<DeclarativeContextProperty>("QtGui", 1, 0, "DeclarativeContextProperty");
   qmlRegisterType<DeclarativeDeclarativeView>("QtGui", 1, 0, "DeclarativeView");
-  qmlRegisterType<DeclarativeDial>("QtGui", 1, 0, "Dial");
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
   qmlRegisterType<DeclarativeLCDNumber>("QtGui", 1, 0, "LCDNumber");
   qmlRegisterType<DeclarativeProgressBar>("QtGui", 1, 0, "ProgressBar");
@@ -144,6 +142,8 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QColumnView, DeclarativeItemViewExtension>("QtGui", 1, 0, "ColumnView");
   qmlRegisterExtendedType<QCommandLinkButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "CommandLinkButton");
   qmlRegisterExtendedType<QDateEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "DateEdit");
+  qmlRegisterExtendedType<QDateTimeEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "DateTimeEdit");
+  qmlRegisterExtendedType<QDial, DeclarativeWidgetExtension>("QtGui", 1, 0, "Dial");
   qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "Dialog");
   qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "DialogButtonBox");
   qmlRegisterExtendedType<QDoubleSpinBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "DoubleSpinBox");
