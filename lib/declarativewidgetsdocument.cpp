@@ -48,7 +48,6 @@
 #include "declarativescrollareaextension_p.h"
 #include "declarativescrollbar_p.h"
 #include "declarativeseparator_p.h"
-#include "declarativespinbox_p.h"
 #include "declarativestackedlayout_p.h"
 #include "declarativestackedwidgetextension_p.h"
 #include "declarativestatusbar_p.h"
@@ -120,7 +119,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeLCDNumber>("QtGui", 1, 0, "LCDNumber");
   qmlRegisterType<DeclarativeProgressBar>("QtGui", 1, 0, "ProgressBar");
   qmlRegisterType<DeclarativeScrollBar>("QtGui", 1, 0, "ScrollBar");
-  qmlRegisterType<DeclarativeSpinBox>("QtGui", 1, 0, "SpinBox");
   qmlRegisterType<DeclarativeStatusBarAttached>();
   qmlRegisterType<DeclarativeTabWidgetAttached>();
   qmlRegisterType<DeclarativeTextBrowser>("QtGui", 1, 0, "TextBrowser");
@@ -170,6 +168,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QScrollArea, DeclarativeScrollAreaExtension>("QtGui", 1, 0, "ScrollArea");
   qmlRegisterExtendedType<QSlider, DeclarativeWidgetExtension>("QtGui", 1, 0, "Slider");
   qmlRegisterExtendedType<QStackedWidget, DeclarativeStackedWidgetExtension>("QtGui", 1, 0, "StackedWidget");
+  qmlRegisterExtendedType<QSpinBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "SpinBox");
   qmlRegisterExtendedType<DeclarativeStatusBar, DeclarativeStatusBarExtension>("QtGui", 1, 0, "StatusBar");
   qmlRegisterExtendedType<QTableView, DeclarativeItemViewExtension>("QtGui", 1, 0, "TableView");
   qmlRegisterExtendedType<DeclarativeTabWidget, DeclarativeTabWidgetExtension>("QtGui", 1, 0, "TabWidget");
