@@ -22,7 +22,6 @@ HEADERS = \
   declarativeitemviewextension_p.h \
   declarativelayoutextension.h \
   declarativelayoutproxy_p.h \
-  declarativelcdnumber_p.h \
   declarativemainwindowextension_p.h \
   declarativemenubarextension_p.h \
   declarativemenuextension_p.h \
@@ -63,7 +62,6 @@ SOURCES = \
   declarativeinputdialog.cpp \
   declarativeitemviewextension.cpp \
   declarativelayoutextension.cpp \
-  declarativelcdnumber.cpp \
   declarativemainwindowextension.cpp \
   declarativemenubarextension.cpp \
   declarativemenuextension.cpp \

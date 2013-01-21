@@ -34,7 +34,6 @@
 #include "declarativehboxlayout_p.h"
 #include "declarativeinputdialog_p.h"
 #include "declarativeitemviewextension_p.h"
-#include "declarativelcdnumber_p.h"
 #include "declarativemainwindowextension_p.h"
 #include "declarativemenubarextension_p.h"
 #include "declarativemenuextension_p.h"
@@ -67,6 +66,7 @@
 #include <QDoubleSpinBox>
 #include <QGroupBox>
 #include <QLabel>
+#include <QLCDNumber>
 #include <QListView>
 #include <QMainWindow>
 #include <QMenuBar>
@@ -109,7 +109,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeContextProperty>("QtGui", 1, 0, "DeclarativeContextProperty");
   qmlRegisterType<DeclarativeDeclarativeView>("QtGui", 1, 0, "DeclarativeView");
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
-  qmlRegisterType<DeclarativeLCDNumber>("QtGui", 1, 0, "LCDNumber");
   qmlRegisterType<DeclarativeProgressBar>("QtGui", 1, 0, "ProgressBar");
   qmlRegisterType<DeclarativeStatusBarAttached>();
   qmlRegisterType<DeclarativeTabWidgetAttached>();
@@ -152,6 +151,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<DeclarativeInputDialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "InputDialog");
   qmlRegisterExtendedType<QLabel, DeclarativeWidgetExtension>("QtGui", 1, 0, "Label");
   qmlRegisterExtendedType<QLineEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "LineEdit");
+  qmlRegisterExtendedType<QLCDNumber, DeclarativeWidgetExtension>("QtGui", 1, 0, "LCDNumber");
   qmlRegisterExtendedType<QListView, DeclarativeItemViewExtension>("QtGui", 1, 0, "ListView");
   qmlRegisterExtendedType<QMainWindow, DeclarativeMainWindowExtension>("QtGui", 1, 0, "MainWindow");
   qmlRegisterExtendedType<Menu, DeclarativeMenuExtension>("QtGui", 1, 0, "Menu");
