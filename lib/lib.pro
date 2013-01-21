@@ -37,7 +37,6 @@ HEADERS = \
   declarativestackedwidgetextension_p.h \
   declarativestatusbar_p.h \
   declarativetabwidget_p.h \
-  declarativetextbrowser_p.h \
   declarativetexteditextension_p.h \
   declarativetoolbarextension_p.h \
   declarativevboxlayout_p.h \
@@ -79,7 +78,6 @@ SOURCES = \
   declarativestackedwidgetextension.cpp \
   declarativestatusbar.cpp \
   declarativetabwidget.cpp \
-  declarativetextbrowser.cpp \
   declarativetexteditextension.cpp \
   declarativetoolbarextension.cpp \
   declarativevboxlayout.cpp \

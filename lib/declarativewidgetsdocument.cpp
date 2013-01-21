@@ -47,7 +47,6 @@
 #include "declarativestackedwidgetextension_p.h"
 #include "declarativestatusbar_p.h"
 #include "declarativetabwidget_p.h"
-#include "declarativetextbrowser_p.h"
 #include "declarativetexteditextension_p.h"
 #include "declarativetoolbarextension_p.h"
 #include "declarativevboxlayout_p.h"
@@ -76,6 +75,7 @@
 #include <QScrollBar>
 #include <QStackedWidget>
 #include <QTableView>
+#include <QTextBrowser>
 #include <QToolBar>
 #include <QToolButton>
 #include <QTreeView>
@@ -114,7 +114,6 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativeProgressBar>("QtGui", 1, 0, "ProgressBar");
   qmlRegisterType<DeclarativeStatusBarAttached>();
   qmlRegisterType<DeclarativeTabWidgetAttached>();
-  qmlRegisterType<DeclarativeTextBrowser>("QtGui", 1, 0, "TextBrowser");
   */
 
   // objects
@@ -169,6 +168,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<DeclarativeStatusBar, DeclarativeStatusBarExtension>("QtGui", 1, 0, "StatusBar");
   qmlRegisterExtendedType<QTableView, DeclarativeItemViewExtension>("QtGui", 1, 0, "TableView");
   qmlRegisterExtendedType<DeclarativeTabWidget, DeclarativeTabWidgetExtension>("QtGui", 1, 0, "TabWidget");
+  qmlRegisterExtendedType<QTextBrowser, DeclarativeTextEditExtension>("QtGui", 1, 0, "TextBrowser");
   qmlRegisterExtendedType<QTextEdit, DeclarativeTextEditExtension>("QtGui", 1, 0, "TextEdit");
   qmlRegisterExtendedType<QTimeEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "TimeEdit");
   qmlRegisterExtendedType<QToolBar, DeclarativeToolBarExtension>("QtGui", 1, 0, "ToolBar");
