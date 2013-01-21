@@ -22,7 +22,6 @@
 #define OBJECTADAPTORS_P_H
 
 #include <QDeclarativeContext>
-#include <QDeclarativeView>
 #include <QDialog>
 #include <QMenu>
 #include <QPointer>
@@ -88,26 +87,6 @@ class DeclarativeContextProperty : public QObject
     void setOnContext();
 };
 
-
-class DeclarativeView : public QDeclarativeView
-{
-  Q_OBJECT
-  Q_PROPERTY(QObject* rootContext READ declarativeRootContext WRITE setDeclarativeRootContext
-             NOTIFY declarativeRootContextChanged)
-
-  public:
-    explicit DeclarativeView(QWidget *parent = 0);
-    ~DeclarativeView();
-
-    void setDeclarativeRootContext(QObject *context);
-    QObject *declarativeRootContext() const;
-
-  Q_SIGNALS:
-    void declarativeRootContextChanged();
-
-  private:
-    QPointer<DeclarativeContext> m_rootContext;
-};
 
 class Dialog : public QDialog
 {

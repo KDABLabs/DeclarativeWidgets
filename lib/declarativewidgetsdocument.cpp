@@ -26,7 +26,7 @@
 #include "declarativebuttongroupextension_p.h"
 #include "declarativecolordialog_p.h"
 #include "declarativedeclarativecontext_p.h"
-#include "declarativedeclarativeview_p.h"
+#include "declarativedeclarativeviewextension_p.h"
 #include "declarativefiledialog_p.h"
 #include "declarativefontdialog_p.h"
 #include "declarativeformlayout_p.h"
@@ -57,6 +57,7 @@
 #include <QCoreApplication>
 #include <QDateTimeEdit>
 #include <QDebug>
+#include <QDeclarativeView>
 #include <QDeclarativeComponent>
 #include <QDeclarativeContext>
 #include <QDeclarativeEngine>
@@ -105,12 +106,10 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   /*
   // widgets
   qmlRegisterType<DeclarativeCheckBox>("QtGui", 1, 0, "CheckBox");
-  qmlRegisterType<DeclarativeDeclarativeContext>("QtGui", 1, 0, "DeclarativeContext");
-  qmlRegisterType<DeclarativeContextProperty>("QtGui", 1, 0, "DeclarativeContextProperty");
-  qmlRegisterType<DeclarativeDeclarativeView>("QtGui", 1, 0, "DeclarativeView");
   qmlRegisterType<DeclarativeLabel>("QtGui", 1, 0, "Label");
   qmlRegisterType<DeclarativeStatusBarAttached>();
   qmlRegisterType<DeclarativeTabWidgetAttached>();
+  qmlRegisterType<DeclarativeContext>();
   */
 
   // objects
@@ -119,7 +118,8 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<DeclarativeAction, DeclarativeObjectExtension>("QtGui", 1, 0, "Action");
   qmlRegisterExtendedType<DeclarativeActionItem, DeclarativeObjectExtension>("QtGui", 1, 0, "ActionItem");
   qmlRegisterExtendedType<QButtonGroup, DeclarativeButtonGroupExtension>("QtGui", 1, 0, "ButtonGroup");
-  qmlRegisterType<DeclarativeContext>();
+  qmlRegisterType<DeclarativeContextProperty>("QtGui", 1, 0, "DeclarativeContextProperty");
+  qmlRegisterType<DeclarativeDeclarativeContext>("QtGui", 1, 0, "DeclarativeContext");
   qmlRegisterType<QItemSelectionModel>();
   qmlRegisterExtendedType<DeclarativeSeparator, DeclarativeObjectExtension>("QtGui", 1, 0, "Separator");
   qmlRegisterType<QTextDocument>();
@@ -139,6 +139,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QCommandLinkButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "CommandLinkButton");
   qmlRegisterExtendedType<QDateEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "DateEdit");
   qmlRegisterExtendedType<QDateTimeEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "DateTimeEdit");
+  qmlRegisterExtendedType<QDeclarativeView, DeclarativeDeclarativeViewExtension>("QtGui", 1, 0, "DeclarativeView");
   qmlRegisterExtendedType<QDial, DeclarativeWidgetExtension>("QtGui", 1, 0, "Dial");
   qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "Dialog");
   qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "DialogButtonBox");

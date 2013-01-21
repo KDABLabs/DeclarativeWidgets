@@ -12,7 +12,7 @@ HEADERS = \
   declarativebuttongroupextension_p.h \
   declarativecolordialog_p.h \
   declarativedeclarativecontext_p.h \
-  declarativedeclarativeview_p.h \
+  declarativedeclarativeviewextension_p.h \
   declarativefiledialog_p.h \
   declarativefontdialog_p.h \
   declarativeformlayout_p.h \
@@ -52,7 +52,7 @@ SOURCES = \
   declarativebuttongroupextension.cpp \
   declarativecolordialog.cpp \
   declarativedeclarativecontext.cpp \
-  declarativedeclarativeview.cpp \
+  declarativedeclarativeviewextension.cpp \
   declarativefiledialog.cpp \
   declarativefontdialog.cpp \
   declarativeformlayout.cpp \

@@ -31,17 +31,17 @@ void DeclarativeDeclarativeContext::createProxiedObject() const
 {
   AbstractDeclarativeObject *declarativeParent = dynamic_cast<AbstractDeclarativeObject*>(parent());
   if (declarativeParent) {
-    QDeclarativeView *view = qobject_cast<QDeclarativeView*>(declarativeParent->object());
-    if (view) {
-      DeclarativeContext *context = DeclarativeContext::createWrapper(view->rootContext());
+    DeclarativeContext *parentContext = qobject_cast<DeclarativeContext*>(declarativeParent->object());
+    if (parentContext) {
+      DeclarativeContext *context = new DeclarativeContext(parentContext);
       m_proxiedObject = QPointer<DeclarativeContext>(context);
       connectAllSignals(m_proxiedObject, this);
       return;
     }
-
-    DeclarativeContext *parentContext = qobject_cast<DeclarativeContext*>(declarativeParent->object());
-    if (parentContext) {
-      DeclarativeContext *context = new DeclarativeContext(parentContext);
+  } else {
+    QDeclarativeView *view = qobject_cast<QDeclarativeView*>(parent());
+    if (view) {
+      DeclarativeContext *context = DeclarativeContext::createWrapper(view->rootContext());
       m_proxiedObject = QPointer<DeclarativeContext>(context);
       connectAllSignals(m_proxiedObject, this);
       return;
