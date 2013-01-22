@@ -22,7 +22,8 @@ import QtQuick 1.0
 import QtGui 1.0
 
 Widget {
-  geometry: Qt.rect( x, y, 600, 200 )
+  width: 600
+  height: 200
 
   GridLayout {
 

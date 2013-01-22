@@ -5,12 +5,14 @@
 
 #include <QAction>
 #include <QDeclarativeInfo>
+#include <QEvent>
 #include <QLayout>
 #include <QWidget>
 
 DeclarativeWidgetExtension::DeclarativeWidgetExtension(QObject *parent)
   : DeclarativeObjectExtension(parent)
 {
+  parent->installEventFilter(this);
 }
 
 QWidget *DeclarativeWidgetExtension::extendedWidget() const
@@ -20,6 +22,113 @@ QWidget *DeclarativeWidgetExtension::extendedWidget() const
   Q_UNUSED(parentWidget);
 
   return parentWidget;
+}
+
+int DeclarativeWidgetExtension::x() const
+{
+  return extendedWidget()->x();
+}
+
+void DeclarativeWidgetExtension::setX(int value)
+{
+  QWidget *widget = extendedWidget();
+
+  if (value == widget->x())
+    return;
+
+  QRect geometry = widget->geometry();
+  geometry.moveLeft(value);
+  widget->setGeometry(geometry);
+}
+
+int DeclarativeWidgetExtension::y() const
+{
+  return extendedWidget()->y();
+}
+
+void DeclarativeWidgetExtension::setY(int value)
+{
+  QWidget *widget = extendedWidget();
+
+  if (value == widget->y())
+    return;
+
+  QRect geometry = widget->geometry();
+  geometry.moveTop(value);
+  widget->setGeometry(geometry);
+}
+
+int DeclarativeWidgetExtension::width() const
+{
+  return extendedWidget()->width();
+}
+
+void DeclarativeWidgetExtension::setWidth(int value)
+{
+  QWidget *widget = extendedWidget();
+
+  if (value == widget->width())
+    return;
+
+  QRect geometry = widget->geometry();
+  geometry.setWidth(value);
+  widget->setGeometry(geometry);
+}
+
+int DeclarativeWidgetExtension::height() const
+{
+  return extendedWidget()->height();
+}
+
+void DeclarativeWidgetExtension::setHeight(int value)
+{
+  QWidget *widget = extendedWidget();
+
+  if (value == widget->height())
+    return;
+
+  QRect geometry = widget->geometry();
+  geometry.setHeight(value);
+  widget->setGeometry(geometry);
+}
+
+QRect DeclarativeWidgetExtension::geometry() const
+{
+  return extendedWidget()->geometry();
+}
+
+void DeclarativeWidgetExtension::setGeometry(const QRect &rect)
+{
+  QWidget *widget = extendedWidget();
+
+  if (rect == widget->geometry())
+    return;
+
+  widget->setGeometry(rect);
+}
+
+bool DeclarativeWidgetExtension::eventFilter(QObject *watched, QEvent *event)
+{
+  Q_ASSERT(watched == parent());
+  Q_UNUSED(watched); // release builds
+
+  switch (event->type())
+  {
+  case QEvent::Move:
+    emit posChanged();
+    emit geometryChanged();
+    break;
+
+  case QEvent::Resize:
+    emit sizeChanged();
+    emit geometryChanged();
+    break;
+
+  default:
+    break;
+  }
+
+  return false;
 }
 
 void DeclarativeWidgetExtension::dataAppend(QObject *object)
