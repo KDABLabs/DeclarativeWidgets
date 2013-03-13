@@ -18,6 +18,7 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
+import QtCore 1.0
 import QtGui 1.0
 
 TabWidget {
@@ -136,6 +137,14 @@ TabWidget {
       DateEdit {}
 
       DateTimeEdit {}
+
+      ComboBox {
+        model: StringListModel {
+          stringList: [ qsTr("Entry 1"), qsTr("Entry 2"), qsTr("Entry 3") ]
+        }
+
+        onCurrentIndexChanged: console.log( "combobox current index=" + currentIndex + ", text=" + currentText );
+      }
 
       Dial {}
 

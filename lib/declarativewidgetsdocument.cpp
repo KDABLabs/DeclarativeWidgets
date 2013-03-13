@@ -25,6 +25,7 @@
 #include "declarativeaction_p.h"
 #include "declarativebuttongroupextension_p.h"
 #include "declarativecolordialog_p.h"
+#include "declarativecomboboxextension_p.h"
 #include "declarativedeclarativecontext_p.h"
 #include "declarativedeclarativeviewextension_p.h"
 #include "declarativefiledialog_p.h"
@@ -55,6 +56,7 @@
 #include <QCalendarWidget>
 #include <QCheckBox>
 #include <QColumnView>
+#include <QComboBox>
 #include <QCommandLinkButton>
 #include <QCoreApplication>
 #include <QDateTimeEdit>
@@ -136,6 +138,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<DeclarativeColorDialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "ColorDialog");
   qmlRegisterExtendedType<QColumnView, DeclarativeItemViewExtension>("QtGui", 1, 0, "ColumnView");
   qmlRegisterExtendedType<QCommandLinkButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "CommandLinkButton");
+  qmlRegisterExtendedType<QComboBox, DeclarativeComboBoxExtension>("QtGui", 1, 0, "ComboBox");
   qmlRegisterExtendedType<QDateEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "DateEdit");
   qmlRegisterExtendedType<QDateTimeEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "DateTimeEdit");
   qmlRegisterExtendedType<QDeclarativeView, DeclarativeDeclarativeViewExtension>("QtGui", 1, 0, "DeclarativeView");

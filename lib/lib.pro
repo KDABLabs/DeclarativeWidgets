@@ -11,6 +11,7 @@ HEADERS = \
   declarativeboxlayout_p.h \
   declarativebuttongroupextension_p.h \
   declarativecolordialog_p.h \
+  declarativecomboboxextension_p.h \
   declarativedeclarativecontext_p.h \
   declarativedeclarativeviewextension_p.h \
   declarativefiledialog_p.h \
@@ -51,6 +52,7 @@ SOURCES = \
   declarativeboxlayout.cpp \
   declarativebuttongroupextension.cpp \
   declarativecolordialog.cpp \
+  declarativecomboboxextension.cpp \
   declarativedeclarativecontext.cpp \
   declarativedeclarativeviewextension.cpp \
   declarativefiledialog.cpp \
