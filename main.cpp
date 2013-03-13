@@ -44,8 +44,10 @@ int main(int argc, char **argv)
   QObject::connect(document.engine(), SIGNAL(quit()), &app, SLOT(quit()));
 
   QWidget *widget = document.create<QWidget>();
-  if (widget)
+  if (widget) {
     widget->show();
+    return app.exec();
+  }
 
-  return app.exec();
+  return -1;
 }
