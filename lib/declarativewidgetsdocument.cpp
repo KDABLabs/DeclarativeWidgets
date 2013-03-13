@@ -79,6 +79,7 @@
 #include <QStackedWidget>
 #include <QTableView>
 #include <QTextBrowser>
+#include <QTimer>
 #include <QToolBar>
 #include <QToolButton>
 #include <QTreeView>
@@ -117,6 +118,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<QItemSelectionModel>();
   qmlRegisterExtendedType<DeclarativeSeparator, DeclarativeObjectExtension>("QtGui", 1, 0, "Separator");
   qmlRegisterType<QTextDocument>();
+  qmlRegisterType<QTimer>("QtCore", 1, 0, "Timer");
 
   // layouts
   qmlRegisterExtendedType<DeclarativeFormLayout, DeclarativeFormLayoutExtension>("QtGui", 1, 0, "FormLayout");
