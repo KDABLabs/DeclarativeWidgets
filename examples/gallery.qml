@@ -58,18 +58,23 @@ TabWidget {
   Widget {
     TabWidget.label: "ItemViews"
 
+    FileSystemModel {
+      id: fileSystemModel
+      rootPath: "/"
+    }
+
     VBoxLayout {
       ListView {
-        model: _fileSystemModel
+        model: fileSystemModel
       }
       TreeView {
-        model: _fileSystemModel
+        model: fileSystemModel
       }
       TableView {
-        model: _fileSystemModel
+        model: fileSystemModel
       }
       ColumnView {
-        model: _fileSystemModel
+        model: fileSystemModel
       }
     }
   }

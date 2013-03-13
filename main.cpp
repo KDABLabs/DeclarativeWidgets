@@ -25,7 +25,6 @@
 #include <QDeclarativeEngine>
 #include <QDir>
 #include <QFileInfo>
-#include <QFileSystemModel>
 #include <QTimer>
 #include <QWidget>
 
@@ -46,14 +45,10 @@ int main(int argc, char **argv)
   const QFileInfo qmlFile(QDir::current(), arguments[1]);
   const QUrl documentUrl = QUrl::fromLocalFile(qmlFile.absoluteFilePath());
 
-  QFileSystemModel model;
-  model.setRootPath("/");
-
   DeclarativeWidgetsDocument document(documentUrl);
   QObject::connect(document.engine(), SIGNAL(quit()), &app, SLOT(quit()));
 
   document.setContextProperty("_timer", &timer);
-  document.setContextProperty("_fileSystemModel", &model);
 
   QWidget *widget = document.create<QWidget>();
   if (widget)
