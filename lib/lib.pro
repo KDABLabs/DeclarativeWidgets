@@ -40,7 +40,8 @@ HEADERS = \
   declarativewidgetsdocument.h \
   objectadaptors_p.h \
   qmetaobjectbuilder_p.h \
-  staticdialogmethodattached_p.h
+  staticdialogmethodattached_p.h \
+    declarativefilesystemmodelextension.h
 
 SOURCES = \
   abstractdeclarativeobject.cpp \
@@ -77,4 +78,5 @@ SOURCES = \
   declarativewidgetsdocument.cpp \
   objectadaptors.cpp \
   qmetaobjectbuilder.cpp \
-  staticdialogmethodattached.cpp
+  staticdialogmethodattached.cpp \
+    declarativefilesystemmodelextension.cpp

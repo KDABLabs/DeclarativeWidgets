@@ -28,6 +28,7 @@
 #include "declarativedeclarativecontext_p.h"
 #include "declarativedeclarativeviewextension_p.h"
 #include "declarativefiledialog_p.h"
+#include "declarativefilesystemmodelextension.h"
 #include "declarativefontdialog_p.h"
 #include "declarativeformlayout_p.h"
 #include "declarativegridlayout_p.h"
@@ -64,6 +65,7 @@
 #include <QDial>
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
+#include <QFileSystemModel>
 #include <QGroupBox>
 #include <QLabel>
 #include <QLCDNumber>
@@ -111,6 +113,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QButtonGroup, DeclarativeButtonGroupExtension>("QtGui", 1, 0, "ButtonGroup");
   qmlRegisterType<DeclarativeContextProperty>("QtGui", 1, 0, "DeclarativeContextProperty");
   qmlRegisterType<DeclarativeDeclarativeContext>("QtGui", 1, 0, "DeclarativeContext");
+  qmlRegisterExtendedType<QFileSystemModel, DeclarativeFileSystemModelExtension>("QtGui", 1, 0, "FileSystemModel");
   qmlRegisterType<QItemSelectionModel>();
   qmlRegisterExtendedType<DeclarativeSeparator, DeclarativeObjectExtension>("QtGui", 1, 0, "Separator");
   qmlRegisterType<QTextDocument>();
