@@ -5,7 +5,6 @@ qprintpreviewdialog.h
 qprogressdialog.h
 
 // widgets
-qcombobox.h
 qdockwidget.h
 qfocusframe.h
 qfontcombobox.h
