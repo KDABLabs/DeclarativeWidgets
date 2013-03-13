@@ -18,7 +18,7 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "declarativefilesystemmodelextension.h"
+#include "declarativefilesystemmodelextension_p.h"
 
 #include <QFileSystemModel>
 #include <QDebug>

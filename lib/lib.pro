@@ -14,6 +14,7 @@ HEADERS = \
   declarativedeclarativecontext_p.h \
   declarativedeclarativeviewextension_p.h \
   declarativefiledialog_p.h \
+  declarativefilesystemmodelextension_p.h \
   declarativefontdialog_p.h \
   declarativeformlayout_p.h \
   declarativegridlayout_p.h \
@@ -32,6 +33,7 @@ HEADERS = \
   declarativestackedlayout_p.h \
   declarativestackedwidgetextension_p.h \
   declarativestatusbar_p.h \
+  declarativestringlistmodelextension_p.h \
   declarativetabwidget_p.h \
   declarativetexteditextension_p.h \
   declarativetoolbarextension_p.h \
@@ -40,9 +42,7 @@ HEADERS = \
   declarativewidgetsdocument.h \
   objectadaptors_p.h \
   qmetaobjectbuilder_p.h \
-  staticdialogmethodattached_p.h \
-  declarativefilesystemmodelextension.h \
-  declarativestringlistmodelextension.h
+  staticdialogmethodattached_p.h
 
 SOURCES = \
   abstractdeclarativeobject.cpp \
@@ -54,6 +54,7 @@ SOURCES = \
   declarativedeclarativecontext.cpp \
   declarativedeclarativeviewextension.cpp \
   declarativefiledialog.cpp \
+  declarativefilesystemmodelextension.cpp \
   declarativefontdialog.cpp \
   declarativeformlayout.cpp \
   declarativegridlayout.cpp \
@@ -71,6 +72,7 @@ SOURCES = \
   declarativestackedlayout.cpp \
   declarativestackedwidgetextension.cpp \
   declarativestatusbar.cpp \
+  declarativestringlistmodelextension.cpp \
   declarativetabwidget.cpp \
   declarativetexteditextension.cpp \
   declarativetoolbarextension.cpp \
@@ -79,6 +81,4 @@ SOURCES = \
   declarativewidgetsdocument.cpp \
   objectadaptors.cpp \
   qmetaobjectbuilder.cpp \
-  staticdialogmethodattached.cpp \
-  declarativefilesystemmodelextension.cpp \
-  declarativestringlistmodelextension.cpp
+  staticdialogmethodattached.cpp
