@@ -44,6 +44,7 @@
 #include "declarativestackedlayout_p.h"
 #include "declarativestackedwidgetextension_p.h"
 #include "declarativestatusbar_p.h"
+#include "declarativestringlistmodelextension.h"
 #include "declarativetabwidget_p.h"
 #include "declarativetexteditextension_p.h"
 #include "declarativetoolbarextension_p.h"
@@ -77,6 +78,7 @@
 #include <QRadioButton>
 #include <QScrollBar>
 #include <QStackedWidget>
+#include <QStringListModel>
 #include <QTableView>
 #include <QTextBrowser>
 #include <QTimer>
@@ -117,6 +119,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QFileSystemModel, DeclarativeFileSystemModelExtension>("QtGui", 1, 0, "FileSystemModel");
   qmlRegisterType<QItemSelectionModel>();
   qmlRegisterExtendedType<DeclarativeSeparator, DeclarativeObjectExtension>("QtGui", 1, 0, "Separator");
+  qmlRegisterExtendedType<QStringListModel, DeclarativeStringListModelExtension>("QtCore", 1, 0, "StringListModel");
   qmlRegisterType<QTextDocument>();
   qmlRegisterType<QTimer>("QtCore", 1, 0, "Timer");
 
