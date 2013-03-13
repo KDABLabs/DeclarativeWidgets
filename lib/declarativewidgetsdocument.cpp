@@ -216,12 +216,10 @@ QWidget* DeclarativeWidgetsDocument::createWidget()
     return qobject_cast<QWidget*>(declarativeObject->object());
   }
 
-  qWarning("Root element is no AbstractDeclarativeObject subclass");
-
   QWidget *widget = qobject_cast<QWidget*>(object);
   if (widget)
     return widget;
 
-  qFatal("Root Element is neither ab AbstractDeclarativeObject nor a widget");
+  qFatal("Root Element is neither an AbstractDeclarativeObject nor a widget");
   return 0;
 }
