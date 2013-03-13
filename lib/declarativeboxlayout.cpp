@@ -1,7 +1,7 @@
 /*
-  Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
-  Author: Kevin Krammer, krake@kdab.com
-  Author: Tobias Koenig, tokoe@kdab.com
+  Copyright (C) 2012-2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Author: Kevin Krammer, kevin.krammer@kdab.com
+  Author: Tobias Koenig, tobias.koenig@kdab.com
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
