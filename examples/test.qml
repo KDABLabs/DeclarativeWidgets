@@ -18,12 +18,13 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-import QtQuick 1.0
+import QtCore 1.0
 import QtGui 1.0
 
 Widget {
   windowTitle: qsTr("Cool Test App")
   size: Qt.size(300, 500)
+
 
   property int counter: 0
 
@@ -32,11 +33,20 @@ Widget {
     counter++;
   }
 
-  Component.onCompleted: _timer.timeout.connect(myFunc)
+  Timer {
+    id: timer
+    interval: 1000
+    onTimeout: myFunc()
+  }
 
   VBoxLayout {
     Label {
       text: "Hallo ASCII-safe Kevin!!! " + counter
+    }
+    PushButton {
+      text: "Run Timer"
+      checkable: true
+      onToggled: checked ? timer.start() : timer.stop()
     }
     Label {
       id: secondLabel

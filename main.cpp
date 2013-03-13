@@ -25,7 +25,6 @@
 #include <QDeclarativeEngine>
 #include <QDir>
 #include <QFileInfo>
-#include <QTimer>
 #include <QWidget>
 
 int main(int argc, char **argv)
@@ -38,17 +37,11 @@ int main(int argc, char **argv)
       return -1;
   }
 
-  QTimer timer;
-  timer.setInterval(1000);
-  timer.start();
-
   const QFileInfo qmlFile(QDir::current(), arguments[1]);
   const QUrl documentUrl = QUrl::fromLocalFile(qmlFile.absoluteFilePath());
 
   DeclarativeWidgetsDocument document(documentUrl);
   QObject::connect(document.engine(), SIGNAL(quit()), &app, SLOT(quit()));
-
-  document.setContextProperty("_timer", &timer);
 
   QWidget *widget = document.create<QWidget>();
   if (widget)
