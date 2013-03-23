@@ -18,30 +18,40 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef DECLARATIVELAYOUTEXTENSION_H
-#define DECLARATIVELAYOUTEXTENSION_H
+#include "menubarwidgetcontainer_p.h"
 
-#include "declarativeobjectextension.h"
+#include <QDeclarativeInfo>
+#include <QMenuBar>
 
-class LayoutContainerInterface;
-
-class QLayout;
-class QWidget;
-
-class DeclarativeLayoutExtension : public DeclarativeObjectExtension
+MenuBarWidgetContainer::MenuBarWidgetContainer(QObject *parent)
+  : DefaultWidgetContainer(qobject_cast<QMenuBar*>(parent))
 {
-  Q_OBJECT
+  Q_ASSERT(m_widget);
+}
 
-  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+void MenuBarWidgetContainer::addWidget(QWidget *widget)
+{
+  QMenu *menu = qobject_cast<QMenu*>(widget);
+  if (!menu) {
+    qmlInfo(m_widget) << "The MenuBar can only contain Menus";
+    return;
+  }
 
-  Q_CLASSINFO("DefaultProperty", "data")
+  extendedMenuBar()->addMenu(menu);
+}
 
-  public:
-    QLayout *extendedLayout() const;
+void MenuBarWidgetContainer::setLayout(QLayout *layout)
+{
+  Q_UNUSED(layout);
+  qmlInfo(m_widget) << "Can not set a Layout to a MenuBar";
+}
 
-  protected:
-    explicit DeclarativeLayoutExtension(LayoutContainerInterface *layoutContainer, QObject *parent = 0);
-};
+void MenuBarWidgetContainer::addAction(QAction *action)
+{
+  extendedMenuBar()->addAction(action);
+}
 
-#endif // DECLARATIVELAYOUTEXTENSION_H
+QMenuBar *MenuBarWidgetContainer::extendedMenuBar() const
+{
+  return static_cast<QMenuBar*>(m_widget);
+}

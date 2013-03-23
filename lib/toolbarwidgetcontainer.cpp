@@ -18,30 +18,34 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef DECLARATIVELAYOUTEXTENSION_H
-#define DECLARATIVELAYOUTEXTENSION_H
+#include "toolbarwidgetcontainer_p.h"
 
-#include "declarativeobjectextension.h"
+#include <QDeclarativeInfo>
+#include <QToolBar>
 
-class LayoutContainerInterface;
-
-class QLayout;
-class QWidget;
-
-class DeclarativeLayoutExtension : public DeclarativeObjectExtension
+ToolBarWidgetContainer::ToolBarWidgetContainer(QObject *parent)
+  : DefaultWidgetContainer(qobject_cast<QToolBar*>(parent))
 {
-  Q_OBJECT
+  Q_ASSERT(m_widget);
+}
 
-  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+void ToolBarWidgetContainer::addWidget(QWidget *widget)
+{
+  extendedToolBar()->addWidget(widget);
+}
 
-  Q_CLASSINFO("DefaultProperty", "data")
+void ToolBarWidgetContainer::setLayout(QLayout *layout)
+{
+  Q_UNUSED(layout);
+  qmlInfo(m_widget) << "Can not set a Layout to a ToolBar";
+}
 
-  public:
-    QLayout *extendedLayout() const;
+void ToolBarWidgetContainer::addAction(QAction *action)
+{
+  extendedToolBar()->addAction(action);
+}
 
-  protected:
-    explicit DeclarativeLayoutExtension(LayoutContainerInterface *layoutContainer, QObject *parent = 0);
-};
-
-#endif // DECLARATIVELAYOUTEXTENSION_H
+QToolBar *ToolBarWidgetContainer::extendedToolBar() const
+{
+  return static_cast<QToolBar*>(m_widget);
+}

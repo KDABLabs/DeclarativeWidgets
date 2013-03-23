@@ -19,13 +19,22 @@
 */
 
 #include "declarativeobjectextension.h"
+#include "defaultobjectcontainer_p.h"
 
 DeclarativeObjectExtension::DeclarativeObjectExtension(QObject *parent)
   : QObject(parent)
+  , m_objectContainer(new DefaultObjectContainer)
 {
 }
 
 DeclarativeObjectExtension::~DeclarativeObjectExtension()
+{
+    delete m_objectContainer;
+}
+
+DeclarativeObjectExtension::DeclarativeObjectExtension(ObjectContainerInterface *objectContainer, QObject *parent)
+  : QObject(parent)
+  , m_objectContainer(objectContainer)
 {
 }
 
@@ -37,34 +46,14 @@ QDeclarativeListProperty<QObject> DeclarativeObjectExtension::data()
                                                     DeclarativeObjectExtension::data_clear);
 }
 
-void DeclarativeObjectExtension::dataAppend(QObject *object)
-{
-  m_children.append(object);
-}
-
-int DeclarativeObjectExtension::dataCount() const
-{
-  return m_children.count();
-}
-
-QObject* DeclarativeObjectExtension::dataAt(int index) const
-{
-  return m_children.at(index);
-}
-
-void DeclarativeObjectExtension::dataClear()
-{
-  m_children.clear();
-}
-
 void DeclarativeObjectExtension::data_append(QDeclarativeListProperty<QObject> *property, QObject *object)
 {
   if (!object)
     return;
 
   DeclarativeObjectExtension *that = qobject_cast<DeclarativeObjectExtension*>(property->object);
-  if (that)
-    that->dataAppend(object);
+  if (that && that->m_objectContainer)
+    that->m_objectContainer->dataAppend(object);
   else
     qWarning("cast went wrong in data_append");
 }
@@ -72,8 +61,8 @@ void DeclarativeObjectExtension::data_append(QDeclarativeListProperty<QObject> *
 int DeclarativeObjectExtension::data_count(QDeclarativeListProperty<QObject> *property)
 {
   DeclarativeObjectExtension *that = qobject_cast<DeclarativeObjectExtension*>(property->object);
-  if (that)
-    return that->dataCount();
+  if (that && that->m_objectContainer)
+    return that->m_objectContainer->dataCount();
   else {
     qWarning("cast went wrong in data_count");
     return 0;
@@ -83,8 +72,8 @@ int DeclarativeObjectExtension::data_count(QDeclarativeListProperty<QObject> *pr
 QObject* DeclarativeObjectExtension::data_at(QDeclarativeListProperty<QObject> *property, int index)
 {
   DeclarativeObjectExtension *that = qobject_cast<DeclarativeObjectExtension*>(property->object);
-  if (that)
-    return that->dataAt(index);
+  if (that && that->m_objectContainer)
+    return that->m_objectContainer->dataAt(index);
   else {
     qWarning("cast went wrong in data_at");
     return 0;
@@ -94,8 +83,8 @@ QObject* DeclarativeObjectExtension::data_at(QDeclarativeListProperty<QObject> *
 void DeclarativeObjectExtension::data_clear(QDeclarativeListProperty<QObject> *property)
 {
   DeclarativeObjectExtension *that = qobject_cast<DeclarativeObjectExtension*>(property->object);
-  if (that)
-    that->dataClear();
+  if (that && that->m_objectContainer)
+    that->m_objectContainer->dataClear();
   else
     qWarning("cast went wrong in data_clear");
 }

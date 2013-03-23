@@ -18,30 +18,19 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef DECLARATIVELAYOUTEXTENSION_H
-#define DECLARATIVELAYOUTEXTENSION_H
-
-#include "declarativeobjectextension.h"
-
-class LayoutContainerInterface;
+#ifndef LAYOUTCONTAINERINTERFACE_P_H
+#define LAYOUTCONTAINERINTERFACE_P_H
 
 class QLayout;
 class QWidget;
 
-class DeclarativeLayoutExtension : public DeclarativeObjectExtension
+class LayoutContainerInterface
 {
-  Q_OBJECT
-
-  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
-
-  Q_CLASSINFO("DefaultProperty", "data")
-
   public:
-    QLayout *extendedLayout() const;
+    virtual ~LayoutContainerInterface() = 0;
 
-  protected:
-    explicit DeclarativeLayoutExtension(LayoutContainerInterface *layoutContainer, QObject *parent = 0);
+    virtual void addLayout(QLayout *layout) = 0;
+    virtual void addWidget(QWidget *widget) = 0;
 };
 
-#endif // DECLARATIVELAYOUTEXTENSION_H
+#endif // LAYOUTCONTAINERINTERFACE_P_H

@@ -12,6 +12,7 @@ HEADERS = \
   declarativebuttongroupextension_p.h \
   declarativecolordialog_p.h \
   declarativecomboboxextension_p.h \
+  declarativecontainerwidgetextension_p.h \
   declarativedeclarativecontext_p.h \
   declarativedeclarativeviewextension_p.h \
   declarativefiledialog_p.h \
@@ -23,27 +24,32 @@ HEADERS = \
   declarativeinputdialog_p.h \
   declarativeitemviewextension_p.h \
   declarativelayoutextension.h \
-  declarativemainwindowextension_p.h \
-  declarativemenubarextension_p.h \
-  declarativemenuextension_p.h \
   declarativemessagebox_p.h \
   declarativeobjectextension.h \
   declarativeobjectproxy_p.h \
-  declarativescrollareaextension_p.h \
   declarativeseparator_p.h \
   declarativestackedlayout_p.h \
-  declarativestackedwidgetextension_p.h \
   declarativestatusbar_p.h \
   declarativestringlistmodelextension_p.h \
   declarativetabwidget_p.h \
   declarativetexteditextension_p.h \
-  declarativetoolbarextension_p.h \
   declarativevboxlayout_p.h \
   declarativewidgetextension.h \
   declarativewidgetsdocument.h \
+  defaultobjectcontainer_p.h \
+  defaultwidgetcontainer.h \
+  layoutcontainerinterface_p.h \
+  mainwindowwidgetcontainer_p.h \
+  menubarwidgetcontainer_p.h \
+  menuwidgetcontainer_p.h \
   objectadaptors_p.h \
+  objectcontainerinterface_p.h \
   qmetaobjectbuilder_p.h \
-  staticdialogmethodattached_p.h
+  scrollareawidgetcontainer_p.h \
+  stackedwidgetwidgetcontainer_p.h \
+  staticdialogmethodattached_p.h \
+  toolbarwidgetcontainer_p.h \
+  widgetcontainerinterface_p.h
 
 SOURCES = \
   abstractdeclarativeobject.cpp \
@@ -64,23 +70,25 @@ SOURCES = \
   declarativeinputdialog.cpp \
   declarativeitemviewextension.cpp \
   declarativelayoutextension.cpp \
-  declarativemainwindowextension.cpp \
-  declarativemenubarextension.cpp \
-  declarativemenuextension.cpp \
   declarativemessagebox.cpp \
   declarativeobjectextension.cpp \
-  declarativescrollareaextension.cpp \
   declarativeseparator.cpp \
   declarativestackedlayout.cpp \
-  declarativestackedwidgetextension.cpp \
   declarativestatusbar.cpp \
   declarativestringlistmodelextension.cpp \
   declarativetabwidget.cpp \
   declarativetexteditextension.cpp \
-  declarativetoolbarextension.cpp \
   declarativevboxlayout.cpp \
   declarativewidgetextension.cpp \
   declarativewidgetsdocument.cpp \
+  defaultobjectcontainer.cpp \
+  defaultwidgetcontainer.cpp \
+  mainwindowwidgetcontainer.cpp \
+  menubarwidgetcontainer.cpp \
+  menuwidgetcontainer.cpp \
   objectadaptors.cpp \
   qmetaobjectbuilder.cpp \
-  staticdialogmethodattached.cpp
+  scrollareawidgetcontainer.cpp \
+  stackedwidgetwidgetcontainer.cpp \
+  staticdialogmethodattached.cpp \
+  toolbarwidgetcontainer.cpp

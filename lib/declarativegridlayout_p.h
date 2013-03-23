@@ -93,10 +93,6 @@ class DeclarativeGridLayoutExtension : public DeclarativeLayoutExtension
 
   public:
     explicit DeclarativeGridLayoutExtension(QObject *parent = 0);
-
-  protected:
-    void addWidget(QWidget *widget);
-    void addLayout(QLayout *layout);
 };
 
 #endif

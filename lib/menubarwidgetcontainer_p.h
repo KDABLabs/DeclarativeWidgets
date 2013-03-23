@@ -18,31 +18,25 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef DECLARATIVEMENUBAREXTENSION_P_H
-#define DECLARATIVEMENUBAREXTENSION_P_H
+#ifndef MENUBARWIDGETCONTAINER_P_H
+#define MENUBARWIDGETCONTAINER_P_H
 
-#include "declarativewidgetextension.h"
+#include "defaultwidgetcontainer.h"
 
 class QMenuBar;
+class QObject;
 
-class DeclarativeMenuBarExtension : public DeclarativeWidgetExtension
+class MenuBarWidgetContainer : public DefaultWidgetContainer
 {
-  Q_OBJECT
-
-  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
-
-  Q_CLASSINFO("DefaultProperty", "data")
-
   public:
-    explicit DeclarativeMenuBarExtension(QObject *parent = 0);
+    explicit MenuBarWidgetContainer(QObject *parent = 0);
 
-    QMenuBar *extendedMenuBar() const;
-
-  protected:
-    void addWidget(QWidget *widget);
-    void setLayout(QLayout *layout);
     void addAction(QAction *action);
+    void setLayout(QLayout *layout);
+    void addWidget(QWidget *widget);
+
+  private:
+    QMenuBar *extendedMenuBar() const;
 };
 
 #endif

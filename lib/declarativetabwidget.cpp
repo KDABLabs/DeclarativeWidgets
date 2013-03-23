@@ -91,15 +91,15 @@ DeclarativeTabWidgetAttached *DeclarativeTabWidget::qmlAttachedProperties(QObjec
   return new DeclarativeTabWidgetAttached(object);
 }
 
-DeclarativeTabWidgetExtension::DeclarativeTabWidgetExtension(QObject *parent)
-  : DeclarativeWidgetExtension(parent)
+TabWidgetWidgetContainer::TabWidgetWidgetContainer(QObject *parent)
+  : DefaultWidgetContainer(qobject_cast<QTabWidget*>(parent))
 {
+  Q_ASSERT(m_widget);
 }
 
-void DeclarativeTabWidgetExtension::addWidget(QWidget *widget)
+void TabWidgetWidgetContainer::addWidget(QWidget *widget)
 {
-  QTabWidget *tabWidget = qobject_cast<QTabWidget*>(extendedWidget());
-  Q_ASSERT(tabWidget);
+  QTabWidget *tabWidget = extendedTabWidget();
 
   // TODO: error when layout is set
 
@@ -118,8 +118,13 @@ void DeclarativeTabWidgetExtension::addWidget(QWidget *widget)
     tabHeader->setAssociation(tabWidget, index);
 }
 
-void DeclarativeTabWidgetExtension::setLayout(QLayout *layout)
+void TabWidgetWidgetContainer::setLayout(QLayout *layout)
 {
   Q_UNUSED(layout);
-  qmlInfo(extendedWidget()) << "Can not add QLayout to QTabWidget";
+  qmlInfo(m_widget) << "Can not add QLayout to QTabWidget";
+}
+
+QTabWidget *TabWidgetWidgetContainer::extendedTabWidget() const
+{
+  return static_cast<QTabWidget*>(m_widget);
 }

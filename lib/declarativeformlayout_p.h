@@ -70,10 +70,6 @@ class DeclarativeFormLayoutExtension : public DeclarativeLayoutExtension
 
   public:
     explicit DeclarativeFormLayoutExtension(QObject *parent = 0);
-
-  protected:
-    void addWidget(QWidget *widget);
-    void addLayout(QLayout *layout);
 };
 
 #endif

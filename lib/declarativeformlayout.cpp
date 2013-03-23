@@ -20,6 +20,8 @@
 
 #include "declarativeformlayout_p.h"
 
+#include "layoutcontainerinterface_p.h"
+
 #include <QDeclarativeInfo>
 #include <QWidget>
 
@@ -73,40 +75,50 @@ DeclarativeFormLayoutAttached *DeclarativeFormLayout::qmlAttachedProperties(QObj
   return 0;
 }
 
+class FormLayoutContainer : public LayoutContainerInterface
+{
+  public:
+    explicit FormLayoutContainer(QFormLayout *layout)
+      : m_layout(layout)
+    {
+      Q_ASSERT(m_layout);
+    }
+
+    void addLayout(QLayout *layout);
+    void addWidget(QWidget *widget);
+
+  private:
+    QFormLayout *m_layout;
+};
+
 DeclarativeFormLayoutExtension::DeclarativeFormLayoutExtension(QObject *parent)
-  : DeclarativeLayoutExtension(parent)
+  : DeclarativeLayoutExtension(new FormLayoutContainer(qobject_cast<QFormLayout*>(parent)), parent)
 {
 }
 
-void DeclarativeFormLayoutExtension::addWidget(QWidget *widget)
+void FormLayoutContainer::addWidget(QWidget *widget)
 {
-  QFormLayout *formLayout = qobject_cast<QFormLayout*>(extendedLayout());
-  Q_ASSERT(formLayout);
-
   QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeFormLayout>(widget, false);
   DeclarativeFormLayoutAttached *properties = qobject_cast<DeclarativeFormLayoutAttached*>(attachedProperties);
   if (properties) {
     if (!properties->label().isEmpty()) {
-      formLayout->addRow(properties->label(), widget);
+      m_layout->addRow(properties->label(), widget);
       return;
     }
   }
 
-  formLayout->addRow(widget);
+  m_layout->addRow(widget);
 }
 
-void DeclarativeFormLayoutExtension::addLayout(QLayout *layout)
+void FormLayoutContainer::addLayout(QLayout *layout)
 {
-  QFormLayout *formLayout = qobject_cast<QFormLayout*>(extendedLayout());
-  Q_ASSERT(formLayout);
-
   QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeFormLayout>(layout, false);
   DeclarativeFormLayoutAttached *properties = qobject_cast<DeclarativeFormLayoutAttached*>(attachedProperties);
   if (properties) {
     if (!properties->label().isEmpty()) {
-      formLayout->addRow(properties->label(), layout);
+      m_layout->addRow(properties->label(), layout);
       return;
     }
   }
-  formLayout->addRow(layout);
+  m_layout->addRow(layout);
 }

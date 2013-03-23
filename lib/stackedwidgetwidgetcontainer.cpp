@@ -18,30 +18,28 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef DECLARATIVELAYOUTEXTENSION_H
-#define DECLARATIVELAYOUTEXTENSION_H
+#include "stackedwidgetwidgetcontainer_p.h"
 
-#include "declarativeobjectextension.h"
+#include <QDeclarativeInfo>
+#include <QStackedWidget>
 
-class LayoutContainerInterface;
-
-class QLayout;
-class QWidget;
-
-class DeclarativeLayoutExtension : public DeclarativeObjectExtension
+StackedWidgetWidgetContainer::StackedWidgetWidgetContainer(QObject *parent)
+  : DefaultWidgetContainer(qobject_cast<QStackedWidget*>(parent))
 {
-  Q_OBJECT
+  Q_ASSERT(m_widget);
+}
 
-  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+void StackedWidgetWidgetContainer::addWidget(QWidget *widget)
+{
+  extendedStackedWidget()->addWidget(widget);
+}
 
-  Q_CLASSINFO("DefaultProperty", "data")
+void StackedWidgetWidgetContainer::setLayout(QLayout*)
+{
+  qmlInfo(m_widget) << "StackedWidget does not support child layouts";
+}
 
-  public:
-    QLayout *extendedLayout() const;
-
-  protected:
-    explicit DeclarativeLayoutExtension(LayoutContainerInterface *layoutContainer, QObject *parent = 0);
-};
-
-#endif // DECLARATIVELAYOUTEXTENSION_H
+QStackedWidget *StackedWidgetWidgetContainer::extendedStackedWidget() const
+{
+  return static_cast<QStackedWidget*>(m_widget);
+}

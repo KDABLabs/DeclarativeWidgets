@@ -20,6 +20,8 @@
 
 #include "declarativevboxlayout_p.h"
 
+#include "layoutcontainerinterface_p.h"
+
 #include <QDeclarativeInfo>
 #include <QWidget>
 
@@ -43,16 +45,30 @@ DeclarativeBoxLayoutAttached *DeclarativeVBoxLayout::qmlAttachedProperties(QObje
   return 0;
 }
 
+class VBoxLayoutContainer : public LayoutContainerInterface
+{
+  public:
+    explicit VBoxLayoutContainer(QVBoxLayout *layout)
+      : m_layout(layout)
+    {
+      Q_ASSERT(m_layout);
+    }
+
+    void addLayout(QLayout *layout);
+    void addWidget(QWidget *widget);
+
+  private:
+    QVBoxLayout *m_layout;
+};
+
+
 DeclarativeVBoxLayoutExtension::DeclarativeVBoxLayoutExtension(QObject *parent)
-  : DeclarativeLayoutExtension(parent)
+  : DeclarativeLayoutExtension(new VBoxLayoutContainer(qobject_cast<QVBoxLayout*>(parent)), parent)
 {
 }
 
-void DeclarativeVBoxLayoutExtension::addWidget(QWidget *widget)
+void VBoxLayoutContainer::addWidget(QWidget *widget)
 {
-  QVBoxLayout *vboxLayout = qobject_cast<QVBoxLayout*>(extendedLayout());
-  Q_ASSERT(vboxLayout);
-
   int stretch = 0;
   Qt::Alignment alignment = 0;
 
@@ -62,17 +78,14 @@ void DeclarativeVBoxLayoutExtension::addWidget(QWidget *widget)
     stretch = properties->stretch();
     alignment = properties->alignment();
 
-    properties->setParentLayout(vboxLayout);
+    properties->setParentLayout(m_layout);
   }
 
-  vboxLayout->addWidget(widget, stretch, alignment);
+  m_layout->addWidget(widget, stretch, alignment);
 }
 
-void DeclarativeVBoxLayoutExtension::addLayout(QLayout *layout)
+void VBoxLayoutContainer::addLayout(QLayout *layout)
 {
-  QVBoxLayout *vboxLayout = qobject_cast<QVBoxLayout*>(extendedLayout());
-  Q_ASSERT(vboxLayout);
-
   int stretch = 0;
   Qt::Alignment alignment = 0;
 
@@ -82,9 +95,9 @@ void DeclarativeVBoxLayoutExtension::addLayout(QLayout *layout)
     stretch = properties->stretch();
     alignment = properties->alignment();
 
-    properties->setParentLayout(vboxLayout);
+    properties->setParentLayout(m_layout);
   }
 
-  vboxLayout->addLayout(layout, stretch);
-  vboxLayout->setAlignment(layout, alignment);
+  m_layout->addLayout(layout, stretch);
+  m_layout->setAlignment(layout, alignment);
 }

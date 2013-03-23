@@ -18,42 +18,40 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "declarativemenubarextension_p.h"
+#include "menuwidgetcontainer_p.h"
 
 #include <QDeclarativeInfo>
-#include <QMenuBar>
+#include <QMenu>
 
-DeclarativeMenuBarExtension::DeclarativeMenuBarExtension(QObject *parent)
-  : DeclarativeWidgetExtension(parent)
+MenuWidgetContainer::MenuWidgetContainer(QObject *parent)
+  : DefaultWidgetContainer(qobject_cast<QMenu*>(parent))
 {
+  Q_ASSERT(m_widget);
 }
 
-QMenuBar *DeclarativeMenuBarExtension::extendedMenuBar() const
-{
-  QMenuBar *menuBar = qobject_cast<QMenuBar*>(extendedWidget());
-  Q_ASSERT(menuBar);
-
-  return menuBar;
-}
-
-void DeclarativeMenuBarExtension::addWidget(QWidget *widget)
+void MenuWidgetContainer::addWidget(QWidget *widget)
 {
   QMenu *menu = qobject_cast<QMenu*>(widget);
   if (!menu) {
-    qmlInfo(extendedMenuBar()) << "The MenuBar can only contain Menus";
+    qmlInfo(m_widget) << "The Menu can only contain Menu, Action, ActionItem or Separator";
     return;
   }
 
-  extendedMenuBar()->addMenu(menu);
+  extendedMenu()->addMenu(menu);
 }
 
-void DeclarativeMenuBarExtension::setLayout(QLayout *layout)
+void MenuWidgetContainer::setLayout(QLayout *layout)
 {
   Q_UNUSED(layout);
-  qmlInfo(extendedMenuBar()) << "Can not set a Layout to a MenuBar";
+  qmlInfo(m_widget) << "Can not set a Layout to a Menu";
 }
 
-void DeclarativeMenuBarExtension::addAction(QAction *action)
+void MenuWidgetContainer::addAction(QAction *action)
 {
-  extendedMenuBar()->addAction(action);
+  extendedMenu()->addAction(action);
+}
+
+QMenu *MenuWidgetContainer::extendedMenu() const
+{
+  return static_cast<QMenu*>(m_widget);
 }

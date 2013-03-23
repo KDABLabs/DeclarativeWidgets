@@ -24,6 +24,8 @@
 #include <QDeclarativeListProperty>
 #include <QObject>
 
+class ObjectContainerInterface;
+
 class DeclarativeObjectExtension : public QObject
 {
   Q_OBJECT
@@ -39,12 +41,9 @@ class DeclarativeObjectExtension : public QObject
     QObject *extendedObject() const { return parent(); }
 
   protected:
-    QObjectList m_children;
+    ObjectContainerInterface *m_objectContainer;
 
-    virtual void dataAppend(QObject *object);
-    virtual int dataCount() const;
-    virtual QObject *dataAt(int index) const;
-    virtual void dataClear();
+    explicit DeclarativeObjectExtension(ObjectContainerInterface *objectContainer, QObject *parent = 0);
 
     QDeclarativeListProperty<QObject> data();
 

@@ -21,7 +21,7 @@
 #ifndef DECLARATIVETABWIDGET_P_H
 #define DECLARATIVETABWIDGET_P_H
 
-#include "declarativewidgetextension.h"
+#include "defaultwidgetcontainer.h"
 
 #include <qdeclarative.h>
 #include <QTabWidget>
@@ -66,21 +66,15 @@ class DeclarativeTabWidget : public QTabWidget
 
 QML_DECLARE_TYPEINFO(DeclarativeTabWidget, QML_HAS_ATTACHED_PROPERTIES)
 
-class DeclarativeTabWidgetExtension : public DeclarativeWidgetExtension
+class TabWidgetWidgetContainer : public DefaultWidgetContainer
 {
-  Q_OBJECT
-
-  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
-
-  Q_CLASSINFO("DefaultProperty", "data")
-
   public:
-    explicit DeclarativeTabWidgetExtension(QObject *parent = 0);
-
-  protected:
-    void addWidget(QWidget *widget);
+    explicit TabWidgetWidgetContainer(QObject *parent = 0);
     void setLayout(QLayout *layout);
+    void addWidget(QWidget *widget);
+
+  private:
+    QTabWidget *extendedTabWidget() const;
 };
 
 #endif

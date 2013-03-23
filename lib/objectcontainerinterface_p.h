@@ -18,30 +18,20 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef DECLARATIVESCROLLAREAEXTENSION_P_H
-#define DECLARATIVESCROLLAREAEXTENSION_P_H
+#ifndef OBJECTCONTAINERINTERFACE_H
+#define OBJECTCONTAINERINTERFACE_H
 
-#include "declarativewidgetextension.h"
+class QObject;
 
-class QScrollArea;
-
-class DeclarativeScrollAreaExtension : public DeclarativeWidgetExtension
+class ObjectContainerInterface
 {
-  Q_OBJECT
-
-  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
-
-  Q_CLASSINFO("DefaultProperty", "data")
-
   public:
-    explicit DeclarativeScrollAreaExtension(QObject *parent = 0);
+    virtual ~ObjectContainerInterface() = 0;
 
-    QScrollArea *extendedScrollArea() const;
-
-  protected:
-    void addWidget(QWidget *widget);
-    void setLayout(QLayout *layout);
+    virtual void dataAppend(QObject *object) = 0;
+    virtual int dataCount() const = 0;
+    virtual QObject *dataAt(int index) const = 0;
+    virtual void dataClear() = 0;
 };
 
-#endif
+#endif // OBJECTCONTAINERINTERFACE_H

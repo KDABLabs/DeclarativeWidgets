@@ -18,31 +18,24 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef DECLARATIVEMENUEXTENSION_P_H
-#define DECLARATIVEMENUEXTENSION_P_H
+#ifndef STACKEDWIDGETWIDGETCONTAINER_P_H
+#define STACKEDWIDGETWIDGETCONTAINER_P_H
 
-#include "declarativewidgetextension.h"
+#include "defaultwidgetcontainer.h"
 
-class QMenu;
+class QObject;
+class QStackedWidget;
 
-class DeclarativeMenuExtension : public DeclarativeWidgetExtension
+class StackedWidgetWidgetContainer : public DefaultWidgetContainer
 {
-  Q_OBJECT
-
-  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
-
-  Q_CLASSINFO("DefaultProperty", "data")
-
   public:
-    explicit DeclarativeMenuExtension(QObject *parent = 0);
+    explicit StackedWidgetWidgetContainer(QObject *parent = 0);
 
-    QMenu *extendedMenu() const;
-
-  protected:
-    void addWidget(QWidget *widget);
     void setLayout(QLayout *layout);
-    void addAction(QAction *action);
+    void addWidget(QWidget *widget);
+
+  private:
+    QStackedWidget *extendedStackedWidget() const;
 };
 
 #endif

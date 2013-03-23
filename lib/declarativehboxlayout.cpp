@@ -20,6 +20,8 @@
 
 #include "declarativehboxlayout_p.h"
 
+#include "layoutcontainerinterface_p.h"
+
 #include <QDeclarativeInfo>
 #include <QWidget>
 
@@ -43,16 +45,29 @@ DeclarativeBoxLayoutAttached *DeclarativeHBoxLayout::qmlAttachedProperties(QObje
   return 0;
 }
 
+class HBoxLayoutContainer : public LayoutContainerInterface
+{
+  public:
+    explicit HBoxLayoutContainer(QHBoxLayout *layout)
+      : m_layout(layout)
+    {
+      Q_ASSERT(m_layout);
+    }
+
+    void addLayout(QLayout *layout);
+    void addWidget(QWidget *widget);
+
+  private:
+    QHBoxLayout *m_layout;
+};
+
 DeclarativeHBoxLayoutExtension::DeclarativeHBoxLayoutExtension(QObject *parent)
-  : DeclarativeLayoutExtension(parent)
+  : DeclarativeLayoutExtension(new HBoxLayoutContainer(qobject_cast<QHBoxLayout*>(parent)), parent)
 {
 }
 
-void DeclarativeHBoxLayoutExtension::addWidget(QWidget *widget)
+void HBoxLayoutContainer::addWidget(QWidget *widget)
 {
-  QHBoxLayout *hboxLayout = qobject_cast<QHBoxLayout*>(extendedLayout());
-  Q_ASSERT(hboxLayout);
-
   int stretch = 0;
   Qt::Alignment alignment = 0;
 
@@ -62,17 +77,14 @@ void DeclarativeHBoxLayoutExtension::addWidget(QWidget *widget)
     stretch = properties->stretch();
     alignment = properties->alignment();
 
-    properties->setParentLayout(hboxLayout);
+    properties->setParentLayout(m_layout);
   }
 
-  hboxLayout->addWidget(widget, stretch, alignment);
+  m_layout->addWidget(widget, stretch, alignment);
 }
 
-void DeclarativeHBoxLayoutExtension::addLayout(QLayout *layout)
+void HBoxLayoutContainer::addLayout(QLayout *layout)
 {
-  QHBoxLayout *hboxLayout = qobject_cast<QHBoxLayout*>(extendedLayout());
-  Q_ASSERT(hboxLayout);
-
   int stretch = 0;
   Qt::Alignment alignment = 0;
 
@@ -82,9 +94,9 @@ void DeclarativeHBoxLayoutExtension::addLayout(QLayout *layout)
     stretch = properties->stretch();
     alignment = properties->alignment();
 
-    properties->setParentLayout(hboxLayout);
+    properties->setParentLayout(m_layout);
   }
 
-  hboxLayout->addLayout(layout, stretch);
-  hboxLayout->setAlignment(layout, alignment);
+  m_layout->addLayout(layout, stretch);
+  m_layout->setAlignment(layout, alignment);
 }

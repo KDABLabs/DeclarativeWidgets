@@ -63,20 +63,13 @@ DeclarativeStatusBarAttached *DeclarativeStatusBar::qmlAttachedProperties(QObjec
   return new DeclarativeStatusBarAttached(object);
 }
 
-DeclarativeStatusBarExtension::DeclarativeStatusBarExtension(QObject *parent)
-  : DeclarativeWidgetExtension(parent)
+StatusBarWidgetContainer::StatusBarWidgetContainer(QObject *parent)
+  : DefaultWidgetContainer(qobject_cast<QStatusBar*>(parent))
 {
+  Q_ASSERT(m_widget);
 }
 
-QStatusBar *DeclarativeStatusBarExtension::extendedStatusBar() const
-{
-  QStatusBar *statusBar = qobject_cast<QStatusBar*>(extendedWidget());
-  Q_ASSERT(statusBar);
-
-  return statusBar;
-}
-
-void DeclarativeStatusBarExtension::addWidget(QWidget *widget)
+void StatusBarWidgetContainer::addWidget(QWidget *widget)
 {
   // TODO: error when layout is set
 
@@ -91,8 +84,13 @@ void DeclarativeStatusBarExtension::addWidget(QWidget *widget)
   extendedStatusBar()->addPermanentWidget(widget, stretch);
 }
 
-void DeclarativeStatusBarExtension::setLayout(QLayout *layout)
+void StatusBarWidgetContainer::setLayout(QLayout *layout)
 {
   Q_UNUSED(layout);
-  qmlInfo(extendedStatusBar()) << "Can not add Layout to StatusBar";
+  qmlInfo(m_widget) << "Can not add Layout to StatusBar";
+}
+
+QStatusBar *StatusBarWidgetContainer::extendedStatusBar() const
+{
+  return static_cast<QStatusBar*>(m_widget);
 }

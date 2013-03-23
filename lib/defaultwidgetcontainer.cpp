@@ -18,36 +18,38 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "declarativetoolbarextension_p.h"
+#include "defaultwidgetcontainer.h"
 
 #include <QDeclarativeInfo>
-#include <QToolBar>
+#include <QLayout>
+#include <QWidget>
 
-DeclarativeToolBarExtension::DeclarativeToolBarExtension(QObject *parent)
-  : DeclarativeWidgetExtension(parent)
+DefaultWidgetContainer::DefaultWidgetContainer(QWidget *widget)
+  : m_widget(widget)
+{
+  Q_ASSERT(m_widget);
+}
+
+DefaultWidgetContainer::~DefaultWidgetContainer()
 {
 }
 
-QToolBar *DeclarativeToolBarExtension::extendedToolBar() const
+void DefaultWidgetContainer::addAction(QAction *action)
 {
-  QToolBar *toolBar = qobject_cast<QToolBar*>(extendedWidget());
-  Q_ASSERT(toolBar);
-
-  return toolBar;
+  m_widget->addAction(action);
 }
 
-void DeclarativeToolBarExtension::addWidget(QWidget *widget)
+void DefaultWidgetContainer::setLayout(QLayout *layout)
 {
-  extendedToolBar()->addWidget(widget);
+  if (m_widget->layout()) {
+    qmlInfo(m_widget) << "Cannot add a second layout";
+    return;
+  }
+
+  m_widget->setLayout(layout);
 }
 
-void DeclarativeToolBarExtension::setLayout(QLayout *layout)
+void DefaultWidgetContainer::addWidget(QWidget *widget)
 {
-  Q_UNUSED(layout);
-  qmlInfo(extendedToolBar()) << "Can not set a Layout to a ToolBar";
-}
-
-void DeclarativeToolBarExtension::addAction(QAction *action)
-{
-  extendedToolBar()->addAction(action);
+  widget->setParent(m_widget);
 }

@@ -18,37 +18,23 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "declarativescrollareaextension_p.h"
+#ifndef DEFAULTWIDGETCONTAINER_H
+#define DEFAULTWIDGETCONTAINER_H
 
-#include <QDeclarativeInfo>
-#include <QScrollArea>
+#include "widgetcontainerinterface_p.h"
 
-DeclarativeScrollAreaExtension::DeclarativeScrollAreaExtension(QObject *parent)
-  : DeclarativeWidgetExtension(parent)
+class DefaultWidgetContainer : public WidgetContainerInterface
 {
-}
+  public:
+    explicit DefaultWidgetContainer(QWidget *widget);
+    ~DefaultWidgetContainer();
 
-QScrollArea *DeclarativeScrollAreaExtension::extendedScrollArea() const
-{
-  QScrollArea *scrollArea = qobject_cast<QScrollArea*>(extendedWidget());
-  Q_ASSERT(scrollArea);
+    void addAction(QAction *action);
+    void setLayout(QLayout *layout);
+    void addWidget(QWidget *widget);
 
-  return scrollArea;
-}
+  protected:
+    QWidget *const m_widget;
+};
 
-void DeclarativeScrollAreaExtension::addWidget(QWidget *widget)
-{
-  QScrollArea *scrollArea = extendedScrollArea();
-
-  if (scrollArea->widget()) {
-    qmlInfo(scrollArea) << "Can not add multiple Widgets to ScrollArea";
-  } else {
-    scrollArea->setWidget(widget);
-  }
-}
-
-void DeclarativeScrollAreaExtension::setLayout(QLayout *layout)
-{
-  Q_UNUSED(layout);
-  qmlInfo(extendedScrollArea()) << "Can not add Layout to ScrollArea";
-}
+#endif // DEFAULTWIDGETCONTAINER_H

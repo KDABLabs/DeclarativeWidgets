@@ -18,30 +18,26 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "declarativestackedwidgetextension_p.h"
+#ifndef DEFAULTOBJECTCONTAINER_P_H
+#define DEFAULTOBJECTCONTAINER_P_H
 
-#include <QDeclarativeInfo>
-#include <QStackedWidget>
+#include "objectcontainerinterface_p.h"
 
-DeclarativeStackedWidgetExtension::DeclarativeStackedWidgetExtension(QObject *parent)
-  : DeclarativeWidgetExtension(parent)
+#include <QObject>
+
+class DefaultObjectContainer : public ObjectContainerInterface
 {
-}
+  public:
+    DefaultObjectContainer();
+    ~DefaultObjectContainer();
 
-QStackedWidget *DeclarativeStackedWidgetExtension::extendedStackedWidget() const
-{
-  QStackedWidget *stackedWidget = qobject_cast<QStackedWidget*>(extendedWidget());
-  Q_ASSERT(stackedWidget);
+    void dataAppend(QObject *object);
+    int dataCount() const;
+    QObject *dataAt(int index) const ;
+    void dataClear();
 
-  return stackedWidget;
-}
+  private:
+    QObjectList m_children;
+};
 
-void DeclarativeStackedWidgetExtension::addWidget(QWidget *widget)
-{
-  extendedStackedWidget()->addWidget(widget);
-}
-
-void DeclarativeStackedWidgetExtension::setLayout(QLayout*)
-{
-  qmlInfo(extendedStackedWidget()) << "StackedWidget does not support child layouts";
-}
+#endif // DEFAULTOBJECTCONTAINER_P_H

@@ -48,10 +48,6 @@ class DeclarativeStackedLayoutExtension : public DeclarativeLayoutExtension
     explicit DeclarativeStackedLayoutExtension(QObject *parent = 0);
 
     int count() const;
-
-  protected:
-    void addWidget(QWidget *widget);
-    void addLayout(QLayout *layout);
 };
 
 #endif

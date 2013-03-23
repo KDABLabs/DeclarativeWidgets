@@ -21,7 +21,10 @@
 #include "declarativewidgetextension.h"
 
 #include "declarativeactionitem_p.h"
+#include "defaultobjectcontainer_p.h"
+#include "defaultwidgetcontainer.h"
 #include "objectadaptors_p.h"
+#include "widgetcontainerinterface_p.h"
 
 #include <QAction>
 #include <QDeclarativeInfo>
@@ -29,8 +32,61 @@
 #include <QLayout>
 #include <QWidget>
 
+class WidgetContainerDelegate : public DefaultObjectContainer
+{
+  public:
+    explicit WidgetContainerDelegate(WidgetContainerInterface *widgetContainer)
+      : m_widgetContainer(widgetContainer)
+    {
+    }
+
+    ~WidgetContainerDelegate()
+    {
+      delete m_widgetContainer;
+    }
+
+    void dataAppend(QObject *object)
+    {
+      DefaultObjectContainer::dataAppend(object);
+
+      QWidget *widget = qobject_cast<QWidget*>(object);
+      if (widget) {
+
+        // restore widget flags for dialogs, menus
+        const QVariant originalWindowFlags = widget->property("originalWindowFlags");
+        if (originalWindowFlags.isValid() && originalWindowFlags.canConvert<Qt::WindowFlags>()) {
+          widget->setParent(widget->parentWidget(), originalWindowFlags.value<Qt::WindowFlags>());
+        }
+
+        m_widgetContainer->addWidget(widget);
+        return;
+      }
+
+      QLayout *layout = qobject_cast<QLayout*>(object);
+      if (layout) {
+        m_widgetContainer->setLayout(layout);
+        return;
+      }
+
+      QAction *action = qobject_cast<QAction*>(object);
+      if (action) {
+        m_widgetContainer->addAction(action);
+        return;
+      }
+
+      DeclarativeActionItem *actionItem = qobject_cast<DeclarativeActionItem*>(object);
+      if (actionItem) {
+        m_widgetContainer->addAction(actionItem->action());
+        return;
+      }
+    }
+
+  private:
+    WidgetContainerInterface *m_widgetContainer;
+};
+
 DeclarativeWidgetExtension::DeclarativeWidgetExtension(QObject *parent)
-  : DeclarativeObjectExtension(parent)
+  : DeclarativeObjectExtension(new WidgetContainerDelegate(new DefaultWidgetContainer(qobject_cast<QWidget*>(parent))), parent)
 {
   parent->installEventFilter(this);
 }
@@ -151,58 +207,8 @@ bool DeclarativeWidgetExtension::eventFilter(QObject *watched, QEvent *event)
   return false;
 }
 
-void DeclarativeWidgetExtension::dataAppend(QObject *object)
+DeclarativeWidgetExtension::DeclarativeWidgetExtension(WidgetContainerInterface *widgetContainer, QObject *parent)
+  : DeclarativeObjectExtension(new WidgetContainerDelegate(widgetContainer), parent)
 {
-  DeclarativeObjectExtension::dataAppend(object);
-
-  QWidget *widget = qobject_cast<QWidget*>(object);
-  if (widget) {
-
-    // restore widget flags for dialogs, menus
-    const QVariant originalWindowFlags = widget->property("originalWindowFlags");
-    if (originalWindowFlags.isValid() && originalWindowFlags.canConvert<Qt::WindowFlags>()) {
-      widget->setParent(widget->parentWidget(), originalWindowFlags.value<Qt::WindowFlags>());
-    }
-
-    addWidget(widget);
-    return;
-  }
-
-  QLayout *layout = qobject_cast<QLayout*>(object);
-  if (layout) {
-    setLayout(layout);
-    return;
-  }
-
-  QAction *action = qobject_cast<QAction*>(object);
-  if (action) {
-    addAction(action);
-    return;
-  }
-
-  DeclarativeActionItem *actionItem = qobject_cast<DeclarativeActionItem*>(object);
-  if (actionItem) {
-    addAction(actionItem->action());
-    return;
-  }
-}
-
-void DeclarativeWidgetExtension::addAction(QAction *action)
-{
-  extendedWidget()->addAction(action);
-}
-
-void DeclarativeWidgetExtension::setLayout(QLayout *layout)
-{
-  if (extendedWidget()->layout()){
-    qmlInfo(this) << "Cannot add a second layout";
-    return;
-  }
-
-  extendedWidget()->setLayout(layout);
-}
-
-void DeclarativeWidgetExtension::addWidget(QWidget *widget)
-{
-  widget->setParent(extendedWidget());
+  parent->installEventFilter(this);
 }

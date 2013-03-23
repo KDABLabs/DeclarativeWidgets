@@ -18,30 +18,33 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef DECLARATIVEMAINWINDOWEXTENSION_P_H
-#define DECLARATIVEMAINWINDOWEXTENSION_P_H
+#include "defaultobjectcontainer_p.h"
 
-#include "declarativewidgetextension.h"
-
-class QMainWindow;
-
-class DeclarativeMainWindowExtension : public DeclarativeWidgetExtension
+DefaultObjectContainer::DefaultObjectContainer()
 {
-  Q_OBJECT
+}
 
-  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+DefaultObjectContainer::~DefaultObjectContainer()
+{
+}
 
-  Q_CLASSINFO("DefaultProperty", "data")
+void DefaultObjectContainer::dataAppend(QObject *object)
+{
+  m_children.append(object);
+}
 
-  public:
-    explicit DeclarativeMainWindowExtension(QObject *parent = 0);
+int DefaultObjectContainer::dataCount() const
+{
+  return m_children.count();
+}
 
-    QMainWindow *extendedMainWindow() const;
+QObject* DefaultObjectContainer::dataAt(int index) const
+{
+  return m_children.at(index);
+}
 
-  protected:
-    void addWidget(QWidget *widget);
-    void setLayout(QLayout *layout);
-};
+void DefaultObjectContainer::dataClear()
+{
+  m_children.clear();
+}
 
-#endif

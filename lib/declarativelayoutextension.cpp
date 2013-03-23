@@ -20,14 +20,44 @@
 
 #include "declarativelayoutextension.h"
 
+#include "defaultobjectcontainer_p.h"
+#include "layoutcontainerinterface_p.h"
+
 #include <QLayout>
 #include <QWidget>
 
-DeclarativeLayoutExtension::DeclarativeLayoutExtension(QObject *parent)
-  : DeclarativeObjectExtension(parent)
+class LayoutContainerDelegate : public DefaultObjectContainer
 {
-  parent->setParent(0); // otherwise first call to parentWidget() will complain about wrong parent class
-}
+  public:
+    explicit LayoutContainerDelegate(LayoutContainerInterface *layoutContainer)
+      : m_layoutContainer(layoutContainer)
+    {
+    }
+
+    ~LayoutContainerDelegate()
+    {
+      delete m_layoutContainer;
+    }
+
+    void dataAppend(QObject *object)
+    {
+      DefaultObjectContainer::dataAppend(object);
+      QWidget *widget = qobject_cast<QWidget*>(object);
+      if (widget) {
+        m_layoutContainer->addWidget(widget);
+        return;
+      }
+
+      QLayout *layout = qobject_cast<QLayout*>(object);
+      if (layout) {
+        m_layoutContainer->addLayout(layout);
+        return;
+      }
+    }
+
+  private:
+    LayoutContainerInterface *m_layoutContainer;
+};
 
 QLayout *DeclarativeLayoutExtension::extendedLayout() const
 {
@@ -38,19 +68,8 @@ QLayout *DeclarativeLayoutExtension::extendedLayout() const
   return parentLayout;
 }
 
-void DeclarativeLayoutExtension::dataAppend(QObject *object)
+DeclarativeLayoutExtension::DeclarativeLayoutExtension(LayoutContainerInterface *layoutContainer, QObject *parent)
+  : DeclarativeObjectExtension(new LayoutContainerDelegate(layoutContainer), parent)
 {
-  DeclarativeObjectExtension::dataAppend(object);
-
-  QWidget *widget = qobject_cast<QWidget*>(object);
-  if (widget) {
-    addWidget(widget);
-    return;
-  }
-
-  QLayout *layout = qobject_cast<QLayout*>(object);
-  if (layout) {
-    addLayout(layout);
-    return;
-  }
+  parent->setParent(0); // otherwise first call to parentWidget() will complain about wrong parent class
 }

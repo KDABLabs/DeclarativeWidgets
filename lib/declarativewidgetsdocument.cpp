@@ -26,6 +26,7 @@
 #include "declarativebuttongroupextension_p.h"
 #include "declarativecolordialog_p.h"
 #include "declarativecomboboxextension_p.h"
+#include "declarativecontainerwidgetextension_p.h"
 #include "declarativedeclarativecontext_p.h"
 #include "declarativedeclarativeviewextension_p.h"
 #include "declarativefiledialog_p.h"
@@ -36,21 +37,21 @@
 #include "declarativehboxlayout_p.h"
 #include "declarativeinputdialog_p.h"
 #include "declarativeitemviewextension_p.h"
-#include "declarativemainwindowextension_p.h"
-#include "declarativemenubarextension_p.h"
-#include "declarativemenuextension_p.h"
 #include "declarativemessagebox_p.h"
-#include "declarativescrollareaextension_p.h"
 #include "declarativeseparator_p.h"
 #include "declarativestackedlayout_p.h"
-#include "declarativestackedwidgetextension_p.h"
 #include "declarativestatusbar_p.h"
 #include "declarativestringlistmodelextension_p.h"
 #include "declarativetabwidget_p.h"
 #include "declarativetexteditextension_p.h"
-#include "declarativetoolbarextension_p.h"
 #include "declarativevboxlayout_p.h"
 #include "declarativewidgetextension.h"
+#include "mainwindowwidgetcontainer_p.h"
+#include "menubarwidgetcontainer_p.h"
+#include "menuwidgetcontainer_p.h"
+#include "scrollareawidgetcontainer_p.h"
+#include "stackedwidgetwidgetcontainer_p.h"
+#include "toolbarwidgetcontainer_p.h"
 
 #include <QButtonGroup>
 #include <QCalendarWidget>
@@ -155,26 +156,26 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QLineEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "LineEdit");
   qmlRegisterExtendedType<QLCDNumber, DeclarativeWidgetExtension>("QtGui", 1, 0, "LCDNumber");
   qmlRegisterExtendedType<QListView, DeclarativeItemViewExtension>("QtGui", 1, 0, "ListView");
-  qmlRegisterExtendedType<QMainWindow, DeclarativeMainWindowExtension>("QtGui", 1, 0, "MainWindow");
-  qmlRegisterExtendedType<Menu, DeclarativeMenuExtension>("QtGui", 1, 0, "Menu");
-  qmlRegisterExtendedType<QMenuBar, DeclarativeMenuBarExtension>("QtGui", 1, 0, "MenuBar");
+  qmlRegisterExtendedType<QMainWindow, DeclarativeContainerWidgetExtension<MainWindowWidgetContainer> >("QtGui", 1, 0, "MainWindow");
+  qmlRegisterExtendedType<Menu, DeclarativeContainerWidgetExtension<MenuWidgetContainer> >("QtGui", 1, 0, "Menu");
+  qmlRegisterExtendedType<QMenuBar, DeclarativeContainerWidgetExtension<MenuBarWidgetContainer> >("QtGui", 1, 0, "MenuBar");
   qmlRegisterExtendedType<DeclarativeMessageBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "MessageBox");
   qmlRegisterExtendedType<QPlainTextEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "PlainTextEdit");
   qmlRegisterExtendedType<QProgressBar, DeclarativeWidgetExtension>("QtGui", 1, 0, "ProgressBar");
   qmlRegisterExtendedType<QPushButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "PushButton");
   qmlRegisterExtendedType<QRadioButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "RadioButton");
-  qmlRegisterExtendedType<QScrollArea, DeclarativeScrollAreaExtension>("QtGui", 1, 0, "ScrollArea");
+  qmlRegisterExtendedType<QScrollArea, DeclarativeContainerWidgetExtension<ScrollAreaWidgetContainer> >("QtGui", 1, 0, "ScrollArea");
   qmlRegisterExtendedType<QScrollBar, DeclarativeWidgetExtension>("QtGui", 1, 0, "ScrollBar");
   qmlRegisterExtendedType<QSlider, DeclarativeWidgetExtension>("QtGui", 1, 0, "Slider");
-  qmlRegisterExtendedType<QStackedWidget, DeclarativeStackedWidgetExtension>("QtGui", 1, 0, "StackedWidget");
+  qmlRegisterExtendedType<QStackedWidget, DeclarativeContainerWidgetExtension<StackedWidgetWidgetContainer> >("QtGui", 1, 0, "StackedWidget");
   qmlRegisterExtendedType<QSpinBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "SpinBox");
-  qmlRegisterExtendedType<DeclarativeStatusBar, DeclarativeStatusBarExtension>("QtGui", 1, 0, "StatusBar");
+  qmlRegisterExtendedType<DeclarativeStatusBar, DeclarativeContainerWidgetExtension<StatusBarWidgetContainer> >("QtGui", 1, 0, "StatusBar");
   qmlRegisterExtendedType<QTableView, DeclarativeItemViewExtension>("QtGui", 1, 0, "TableView");
-  qmlRegisterExtendedType<DeclarativeTabWidget, DeclarativeTabWidgetExtension>("QtGui", 1, 0, "TabWidget");
+  qmlRegisterExtendedType<DeclarativeTabWidget, DeclarativeContainerWidgetExtension<TabWidgetWidgetContainer> >("QtGui", 1, 0, "TabWidget");
   qmlRegisterExtendedType<QTextBrowser, DeclarativeTextEditExtension>("QtGui", 1, 0, "TextBrowser");
   qmlRegisterExtendedType<QTextEdit, DeclarativeTextEditExtension>("QtGui", 1, 0, "TextEdit");
   qmlRegisterExtendedType<QTimeEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "TimeEdit");
-  qmlRegisterExtendedType<QToolBar, DeclarativeToolBarExtension>("QtGui", 1, 0, "ToolBar");
+  qmlRegisterExtendedType<QToolBar, DeclarativeContainerWidgetExtension<ToolBarWidgetContainer> >("QtGui", 1, 0, "ToolBar");
   qmlRegisterExtendedType<QToolButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "ToolButton");
   qmlRegisterExtendedType<QTreeView, DeclarativeItemViewExtension>("QtGui", 1, 0, "TreeView");
   qmlRegisterExtendedType<QWebView, DeclarativeWidgetExtension>("QtGui", 1, 0, "WebView");

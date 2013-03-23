@@ -50,10 +50,6 @@ class DeclarativeHBoxLayoutExtension : public DeclarativeLayoutExtension
 
   public:
     explicit DeclarativeHBoxLayoutExtension(QObject *parent = 0);
-
-  protected:
-    void addWidget(QWidget *widget);
-    void addLayout(QLayout *layout);
 };
 
 #endif

@@ -20,6 +20,8 @@
 
 #include "declarativegridlayout_p.h"
 
+#include "layoutcontainerinterface_p.h"
+
 #include <QDeclarativeInfo>
 #include <QPointer>
 #include <QWidget>
@@ -161,16 +163,29 @@ DeclarativeGridLayoutAttached *DeclarativeGridLayout::qmlAttachedProperties(QObj
   return 0;
 }
 
+class GridLayoutContainer : public LayoutContainerInterface
+{
+  public:
+    explicit GridLayoutContainer(QGridLayout *layout)
+      : m_layout(layout)
+    {
+      Q_ASSERT(m_layout);
+    }
+
+    void addLayout(QLayout *layout);
+    void addWidget(QWidget *widget);
+
+  private:
+    QGridLayout *m_layout;
+};
+
 DeclarativeGridLayoutExtension::DeclarativeGridLayoutExtension(QObject *parent)
-  : DeclarativeLayoutExtension(parent)
+  : DeclarativeLayoutExtension(new GridLayoutContainer(qobject_cast<QGridLayout*>(parent)), parent)
 {
 }
 
-void DeclarativeGridLayoutExtension::addWidget(QWidget *widget)
+void GridLayoutContainer::addWidget(QWidget *widget)
 {
-  QGridLayout *gridLayout = qobject_cast<QGridLayout*>(extendedLayout());
-  Q_ASSERT(gridLayout);
-
   int row = 0;
   int column = 0;
   int rowSpan = 1;
@@ -186,17 +201,14 @@ void DeclarativeGridLayoutExtension::addWidget(QWidget *widget)
     columnSpan = properties->columnSpan();
     alignment = properties->alignment();
 
-    properties->setParentLayout(gridLayout);
+    properties->setParentLayout(m_layout);
   }
 
-  gridLayout->addWidget(widget, row, column, rowSpan, columnSpan, alignment);
+  m_layout->addWidget(widget, row, column, rowSpan, columnSpan, alignment);
 }
 
-void DeclarativeGridLayoutExtension::addLayout(QLayout *layout)
+void GridLayoutContainer::addLayout(QLayout *layout)
 {
-  QGridLayout *gridLayout = qobject_cast<QGridLayout*>(extendedLayout());
-  Q_ASSERT(gridLayout);
-
   int row = 0;
   int column = 0;
   int rowSpan = 1;
@@ -212,9 +224,9 @@ void DeclarativeGridLayoutExtension::addLayout(QLayout *layout)
     columnSpan = properties->columnSpan();
     alignment = properties->alignment();
 
-    properties->setParentLayout(gridLayout);
+    properties->setParentLayout(m_layout);
   }
 
-  gridLayout->addLayout(layout, row, column, rowSpan, columnSpan, alignment);
+  m_layout->addLayout(layout, row, column, rowSpan, columnSpan, alignment);
 }
 

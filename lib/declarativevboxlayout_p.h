@@ -50,10 +50,6 @@ class DeclarativeVBoxLayoutExtension : public DeclarativeLayoutExtension
 
   public:
     explicit DeclarativeVBoxLayoutExtension(QObject *parent = 0);
-
-  protected:
-    void addWidget(QWidget *widget);
-    void addLayout(QLayout *layout);
 };
 
 #endif

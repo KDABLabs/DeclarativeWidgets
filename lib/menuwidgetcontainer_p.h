@@ -18,42 +18,25 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "declarativemenuextension_p.h"
+#ifndef MENUWIDGETCONTAINER_P_H
+#define MENUWIDGETCONTAINER_P_H
 
-#include <QDeclarativeInfo>
-#include <QMenu>
+#include "defaultwidgetcontainer.h"
 
-DeclarativeMenuExtension::DeclarativeMenuExtension(QObject *parent)
-  : DeclarativeWidgetExtension(parent)
+class QMenu;
+class QObject;
+
+class MenuWidgetContainer : public DefaultWidgetContainer
 {
-}
+  public:
+    explicit MenuWidgetContainer(QObject *parent = 0);
 
-QMenu *DeclarativeMenuExtension::extendedMenu() const
-{
-  QMenu *menu = qobject_cast<QMenu*>(extendedWidget());
-  Q_ASSERT(menu);
+    void addAction(QAction *action);
+    void setLayout(QLayout *layout);
+    void addWidget(QWidget *widget);
 
-  return menu;
-}
+  private:
+    QMenu *extendedMenu() const;
+};
 
-void DeclarativeMenuExtension::addWidget(QWidget *widget)
-{
-  QMenu *menu = qobject_cast<QMenu*>(widget);
-  if (!menu) {
-    qmlInfo(extendedMenu()) << "The Menu can only contain Menu, Action, ActionItem or Separator";
-    return;
-  }
-
-  extendedMenu()->addMenu(menu);
-}
-
-void DeclarativeMenuExtension::setLayout(QLayout *layout)
-{
-  Q_UNUSED(layout);
-  qmlInfo(extendedMenu()) << "Can not set a Layout to a Menu";
-}
-
-void DeclarativeMenuExtension::addAction(QAction *action)
-{
-  extendedMenu()->addAction(action);
-}
+#endif

@@ -21,7 +21,7 @@
 #ifndef DECLARATIVESTATUSBAR_P_H
 #define DECLARATIVESTATUSBAR_P_H
 
-#include "declarativewidgetextension.h"
+#include "defaultwidgetcontainer.h"
 
 #include <qdeclarative.h>
 #include <QStatusBar>
@@ -59,23 +59,16 @@ class DeclarativeStatusBar : public QStatusBar
 
 QML_DECLARE_TYPEINFO(DeclarativeStatusBar, QML_HAS_ATTACHED_PROPERTIES)
 
-class DeclarativeStatusBarExtension : public DeclarativeWidgetExtension
+class StatusBarWidgetContainer : public DefaultWidgetContainer
 {
-  Q_OBJECT
-
-  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
-
-  Q_CLASSINFO("DefaultProperty", "data")
-
   public:
-    explicit DeclarativeStatusBarExtension(QObject *parent = 0);
+    explicit StatusBarWidgetContainer(QObject *parent = 0);
 
-    QStatusBar *extendedStatusBar() const;
-
-  protected:
-    void addWidget(QWidget *widget);
     void setLayout(QLayout *layout);
+    void addWidget(QWidget *widget);
+
+  private:
+    QStatusBar *extendedStatusBar() const;
 };
 
 #endif

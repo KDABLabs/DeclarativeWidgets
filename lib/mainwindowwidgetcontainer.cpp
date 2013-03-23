@@ -18,7 +18,7 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "declarativemainwindowextension_p.h"
+#include "mainwindowwidgetcontainer_p.h"
 
 #include <QDeclarativeInfo>
 #include <QDialog>
@@ -27,20 +27,13 @@
 #include <QStatusBar>
 #include <QToolBar>
 
-DeclarativeMainWindowExtension::DeclarativeMainWindowExtension(QObject *parent)
-  : DeclarativeWidgetExtension(parent)
+MainWindowWidgetContainer::MainWindowWidgetContainer(QObject *parent)
+  : DefaultWidgetContainer(qobject_cast<QMainWindow*>(parent))
 {
+  Q_ASSERT(m_widget);
 }
 
-QMainWindow *DeclarativeMainWindowExtension::extendedMainWindow() const
-{
-  QMainWindow *mainWindow = qobject_cast<QMainWindow*>(extendedWidget());
-  Q_ASSERT(mainWindow);
-
-  return mainWindow;
-}
-
-void DeclarativeMainWindowExtension::addWidget(QWidget *widget)
+void MainWindowWidgetContainer::addWidget(QWidget *widget)
 {
   QMenuBar *menuBar = qobject_cast<QMenuBar*>(widget);
   QToolBar *toolBar = qobject_cast<QToolBar*>(widget);
@@ -58,7 +51,7 @@ void DeclarativeMainWindowExtension::addWidget(QWidget *widget)
     dialog->setParent(extendedMainWindow(), dialog->windowFlags());
   } else if (widget) {
     if (extendedMainWindow()->centralWidget()) {
-      qmlInfo(extendedMainWindow()) << "The MainWindow already contains a central widget";
+      qmlInfo(m_widget) << "The MainWindow already contains a central widget";
       return;
     }
 
@@ -66,8 +59,13 @@ void DeclarativeMainWindowExtension::addWidget(QWidget *widget)
   }
 }
 
-void DeclarativeMainWindowExtension::setLayout(QLayout *layout)
+void MainWindowWidgetContainer::setLayout(QLayout *layout)
 {
   Q_UNUSED(layout);
-  qmlInfo(this) << "Can not set a Layout to a MainWindow";
+  qmlInfo(m_widget) << "Can not set a Layout to a MainWindow";
+}
+
+QMainWindow *MainWindowWidgetContainer::extendedMainWindow() const
+{
+  return static_cast<QMainWindow*>(m_widget);
 }

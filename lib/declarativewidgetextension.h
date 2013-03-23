@@ -25,6 +25,8 @@
 
 #include <QRect>
 
+class WidgetContainerInterface;
+
 class QAction;
 class QLayout;
 class QWidget;
@@ -45,7 +47,7 @@ class DeclarativeWidgetExtension : public DeclarativeObjectExtension
   Q_CLASSINFO("DefaultProperty", "data")
 
   public:
-    DeclarativeWidgetExtension(QObject *parent);
+    explicit DeclarativeWidgetExtension(QObject *parent = 0);
 
     QWidget *extendedWidget() const;
 
@@ -66,17 +68,13 @@ class DeclarativeWidgetExtension : public DeclarativeObjectExtension
 
     bool eventFilter(QObject *watched, QEvent *event);
 
+  protected:
+    explicit DeclarativeWidgetExtension(WidgetContainerInterface *widgetContainer, QObject *parent = 0);
+
   Q_SIGNALS:
     void posChanged();
     void sizeChanged();
     void geometryChanged();
-
-  protected:
-    void dataAppend(QObject *object);
-
-    virtual void addAction(QAction *action);
-    virtual void setLayout(QLayout *layout);
-    virtual void addWidget(QWidget *widget);
 };
 
 #endif // DECLARATIVEWIDGETEXTENSION_H

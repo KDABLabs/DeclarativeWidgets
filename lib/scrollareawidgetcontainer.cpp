@@ -18,30 +18,35 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef DECLARATIVELAYOUTEXTENSION_H
-#define DECLARATIVELAYOUTEXTENSION_H
+#include "scrollareawidgetcontainer_p.h"
 
-#include "declarativeobjectextension.h"
+#include <QDeclarativeInfo>
+#include <QScrollArea>
 
-class LayoutContainerInterface;
-
-class QLayout;
-class QWidget;
-
-class DeclarativeLayoutExtension : public DeclarativeObjectExtension
+ScrollAreaWidgetContainer::ScrollAreaWidgetContainer(QObject *parent)
+  : DefaultWidgetContainer(qobject_cast<QScrollArea*>(parent))
 {
-  Q_OBJECT
+  Q_ASSERT(m_widget);
+}
 
-  // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+void ScrollAreaWidgetContainer::addWidget(QWidget *widget)
+{
+  QScrollArea *scrollArea = extendedScrollArea();
 
-  Q_CLASSINFO("DefaultProperty", "data")
+  if (scrollArea->widget()) {
+    qmlInfo(scrollArea) << "Can not add multiple Widgets to ScrollArea";
+  } else {
+    scrollArea->setWidget(widget);
+  }
+}
 
-  public:
-    QLayout *extendedLayout() const;
+void ScrollAreaWidgetContainer::setLayout(QLayout *layout)
+{
+  Q_UNUSED(layout);
+  qmlInfo(m_widget) << "Can not add Layout to ScrollArea";
+}
 
-  protected:
-    explicit DeclarativeLayoutExtension(LayoutContainerInterface *layoutContainer, QObject *parent = 0);
-};
-
-#endif // DECLARATIVELAYOUTEXTENSION_H
+QScrollArea *ScrollAreaWidgetContainer::extendedScrollArea() const
+{
+  return static_cast<QScrollArea*>(m_widget);
+}
