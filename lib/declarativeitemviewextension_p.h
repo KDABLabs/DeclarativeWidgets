@@ -27,7 +27,17 @@ class QAbstractItemModel;
 class QAbstractItemView;
 class QItemSelectionModel;
 
-class DeclarativeItemViewExtension : public DeclarativeWidgetExtension
+class DeclarativeItemViewPropertySignals
+{
+  protected:
+    virtual ~DeclarativeItemViewPropertySignals() {}
+
+    // signal signatures
+    virtual void modelChanged(QAbstractItemModel *model) = 0;
+    virtual void selectionModelChanged(QItemSelectionModel *selectionModel) = 0;
+};
+
+class DeclarativeItemViewExtension : public DeclarativeWidgetExtension, protected DeclarativeItemViewPropertySignals
 {
   Q_OBJECT
 
@@ -51,8 +61,8 @@ class DeclarativeItemViewExtension : public DeclarativeWidgetExtension
     QItemSelectionModel *selectionModel() const;
 
   Q_SIGNALS:
-    void modelChanged(QAbstractItemModel*);
-    void selectionModelChanged(QItemSelectionModel*);
+    void modelChanged(QAbstractItemModel *model);
+    void selectionModelChanged(QItemSelectionModel *selectionModel);
 };
 
 #endif
