@@ -13,4 +13,5 @@ OTHER_FILES += \
     layouts.qml \
     test.qml \
     messagebox.qml \
-    filedialog.qml
+    filedialog.qml \
+    widgetproperties.qml
