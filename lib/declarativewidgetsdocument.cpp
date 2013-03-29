@@ -45,6 +45,7 @@
 #include "declarativetableviewextension_p.h"
 #include "declarativetabwidget_p.h"
 #include "declarativetexteditextension_p.h"
+#include "declarativetreeviewextension_p.h"
 #include "declarativevboxlayout_p.h"
 #include "declarativewidgetextension.h"
 #include "mainwindowwidgetcontainer_p.h"
@@ -180,7 +181,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QTimeEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "TimeEdit");
   qmlRegisterExtendedType<QToolBar, DeclarativeContainerWidgetExtension<ToolBarWidgetContainer> >("QtGui", 1, 0, "ToolBar");
   qmlRegisterExtendedType<QToolButton, DeclarativeWidgetExtension>("QtGui", 1, 0, "ToolButton");
-  qmlRegisterExtendedType<QTreeView, DeclarativeItemViewExtension>("QtGui", 1, 0, "TreeView");
+  qmlRegisterExtendedType<QTreeView, DeclarativeTreeViewExtension>("QtGui", 1, 0, "TreeView");
   qmlRegisterExtendedType<QWebView, DeclarativeWidgetExtension>("QtGui", 1, 0, "WebView");
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>("QtGui", 1, 0, "Widget");
 

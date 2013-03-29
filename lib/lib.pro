@@ -34,6 +34,7 @@ HEADERS = \
   declarativetableviewextension_p.h \
   declarativetabwidget_p.h \
   declarativetexteditextension_p.h \
+  declarativetreeviewextension_p.h \
   declarativevboxlayout_p.h \
   declarativewidgetextension.h \
   declarativewidgetsdocument.h \
@@ -80,6 +81,7 @@ SOURCES = \
   declarativetableviewextension.cpp \
   declarativetabwidget.cpp \
   declarativetexteditextension.cpp \
+  declarativetreeviewextension.cpp \
   declarativevboxlayout.cpp \
   declarativewidgetextension.cpp \
   declarativewidgetsdocument.cpp \
