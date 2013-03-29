@@ -14,6 +14,8 @@ Widget {
     height: 80
 
     text: "Button"
+
+    onClicked: itemView.model = null
   }
 
   ComboBox {
@@ -38,11 +40,18 @@ Widget {
     height: 200
   }
 
-  ListView {
+  TreeView {
+    id: itemView
+
     x: 100
     y: textEdit.height + textEdit.y + 100
 
     width: root.width - 2*x
     height: root.height - y
+
+    model: FileSystemModel {}
+
+    onModelChanged: console.log ("model changed")
+    header.showSortIndicator: true
   }
 }
