@@ -69,6 +69,7 @@ TabWidget {
         model: fileSystemModel
       }
       TreeView {
+        id: treeView
         model: fileSystemModel
       }
       TableView {
@@ -76,6 +77,7 @@ TabWidget {
       }
       ColumnView {
         model: fileSystemModel
+        selectionModel: treeView.selectionModel
       }
     }
   }
