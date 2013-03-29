@@ -42,6 +42,7 @@
 #include "declarativestackedlayout_p.h"
 #include "declarativestatusbar_p.h"
 #include "declarativestringlistmodelextension_p.h"
+#include "declarativetableviewextension_p.h"
 #include "declarativetabwidget_p.h"
 #include "declarativetexteditextension_p.h"
 #include "declarativevboxlayout_p.h"
@@ -170,7 +171,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QStackedWidget, DeclarativeContainerWidgetExtension<StackedWidgetWidgetContainer> >("QtGui", 1, 0, "StackedWidget");
   qmlRegisterExtendedType<QSpinBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "SpinBox");
   qmlRegisterExtendedType<DeclarativeStatusBar, DeclarativeContainerWidgetExtension<StatusBarWidgetContainer> >("QtGui", 1, 0, "StatusBar");
-  qmlRegisterExtendedType<QTableView, DeclarativeItemViewExtension>("QtGui", 1, 0, "TableView");
+  qmlRegisterExtendedType<QTableView, DeclarativeTableViewExtension>("QtGui", 1, 0, "TableView");
   qmlRegisterExtendedType<DeclarativeTabWidget, DeclarativeContainerWidgetExtension<TabWidgetWidgetContainer> >("QtGui", 1, 0, "TabWidget");
   qmlRegisterExtendedType<QTextBrowser, DeclarativeTextEditExtension>("QtGui", 1, 0, "TextBrowser");
   qmlRegisterExtendedType<QTextEdit, DeclarativeTextEditExtension>("QtGui", 1, 0, "TextEdit");

@@ -31,6 +31,7 @@ HEADERS = \
   declarativestackedlayout_p.h \
   declarativestatusbar_p.h \
   declarativestringlistmodelextension_p.h \
+  declarativetableviewextension_p.h \
   declarativetabwidget_p.h \
   declarativetexteditextension_p.h \
   declarativevboxlayout_p.h \
@@ -76,6 +77,7 @@ SOURCES = \
   declarativestackedlayout.cpp \
   declarativestatusbar.cpp \
   declarativestringlistmodelextension.cpp \
+  declarativetableviewextension.cpp \
   declarativetabwidget.cpp \
   declarativetexteditextension.cpp \
   declarativevboxlayout.cpp \
