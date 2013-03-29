@@ -72,6 +72,7 @@
 #include <QDoubleSpinBox>
 #include <QFileSystemModel>
 #include <QGroupBox>
+#include <QHeaderView>
 #include <QLabel>
 #include <QLCDNumber>
 #include <QListView>
@@ -153,6 +154,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<DeclarativeFontDialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "FontDialog");
   qmlRegisterExtendedType<QGroupBox, DeclarativeWidgetExtension>("QtGui", 1, 0, "GroupBox");
   qmlRegisterExtendedType<DeclarativeInputDialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "InputDialog");
+  qmlRegisterUncreatableType<QHeaderView>("QtGui", 1, 0, "HeaderView", "");
   qmlRegisterExtendedType<QLabel, DeclarativeWidgetExtension>("QtGui", 1, 0, "Label");
   qmlRegisterExtendedType<QLineEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "LineEdit");
   qmlRegisterExtendedType<QLCDNumber, DeclarativeWidgetExtension>("QtGui", 1, 0, "LCDNumber");
