@@ -1,3 +1,4 @@
 TEMPLATE = subdirs
 
-SUBDIRS = lib runner.pro examples
+SUBDIRS = lib runner.pro examples \
+    extensionplugin

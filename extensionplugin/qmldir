@@ -1,0 +1,3 @@
+module QtGui
+plugin declarativewidgetsplugin
+typeinfo declarativewidgets.typeinfo

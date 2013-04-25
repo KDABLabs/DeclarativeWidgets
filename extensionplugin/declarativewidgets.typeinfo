@@ -1,0 +1,4473 @@
+import QtQuick.tooling 1.1
+
+// This file describes the plugin-supplied types contained in the library.
+// It is used for QML tooling purposes only.
+
+Module {
+    Component { name: "DeclarativeAction"; prototype: "QAction" }
+    Component {
+        name: "DeclarativeActionItem"
+        prototype: "QObject"
+        Property { name: "action"; type: "QVariant" }
+        Signal { name: "actionChanged" }
+    }
+    Component {
+        name: "DeclarativeBoxLayoutAttached"
+        prototype: "QObject"
+        Property { name: "stretch"; type: "int" }
+        Property { name: "alignment"; type: "Qt::Alignment" }
+        Signal {
+            name: "stretchChanged"
+            Parameter { name: "stretch"; type: "int" }
+        }
+        Signal {
+            name: "alignmentChanged"
+            Parameter { name: "alignment"; type: "Qt::Alignment" }
+        }
+    }
+    Component {
+        name: "DeclarativeButtonGroupExtension"
+        defaultProperty: "data"
+        prototype: "QButtonGroup"
+        exports: [
+            "ButtonGroup 1.0"
+        ]
+        Property { name: "buttons"; type: "QVariantList" }
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Signal { name: "buttonsChanged" }
+    }
+    Component { name: "DeclarativeColorDialog"; prototype: "QColorDialog" }
+    Component {
+        name: "DeclarativeColorDialogAttached"
+        prototype: "StaticDialogMethodAttached"
+        Property { name: "title"; type: "string" }
+        Property { name: "options"; type: "int" }
+        Signal {
+            name: "titleChanged"
+            Parameter { name: "title"; type: "string" }
+        }
+        Signal {
+            name: "optionsChanged"
+            Parameter { name: "options"; type: "int" }
+        }
+        Method { name: "getColor"; type: "QColor" }
+        Method {
+            name: "getColor"
+            type: "QColor"
+            Parameter { name: "initialColor"; type: "QColor" }
+        }
+    }
+    Component {
+        name: "DeclarativeColorDialog_extended"
+        defaultProperty: "data"
+        prototype: "DeclarativeColorDialog"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "DeclarativeComboBoxExtension"
+        defaultProperty: "data"
+        prototype: "QComboBox_extended"
+        exports: [
+            "ComboBox 1.0"
+        ]
+        Property { name: "model"; type: "QAbstractItemModel"; isPointer: true }
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Signal { name: "modelChanged" }
+    }
+    Component {
+        name: "DeclarativeContextProperty"
+        prototype: "QObject"
+        exports: [
+            "DeclarativeContextProperty 1.0"
+        ]
+        Property { name: "name"; type: "string" }
+        Property { name: "value"; type: "QVariant" }
+        Signal {
+            name: "nameChanged"
+            Parameter { name: "name"; type: "string" }
+        }
+        Signal {
+            name: "valueChanged"
+            Parameter { name: "value"; type: "QVariant" }
+        }
+    }
+    Component {
+        name: "DeclarativeDeclarativeContext"
+        defaultProperty: "data"
+        prototype: "QObject"
+        exports: [
+            "DeclarativeContext 1.0"
+        ]
+        Property { name: "baseUrl"; type: "QUrl" }
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Signal {
+            name: "baseUrlChanged"
+            Parameter { name: "url"; type: "QUrl" }
+        }
+    }
+    Component {
+        name: "DeclarativeDeclarativeViewExtension"
+        defaultProperty: "data"
+        prototype: "QDeclarativeView_extended_extended"
+        exports: [
+            "DeclarativeView 1.0"
+        ]
+        Property { name: "rootContext"; type: "QObject"; isPointer: true }
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Signal { name: "declarativeRootContextChanged" }
+    }
+    Component {
+        name: "DeclarativeFileDialog"
+        prototype: "QFileDialog"
+        Property { name: "selectedFiles"; type: "QStringList"; isReadonly: true }
+    }
+    Component {
+        name: "DeclarativeFileDialogAttached"
+        prototype: "StaticDialogMethodAttached"
+        Property { name: "caption"; type: "string" }
+        Property { name: "dir"; type: "string" }
+        Property { name: "nameFilters"; type: "QStringList" }
+        Property { name: "options"; type: "int" }
+        Property { name: "selectedFilter"; type: "string"; isReadonly: true }
+        Signal {
+            name: "captionChanged"
+            Parameter { name: "caption"; type: "string" }
+        }
+        Signal {
+            name: "dirChanged"
+            Parameter { name: "dir"; type: "string" }
+        }
+        Signal {
+            name: "nameFiltersChanged"
+            Parameter { name: "filters"; type: "QStringList" }
+        }
+        Signal {
+            name: "optionsChanged"
+            Parameter { name: "options"; type: "int" }
+        }
+        Signal {
+            name: "selectedFilterChanged"
+            Parameter { name: "filter"; type: "string" }
+        }
+        Method { name: "getExistingDirectory"; type: "string" }
+        Method { name: "getOpenFileName"; type: "string" }
+        Method { name: "getOpenFileNames"; type: "QStringList" }
+        Method { name: "getSaveFileName"; type: "string" }
+    }
+    Component {
+        name: "DeclarativeFileDialog_extended"
+        defaultProperty: "data"
+        prototype: "DeclarativeFileDialog"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "DeclarativeFileSystemModelExtension"
+        defaultProperty: "data"
+        prototype: "QFileSystemModel"
+        exports: [
+            "FileSystemModel 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "rootPath"; type: "string" }
+        Signal {
+            name: "rootPathChanged"
+            Parameter { name: "rootPath"; type: "string" }
+        }
+    }
+    Component { name: "DeclarativeFontDialog"; prototype: "QFontDialog" }
+    Component {
+        name: "DeclarativeFontDialogAttached"
+        prototype: "StaticDialogMethodAttached"
+        Property { name: "title"; type: "string" }
+        Property { name: "ok"; type: "bool"; isReadonly: true }
+        Property { name: "options"; type: "int" }
+        Signal {
+            name: "titleChanged"
+            Parameter { name: "title"; type: "string" }
+        }
+        Signal {
+            name: "dialogAcceptedChanged"
+            Parameter { name: "accepted"; type: "bool" }
+        }
+        Signal {
+            name: "optionsChanged"
+            Parameter { name: "options"; type: "int" }
+        }
+        Method { name: "getFont"; type: "QFont" }
+        Method {
+            name: "getFont"
+            type: "QFont"
+            Parameter { name: "fontFamily"; type: "string" }
+        }
+    }
+    Component {
+        name: "DeclarativeFontDialog_extended"
+        defaultProperty: "data"
+        prototype: "DeclarativeFontDialog"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component { name: "DeclarativeFormLayout"; prototype: "QFormLayout" }
+    Component {
+        name: "DeclarativeFormLayoutAttached"
+        prototype: "QObject"
+        Property { name: "label"; type: "string" }
+        Signal {
+            name: "labelChanged"
+            Parameter { name: "label"; type: "string" }
+        }
+    }
+    Component {
+        name: "DeclarativeFormLayoutExtension"
+        defaultProperty: "data"
+        prototype: "DeclarativeFormLayout"
+        exports: [
+            "FormLayout 1.0"
+        ]
+        attachedType: "DeclarativeFormLayoutAttached"
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+    }
+    Component { name: "DeclarativeGridLayout"; prototype: "QGridLayout" }
+    Component {
+        name: "DeclarativeGridLayoutAttached"
+        prototype: "QObject"
+        Property { name: "row"; type: "int" }
+        Property { name: "column"; type: "int" }
+        Property { name: "rowSpan"; type: "int" }
+        Property { name: "columnSpan"; type: "int" }
+        Property { name: "alignment"; type: "Qt::Alignment" }
+        Signal {
+            name: "rowChanged"
+            Parameter { name: "row"; type: "int" }
+        }
+        Signal {
+            name: "columnChanged"
+            Parameter { name: "column"; type: "int" }
+        }
+        Signal {
+            name: "rowSpanChanged"
+            Parameter { name: "rowSpan"; type: "int" }
+        }
+        Signal {
+            name: "columnSpanChanged"
+            Parameter { name: "columnSpan"; type: "int" }
+        }
+        Signal {
+            name: "alignmentChanged"
+            Parameter { name: "alignment"; type: "Qt::Alignment" }
+        }
+    }
+    Component {
+        name: "DeclarativeGridLayoutExtension"
+        defaultProperty: "data"
+        prototype: "DeclarativeGridLayout"
+        exports: [
+            "GridLayout 1.0"
+        ]
+        attachedType: "DeclarativeGridLayoutAttached"
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+    }
+    Component { name: "DeclarativeHBoxLayout"; prototype: "QHBoxLayout" }
+    Component {
+        name: "DeclarativeHBoxLayoutExtension"
+        defaultProperty: "data"
+        prototype: "DeclarativeHBoxLayout"
+        exports: [
+            "HBoxLayout 1.0"
+        ]
+        attachedType: "DeclarativeBoxLayoutAttached"
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+    }
+    Component {
+        name: "DeclarativeInputDialog"
+        prototype: "QInputDialog"
+        Property { name: "inputMode"; type: "InputMode" }
+        Property { name: "labelText"; type: "string" }
+        Property { name: "options"; type: "InputDialogOptions" }
+        Property { name: "textValue"; type: "string" }
+        Property { name: "intValue"; type: "int" }
+        Property { name: "doubleValue"; type: "int" }
+        Property { name: "textEchoMode"; type: "QLineEdit::EchoMode" }
+        Property { name: "comboBoxEditable"; type: "bool" }
+        Property { name: "comboBoxItems"; type: "QStringList" }
+        Property { name: "intMinimum"; type: "int" }
+        Property { name: "intMaximum"; type: "int" }
+        Property { name: "intStep"; type: "int" }
+        Property { name: "doubleMinimum"; type: "double" }
+        Property { name: "doubleMaximum"; type: "double" }
+        Property { name: "doubleDecimals"; type: "int" }
+        Property { name: "okButtonText"; type: "string" }
+        Property { name: "cancelButtonText"; type: "string" }
+        Signal { name: "customTextValueChanged" }
+        Signal { name: "customIntValueChanged" }
+        Signal { name: "customDoubleValueChanged" }
+    }
+    Component {
+        name: "DeclarativeInputDialogAttached"
+        prototype: "StaticDialogMethodAttached"
+        Property { name: "title"; type: "string" }
+        Property { name: "label"; type: "string" }
+        Property { name: "ok"; type: "bool"; isReadonly: true }
+        Property { name: "value"; type: "QVariant" }
+        Property { name: "min"; type: "QVariant" }
+        Property { name: "max"; type: "QVariant" }
+        Property { name: "decimals"; type: "int" }
+        Property { name: "step"; type: "int" }
+        Property { name: "current"; type: "int" }
+        Property { name: "editable"; type: "bool" }
+        Property { name: "echoMode"; type: "QLineEdit::EchoMode" }
+        Property { name: "text"; type: "string" }
+        Signal {
+            name: "titleChanged"
+            Parameter { name: "title"; type: "string" }
+        }
+        Signal {
+            name: "labelChanged"
+            Parameter { name: "label"; type: "string" }
+        }
+        Signal {
+            name: "dialogAcceptedChanged"
+            Parameter { name: "accepted"; type: "bool" }
+        }
+        Signal {
+            name: "valueChanged"
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Signal {
+            name: "minChanged"
+            Parameter { name: "min"; type: "QVariant" }
+        }
+        Signal {
+            name: "maxChanged"
+            Parameter { name: "max"; type: "QVariant" }
+        }
+        Signal {
+            name: "decimalsChanged"
+            Parameter { name: "decimals"; type: "int" }
+        }
+        Signal {
+            name: "stepChanged"
+            Parameter { name: "step"; type: "int" }
+        }
+        Signal {
+            name: "currentItemChanged"
+            Parameter { name: "current"; type: "int" }
+        }
+        Signal {
+            name: "itemsEditableChanged"
+            Parameter { name: "editable"; type: "bool" }
+        }
+        Signal {
+            name: "echoModeChanged"
+            Parameter { name: "echoMode"; type: "QLineEdit::EchoMode" }
+        }
+        Signal {
+            name: "textChanged"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method { name: "getDouble"; type: "double" }
+        Method { name: "getInt"; type: "int" }
+        Method {
+            name: "getItem"
+            type: "string"
+            Parameter { name: "items"; type: "QStringList" }
+        }
+        Method { name: "getText"; type: "string" }
+    }
+    Component {
+        name: "DeclarativeInputDialog_extended"
+        defaultProperty: "data"
+        prototype: "DeclarativeInputDialog"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "DeclarativeItemViewExtension"
+        defaultProperty: "data"
+        prototype: "QListView_extended_extended"
+        exports: [
+            "ColumnView 1.0",
+            "ListView 1.0"
+        ]
+        Property { name: "model"; type: "QAbstractItemModel"; isPointer: true }
+        Property { name: "selectionModel"; type: "QItemSelectionModel"; isPointer: true }
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Signal {
+            name: "modelChanged"
+            Parameter { name: "model"; type: "QAbstractItemModel"; isPointer: true }
+        }
+        Signal {
+            name: "selectionModelChanged"
+            Parameter { name: "selectionModel"; type: "QItemSelectionModel"; isPointer: true }
+        }
+    }
+    Component { name: "DeclarativeMessageBox"; prototype: "QMessageBox" }
+    Component {
+        name: "DeclarativeMessageBoxAttached"
+        prototype: "StaticDialogMethodAttached"
+        Property { name: "buttons"; type: "int" }
+        Property { name: "defaultButton"; type: "int" }
+        Signal {
+            name: "buttonsChanged"
+            Parameter { name: "buttons"; type: "int" }
+        }
+        Signal {
+            name: "defaultButtonChanged"
+            Parameter { name: "defaultButton"; type: "int" }
+        }
+        Method {
+            name: "about"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "text"; type: "string" }
+        }
+        Method { name: "aboutQt" }
+        Method {
+            name: "aboutQt"
+            Parameter { name: "title"; type: "string" }
+        }
+        Method {
+            name: "critical"
+            type: "int"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "information"
+            type: "int"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "question"
+            type: "int"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "warning"
+            type: "int"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "text"; type: "string" }
+        }
+    }
+    Component {
+        name: "DeclarativeMessageBox_extended"
+        defaultProperty: "data"
+        prototype: "DeclarativeMessageBox"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "DeclarativeObjectExtension"
+        defaultProperty: "data"
+        prototype: "DeclarativeAction"
+        exports: [
+            "Action 1.0",
+            "ActionItem 1.0",
+            "Separator 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+    }
+    Component { name: "DeclarativeSeparator"; prototype: "QAction" }
+    Component { name: "DeclarativeStackedLayout"; prototype: "QStackedLayout" }
+    Component {
+        name: "DeclarativeStackedLayoutExtension"
+        defaultProperty: "data"
+        prototype: "DeclarativeStackedLayout"
+        exports: [
+            "StackedLayout 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "count"; type: "int"; isReadonly: true }
+    }
+    Component { name: "DeclarativeStatusBar"; prototype: "QStatusBar" }
+    Component {
+        name: "DeclarativeStatusBarAttached"
+        prototype: "QObject"
+        Property { name: "stretch"; type: "int" }
+        Signal { name: "stretchChanged" }
+    }
+    Component {
+        name: "DeclarativeStatusBar_extended"
+        defaultProperty: "data"
+        prototype: "DeclarativeStatusBar"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "DeclarativeStringListModelExtension"
+        defaultProperty: "data"
+        prototype: "QStringListModel"
+        exports: [
+            "QtCore/StringListModel 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "stringList"; type: "QStringList" }
+        Signal {
+            name: "stringListChanged"
+            Parameter { name: "stringList"; type: "QStringList" }
+        }
+    }
+    Component { name: "DeclarativeTabWidget"; prototype: "QTabWidget" }
+    Component {
+        name: "DeclarativeTabWidgetAttached"
+        prototype: "QObject"
+        Property { name: "label"; type: "string" }
+        Property { name: "icon"; type: "QIcon" }
+        Signal {
+            name: "labelChanged"
+            Parameter { name: "label"; type: "string" }
+        }
+        Signal {
+            name: "iconChanged"
+            Parameter { name: "icon"; type: "QIcon" }
+        }
+    }
+    Component {
+        name: "DeclarativeTabWidget_extended"
+        defaultProperty: "data"
+        prototype: "DeclarativeTabWidget"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "DeclarativeTableViewExtension"
+        defaultProperty: "data"
+        prototype: "QTableView_extended_extended"
+        exports: [
+            "TableView 1.0"
+        ]
+        Property { name: "horizontalHeader"; type: "QHeaderView"; isPointer: true }
+        Property { name: "verticalHeader"; type: "QHeaderView"; isPointer: true }
+        Property { name: "model"; type: "QAbstractItemModel"; isPointer: true }
+        Property { name: "selectionModel"; type: "QItemSelectionModel"; isPointer: true }
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Signal {
+            name: "modelChanged"
+            Parameter { name: "model"; type: "QAbstractItemModel"; isPointer: true }
+        }
+        Signal {
+            name: "selectionModelChanged"
+            Parameter { name: "selectionModel"; type: "QItemSelectionModel"; isPointer: true }
+        }
+        Signal {
+            name: "horizontalHeaderChanged"
+            Parameter { name: "header"; type: "QHeaderView"; isPointer: true }
+        }
+        Signal {
+            name: "verticalHeaderChanged"
+            Parameter { name: "header"; type: "QHeaderView"; isPointer: true }
+        }
+    }
+    Component {
+        name: "DeclarativeTextEditExtension"
+        defaultProperty: "data"
+        prototype: "QTextBrowser_extended_extended_extended"
+        exports: [
+            "TextBrowser 1.0",
+            "TextEdit 1.0"
+        ]
+        Property { name: "modified"; type: "bool"; isReadonly: true }
+        Property { name: "document"; type: "QTextDocument"; isPointer: true }
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Signal { name: "modifiedChanged" }
+        Signal { name: "documentChanged" }
+    }
+    Component {
+        name: "DeclarativeTreeViewExtension"
+        defaultProperty: "data"
+        prototype: "QTreeView_extended_extended"
+        exports: [
+            "TreeView 1.0"
+        ]
+        Property { name: "header"; type: "QHeaderView"; isPointer: true }
+        Property { name: "model"; type: "QAbstractItemModel"; isPointer: true }
+        Property { name: "selectionModel"; type: "QItemSelectionModel"; isPointer: true }
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Signal {
+            name: "modelChanged"
+            Parameter { name: "model"; type: "QAbstractItemModel"; isPointer: true }
+        }
+        Signal {
+            name: "selectionModelChanged"
+            Parameter { name: "selectionModel"; type: "QItemSelectionModel"; isPointer: true }
+        }
+        Signal {
+            name: "headerChanged"
+            Parameter { name: "header"; type: "QHeaderView"; isPointer: true }
+        }
+    }
+    Component { name: "DeclarativeVBoxLayout"; prototype: "QVBoxLayout" }
+    Component {
+        name: "DeclarativeVBoxLayoutExtension"
+        defaultProperty: "data"
+        prototype: "DeclarativeVBoxLayout"
+        exports: [
+            "VBoxLayout 1.0"
+        ]
+        attachedType: "DeclarativeBoxLayoutAttached"
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+    }
+    Component {
+        name: "DeclarativeWidgetExtension"
+        defaultProperty: "data"
+        prototype: "QSpinBox_extended"
+        exports: [
+            "CalendarWidget 1.0",
+            "CheckBox 1.0",
+            "ColorDialog 1.0",
+            "CommandLinkButton 1.0",
+            "DateEdit 1.0",
+            "DateTimeEdit 1.0",
+            "Dial 1.0",
+            "Dialog 1.0",
+            "DialogButtonBox 1.0",
+            "DoubleSpinBox 1.0",
+            "FileDialog 1.0",
+            "FontDialog 1.0",
+            "Frame 1.0",
+            "GroupBox 1.0",
+            "InputDialog 1.0",
+            "LCDNumber 1.0",
+            "Label 1.0",
+            "LineEdit 1.0",
+            "MainWindow 1.0",
+            "Menu 1.0",
+            "MenuBar 1.0",
+            "MessageBox 1.0",
+            "PlainTextEdit 1.0",
+            "ProgressBar 1.0",
+            "PushButton 1.0",
+            "RadioButton 1.0",
+            "ScrollArea 1.0",
+            "ScrollBar 1.0",
+            "Slider 1.0",
+            "SpinBox 1.0",
+            "StackedWidget 1.0",
+            "StatusBar 1.0",
+            "TabWidget 1.0",
+            "TimeEdit 1.0",
+            "ToolBar 1.0",
+            "ToolButton 1.0",
+            "WebView 1.0",
+            "Widget 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component { name: "Dialog"; prototype: "QDialog" }
+    Component {
+        name: "Dialog_extended"
+        defaultProperty: "data"
+        prototype: "Dialog"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component { name: "Menu"; prototype: "QMenu" }
+    Component {
+        name: "Menu_extended"
+        defaultProperty: "data"
+        prototype: "Menu"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QAbstractButton"
+        prototype: "QWidget"
+        Property { name: "text"; type: "string" }
+        Property { name: "icon"; type: "QIcon" }
+        Property { name: "iconSize"; type: "QSize" }
+        Property { name: "shortcut"; type: "QKeySequence" }
+        Property { name: "checkable"; type: "bool" }
+        Property { name: "checked"; type: "bool" }
+        Property { name: "autoRepeat"; type: "bool" }
+        Property { name: "autoExclusive"; type: "bool" }
+        Property { name: "autoRepeatDelay"; type: "int" }
+        Property { name: "autoRepeatInterval"; type: "int" }
+        Property { name: "down"; type: "bool" }
+        Signal { name: "pressed" }
+        Signal { name: "released" }
+        Signal {
+            name: "clicked"
+            Parameter { name: "checked"; type: "bool" }
+        }
+        Signal { name: "clicked" }
+        Signal {
+            name: "toggled"
+            Parameter { name: "checked"; type: "bool" }
+        }
+        Method {
+            name: "setIconSize"
+            Parameter { name: "size"; type: "QSize" }
+        }
+        Method {
+            name: "animateClick"
+            Parameter { name: "msec"; type: "int" }
+        }
+        Method { name: "animateClick" }
+        Method { name: "click" }
+        Method { name: "toggle" }
+        Method {
+            name: "setChecked"
+            Parameter { type: "bool" }
+        }
+        Method {
+            name: "setOn"
+            Parameter { name: "b"; type: "bool" }
+        }
+    }
+    Component {
+        name: "QAbstractItemModel"
+        prototype: "QObject"
+        Signal {
+            name: "dataChanged"
+            Parameter { name: "topLeft"; type: "QModelIndex" }
+            Parameter { name: "bottomRight"; type: "QModelIndex" }
+        }
+        Signal {
+            name: "headerDataChanged"
+            Parameter { name: "orientation"; type: "Qt::Orientation" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal { name: "layoutChanged" }
+        Signal { name: "layoutAboutToBeChanged" }
+        Signal {
+            name: "rowsAboutToBeInserted"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "rowsInserted"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "rowsAboutToBeRemoved"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "rowsRemoved"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "columnsAboutToBeInserted"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "columnsInserted"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "columnsAboutToBeRemoved"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal {
+            name: "columnsRemoved"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "first"; type: "int" }
+            Parameter { name: "last"; type: "int" }
+        }
+        Signal { name: "modelAboutToBeReset" }
+        Signal { name: "modelReset" }
+        Signal {
+            name: "rowsAboutToBeMoved"
+            Parameter { name: "sourceParent"; type: "QModelIndex" }
+            Parameter { name: "sourceStart"; type: "int" }
+            Parameter { name: "sourceEnd"; type: "int" }
+            Parameter { name: "destinationParent"; type: "QModelIndex" }
+            Parameter { name: "destinationRow"; type: "int" }
+        }
+        Signal {
+            name: "rowsMoved"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "start"; type: "int" }
+            Parameter { name: "end"; type: "int" }
+            Parameter { name: "destination"; type: "QModelIndex" }
+            Parameter { name: "row"; type: "int" }
+        }
+        Signal {
+            name: "columnsAboutToBeMoved"
+            Parameter { name: "sourceParent"; type: "QModelIndex" }
+            Parameter { name: "sourceStart"; type: "int" }
+            Parameter { name: "sourceEnd"; type: "int" }
+            Parameter { name: "destinationParent"; type: "QModelIndex" }
+            Parameter { name: "destinationColumn"; type: "int" }
+        }
+        Signal {
+            name: "columnsMoved"
+            Parameter { name: "parent"; type: "QModelIndex" }
+            Parameter { name: "start"; type: "int" }
+            Parameter { name: "end"; type: "int" }
+            Parameter { name: "destination"; type: "QModelIndex" }
+            Parameter { name: "column"; type: "int" }
+        }
+        Method { name: "submit"; type: "bool" }
+        Method { name: "revert" }
+    }
+    Component {
+        name: "QAbstractItemView"
+        prototype: "QAbstractScrollArea"
+        Enum {
+            name: "SelectionMode"
+            values: {
+                "NoSelection": 0,
+                "SingleSelection": 1,
+                "MultiSelection": 2,
+                "ExtendedSelection": 3,
+                "ContiguousSelection": 4
+            }
+        }
+        Enum {
+            name: "SelectionBehavior"
+            values: {
+                "SelectItems": 0,
+                "SelectRows": 1,
+                "SelectColumns": 2
+            }
+        }
+        Enum {
+            name: "ScrollHint"
+            values: {
+                "EnsureVisible": 0,
+                "PositionAtTop": 1,
+                "PositionAtBottom": 2,
+                "PositionAtCenter": 3
+            }
+        }
+        Enum {
+            name: "EditTriggers"
+            values: {
+                "NoEditTriggers": 0,
+                "CurrentChanged": 1,
+                "DoubleClicked": 2,
+                "SelectedClicked": 4,
+                "EditKeyPressed": 8,
+                "AnyKeyPressed": 16,
+                "AllEditTriggers": 31
+            }
+        }
+        Enum {
+            name: "ScrollMode"
+            values: {
+                "ScrollPerItem": 0,
+                "ScrollPerPixel": 1
+            }
+        }
+        Enum {
+            name: "DragDropMode"
+            values: {
+                "NoDragDrop": 0,
+                "DragOnly": 1,
+                "DropOnly": 2,
+                "DragDrop": 3,
+                "InternalMove": 4
+            }
+        }
+        Property { name: "autoScroll"; type: "bool" }
+        Property { name: "autoScrollMargin"; type: "int" }
+        Property { name: "editTriggers"; type: "EditTriggers" }
+        Property { name: "tabKeyNavigation"; type: "bool" }
+        Property { name: "showDropIndicator"; type: "bool" }
+        Property { name: "dragEnabled"; type: "bool" }
+        Property { name: "dragDropOverwriteMode"; type: "bool" }
+        Property { name: "dragDropMode"; type: "DragDropMode" }
+        Property { name: "defaultDropAction"; type: "Qt::DropAction" }
+        Property { name: "alternatingRowColors"; type: "bool" }
+        Property { name: "selectionMode"; type: "SelectionMode" }
+        Property { name: "selectionBehavior"; type: "SelectionBehavior" }
+        Property { name: "iconSize"; type: "QSize" }
+        Property { name: "textElideMode"; type: "Qt::TextElideMode" }
+        Property { name: "verticalScrollMode"; type: "ScrollMode" }
+        Property { name: "horizontalScrollMode"; type: "ScrollMode" }
+        Signal {
+            name: "pressed"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+        Signal {
+            name: "clicked"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+        Signal {
+            name: "doubleClicked"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+        Signal {
+            name: "activated"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+        Signal {
+            name: "entered"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+        Signal { name: "viewportEntered" }
+        Method { name: "reset" }
+        Method {
+            name: "setRootIndex"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+        Method { name: "doItemsLayout" }
+        Method { name: "selectAll" }
+        Method {
+            name: "edit"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+        Method { name: "clearSelection" }
+        Method {
+            name: "setCurrentIndex"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+        Method { name: "scrollToTop" }
+        Method { name: "scrollToBottom" }
+        Method {
+            name: "update"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+    }
+    Component { name: "QAbstractListModel"; prototype: "QAbstractItemModel" }
+    Component {
+        name: "QAbstractScrollArea"
+        prototype: "QFrame"
+        Property { name: "verticalScrollBarPolicy"; type: "Qt::ScrollBarPolicy" }
+        Property { name: "horizontalScrollBarPolicy"; type: "Qt::ScrollBarPolicy" }
+    }
+    Component {
+        name: "QAbstractSlider"
+        prototype: "QWidget"
+        Property { name: "minimum"; type: "int" }
+        Property { name: "maximum"; type: "int" }
+        Property { name: "singleStep"; type: "int" }
+        Property { name: "pageStep"; type: "int" }
+        Property { name: "value"; type: "int" }
+        Property { name: "sliderPosition"; type: "int" }
+        Property { name: "tracking"; type: "bool" }
+        Property { name: "orientation"; type: "Qt::Orientation" }
+        Property { name: "invertedAppearance"; type: "bool" }
+        Property { name: "invertedControls"; type: "bool" }
+        Property { name: "sliderDown"; type: "bool" }
+        Signal {
+            name: "valueChanged"
+            Parameter { name: "value"; type: "int" }
+        }
+        Signal { name: "sliderPressed" }
+        Signal {
+            name: "sliderMoved"
+            Parameter { name: "position"; type: "int" }
+        }
+        Signal { name: "sliderReleased" }
+        Signal {
+            name: "rangeChanged"
+            Parameter { name: "min"; type: "int" }
+            Parameter { name: "max"; type: "int" }
+        }
+        Signal {
+            name: "actionTriggered"
+            Parameter { name: "action"; type: "int" }
+        }
+        Method {
+            name: "setValue"
+            Parameter { type: "int" }
+        }
+        Method {
+            name: "setOrientation"
+            Parameter { type: "Qt::Orientation" }
+        }
+    }
+    Component {
+        name: "QAbstractSpinBox"
+        prototype: "QWidget"
+        Enum {
+            name: "ButtonSymbols"
+            values: {
+                "UpDownArrows": 0,
+                "PlusMinus": 1,
+                "NoButtons": 2
+            }
+        }
+        Enum {
+            name: "CorrectionMode"
+            values: {
+                "CorrectToPreviousValue": 0,
+                "CorrectToNearestValue": 1
+            }
+        }
+        Property { name: "wrapping"; type: "bool" }
+        Property { name: "frame"; type: "bool" }
+        Property { name: "alignment"; type: "Qt::Alignment" }
+        Property { name: "readOnly"; type: "bool" }
+        Property { name: "buttonSymbols"; type: "ButtonSymbols" }
+        Property { name: "specialValueText"; type: "string" }
+        Property { name: "text"; type: "string"; isReadonly: true }
+        Property { name: "accelerated"; type: "bool" }
+        Property { name: "correctionMode"; type: "CorrectionMode" }
+        Property { name: "acceptableInput"; type: "bool"; isReadonly: true }
+        Property { name: "keyboardTracking"; type: "bool" }
+        Signal { name: "editingFinished" }
+        Method { name: "stepUp" }
+        Method { name: "stepDown" }
+        Method { name: "selectAll" }
+        Method { name: "clear" }
+    }
+    Component {
+        name: "QAction"
+        prototype: "QObject"
+        Enum {
+            name: "MenuRole"
+            values: {
+                "NoRole": 0,
+                "TextHeuristicRole": 1,
+                "ApplicationSpecificRole": 2,
+                "AboutQtRole": 3,
+                "AboutRole": 4,
+                "PreferencesRole": 5,
+                "QuitRole": 6
+            }
+        }
+        Enum {
+            name: "SoftKeyRole"
+            values: {
+                "NoSoftKey": 0,
+                "PositiveSoftKey": 1,
+                "NegativeSoftKey": 2,
+                "SelectSoftKey": 3
+            }
+        }
+        Enum {
+            name: "Priority"
+            values: {
+                "LowPriority": 0,
+                "NormalPriority": 128,
+                "HighPriority": 256
+            }
+        }
+        Property { name: "checkable"; type: "bool" }
+        Property { name: "checked"; type: "bool" }
+        Property { name: "enabled"; type: "bool" }
+        Property { name: "icon"; type: "QIcon" }
+        Property { name: "text"; type: "string" }
+        Property { name: "iconText"; type: "string" }
+        Property { name: "toolTip"; type: "string" }
+        Property { name: "statusTip"; type: "string" }
+        Property { name: "whatsThis"; type: "string" }
+        Property { name: "font"; type: "QFont" }
+        Property { name: "shortcut"; type: "QKeySequence" }
+        Property { name: "shortcutContext"; type: "Qt::ShortcutContext" }
+        Property { name: "autoRepeat"; type: "bool" }
+        Property { name: "visible"; type: "bool" }
+        Property { name: "menuRole"; type: "MenuRole" }
+        Property { name: "softKeyRole"; type: "SoftKeyRole" }
+        Property { name: "iconVisibleInMenu"; type: "bool" }
+        Property { name: "priority"; type: "Priority" }
+        Signal { name: "changed" }
+        Signal {
+            name: "triggered"
+            Parameter { name: "checked"; type: "bool" }
+        }
+        Signal { name: "triggered" }
+        Signal { name: "hovered" }
+        Signal {
+            name: "toggled"
+            Parameter { type: "bool" }
+        }
+        Signal {
+            name: "activated"
+            Parameter { type: "int" }
+        }
+        Signal { name: "activated" }
+        Method {
+            name: "setOn"
+            Parameter { name: "b"; type: "bool" }
+        }
+        Method { name: "trigger" }
+        Method { name: "hover" }
+        Method {
+            name: "setChecked"
+            Parameter { type: "bool" }
+        }
+        Method { name: "toggle" }
+        Method {
+            name: "setEnabled"
+            Parameter { type: "bool" }
+        }
+        Method {
+            name: "setDisabled"
+            Parameter { name: "b"; type: "bool" }
+        }
+        Method {
+            name: "setVisible"
+            Parameter { type: "bool" }
+        }
+    }
+    Component { name: "QBoxLayout"; prototype: "QLayout" }
+    Component {
+        name: "QButtonGroup"
+        prototype: "QObject"
+        Property { name: "exclusive"; type: "bool" }
+        Signal {
+            name: "buttonClicked"
+            Parameter { type: "QAbstractButton"; isPointer: true }
+        }
+        Signal {
+            name: "buttonClicked"
+            Parameter { type: "int" }
+        }
+        Signal {
+            name: "buttonPressed"
+            Parameter { type: "QAbstractButton"; isPointer: true }
+        }
+        Signal {
+            name: "buttonPressed"
+            Parameter { type: "int" }
+        }
+        Signal {
+            name: "buttonReleased"
+            Parameter { type: "QAbstractButton"; isPointer: true }
+        }
+        Signal {
+            name: "buttonReleased"
+            Parameter { type: "int" }
+        }
+    }
+    Component {
+        name: "QCalendarWidget"
+        prototype: "QWidget"
+        Enum {
+            name: "HorizontalHeaderFormat"
+            values: {
+                "NoHorizontalHeader": 0,
+                "SingleLetterDayNames": 1,
+                "ShortDayNames": 2,
+                "LongDayNames": 3
+            }
+        }
+        Enum {
+            name: "VerticalHeaderFormat"
+            values: {
+                "NoVerticalHeader": 0,
+                "ISOWeekNumbers": 1
+            }
+        }
+        Enum {
+            name: "SelectionMode"
+            values: {
+                "NoSelection": 0,
+                "SingleSelection": 1
+            }
+        }
+        Property { name: "selectedDate"; type: "QDate" }
+        Property { name: "minimumDate"; type: "QDate" }
+        Property { name: "maximumDate"; type: "QDate" }
+        Property { name: "firstDayOfWeek"; type: "Qt::DayOfWeek" }
+        Property { name: "gridVisible"; type: "bool" }
+        Property { name: "selectionMode"; type: "SelectionMode" }
+        Property { name: "horizontalHeaderFormat"; type: "HorizontalHeaderFormat" }
+        Property { name: "verticalHeaderFormat"; type: "VerticalHeaderFormat" }
+        Property { name: "headerVisible"; type: "bool" }
+        Property { name: "navigationBarVisible"; type: "bool" }
+        Property { name: "dateEditEnabled"; type: "bool" }
+        Property { name: "dateEditAcceptDelay"; type: "int" }
+        Signal { name: "selectionChanged" }
+        Signal {
+            name: "clicked"
+            Parameter { name: "date"; type: "QDate" }
+        }
+        Signal {
+            name: "activated"
+            Parameter { name: "date"; type: "QDate" }
+        }
+        Signal {
+            name: "currentPageChanged"
+            Parameter { name: "year"; type: "int" }
+            Parameter { name: "month"; type: "int" }
+        }
+        Method {
+            name: "setSelectedDate"
+            Parameter { name: "date"; type: "QDate" }
+        }
+        Method {
+            name: "setDateRange"
+            Parameter { name: "min"; type: "QDate" }
+            Parameter { name: "max"; type: "QDate" }
+        }
+        Method {
+            name: "setCurrentPage"
+            Parameter { name: "year"; type: "int" }
+            Parameter { name: "month"; type: "int" }
+        }
+        Method {
+            name: "setGridVisible"
+            Parameter { name: "show"; type: "bool" }
+        }
+        Method {
+            name: "setNavigationBarVisible"
+            Parameter { name: "visible"; type: "bool" }
+        }
+        Method { name: "showNextMonth" }
+        Method { name: "showPreviousMonth" }
+        Method { name: "showNextYear" }
+        Method { name: "showPreviousYear" }
+        Method { name: "showSelectedDate" }
+        Method { name: "showToday" }
+    }
+    Component {
+        name: "QCalendarWidget_extended"
+        defaultProperty: "data"
+        prototype: "QCalendarWidget"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QCheckBox"
+        prototype: "QAbstractButton"
+        Property { name: "tristate"; type: "bool" }
+        Signal {
+            name: "stateChanged"
+            Parameter { type: "int" }
+        }
+    }
+    Component {
+        name: "QCheckBox_extended"
+        defaultProperty: "data"
+        prototype: "QCheckBox"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QColorDialog"
+        prototype: "QDialog"
+        Enum {
+            name: "ColorDialogOption"
+            values: {
+                "ShowAlphaChannel": 1,
+                "NoButtons": 2,
+                "DontUseNativeDialog": 4
+            }
+        }
+        Property { name: "currentColor"; type: "QColor" }
+        Property { name: "options"; type: "ColorDialogOptions" }
+        Signal {
+            name: "currentColorChanged"
+            Parameter { name: "color"; type: "QColor" }
+        }
+        Signal {
+            name: "colorSelected"
+            Parameter { name: "color"; type: "QColor" }
+        }
+    }
+    Component {
+        name: "QColumnView"
+        prototype: "QAbstractItemView"
+        Property { name: "resizeGripsVisible"; type: "bool" }
+        Signal {
+            name: "updatePreviewWidget"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+    }
+    Component {
+        name: "QColumnView_extended"
+        defaultProperty: "data"
+        prototype: "QColumnView"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QColumnView_extended_extended"
+        defaultProperty: "data"
+        prototype: "QColumnView_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QComboBox"
+        prototype: "QWidget"
+        Enum {
+            name: "InsertPolicy"
+            values: {
+                "NoInsert": 0,
+                "InsertAtTop": 1,
+                "InsertAtCurrent": 2,
+                "InsertAtBottom": 3,
+                "InsertAfterCurrent": 4,
+                "InsertBeforeCurrent": 5,
+                "InsertAlphabetically": 6
+            }
+        }
+        Enum {
+            name: "SizeAdjustPolicy"
+            values: {
+                "AdjustToContents": 0,
+                "AdjustToContentsOnFirstShow": 1,
+                "AdjustToMinimumContentsLength": 2,
+                "AdjustToMinimumContentsLengthWithIcon": 3
+            }
+        }
+        Property { name: "editable"; type: "bool" }
+        Property { name: "count"; type: "int"; isReadonly: true }
+        Property { name: "currentText"; type: "string"; isReadonly: true }
+        Property { name: "currentIndex"; type: "int" }
+        Property { name: "maxVisibleItems"; type: "int" }
+        Property { name: "maxCount"; type: "int" }
+        Property { name: "insertPolicy"; type: "InsertPolicy" }
+        Property { name: "sizeAdjustPolicy"; type: "SizeAdjustPolicy" }
+        Property { name: "minimumContentsLength"; type: "int" }
+        Property { name: "iconSize"; type: "QSize" }
+        Property { name: "autoCompletion"; type: "bool" }
+        Property { name: "autoCompletionCaseSensitivity"; type: "Qt::CaseSensitivity" }
+        Property { name: "duplicatesEnabled"; type: "bool" }
+        Property { name: "frame"; type: "bool" }
+        Property { name: "modelColumn"; type: "int" }
+        Signal {
+            name: "editTextChanged"
+            Parameter { type: "string" }
+        }
+        Signal {
+            name: "activated"
+            Parameter { name: "index"; type: "int" }
+        }
+        Signal {
+            name: "activated"
+            Parameter { type: "string" }
+        }
+        Signal {
+            name: "highlighted"
+            Parameter { name: "index"; type: "int" }
+        }
+        Signal {
+            name: "highlighted"
+            Parameter { type: "string" }
+        }
+        Signal {
+            name: "currentIndexChanged"
+            Parameter { name: "index"; type: "int" }
+        }
+        Signal {
+            name: "currentIndexChanged"
+            Parameter { type: "string" }
+        }
+        Signal {
+            name: "textChanged"
+            Parameter { type: "string" }
+        }
+        Method { name: "clear" }
+        Method { name: "clearEditText" }
+        Method {
+            name: "setEditText"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "setCurrentIndex"
+            Parameter { name: "index"; type: "int" }
+        }
+    }
+    Component {
+        name: "QComboBox_extended"
+        defaultProperty: "data"
+        prototype: "QComboBox"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QCommandLinkButton"
+        prototype: "QPushButton"
+        Property { name: "description"; type: "string" }
+        Property { name: "flat"; type: "bool" }
+    }
+    Component {
+        name: "QCommandLinkButton_extended"
+        defaultProperty: "data"
+        prototype: "QCommandLinkButton"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QCommandLinkButton_extended_extended"
+        defaultProperty: "data"
+        prototype: "QCommandLinkButton_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component { name: "QDateEdit"; prototype: "QDateTimeEdit" }
+    Component {
+        name: "QDateEdit_extended"
+        defaultProperty: "data"
+        prototype: "QDateEdit"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QDateEdit_extended_extended"
+        defaultProperty: "data"
+        prototype: "QDateEdit_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QDateTimeEdit"
+        prototype: "QAbstractSpinBox"
+        Enum {
+            name: "Section"
+            values: {
+                "NoSection": 0,
+                "AmPmSection": 1,
+                "MSecSection": 2,
+                "SecondSection": 4,
+                "MinuteSection": 8,
+                "HourSection": 16,
+                "DaySection": 256,
+                "MonthSection": 512,
+                "YearSection": 1024,
+                "TimeSections_Mask": 31,
+                "DateSections_Mask": 1792
+            }
+        }
+        Enum {
+            name: "Sections"
+            values: {
+                "NoSection": 0,
+                "AmPmSection": 1,
+                "MSecSection": 2,
+                "SecondSection": 4,
+                "MinuteSection": 8,
+                "HourSection": 16,
+                "DaySection": 256,
+                "MonthSection": 512,
+                "YearSection": 1024,
+                "TimeSections_Mask": 31,
+                "DateSections_Mask": 1792
+            }
+        }
+        Property { name: "dateTime"; type: "QDateTime" }
+        Property { name: "date"; type: "QDate" }
+        Property { name: "time"; type: "QTime" }
+        Property { name: "maximumDateTime"; type: "QDateTime" }
+        Property { name: "minimumDateTime"; type: "QDateTime" }
+        Property { name: "maximumDate"; type: "QDate" }
+        Property { name: "minimumDate"; type: "QDate" }
+        Property { name: "maximumTime"; type: "QTime" }
+        Property { name: "minimumTime"; type: "QTime" }
+        Property { name: "currentSection"; type: "Section" }
+        Property { name: "displayedSections"; type: "Sections"; isReadonly: true }
+        Property { name: "displayFormat"; type: "string" }
+        Property { name: "calendarPopup"; type: "bool" }
+        Property { name: "currentSectionIndex"; type: "int" }
+        Property { name: "sectionCount"; type: "int"; isReadonly: true }
+        Property { name: "timeSpec"; type: "Qt::TimeSpec" }
+        Signal {
+            name: "dateTimeChanged"
+            Parameter { name: "date"; type: "QDateTime" }
+        }
+        Signal {
+            name: "timeChanged"
+            Parameter { name: "date"; type: "QTime" }
+        }
+        Signal {
+            name: "dateChanged"
+            Parameter { name: "date"; type: "QDate" }
+        }
+        Method {
+            name: "setDateTime"
+            Parameter { name: "dateTime"; type: "QDateTime" }
+        }
+        Method {
+            name: "setDate"
+            Parameter { name: "date"; type: "QDate" }
+        }
+        Method {
+            name: "setTime"
+            Parameter { name: "time"; type: "QTime" }
+        }
+    }
+    Component {
+        name: "QDateTimeEdit_extended"
+        defaultProperty: "data"
+        prototype: "QDateTimeEdit"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QDeclarativeView"
+        prototype: "QGraphicsView"
+        Enum {
+            name: "ResizeMode"
+            values: {
+                "SizeViewToRootObject": 0,
+                "SizeRootObjectToView": 1
+            }
+        }
+        Enum {
+            name: "Status"
+            values: {
+                "Null": 0,
+                "Ready": 1,
+                "Loading": 2,
+                "Error": 3
+            }
+        }
+        Property { name: "resizeMode"; type: "ResizeMode" }
+        Property { name: "status"; type: "Status"; isReadonly: true }
+        Property { name: "source"; type: "QUrl" }
+        Signal {
+            name: "sceneResized"
+            Parameter { name: "size"; type: "QSize" }
+        }
+        Signal {
+            name: "statusChanged"
+            Parameter { type: "QDeclarativeView::Status" }
+        }
+    }
+    Component {
+        name: "QDeclarativeView_extended"
+        defaultProperty: "data"
+        prototype: "QDeclarativeView"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QDeclarativeView_extended_extended"
+        defaultProperty: "data"
+        prototype: "QDeclarativeView_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QDial"
+        prototype: "QAbstractSlider"
+        Property { name: "wrapping"; type: "bool" }
+        Property { name: "notchSize"; type: "int"; isReadonly: true }
+        Property { name: "notchTarget"; type: "qreal" }
+        Property { name: "notchesVisible"; type: "bool" }
+        Signal { name: "dialPressed" }
+        Signal {
+            name: "dialMoved"
+            Parameter { name: "value"; type: "int" }
+        }
+        Signal { name: "dialReleased" }
+        Method {
+            name: "setNotchesVisible"
+            Parameter { name: "visible"; type: "bool" }
+        }
+        Method {
+            name: "setWrapping"
+            Parameter { name: "on"; type: "bool" }
+        }
+    }
+    Component {
+        name: "QDial_extended"
+        defaultProperty: "data"
+        prototype: "QDial"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QDialog"
+        prototype: "QWidget"
+        Property { name: "sizeGripEnabled"; type: "bool" }
+        Property { name: "modal"; type: "bool" }
+        Signal {
+            name: "finished"
+            Parameter { name: "result"; type: "int" }
+        }
+        Signal { name: "accepted" }
+        Signal { name: "rejected" }
+        Method { name: "open" }
+        Method { name: "exec"; type: "int" }
+        Method {
+            name: "done"
+            Parameter { type: "int" }
+        }
+        Method { name: "accept" }
+        Method { name: "reject" }
+        Method {
+            name: "showExtension"
+            Parameter { type: "bool" }
+        }
+    }
+    Component {
+        name: "QDialogButtonBox"
+        prototype: "QWidget"
+        Enum {
+            name: "StandardButtons"
+            values: {
+                "NoButton": 0,
+                "Ok": 1024,
+                "Save": 2048,
+                "SaveAll": 4096,
+                "Open": 8192,
+                "Yes": 16384,
+                "YesToAll": 32768,
+                "No": 65536,
+                "NoToAll": 131072,
+                "Abort": 262144,
+                "Retry": 524288,
+                "Ignore": 1048576,
+                "Close": 2097152,
+                "Cancel": 4194304,
+                "Discard": 8388608,
+                "Help": 16777216,
+                "Apply": 33554432,
+                "Reset": 67108864,
+                "RestoreDefaults": 134217728
+            }
+        }
+        Property { name: "orientation"; type: "Qt::Orientation" }
+        Property { name: "standardButtons"; type: "StandardButtons" }
+        Property { name: "centerButtons"; type: "bool" }
+        Signal {
+            name: "clicked"
+            Parameter { name: "button"; type: "QAbstractButton"; isPointer: true }
+        }
+        Signal { name: "accepted" }
+        Signal { name: "helpRequested" }
+        Signal { name: "rejected" }
+    }
+    Component {
+        name: "QDialogButtonBox_extended"
+        defaultProperty: "data"
+        prototype: "QDialogButtonBox"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QDoubleSpinBox"
+        prototype: "QAbstractSpinBox"
+        Property { name: "prefix"; type: "string" }
+        Property { name: "suffix"; type: "string" }
+        Property { name: "cleanText"; type: "string"; isReadonly: true }
+        Property { name: "decimals"; type: "int" }
+        Property { name: "minimum"; type: "double" }
+        Property { name: "maximum"; type: "double" }
+        Property { name: "singleStep"; type: "double" }
+        Property { name: "value"; type: "double" }
+        Signal {
+            name: "valueChanged"
+            Parameter { type: "double" }
+        }
+        Signal {
+            name: "valueChanged"
+            Parameter { type: "string" }
+        }
+        Method {
+            name: "setValue"
+            Parameter { name: "val"; type: "double" }
+        }
+    }
+    Component {
+        name: "QDoubleSpinBox_extended"
+        defaultProperty: "data"
+        prototype: "QDoubleSpinBox"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QFileDialog"
+        prototype: "QDialog"
+        Enum {
+            name: "ViewMode"
+            values: {
+                "Detail": 0,
+                "List": 1
+            }
+        }
+        Enum {
+            name: "FileMode"
+            values: {
+                "AnyFile": 0,
+                "ExistingFile": 1,
+                "Directory": 2,
+                "ExistingFiles": 3,
+                "DirectoryOnly": 4
+            }
+        }
+        Enum {
+            name: "AcceptMode"
+            values: {
+                "AcceptOpen": 0,
+                "AcceptSave": 1
+            }
+        }
+        Enum {
+            name: "Option"
+            values: {
+                "ShowDirsOnly": 1,
+                "DontResolveSymlinks": 2,
+                "DontConfirmOverwrite": 4,
+                "DontUseSheet": 8,
+                "DontUseNativeDialog": 16,
+                "ReadOnly": 32,
+                "HideNameFilterDetails": 64
+            }
+        }
+        Enum {
+            name: "Options"
+            values: {
+                "ShowDirsOnly": 1,
+                "DontResolveSymlinks": 2,
+                "DontConfirmOverwrite": 4,
+                "DontUseSheet": 8,
+                "DontUseNativeDialog": 16,
+                "ReadOnly": 32,
+                "HideNameFilterDetails": 64
+            }
+        }
+        Property { name: "viewMode"; type: "ViewMode" }
+        Property { name: "fileMode"; type: "FileMode" }
+        Property { name: "acceptMode"; type: "AcceptMode" }
+        Property { name: "readOnly"; type: "bool" }
+        Property { name: "resolveSymlinks"; type: "bool" }
+        Property { name: "confirmOverwrite"; type: "bool" }
+        Property { name: "defaultSuffix"; type: "string" }
+        Property { name: "nameFilterDetailsVisible"; type: "bool" }
+        Property { name: "options"; type: "Options" }
+        Signal {
+            name: "fileSelected"
+            Parameter { name: "file"; type: "string" }
+        }
+        Signal {
+            name: "filesSelected"
+            Parameter { name: "files"; type: "QStringList" }
+        }
+        Signal {
+            name: "currentChanged"
+            Parameter { name: "path"; type: "string" }
+        }
+        Signal {
+            name: "directoryEntered"
+            Parameter { name: "directory"; type: "string" }
+        }
+        Signal {
+            name: "filterSelected"
+            Parameter { name: "filter"; type: "string" }
+        }
+    }
+    Component {
+        name: "QFileSystemModel"
+        prototype: "QAbstractItemModel"
+        Property { name: "resolveSymlinks"; type: "bool" }
+        Property { name: "readOnly"; type: "bool" }
+        Property { name: "nameFilterDisables"; type: "bool" }
+        Signal {
+            name: "rootPathChanged"
+            Parameter { name: "newPath"; type: "string" }
+        }
+        Signal {
+            name: "fileRenamed"
+            Parameter { name: "path"; type: "string" }
+            Parameter { name: "oldName"; type: "string" }
+            Parameter { name: "newName"; type: "string" }
+        }
+        Signal {
+            name: "directoryLoaded"
+            Parameter { name: "path"; type: "string" }
+        }
+    }
+    Component {
+        name: "QFontDialog"
+        prototype: "QDialog"
+        Enum {
+            name: "FontDialogOption"
+            values: {
+                "NoButtons": 1,
+                "DontUseNativeDialog": 2
+            }
+        }
+        Property { name: "currentFont"; type: "QFont" }
+        Property { name: "options"; type: "FontDialogOptions" }
+        Signal {
+            name: "currentFontChanged"
+            Parameter { name: "font"; type: "QFont" }
+        }
+        Signal {
+            name: "fontSelected"
+            Parameter { name: "font"; type: "QFont" }
+        }
+    }
+    Component {
+        name: "QFormLayout"
+        prototype: "QLayout"
+        Enum {
+            name: "FieldGrowthPolicy"
+            values: {
+                "FieldsStayAtSizeHint": 0,
+                "ExpandingFieldsGrow": 1,
+                "AllNonFixedFieldsGrow": 2
+            }
+        }
+        Enum {
+            name: "RowWrapPolicy"
+            values: {
+                "DontWrapRows": 0,
+                "WrapLongRows": 1,
+                "WrapAllRows": 2
+            }
+        }
+        Enum {
+            name: "ItemRole"
+            values: {
+                "LabelRole": 0,
+                "FieldRole": 1,
+                "SpanningRole": 2
+            }
+        }
+        Property { name: "fieldGrowthPolicy"; type: "FieldGrowthPolicy" }
+        Property { name: "rowWrapPolicy"; type: "RowWrapPolicy" }
+        Property { name: "labelAlignment"; type: "Qt::Alignment" }
+        Property { name: "formAlignment"; type: "Qt::Alignment" }
+        Property { name: "horizontalSpacing"; type: "int" }
+        Property { name: "verticalSpacing"; type: "int" }
+    }
+    Component {
+        name: "QFrame"
+        prototype: "QWidget"
+        Enum {
+            name: "Shape"
+            values: {
+                "NoFrame": 0,
+                "Box": 1,
+                "Panel": 2,
+                "WinPanel": 3,
+                "HLine": 4,
+                "VLine": 5,
+                "StyledPanel": 6
+            }
+        }
+        Enum {
+            name: "Shadow"
+            values: {
+                "Plain": 16,
+                "Raised": 32,
+                "Sunken": 48
+            }
+        }
+        Property { name: "frameShape"; type: "Shape" }
+        Property { name: "frameShadow"; type: "Shadow" }
+        Property { name: "lineWidth"; type: "int" }
+        Property { name: "midLineWidth"; type: "int" }
+        Property { name: "frameWidth"; type: "int"; isReadonly: true }
+        Property { name: "frameRect"; type: "QRect" }
+    }
+    Component {
+        name: "QFrame_extended"
+        defaultProperty: "data"
+        prototype: "QFrame"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QGraphicsView"
+        prototype: "QAbstractScrollArea"
+        Enum {
+            name: "ViewportAnchor"
+            values: {
+                "NoAnchor": 0,
+                "AnchorViewCenter": 1,
+                "AnchorUnderMouse": 2
+            }
+        }
+        Enum {
+            name: "CacheMode"
+            values: {
+                "CacheNone": 0,
+                "CacheBackground": 1
+            }
+        }
+        Enum {
+            name: "DragMode"
+            values: {
+                "NoDrag": 0,
+                "ScrollHandDrag": 1,
+                "RubberBandDrag": 2
+            }
+        }
+        Enum {
+            name: "ViewportUpdateMode"
+            values: {
+                "FullViewportUpdate": 0,
+                "MinimalViewportUpdate": 1,
+                "SmartViewportUpdate": 2,
+                "NoViewportUpdate": 3,
+                "BoundingRectViewportUpdate": 4
+            }
+        }
+        Enum {
+            name: "OptimizationFlags"
+            values: {
+                "DontClipPainter": 1,
+                "DontSavePainterState": 2,
+                "DontAdjustForAntialiasing": 4,
+                "IndirectPainting": 8
+            }
+        }
+        Property { name: "backgroundBrush"; type: "QBrush" }
+        Property { name: "foregroundBrush"; type: "QBrush" }
+        Property { name: "interactive"; type: "bool" }
+        Property { name: "sceneRect"; type: "QRectF" }
+        Property { name: "alignment"; type: "Qt::Alignment" }
+        Property { name: "renderHints"; type: "QPainter::RenderHints" }
+        Property { name: "dragMode"; type: "DragMode" }
+        Property { name: "cacheMode"; type: "CacheMode" }
+        Property { name: "transformationAnchor"; type: "ViewportAnchor" }
+        Property { name: "resizeAnchor"; type: "ViewportAnchor" }
+        Property { name: "viewportUpdateMode"; type: "ViewportUpdateMode" }
+        Property { name: "rubberBandSelectionMode"; type: "Qt::ItemSelectionMode" }
+        Property { name: "optimizationFlags"; type: "OptimizationFlags" }
+        Method {
+            name: "updateScene"
+            Parameter { name: "rects"; type: "QList<QRectF>" }
+        }
+        Method {
+            name: "invalidateScene"
+            Parameter { name: "rect"; type: "QRectF" }
+            Parameter { name: "layers"; type: "QGraphicsScene::SceneLayers" }
+        }
+        Method {
+            name: "invalidateScene"
+            Parameter { name: "rect"; type: "QRectF" }
+        }
+        Method { name: "invalidateScene" }
+        Method {
+            name: "updateSceneRect"
+            Parameter { name: "rect"; type: "QRectF" }
+        }
+    }
+    Component { name: "QGridLayout"; prototype: "QLayout" }
+    Component {
+        name: "QGroupBox"
+        prototype: "QWidget"
+        Property { name: "title"; type: "string" }
+        Property { name: "alignment"; type: "Qt::Alignment" }
+        Property { name: "flat"; type: "bool" }
+        Property { name: "checkable"; type: "bool" }
+        Property { name: "checked"; type: "bool" }
+        Signal {
+            name: "clicked"
+            Parameter { name: "checked"; type: "bool" }
+        }
+        Signal { name: "clicked" }
+        Signal {
+            name: "toggled"
+            Parameter { type: "bool" }
+        }
+        Method {
+            name: "setChecked"
+            Parameter { name: "checked"; type: "bool" }
+        }
+    }
+    Component {
+        name: "QGroupBox_extended"
+        defaultProperty: "data"
+        prototype: "QGroupBox"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component { name: "QHBoxLayout"; prototype: "QBoxLayout" }
+    Component {
+        name: "QHeaderView"
+        prototype: "QAbstractItemView"
+        Enum {
+            name: "ResizeMode"
+            values: {
+                "Interactive": 0,
+                "Stretch": 1,
+                "Fixed": 2,
+                "ResizeToContents": 3,
+                "Custom": 2
+            }
+        }
+        Property { name: "showSortIndicator"; type: "bool" }
+        Property { name: "highlightSections"; type: "bool" }
+        Property { name: "stretchLastSection"; type: "bool" }
+        Property { name: "cascadingSectionResizes"; type: "bool" }
+        Property { name: "defaultSectionSize"; type: "int" }
+        Property { name: "minimumSectionSize"; type: "int" }
+        Property { name: "defaultAlignment"; type: "Qt::Alignment" }
+        Signal {
+            name: "sectionMoved"
+            Parameter { name: "logicalIndex"; type: "int" }
+            Parameter { name: "oldVisualIndex"; type: "int" }
+            Parameter { name: "newVisualIndex"; type: "int" }
+        }
+        Signal {
+            name: "sectionResized"
+            Parameter { name: "logicalIndex"; type: "int" }
+            Parameter { name: "oldSize"; type: "int" }
+            Parameter { name: "newSize"; type: "int" }
+        }
+        Signal {
+            name: "sectionPressed"
+            Parameter { name: "logicalIndex"; type: "int" }
+        }
+        Signal {
+            name: "sectionClicked"
+            Parameter { name: "logicalIndex"; type: "int" }
+        }
+        Signal {
+            name: "sectionEntered"
+            Parameter { name: "logicalIndex"; type: "int" }
+        }
+        Signal {
+            name: "sectionDoubleClicked"
+            Parameter { name: "logicalIndex"; type: "int" }
+        }
+        Signal {
+            name: "sectionCountChanged"
+            Parameter { name: "oldCount"; type: "int" }
+            Parameter { name: "newCount"; type: "int" }
+        }
+        Signal {
+            name: "sectionHandleDoubleClicked"
+            Parameter { name: "logicalIndex"; type: "int" }
+        }
+        Signal {
+            name: "sectionAutoResize"
+            Parameter { name: "logicalIndex"; type: "int" }
+            Parameter { name: "mode"; type: "QHeaderView::ResizeMode" }
+        }
+        Signal { name: "geometriesChanged" }
+        Signal {
+            name: "sortIndicatorChanged"
+            Parameter { name: "logicalIndex"; type: "int" }
+            Parameter { name: "order"; type: "Qt::SortOrder" }
+        }
+        Method {
+            name: "setOffset"
+            Parameter { name: "offset"; type: "int" }
+        }
+        Method {
+            name: "setOffsetToSectionPosition"
+            Parameter { name: "visualIndex"; type: "int" }
+        }
+        Method { name: "setOffsetToLastSection" }
+        Method {
+            name: "headerDataChanged"
+            Parameter { name: "orientation"; type: "Qt::Orientation" }
+            Parameter { name: "logicalFirst"; type: "int" }
+            Parameter { name: "logicalLast"; type: "int" }
+        }
+    }
+    Component {
+        name: "QHeaderView_extended"
+        defaultProperty: "data"
+        prototype: "QHeaderView"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QHeaderView_extended_extended"
+        defaultProperty: "data"
+        prototype: "QHeaderView_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QInputDialog"
+        prototype: "QDialog"
+        Signal {
+            name: "textValueChanged"
+            Parameter { name: "text"; type: "string" }
+        }
+        Signal {
+            name: "textValueSelected"
+            Parameter { name: "text"; type: "string" }
+        }
+        Signal {
+            name: "intValueChanged"
+            Parameter { name: "value"; type: "int" }
+        }
+        Signal {
+            name: "intValueSelected"
+            Parameter { name: "value"; type: "int" }
+        }
+        Signal {
+            name: "doubleValueChanged"
+            Parameter { name: "value"; type: "double" }
+        }
+        Signal {
+            name: "doubleValueSelected"
+            Parameter { name: "value"; type: "double" }
+        }
+    }
+    Component {
+        name: "QLCDNumber"
+        prototype: "QFrame"
+        Enum {
+            name: "Mode"
+            values: {
+                "Hex": 0,
+                "Dec": 1,
+                "Oct": 2,
+                "Bin": 3
+            }
+        }
+        Enum {
+            name: "SegmentStyle"
+            values: {
+                "Outline": 0,
+                "Filled": 1,
+                "Flat": 2
+            }
+        }
+        Property { name: "smallDecimalPoint"; type: "bool" }
+        Property { name: "numDigits"; type: "int" }
+        Property { name: "digitCount"; type: "int" }
+        Property { name: "mode"; type: "Mode" }
+        Property { name: "segmentStyle"; type: "SegmentStyle" }
+        Property { name: "value"; type: "double" }
+        Property { name: "intValue"; type: "int" }
+        Signal { name: "overflow" }
+        Method {
+            name: "display"
+            Parameter { name: "str"; type: "string" }
+        }
+        Method {
+            name: "display"
+            Parameter { name: "num"; type: "int" }
+        }
+        Method {
+            name: "display"
+            Parameter { name: "num"; type: "double" }
+        }
+        Method { name: "setHexMode" }
+        Method { name: "setDecMode" }
+        Method { name: "setOctMode" }
+        Method { name: "setBinMode" }
+        Method {
+            name: "setSmallDecimalPoint"
+            Parameter { type: "bool" }
+        }
+    }
+    Component {
+        name: "QLCDNumber_extended"
+        defaultProperty: "data"
+        prototype: "QLCDNumber"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QLCDNumber_extended_extended"
+        defaultProperty: "data"
+        prototype: "QLCDNumber_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QLabel"
+        prototype: "QFrame"
+        Property { name: "text"; type: "string" }
+        Property { name: "textFormat"; type: "Qt::TextFormat" }
+        Property { name: "pixmap"; type: "QPixmap" }
+        Property { name: "scaledContents"; type: "bool" }
+        Property { name: "alignment"; type: "Qt::Alignment" }
+        Property { name: "wordWrap"; type: "bool" }
+        Property { name: "margin"; type: "int" }
+        Property { name: "indent"; type: "int" }
+        Property { name: "openExternalLinks"; type: "bool" }
+        Property { name: "textInteractionFlags"; type: "Qt::TextInteractionFlags" }
+        Property { name: "hasSelectedText"; type: "bool"; isReadonly: true }
+        Property { name: "selectedText"; type: "string"; isReadonly: true }
+        Signal {
+            name: "linkActivated"
+            Parameter { name: "link"; type: "string" }
+        }
+        Signal {
+            name: "linkHovered"
+            Parameter { name: "link"; type: "string" }
+        }
+        Method {
+            name: "setText"
+            Parameter { type: "string" }
+        }
+        Method {
+            name: "setPixmap"
+            Parameter { type: "QPixmap" }
+        }
+        Method {
+            name: "setPicture"
+            Parameter { type: "QPicture" }
+        }
+        Method {
+            name: "setMovie"
+            Parameter { name: "movie"; type: "QMovie"; isPointer: true }
+        }
+        Method {
+            name: "setNum"
+            Parameter { type: "int" }
+        }
+        Method {
+            name: "setNum"
+            Parameter { type: "double" }
+        }
+        Method { name: "clear" }
+    }
+    Component {
+        name: "QLabel_extended"
+        defaultProperty: "data"
+        prototype: "QLabel"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QLabel_extended_extended"
+        defaultProperty: "data"
+        prototype: "QLabel_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QLayout"
+        prototype: "QObject"
+        Enum {
+            name: "SizeConstraint"
+            values: {
+                "SetDefaultConstraint": 0,
+                "SetNoConstraint": 1,
+                "SetMinimumSize": 2,
+                "SetFixedSize": 3,
+                "SetMaximumSize": 4,
+                "SetMinAndMaxSize": 5
+            }
+        }
+        Property { name: "margin"; type: "int" }
+        Property { name: "spacing"; type: "int" }
+        Property { name: "sizeConstraint"; type: "SizeConstraint" }
+    }
+    Component {
+        name: "QLineEdit"
+        prototype: "QWidget"
+        Enum {
+            name: "EchoMode"
+            values: {
+                "Normal": 0,
+                "NoEcho": 1,
+                "Password": 2,
+                "PasswordEchoOnEdit": 3
+            }
+        }
+        Property { name: "inputMask"; type: "string" }
+        Property { name: "text"; type: "string" }
+        Property { name: "maxLength"; type: "int" }
+        Property { name: "frame"; type: "bool" }
+        Property { name: "echoMode"; type: "EchoMode" }
+        Property { name: "displayText"; type: "string"; isReadonly: true }
+        Property { name: "cursorPosition"; type: "int" }
+        Property { name: "alignment"; type: "Qt::Alignment" }
+        Property { name: "modified"; type: "bool" }
+        Property { name: "hasSelectedText"; type: "bool"; isReadonly: true }
+        Property { name: "selectedText"; type: "string"; isReadonly: true }
+        Property { name: "dragEnabled"; type: "bool" }
+        Property { name: "readOnly"; type: "bool" }
+        Property { name: "undoAvailable"; type: "bool"; isReadonly: true }
+        Property { name: "redoAvailable"; type: "bool"; isReadonly: true }
+        Property { name: "acceptableInput"; type: "bool"; isReadonly: true }
+        Property { name: "placeholderText"; type: "string" }
+        Property { name: "cursorMoveStyle"; type: "Qt::CursorMoveStyle" }
+        Signal {
+            name: "textChanged"
+            Parameter { type: "string" }
+        }
+        Signal {
+            name: "textEdited"
+            Parameter { type: "string" }
+        }
+        Signal {
+            name: "cursorPositionChanged"
+            Parameter { type: "int" }
+            Parameter { type: "int" }
+        }
+        Signal { name: "returnPressed" }
+        Signal { name: "editingFinished" }
+        Signal { name: "selectionChanged" }
+        Signal { name: "lostFocus" }
+        Method {
+            name: "setText"
+            Parameter { type: "string" }
+        }
+        Method { name: "clear" }
+        Method { name: "selectAll" }
+        Method { name: "undo" }
+        Method { name: "redo" }
+        Method { name: "cut" }
+        Method { name: "copy" }
+        Method { name: "paste" }
+    }
+    Component {
+        name: "QLineEdit_extended"
+        defaultProperty: "data"
+        prototype: "QLineEdit"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QListView"
+        prototype: "QAbstractItemView"
+        Enum {
+            name: "Movement"
+            values: {
+                "Static": 0,
+                "Free": 1,
+                "Snap": 2
+            }
+        }
+        Enum {
+            name: "Flow"
+            values: {
+                "LeftToRight": 0,
+                "TopToBottom": 1
+            }
+        }
+        Enum {
+            name: "ResizeMode"
+            values: {
+                "Fixed": 0,
+                "Adjust": 1
+            }
+        }
+        Enum {
+            name: "LayoutMode"
+            values: {
+                "SinglePass": 0,
+                "Batched": 1
+            }
+        }
+        Enum {
+            name: "ViewMode"
+            values: {
+                "ListMode": 0,
+                "IconMode": 1
+            }
+        }
+        Property { name: "movement"; type: "Movement" }
+        Property { name: "flow"; type: "Flow" }
+        Property { name: "isWrapping"; type: "bool" }
+        Property { name: "resizeMode"; type: "ResizeMode" }
+        Property { name: "layoutMode"; type: "LayoutMode" }
+        Property { name: "spacing"; type: "int" }
+        Property { name: "gridSize"; type: "QSize" }
+        Property { name: "viewMode"; type: "ViewMode" }
+        Property { name: "modelColumn"; type: "int" }
+        Property { name: "uniformItemSizes"; type: "bool" }
+        Property { name: "batchSize"; type: "int" }
+        Property { name: "wordWrap"; type: "bool" }
+        Property { name: "selectionRectVisible"; type: "bool" }
+        Signal {
+            name: "indexesMoved"
+            Parameter { name: "indexes"; type: "QModelIndexList" }
+        }
+    }
+    Component {
+        name: "QListView_extended"
+        defaultProperty: "data"
+        prototype: "QListView"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QListView_extended_extended"
+        defaultProperty: "data"
+        prototype: "QListView_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QMainWindow"
+        prototype: "QWidget"
+        Enum {
+            name: "DockOption"
+            values: {
+                "AnimatedDocks": 1,
+                "AllowNestedDocks": 2,
+                "AllowTabbedDocks": 4,
+                "ForceTabbedDocks": 8,
+                "VerticalTabs": 16
+            }
+        }
+        Enum {
+            name: "DockOptions"
+            values: {
+                "AnimatedDocks": 1,
+                "AllowNestedDocks": 2,
+                "AllowTabbedDocks": 4,
+                "ForceTabbedDocks": 8,
+                "VerticalTabs": 16
+            }
+        }
+        Property { name: "iconSize"; type: "QSize" }
+        Property { name: "toolButtonStyle"; type: "Qt::ToolButtonStyle" }
+        Property { name: "animated"; type: "bool" }
+        Property { name: "documentMode"; type: "bool" }
+        Property { name: "tabShape"; type: "QTabWidget::TabShape" }
+        Property { name: "dockNestingEnabled"; type: "bool" }
+        Property { name: "dockOptions"; type: "DockOptions" }
+        Property { name: "unifiedTitleAndToolBarOnMac"; type: "bool" }
+        Signal {
+            name: "iconSizeChanged"
+            Parameter { name: "iconSize"; type: "QSize" }
+        }
+        Signal {
+            name: "toolButtonStyleChanged"
+            Parameter { name: "toolButtonStyle"; type: "Qt::ToolButtonStyle" }
+        }
+        Method {
+            name: "setAnimated"
+            Parameter { name: "enabled"; type: "bool" }
+        }
+        Method {
+            name: "setDockNestingEnabled"
+            Parameter { name: "enabled"; type: "bool" }
+        }
+    }
+    Component {
+        name: "QMainWindow_extended"
+        defaultProperty: "data"
+        prototype: "QMainWindow"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QMenu"
+        prototype: "QWidget"
+        Property { name: "tearOffEnabled"; type: "bool" }
+        Property { name: "title"; type: "string" }
+        Property { name: "icon"; type: "QIcon" }
+        Property { name: "separatorsCollapsible"; type: "bool" }
+        Signal { name: "aboutToShow" }
+        Signal { name: "aboutToHide" }
+        Signal {
+            name: "triggered"
+            Parameter { name: "action"; type: "QAction"; isPointer: true }
+        }
+        Signal {
+            name: "hovered"
+            Parameter { name: "action"; type: "QAction"; isPointer: true }
+        }
+        Signal {
+            name: "activated"
+            Parameter { name: "itemId"; type: "int" }
+        }
+        Signal {
+            name: "highlighted"
+            Parameter { name: "itemId"; type: "int" }
+        }
+    }
+    Component {
+        name: "QMenuBar"
+        prototype: "QWidget"
+        Property { name: "defaultUp"; type: "bool" }
+        Property { name: "nativeMenuBar"; type: "bool" }
+        Signal {
+            name: "triggered"
+            Parameter { name: "action"; type: "QAction"; isPointer: true }
+        }
+        Signal {
+            name: "hovered"
+            Parameter { name: "action"; type: "QAction"; isPointer: true }
+        }
+        Signal {
+            name: "activated"
+            Parameter { name: "itemId"; type: "int" }
+        }
+        Signal {
+            name: "highlighted"
+            Parameter { name: "itemId"; type: "int" }
+        }
+        Method {
+            name: "setVisible"
+            Parameter { name: "visible"; type: "bool" }
+        }
+    }
+    Component {
+        name: "QMenuBar_extended"
+        defaultProperty: "data"
+        prototype: "QMenuBar"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QMessageBox"
+        prototype: "QDialog"
+        Enum {
+            name: "Icon"
+            values: {
+                "NoIcon": 0,
+                "Information": 1,
+                "Warning": 2,
+                "Critical": 3,
+                "Question": 4
+            }
+        }
+        Enum {
+            name: "StandardButtons"
+            values: {
+                "NoButton": 0,
+                "Ok": 1024,
+                "Save": 2048,
+                "SaveAll": 4096,
+                "Open": 8192,
+                "Yes": 16384,
+                "YesToAll": 32768,
+                "No": 65536,
+                "NoToAll": 131072,
+                "Abort": 262144,
+                "Retry": 524288,
+                "Ignore": 1048576,
+                "Close": 2097152,
+                "Cancel": 4194304,
+                "Discard": 8388608,
+                "Help": 16777216,
+                "Apply": 33554432,
+                "Reset": 67108864,
+                "RestoreDefaults": 134217728,
+                "FirstButton": 1024,
+                "LastButton": 134217728,
+                "YesAll": 32768,
+                "NoAll": 131072,
+                "Default": 256,
+                "Escape": 512,
+                "FlagMask": 768,
+                "ButtonMask": -769
+            }
+        }
+        Property { name: "text"; type: "string" }
+        Property { name: "icon"; type: "Icon" }
+        Property { name: "iconPixmap"; type: "QPixmap" }
+        Property { name: "textFormat"; type: "Qt::TextFormat" }
+        Property { name: "standardButtons"; type: "StandardButtons" }
+        Property { name: "detailedText"; type: "string" }
+        Property { name: "informativeText"; type: "string" }
+        Signal {
+            name: "buttonClicked"
+            Parameter { name: "button"; type: "QAbstractButton"; isPointer: true }
+        }
+    }
+    Component {
+        name: "QPlainTextEdit"
+        prototype: "QAbstractScrollArea"
+        Enum {
+            name: "LineWrapMode"
+            values: {
+                "NoWrap": 0,
+                "WidgetWidth": 1
+            }
+        }
+        Property { name: "tabChangesFocus"; type: "bool" }
+        Property { name: "documentTitle"; type: "string" }
+        Property { name: "undoRedoEnabled"; type: "bool" }
+        Property { name: "lineWrapMode"; type: "LineWrapMode" }
+        Property { name: "readOnly"; type: "bool" }
+        Property { name: "plainText"; type: "string" }
+        Property { name: "overwriteMode"; type: "bool" }
+        Property { name: "tabStopWidth"; type: "int" }
+        Property { name: "cursorWidth"; type: "int" }
+        Property { name: "textInteractionFlags"; type: "Qt::TextInteractionFlags" }
+        Property { name: "blockCount"; type: "int"; isReadonly: true }
+        Property { name: "maximumBlockCount"; type: "int" }
+        Property { name: "backgroundVisible"; type: "bool" }
+        Property { name: "centerOnScroll"; type: "bool" }
+        Signal { name: "textChanged" }
+        Signal {
+            name: "undoAvailable"
+            Parameter { name: "b"; type: "bool" }
+        }
+        Signal {
+            name: "redoAvailable"
+            Parameter { name: "b"; type: "bool" }
+        }
+        Signal {
+            name: "copyAvailable"
+            Parameter { name: "b"; type: "bool" }
+        }
+        Signal { name: "selectionChanged" }
+        Signal { name: "cursorPositionChanged" }
+        Signal {
+            name: "updateRequest"
+            Parameter { name: "rect"; type: "QRect" }
+            Parameter { name: "dy"; type: "int" }
+        }
+        Signal {
+            name: "blockCountChanged"
+            Parameter { name: "newBlockCount"; type: "int" }
+        }
+        Signal {
+            name: "modificationChanged"
+            Parameter { type: "bool" }
+        }
+        Method {
+            name: "setPlainText"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method { name: "cut" }
+        Method { name: "copy" }
+        Method { name: "paste" }
+        Method { name: "undo" }
+        Method { name: "redo" }
+        Method { name: "clear" }
+        Method { name: "selectAll" }
+        Method {
+            name: "insertPlainText"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "appendPlainText"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "appendHtml"
+            Parameter { name: "html"; type: "string" }
+        }
+        Method { name: "centerCursor" }
+    }
+    Component {
+        name: "QPlainTextEdit_extended"
+        defaultProperty: "data"
+        prototype: "QPlainTextEdit"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QPlainTextEdit_extended_extended"
+        defaultProperty: "data"
+        prototype: "QPlainTextEdit_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QProgressBar"
+        prototype: "QWidget"
+        Enum {
+            name: "Direction"
+            values: {
+                "TopToBottom": 0,
+                "BottomToTop": 1
+            }
+        }
+        Property { name: "minimum"; type: "int" }
+        Property { name: "maximum"; type: "int" }
+        Property { name: "text"; type: "string"; isReadonly: true }
+        Property { name: "value"; type: "int" }
+        Property { name: "alignment"; type: "Qt::Alignment" }
+        Property { name: "textVisible"; type: "bool" }
+        Property { name: "orientation"; type: "Qt::Orientation" }
+        Property { name: "invertedAppearance"; type: "bool" }
+        Property { name: "textDirection"; type: "Direction" }
+        Property { name: "format"; type: "string" }
+        Signal {
+            name: "valueChanged"
+            Parameter { name: "value"; type: "int" }
+        }
+        Method { name: "reset" }
+        Method {
+            name: "setRange"
+            Parameter { name: "minimum"; type: "int" }
+            Parameter { name: "maximum"; type: "int" }
+        }
+        Method {
+            name: "setMinimum"
+            Parameter { name: "minimum"; type: "int" }
+        }
+        Method {
+            name: "setMaximum"
+            Parameter { name: "maximum"; type: "int" }
+        }
+        Method {
+            name: "setValue"
+            Parameter { name: "value"; type: "int" }
+        }
+        Method {
+            name: "setOrientation"
+            Parameter { type: "Qt::Orientation" }
+        }
+    }
+    Component {
+        name: "QProgressBar_extended"
+        defaultProperty: "data"
+        prototype: "QProgressBar"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QPushButton"
+        prototype: "QAbstractButton"
+        Property { name: "autoDefault"; type: "bool" }
+        Property { name: "default"; type: "bool" }
+        Property { name: "flat"; type: "bool" }
+        Method { name: "showMenu" }
+    }
+    Component {
+        name: "QPushButton_extended"
+        defaultProperty: "data"
+        prototype: "QPushButton"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component { name: "QRadioButton"; prototype: "QAbstractButton" }
+    Component {
+        name: "QRadioButton_extended"
+        defaultProperty: "data"
+        prototype: "QRadioButton"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QScrollArea"
+        prototype: "QAbstractScrollArea"
+        Property { name: "widgetResizable"; type: "bool" }
+        Property { name: "alignment"; type: "Qt::Alignment" }
+    }
+    Component {
+        name: "QScrollArea_extended"
+        defaultProperty: "data"
+        prototype: "QScrollArea"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QScrollArea_extended_extended"
+        defaultProperty: "data"
+        prototype: "QScrollArea_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component { name: "QScrollBar"; prototype: "QAbstractSlider" }
+    Component {
+        name: "QScrollBar_extended"
+        defaultProperty: "data"
+        prototype: "QScrollBar"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QSlider"
+        prototype: "QAbstractSlider"
+        Enum {
+            name: "TickPosition"
+            values: {
+                "NoTicks": 0,
+                "TicksAbove": 1,
+                "TicksLeft": 1,
+                "TicksBelow": 2,
+                "TicksRight": 2,
+                "TicksBothSides": 3
+            }
+        }
+        Property { name: "tickPosition"; type: "TickPosition" }
+        Property { name: "tickInterval"; type: "int" }
+        Method { name: "addStep" }
+        Method { name: "subtractStep" }
+    }
+    Component {
+        name: "QSlider_extended"
+        defaultProperty: "data"
+        prototype: "QSlider"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QSpinBox"
+        prototype: "QAbstractSpinBox"
+        Property { name: "suffix"; type: "string" }
+        Property { name: "prefix"; type: "string" }
+        Property { name: "cleanText"; type: "string"; isReadonly: true }
+        Property { name: "minimum"; type: "int" }
+        Property { name: "maximum"; type: "int" }
+        Property { name: "singleStep"; type: "int" }
+        Property { name: "value"; type: "int" }
+        Signal {
+            name: "valueChanged"
+            Parameter { type: "int" }
+        }
+        Signal {
+            name: "valueChanged"
+            Parameter { type: "string" }
+        }
+        Method {
+            name: "setValue"
+            Parameter { name: "val"; type: "int" }
+        }
+    }
+    Component {
+        name: "QSpinBox_extended"
+        defaultProperty: "data"
+        prototype: "QSpinBox"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QStackedLayout"
+        prototype: "QLayout"
+        Enum {
+            name: "StackingMode"
+            values: {
+                "StackOne": 0,
+                "StackAll": 1
+            }
+        }
+        Property { name: "currentIndex"; type: "int" }
+        Property { name: "stackingMode"; type: "StackingMode" }
+        Signal {
+            name: "widgetRemoved"
+            Parameter { name: "index"; type: "int" }
+        }
+        Signal {
+            name: "currentChanged"
+            Parameter { name: "index"; type: "int" }
+        }
+        Method {
+            name: "setCurrentIndex"
+            Parameter { name: "index"; type: "int" }
+        }
+        Method {
+            name: "setCurrentWidget"
+            Parameter { name: "w"; type: "QWidget"; isPointer: true }
+        }
+    }
+    Component {
+        name: "QStackedWidget"
+        prototype: "QFrame"
+        Property { name: "currentIndex"; type: "int" }
+        Property { name: "count"; type: "int"; isReadonly: true }
+        Signal {
+            name: "currentChanged"
+            Parameter { type: "int" }
+        }
+        Signal {
+            name: "widgetRemoved"
+            Parameter { name: "index"; type: "int" }
+        }
+        Method {
+            name: "setCurrentIndex"
+            Parameter { name: "index"; type: "int" }
+        }
+        Method {
+            name: "setCurrentWidget"
+            Parameter { name: "w"; type: "QWidget"; isPointer: true }
+        }
+    }
+    Component {
+        name: "QStackedWidget_extended"
+        defaultProperty: "data"
+        prototype: "QStackedWidget"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QStackedWidget_extended_extended"
+        defaultProperty: "data"
+        prototype: "QStackedWidget_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QStatusBar"
+        prototype: "QWidget"
+        Property { name: "sizeGripEnabled"; type: "bool" }
+        Signal {
+            name: "messageChanged"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "showMessage"
+            Parameter { name: "text"; type: "string" }
+            Parameter { name: "timeout"; type: "int" }
+        }
+        Method {
+            name: "showMessage"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method { name: "clearMessage" }
+        Method {
+            name: "message"
+            Parameter { name: "text"; type: "string" }
+            Parameter { name: "timeout"; type: "int" }
+        }
+        Method {
+            name: "message"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method { name: "clear" }
+    }
+    Component { name: "QStringListModel"; prototype: "QAbstractListModel" }
+    Component {
+        name: "QTabWidget"
+        prototype: "QWidget"
+        Enum {
+            name: "TabPosition"
+            values: {
+                "North": 0,
+                "South": 1,
+                "West": 2,
+                "East": 3
+            }
+        }
+        Enum {
+            name: "TabShape"
+            values: {
+                "Rounded": 0,
+                "Triangular": 1
+            }
+        }
+        Property { name: "tabPosition"; type: "TabPosition" }
+        Property { name: "tabShape"; type: "TabShape" }
+        Property { name: "currentIndex"; type: "int" }
+        Property { name: "count"; type: "int"; isReadonly: true }
+        Property { name: "iconSize"; type: "QSize" }
+        Property { name: "elideMode"; type: "Qt::TextElideMode" }
+        Property { name: "usesScrollButtons"; type: "bool" }
+        Property { name: "documentMode"; type: "bool" }
+        Property { name: "tabsClosable"; type: "bool" }
+        Property { name: "movable"; type: "bool" }
+        Signal {
+            name: "currentChanged"
+            Parameter { name: "index"; type: "int" }
+        }
+        Signal {
+            name: "tabCloseRequested"
+            Parameter { name: "index"; type: "int" }
+        }
+        Signal {
+            name: "currentChanged"
+            Parameter { type: "QWidget"; isPointer: true }
+        }
+        Signal {
+            name: "selected"
+            Parameter { type: "string" }
+        }
+        Method {
+            name: "setCurrentIndex"
+            Parameter { name: "index"; type: "int" }
+        }
+        Method {
+            name: "setCurrentWidget"
+            Parameter { name: "widget"; type: "QWidget"; isPointer: true }
+        }
+        Method {
+            name: "setCurrentPage"
+            Parameter { name: "index"; type: "int" }
+        }
+        Method {
+            name: "showPage"
+            Parameter { name: "w"; type: "QWidget"; isPointer: true }
+        }
+        Method {
+            name: "removePage"
+            Parameter { name: "w"; type: "QWidget"; isPointer: true }
+        }
+    }
+    Component {
+        name: "QTableView"
+        prototype: "QAbstractItemView"
+        Property { name: "showGrid"; type: "bool" }
+        Property { name: "gridStyle"; type: "Qt::PenStyle" }
+        Property { name: "sortingEnabled"; type: "bool" }
+        Property { name: "wordWrap"; type: "bool" }
+        Property { name: "cornerButtonEnabled"; type: "bool" }
+        Method {
+            name: "selectRow"
+            Parameter { name: "row"; type: "int" }
+        }
+        Method {
+            name: "selectColumn"
+            Parameter { name: "column"; type: "int" }
+        }
+        Method {
+            name: "hideRow"
+            Parameter { name: "row"; type: "int" }
+        }
+        Method {
+            name: "hideColumn"
+            Parameter { name: "column"; type: "int" }
+        }
+        Method {
+            name: "showRow"
+            Parameter { name: "row"; type: "int" }
+        }
+        Method {
+            name: "showColumn"
+            Parameter { name: "column"; type: "int" }
+        }
+        Method {
+            name: "resizeRowToContents"
+            Parameter { name: "row"; type: "int" }
+        }
+        Method { name: "resizeRowsToContents" }
+        Method {
+            name: "resizeColumnToContents"
+            Parameter { name: "column"; type: "int" }
+        }
+        Method { name: "resizeColumnsToContents" }
+        Method {
+            name: "sortByColumn"
+            Parameter { name: "column"; type: "int" }
+        }
+        Method {
+            name: "setShowGrid"
+            Parameter { name: "show"; type: "bool" }
+        }
+    }
+    Component {
+        name: "QTableView_extended"
+        defaultProperty: "data"
+        prototype: "QTableView"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QTableView_extended_extended"
+        defaultProperty: "data"
+        prototype: "QTableView_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QTextBrowser"
+        prototype: "QTextEdit"
+        Property { name: "source"; type: "QUrl" }
+        Property { name: "searchPaths"; type: "QStringList" }
+        Property { name: "openExternalLinks"; type: "bool" }
+        Property { name: "openLinks"; type: "bool" }
+        Signal {
+            name: "backwardAvailable"
+            Parameter { type: "bool" }
+        }
+        Signal {
+            name: "forwardAvailable"
+            Parameter { type: "bool" }
+        }
+        Signal { name: "historyChanged" }
+        Signal {
+            name: "sourceChanged"
+            Parameter { type: "QUrl" }
+        }
+        Signal {
+            name: "highlighted"
+            Parameter { type: "QUrl" }
+        }
+        Signal {
+            name: "highlighted"
+            Parameter { type: "string" }
+        }
+        Signal {
+            name: "anchorClicked"
+            Parameter { type: "QUrl" }
+        }
+        Method {
+            name: "setSource"
+            Parameter { name: "name"; type: "QUrl" }
+        }
+        Method { name: "backward" }
+        Method { name: "forward" }
+        Method { name: "home" }
+        Method { name: "reload" }
+    }
+    Component {
+        name: "QTextBrowser_extended"
+        defaultProperty: "data"
+        prototype: "QTextBrowser"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QTextBrowser_extended_extended"
+        defaultProperty: "data"
+        prototype: "QTextBrowser_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QTextBrowser_extended_extended_extended"
+        defaultProperty: "data"
+        prototype: "QTextBrowser_extended_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "modified"; type: "bool"; isReadonly: true }
+        Property { name: "document"; type: "QTextDocument"; isPointer: true }
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Signal { name: "modifiedChanged" }
+        Signal { name: "documentChanged" }
+        Signal { name: "modifiedChanged" }
+        Signal { name: "documentChanged" }
+    }
+    Component {
+        name: "QTextEdit"
+        prototype: "QAbstractScrollArea"
+        Enum {
+            name: "LineWrapMode"
+            values: {
+                "NoWrap": 0,
+                "WidgetWidth": 1,
+                "FixedPixelWidth": 2,
+                "FixedColumnWidth": 3
+            }
+        }
+        Enum {
+            name: "AutoFormatting"
+            values: {
+                "AutoNone": 0,
+                "AutoBulletList": 1,
+                "AutoAll": -1
+            }
+        }
+        Property { name: "autoFormatting"; type: "AutoFormatting" }
+        Property { name: "tabChangesFocus"; type: "bool" }
+        Property { name: "documentTitle"; type: "string" }
+        Property { name: "undoRedoEnabled"; type: "bool" }
+        Property { name: "lineWrapMode"; type: "LineWrapMode" }
+        Property { name: "lineWrapColumnOrWidth"; type: "int" }
+        Property { name: "readOnly"; type: "bool" }
+        Property { name: "html"; type: "string" }
+        Property { name: "plainText"; type: "string" }
+        Property { name: "overwriteMode"; type: "bool" }
+        Property { name: "tabStopWidth"; type: "int" }
+        Property { name: "acceptRichText"; type: "bool" }
+        Property { name: "cursorWidth"; type: "int" }
+        Property { name: "textInteractionFlags"; type: "Qt::TextInteractionFlags" }
+        Signal { name: "textChanged" }
+        Signal {
+            name: "undoAvailable"
+            Parameter { name: "b"; type: "bool" }
+        }
+        Signal {
+            name: "redoAvailable"
+            Parameter { name: "b"; type: "bool" }
+        }
+        Signal {
+            name: "currentCharFormatChanged"
+            Parameter { name: "format"; type: "QTextCharFormat" }
+        }
+        Signal {
+            name: "copyAvailable"
+            Parameter { name: "b"; type: "bool" }
+        }
+        Signal { name: "selectionChanged" }
+        Signal { name: "cursorPositionChanged" }
+        Signal {
+            name: "currentFontChanged"
+            Parameter { name: "f"; type: "QFont" }
+        }
+        Signal {
+            name: "currentColorChanged"
+            Parameter { name: "c"; type: "QColor" }
+        }
+        Method {
+            name: "setFontPointSize"
+            Parameter { name: "s"; type: "qreal" }
+        }
+        Method {
+            name: "setFontFamily"
+            Parameter { name: "fontFamily"; type: "string" }
+        }
+        Method {
+            name: "setFontWeight"
+            Parameter { name: "w"; type: "int" }
+        }
+        Method {
+            name: "setFontUnderline"
+            Parameter { name: "b"; type: "bool" }
+        }
+        Method {
+            name: "setFontItalic"
+            Parameter { name: "b"; type: "bool" }
+        }
+        Method {
+            name: "setTextColor"
+            Parameter { name: "c"; type: "QColor" }
+        }
+        Method {
+            name: "setTextBackgroundColor"
+            Parameter { name: "c"; type: "QColor" }
+        }
+        Method {
+            name: "setCurrentFont"
+            Parameter { name: "f"; type: "QFont" }
+        }
+        Method {
+            name: "setAlignment"
+            Parameter { name: "a"; type: "Qt::Alignment" }
+        }
+        Method {
+            name: "setPlainText"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "setHtml"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "setText"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method { name: "cut" }
+        Method { name: "copy" }
+        Method { name: "paste" }
+        Method { name: "undo" }
+        Method { name: "redo" }
+        Method { name: "clear" }
+        Method { name: "selectAll" }
+        Method {
+            name: "insertPlainText"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "insertHtml"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "append"
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "scrollToAnchor"
+            Parameter { name: "name"; type: "string" }
+        }
+        Method {
+            name: "zoomIn"
+            Parameter { name: "range"; type: "int" }
+        }
+        Method { name: "zoomIn" }
+        Method {
+            name: "zoomOut"
+            Parameter { name: "range"; type: "int" }
+        }
+        Method { name: "zoomOut" }
+        Method {
+            name: "setModified"
+            Parameter { name: "m"; type: "bool" }
+        }
+        Method { name: "setModified" }
+        Method {
+            name: "setColor"
+            Parameter { name: "c"; type: "QColor" }
+        }
+    }
+    Component {
+        name: "QTextEdit_extended"
+        defaultProperty: "data"
+        prototype: "QTextEdit"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QTextEdit_extended_extended"
+        defaultProperty: "data"
+        prototype: "QTextEdit_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component { name: "QTimeEdit"; prototype: "QDateTimeEdit" }
+    Component {
+        name: "QTimeEdit_extended"
+        defaultProperty: "data"
+        prototype: "QTimeEdit"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QTimeEdit_extended_extended"
+        defaultProperty: "data"
+        prototype: "QTimeEdit_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QTimer"
+        prototype: "QObject"
+        exports: [
+            "QtCore/Timer 1.0"
+        ]
+        Property { name: "singleShot"; type: "bool" }
+        Property { name: "interval"; type: "int" }
+        Property { name: "active"; type: "bool"; isReadonly: true }
+        Signal { name: "timeout" }
+        Method {
+            name: "start"
+            Parameter { name: "msec"; type: "int" }
+        }
+        Method { name: "start" }
+        Method { name: "stop" }
+        Method {
+            name: "changeInterval"
+            Parameter { name: "msec"; type: "int" }
+        }
+        Method {
+            name: "start"
+            type: "int"
+            Parameter { name: "msec"; type: "int" }
+            Parameter { name: "sshot"; type: "bool" }
+        }
+    }
+    Component {
+        name: "QToolBar"
+        prototype: "QWidget"
+        Property { name: "movable"; type: "bool" }
+        Property { name: "allowedAreas"; type: "Qt::ToolBarAreas" }
+        Property { name: "orientation"; type: "Qt::Orientation" }
+        Property { name: "iconSize"; type: "QSize" }
+        Property { name: "toolButtonStyle"; type: "Qt::ToolButtonStyle" }
+        Property { name: "floating"; type: "bool"; isReadonly: true }
+        Property { name: "floatable"; type: "bool" }
+        Signal {
+            name: "actionTriggered"
+            Parameter { name: "action"; type: "QAction"; isPointer: true }
+        }
+        Signal {
+            name: "movableChanged"
+            Parameter { name: "movable"; type: "bool" }
+        }
+        Signal {
+            name: "allowedAreasChanged"
+            Parameter { name: "allowedAreas"; type: "Qt::ToolBarAreas" }
+        }
+        Signal {
+            name: "orientationChanged"
+            Parameter { name: "orientation"; type: "Qt::Orientation" }
+        }
+        Signal {
+            name: "iconSizeChanged"
+            Parameter { name: "iconSize"; type: "QSize" }
+        }
+        Signal {
+            name: "toolButtonStyleChanged"
+            Parameter { name: "toolButtonStyle"; type: "Qt::ToolButtonStyle" }
+        }
+        Signal {
+            name: "topLevelChanged"
+            Parameter { name: "topLevel"; type: "bool" }
+        }
+        Signal {
+            name: "visibilityChanged"
+            Parameter { name: "visible"; type: "bool" }
+        }
+        Method {
+            name: "setIconSize"
+            Parameter { name: "iconSize"; type: "QSize" }
+        }
+        Method {
+            name: "setToolButtonStyle"
+            Parameter { name: "toolButtonStyle"; type: "Qt::ToolButtonStyle" }
+        }
+    }
+    Component {
+        name: "QToolBar_extended"
+        defaultProperty: "data"
+        prototype: "QToolBar"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QToolButton"
+        prototype: "QAbstractButton"
+        Enum {
+            name: "ToolButtonPopupMode"
+            values: {
+                "DelayedPopup": 0,
+                "MenuButtonPopup": 1,
+                "InstantPopup": 2
+            }
+        }
+        Property { name: "popupMode"; type: "ToolButtonPopupMode" }
+        Property { name: "toolButtonStyle"; type: "Qt::ToolButtonStyle" }
+        Property { name: "autoRaise"; type: "bool" }
+        Property { name: "arrowType"; type: "Qt::ArrowType" }
+        Signal {
+            name: "triggered"
+            Parameter { type: "QAction"; isPointer: true }
+        }
+        Method { name: "showMenu" }
+        Method {
+            name: "setToolButtonStyle"
+            Parameter { name: "style"; type: "Qt::ToolButtonStyle" }
+        }
+        Method {
+            name: "setDefaultAction"
+            Parameter { type: "QAction"; isPointer: true }
+        }
+        Method {
+            name: "setUsesBigPixmap"
+            Parameter { name: "enable"; type: "bool" }
+        }
+        Method {
+            name: "setUsesTextLabel"
+            Parameter { name: "enable"; type: "bool" }
+        }
+        Method {
+            name: "setTextPosition"
+            Parameter { name: "pos"; type: "QToolButton::TextPosition" }
+        }
+    }
+    Component {
+        name: "QToolButton_extended"
+        defaultProperty: "data"
+        prototype: "QToolButton"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QTreeView"
+        prototype: "QAbstractItemView"
+        Property { name: "autoExpandDelay"; type: "int" }
+        Property { name: "indentation"; type: "int" }
+        Property { name: "rootIsDecorated"; type: "bool" }
+        Property { name: "uniformRowHeights"; type: "bool" }
+        Property { name: "itemsExpandable"; type: "bool" }
+        Property { name: "sortingEnabled"; type: "bool" }
+        Property { name: "animated"; type: "bool" }
+        Property { name: "allColumnsShowFocus"; type: "bool" }
+        Property { name: "wordWrap"; type: "bool" }
+        Property { name: "headerHidden"; type: "bool" }
+        Property { name: "expandsOnDoubleClick"; type: "bool" }
+        Signal {
+            name: "expanded"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+        Signal {
+            name: "collapsed"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+        Method {
+            name: "hideColumn"
+            Parameter { name: "column"; type: "int" }
+        }
+        Method {
+            name: "showColumn"
+            Parameter { name: "column"; type: "int" }
+        }
+        Method {
+            name: "expand"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+        Method {
+            name: "collapse"
+            Parameter { name: "index"; type: "QModelIndex" }
+        }
+        Method {
+            name: "resizeColumnToContents"
+            Parameter { name: "column"; type: "int" }
+        }
+        Method {
+            name: "sortByColumn"
+            Parameter { name: "column"; type: "int" }
+        }
+        Method { name: "expandAll" }
+        Method { name: "collapseAll" }
+        Method {
+            name: "expandToDepth"
+            Parameter { name: "depth"; type: "int" }
+        }
+    }
+    Component {
+        name: "QTreeView_extended"
+        defaultProperty: "data"
+        prototype: "QTreeView"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QTreeView_extended_extended"
+        defaultProperty: "data"
+        prototype: "QTreeView_extended"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component { name: "QVBoxLayout"; prototype: "QBoxLayout" }
+    Component {
+        name: "QWebView"
+        prototype: "QWidget"
+        Property { name: "title"; type: "string"; isReadonly: true }
+        Property { name: "url"; type: "QUrl" }
+        Property { name: "icon"; type: "QIcon"; isReadonly: true }
+        Property { name: "selectedText"; type: "string"; isReadonly: true }
+        Property { name: "selectedHtml"; type: "string"; isReadonly: true }
+        Property { name: "hasSelection"; type: "bool"; isReadonly: true }
+        Property { name: "modified"; type: "bool"; isReadonly: true }
+        Property { name: "textSizeMultiplier"; type: "qreal" }
+        Property { name: "zoomFactor"; type: "qreal" }
+        Property { name: "renderHints"; type: "QPainter::RenderHints" }
+        Signal { name: "loadStarted" }
+        Signal {
+            name: "loadProgress"
+            Parameter { name: "progress"; type: "int" }
+        }
+        Signal {
+            name: "loadFinished"
+            Parameter { type: "bool" }
+        }
+        Signal {
+            name: "titleChanged"
+            Parameter { name: "title"; type: "string" }
+        }
+        Signal {
+            name: "statusBarMessage"
+            Parameter { name: "text"; type: "string" }
+        }
+        Signal {
+            name: "linkClicked"
+            Parameter { type: "QUrl" }
+        }
+        Signal { name: "selectionChanged" }
+        Signal { name: "iconChanged" }
+        Signal {
+            name: "urlChanged"
+            Parameter { type: "QUrl" }
+        }
+        Method { name: "stop" }
+        Method { name: "back" }
+        Method { name: "forward" }
+        Method { name: "reload" }
+        Method {
+            name: "print"
+            Parameter { type: "QPrinter"; isPointer: true }
+        }
+    }
+    Component {
+        name: "QWebView_extended"
+        defaultProperty: "data"
+        prototype: "QWebView"
+        exports: [
+            "HeaderView 1.0"
+        ]
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "x"; type: "int" }
+        Property { name: "y"; type: "int" }
+        Property { name: "width"; type: "int" }
+        Property { name: "height"; type: "int" }
+        Property { name: "geometry"; type: "QRect" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+        Signal { name: "posChanged" }
+        Signal { name: "sizeChanged" }
+        Signal { name: "geometryChanged" }
+    }
+    Component {
+        name: "QWidget"
+        prototype: "QObject"
+        Property { name: "modal"; type: "bool"; isReadonly: true }
+        Property { name: "windowModality"; type: "Qt::WindowModality" }
+        Property { name: "enabled"; type: "bool" }
+        Property { name: "geometry"; type: "QRect" }
+        Property { name: "frameGeometry"; type: "QRect"; isReadonly: true }
+        Property { name: "normalGeometry"; type: "QRect"; isReadonly: true }
+        Property { name: "x"; type: "int"; isReadonly: true }
+        Property { name: "y"; type: "int"; isReadonly: true }
+        Property { name: "pos"; type: "QPoint" }
+        Property { name: "frameSize"; type: "QSize"; isReadonly: true }
+        Property { name: "size"; type: "QSize" }
+        Property { name: "width"; type: "int"; isReadonly: true }
+        Property { name: "height"; type: "int"; isReadonly: true }
+        Property { name: "rect"; type: "QRect"; isReadonly: true }
+        Property { name: "childrenRect"; type: "QRect"; isReadonly: true }
+        Property { name: "childrenRegion"; type: "QRegion"; isReadonly: true }
+        Property { name: "sizePolicy"; type: "QSizePolicy" }
+        Property { name: "minimumSize"; type: "QSize" }
+        Property { name: "maximumSize"; type: "QSize" }
+        Property { name: "minimumWidth"; type: "int" }
+        Property { name: "minimumHeight"; type: "int" }
+        Property { name: "maximumWidth"; type: "int" }
+        Property { name: "maximumHeight"; type: "int" }
+        Property { name: "sizeIncrement"; type: "QSize" }
+        Property { name: "baseSize"; type: "QSize" }
+        Property { name: "palette"; type: "QPalette" }
+        Property { name: "font"; type: "QFont" }
+        Property { name: "cursor"; type: "QCursor" }
+        Property { name: "mouseTracking"; type: "bool" }
+        Property { name: "isActiveWindow"; type: "bool"; isReadonly: true }
+        Property { name: "focusPolicy"; type: "Qt::FocusPolicy" }
+        Property { name: "focus"; type: "bool"; isReadonly: true }
+        Property { name: "contextMenuPolicy"; type: "Qt::ContextMenuPolicy" }
+        Property { name: "updatesEnabled"; type: "bool" }
+        Property { name: "visible"; type: "bool" }
+        Property { name: "minimized"; type: "bool"; isReadonly: true }
+        Property { name: "maximized"; type: "bool"; isReadonly: true }
+        Property { name: "fullScreen"; type: "bool"; isReadonly: true }
+        Property { name: "sizeHint"; type: "QSize"; isReadonly: true }
+        Property { name: "minimumSizeHint"; type: "QSize"; isReadonly: true }
+        Property { name: "acceptDrops"; type: "bool" }
+        Property { name: "windowTitle"; type: "string" }
+        Property { name: "windowIcon"; type: "QIcon" }
+        Property { name: "windowIconText"; type: "string" }
+        Property { name: "windowOpacity"; type: "double" }
+        Property { name: "windowModified"; type: "bool" }
+        Property { name: "toolTip"; type: "string" }
+        Property { name: "statusTip"; type: "string" }
+        Property { name: "whatsThis"; type: "string" }
+        Property { name: "accessibleName"; type: "string" }
+        Property { name: "accessibleDescription"; type: "string" }
+        Property { name: "layoutDirection"; type: "Qt::LayoutDirection" }
+        Property { name: "autoFillBackground"; type: "bool" }
+        Property { name: "styleSheet"; type: "string" }
+        Property { name: "locale"; type: "QLocale" }
+        Property { name: "windowFilePath"; type: "string" }
+        Property { name: "inputMethodHints"; type: "Qt::InputMethodHints" }
+        Signal {
+            name: "customContextMenuRequested"
+            Parameter { name: "pos"; type: "QPoint" }
+        }
+        Method {
+            name: "setEnabled"
+            Parameter { type: "bool" }
+        }
+        Method {
+            name: "setDisabled"
+            Parameter { type: "bool" }
+        }
+        Method {
+            name: "setWindowModified"
+            Parameter { type: "bool" }
+        }
+        Method {
+            name: "setWindowTitle"
+            Parameter { type: "string" }
+        }
+        Method {
+            name: "setStyleSheet"
+            Parameter { name: "styleSheet"; type: "string" }
+        }
+        Method { name: "setFocus" }
+        Method { name: "update" }
+        Method { name: "repaint" }
+        Method {
+            name: "setVisible"
+            Parameter { name: "visible"; type: "bool" }
+        }
+        Method {
+            name: "setHidden"
+            Parameter { name: "hidden"; type: "bool" }
+        }
+        Method { name: "show" }
+        Method { name: "hide" }
+        Method {
+            name: "setShown"
+            Parameter { name: "shown"; type: "bool" }
+        }
+        Method { name: "showMinimized" }
+        Method { name: "showMaximized" }
+        Method { name: "showFullScreen" }
+        Method { name: "showNormal" }
+        Method { name: "close"; type: "bool" }
+        Method { name: "raise" }
+        Method { name: "lower" }
+    }
+    Component {
+        name: "StaticDialogMethodAttached"
+        prototype: "QObject"
+        Property { name: "parent"; type: "QObject"; isPointer: true }
+        Signal {
+            name: "dialogParentChanged"
+            Parameter { name: "parent"; type: "QObject"; isPointer: true }
+        }
+    }
+    Component { name: "QEasingCurve"; prototype: "QDeclarativeEasingValueType" }
+}
