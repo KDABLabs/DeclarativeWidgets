@@ -26,7 +26,7 @@ class QObject;
 class ObjectContainerInterface
 {
   public:
-    virtual ~ObjectContainerInterface() = 0;
+    virtual ~ObjectContainerInterface() {}
 
     virtual void dataAppend(QObject *object) = 0;
     virtual int dataCount() const = 0;

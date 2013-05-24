@@ -27,7 +27,7 @@ class QWidget;
 class LayoutContainerInterface
 {
   public:
-    virtual ~LayoutContainerInterface() = 0;
+    virtual ~LayoutContainerInterface() {}
 
     virtual void addLayout(QLayout *layout) = 0;
     virtual void addWidget(QWidget *widget) = 0;
