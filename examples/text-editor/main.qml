@@ -25,7 +25,7 @@ MainWindow {
   id: mainWindow
 
   windowTitle: textEdit.modified ? qsTr("Declarative Widget Editor *modified*") : qsTr("Declarative Widget Editor")
-  windowIcon: _editor.iconFromFile(":/editor.png")
+  windowIcon: Icon.fromFileName(":/editor.png")
 
   size: Qt.size(800, 600)
 
@@ -36,14 +36,14 @@ MainWindow {
       Action {
         id: newAction
         text: qsTr("New")
-        icon: _editor.iconFromTheme("document-new");
+        icon: Icon.fromTheme("document-new")
         onTriggered: _editor.newDocument()
       }
 
       Action {
         id: openAction
         text: qsTr("Open")
-        icon: _editor.iconFromTheme("document-open")
+        icon: Icon.fromTheme("document-open")
         onTriggered: {
           FileDialog.nameFilters = [ qsTr("Plain text files (*.txt)"), qsTr("All files (*.*)") ]
           var fileName = FileDialog.getOpenFileName()
@@ -55,7 +55,7 @@ MainWindow {
       Action {
         id: saveAction
         text: qsTr("Save")
-        icon: _editor.iconFromTheme("document-save")
+        icon: Icon.fromTheme("document-save")
         onTriggered: _editor.save()
       }
 
@@ -63,14 +63,14 @@ MainWindow {
 
       Action {
         text: qsTr("Print")
-        icon: _editor.iconFromTheme("document-print")
+        icon: Icon.fromTheme("document-print")
       }
 
       Separator {}
 
       Action {
         text: qsTr("Close")
-        icon: _editor.iconFromTheme("application-exit")
+        icon: Icon.fromTheme("application-exit")
         onTriggered: mainWindow.close()
       }
     }
@@ -81,7 +81,7 @@ MainWindow {
       Action {
         id: undoAction
         text: qsTr("Undo")
-        icon: _editor.iconFromTheme("edit-undo")
+        icon: Icon.fromTheme("edit-undo")
         enabled: _editor.undoAvailable
         onTriggered: textEdit.undo()
       }
@@ -89,7 +89,7 @@ MainWindow {
       Action {
         id: redoAction
         text: qsTr("Redo")
-        icon: _editor.iconFromTheme("edit-redo")
+        icon: Icon.fromTheme("edit-redo")
         enabled: _editor.redoAvailable
         onTriggered: textEdit.redo()
       }
@@ -99,21 +99,21 @@ MainWindow {
       Action {
         id: cutAction
         text: qsTr("Cut")
-        icon: _editor.iconFromTheme("edit-cut")
+        icon: Icon.fromTheme("edit-cut")
         onTriggered: textEdit.cut()
       }
 
       Action {
         id: copyAction
         text: qsTr("Copy")
-        icon: _editor.iconFromTheme("edit-copy")
+        icon: Icon.fromTheme("edit-copy")
         onTriggered: textEdit.copy()
       }
 
       Action {
         id: pasteAction
         text: qsTr("Paste")
-        icon: _editor.iconFromTheme("edit-paste")
+        icon: Icon.fromTheme("edit-paste")
         onTriggered: textEdit.paste()
       }
 
@@ -121,7 +121,7 @@ MainWindow {
 
       Action {
         text: qsTr("Select All")
-        icon: _editor.iconFromTheme("edit-select-all")
+        icon: Icon.fromTheme("edit-select-all")
         onTriggered: textEdit.selectAll()
       }
     }
@@ -131,13 +131,13 @@ MainWindow {
 
       Action {
         text: qsTr("Enlarge Font")
-        icon: _editor.iconFromTheme("zoom-in")
+        icon: Icon.fromTheme("zoom-in")
         onTriggered: textEdit.zoomIn()
       }
 
       Action {
         text: qsTr("Shrink Font")
-        icon: _editor.iconFromTheme("zoom-out")
+        icon: Icon.fromTheme("zoom-out")
         onTriggered: textEdit.zoomOut()
       }
     }

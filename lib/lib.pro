@@ -21,6 +21,7 @@ HEADERS = \
   declarativeformlayout_p.h \
   declarativegridlayout_p.h \
   declarativehboxlayout_p.h \
+  declarativeicon_p.h \
   declarativeinputdialog_p.h \
   declarativeitemviewextension_p.h \
   declarativelayoutextension.h \
@@ -69,6 +70,7 @@ SOURCES = \
   declarativeformlayout.cpp \
   declarativegridlayout.cpp \
   declarativehboxlayout.cpp \
+  declarativeicon.cpp \
   declarativeinputdialog.cpp \
   declarativeitemviewextension.cpp \
   declarativelayoutextension.cpp \

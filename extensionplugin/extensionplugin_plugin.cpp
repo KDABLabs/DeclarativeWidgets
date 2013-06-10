@@ -34,6 +34,7 @@
 #include "declarativeformlayout_p.h"
 #include "declarativegridlayout_p.h"
 #include "declarativehboxlayout_p.h"
+#include "declarativeicon_p.h"
 #include "declarativeinputdialog_p.h"
 #include "declarativeitemviewextension_p.h"
 #include "declarativemessagebox_p.h"
@@ -101,6 +102,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterType<DeclarativeContextProperty>(uri, 1, 0, "DeclarativeContextProperty");
   qmlRegisterType<DeclarativeDeclarativeContext>(uri, 1, 0, "DeclarativeContext");
   qmlRegisterExtendedType<QFileSystemModel, DeclarativeFileSystemModelExtension>(uri, 1, 0, "FileSystemModel");
+  qmlRegisterType<DeclarativeIcon>(uri, 1, 0, "Icon");
   qmlRegisterType<QItemSelectionModel>();
   qmlRegisterExtendedType<DeclarativeSeparator, DeclarativeObjectExtension>(uri, 1, 0, "Separator");
   qmlRegisterExtendedType<QStringListModel, DeclarativeStringListModelExtension>("QtCore", 1, 0, "StringListModel");

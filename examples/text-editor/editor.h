@@ -21,7 +21,6 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
-#include <QIcon>
 #include <QObject>
 
 class QTextDocument;
@@ -46,9 +45,6 @@ class Editor : public QObject
 
     void setFileName(const QString &fileName);
     QString fileName() const;
-
-    Q_INVOKABLE QIcon iconFromFile(const QString &fileName) const;
-    Q_INVOKABLE QIcon iconFromTheme(const QString &iconName) const;
 
   Q_SIGNALS:
     void fileNameChanged(const QString &fileName);
