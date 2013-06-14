@@ -53,7 +53,7 @@ class DeclarativeIcon : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(QIcon icon READ icon WRITE setIcon NOTIFY iconChanged)
-  Q_PROPERTY(QString name NOTIFY nameChanged)
+  Q_PROPERTY(QString name READ name NOTIFY nameChanged)
   Q_PROPERTY(bool isNull READ isNull NOTIFY isNullChanged)
 
   public:
