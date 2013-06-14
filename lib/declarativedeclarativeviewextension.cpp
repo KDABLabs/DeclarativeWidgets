@@ -60,7 +60,7 @@ void DeclarativeDeclarativeViewExtension::setDeclarativeRootContext(QObject *con
     return;
 
   // we can only set a different wrapper, not replace the view's root context
-  Q_ASSERT(declarativeContext->context() == m_rootContext->context());
+  Q_ASSERT(m_rootContext.isNull() || declarativeContext->context() == m_rootContext->context());
 
   m_rootContext = QPointer<DeclarativeContext>(declarativeContext);
   emit declarativeRootContextChanged();
