@@ -43,6 +43,7 @@ class DeclarativeWidgetExtension : public DeclarativeObjectExtension
   Q_PROPERTY(int width READ width WRITE setWidth NOTIFY sizeChanged)
   Q_PROPERTY(int height READ height WRITE setHeight NOTIFY sizeChanged)
   Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
+  Q_PROPERTY(bool visible READ isVisible WRITE setVisible NOTIFY visibleChanged)
 
   Q_CLASSINFO("DefaultProperty", "data")
 
@@ -66,6 +67,9 @@ class DeclarativeWidgetExtension : public DeclarativeObjectExtension
     QRect geometry() const;
     void setGeometry(const QRect &rect);
 
+    bool isVisible() const;
+    void setVisible(bool visible);
+
     bool eventFilter(QObject *watched, QEvent *event);
 
   protected:
@@ -75,6 +79,7 @@ class DeclarativeWidgetExtension : public DeclarativeObjectExtension
     void posChanged();
     void sizeChanged();
     void geometryChanged();
+    void visibleChanged(bool visible);
 };
 
 #endif // DECLARATIVEWIDGETEXTENSION_H

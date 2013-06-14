@@ -183,6 +183,16 @@ void DeclarativeWidgetExtension::setGeometry(const QRect &rect)
   widget->setGeometry(rect);
 }
 
+bool DeclarativeWidgetExtension::isVisible() const
+{
+  return extendedWidget()->isVisible();
+}
+
+void DeclarativeWidgetExtension::setVisible(bool visible)
+{
+  extendedWidget()->setVisible(visible);
+}
+
 bool DeclarativeWidgetExtension::eventFilter(QObject *watched, QEvent *event)
 {
   Q_ASSERT(watched == parent());
@@ -198,6 +208,11 @@ bool DeclarativeWidgetExtension::eventFilter(QObject *watched, QEvent *event)
   case QEvent::Resize:
     emit sizeChanged();
     emit geometryChanged();
+    break;
+
+  case QEvent::Show:
+  case QEvent::Hide:
+    emit visibleChanged(isVisible());
     break;
 
   default:
