@@ -1,6 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>widgets/main.qml</file>
-        <file>qtquick/main.qml</file>
+        <file>bookstore.db</file>
+        <file>qtquick/Shop.qml</file>
+        <file>widgets/Admin.qml</file>
+        <file>widgets/Developer.qml</file>
+        <file>widgets/Staff.qml</file>
     </qresource>
 </RCC>

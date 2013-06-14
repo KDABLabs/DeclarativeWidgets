@@ -25,15 +25,19 @@
 
 #include <QCoreApplication>
 #include <QDebug>
+#include <QFile>
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlTableModel>
 
+static const char* dbname = "bookstore.db";
+
 BookStore::BookStore(QObject *parent)
   : QObject(parent)
 {
+  ensureDbPresence();
   QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-  db.setDatabaseName("bookstore.db");
+  db.setDatabaseName(dbname);
   if (!db.open()) {
     reportDbError( tr("Error When opening database"), db.lastError() );
     QCoreApplication::instance()->exit(-1);
@@ -116,4 +120,12 @@ int BookStore::authorId(const QModelIndex &index) const
 
   const QModelIndex idIndex = m_authorTable->index(index.row(), 0, index.parent());
   return m_authorTable->data(idIndex).toInt();
+}
+
+
+void BookStore::ensureDbPresence()
+{
+  if (!QFile::exists(dbname)) {
+    QFile::copy(QString(":/%1").arg(dbname), dbname);
+  }
 }

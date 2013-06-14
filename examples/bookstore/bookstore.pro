@@ -18,9 +18,11 @@ HEADERS += \
     booklistproxymodel.h
 
 OTHER_FILES += \
-    widgets/main.qml \
-    qtquick/main.qml \
-    README.txt
+    README.txt \
+    qtquick/Shop.qml \
+    widgets/Admin.qml \
+    widgets/Developer.qml \
+    widgets/Staff.qml
 
 RESOURCES += \
     bookstore.qrc

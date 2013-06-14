@@ -18,7 +18,6 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-import QtQuick 1.0
 import QtGui 1.0
 
 Widget {
@@ -27,39 +26,13 @@ Widget {
 
   VBoxLayout {
     TabWidget {
-      Widget {
-        TabWidget.label: qsTr("Store View")
-
-        HBoxLayout {
-          TableView {
-            id: storeAuthorTable
-
-            model: _store.authorTable;
-
-            Component.onCompleted:
-              storeAuthorTable.hideColumn(0)
-
-            onActivated: _store.booksOfAuthorTable.setAuthor(_store.authorId(index))
-          }
-          TableView {
-            id: storeBooksOfAuthorTable
-
-            model: _store.booksOfAuthorTable
-          }
-        }
+      TableView {
+        TabWidget.label: "Author"
+        model: _store.authorTable;
       }
-
-      Widget {
-        TabWidget.label: qsTr("Database View")
-
-        VBoxLayout {
-          TableView {
-            model: _store.authorTable;
-          }
-          TableView {
-            model: _store.bookTable;
-          }
-        }
+      TableView {
+        TabWidget.label: "Book"
+        model: _store.bookTable;
       }
     }
   }

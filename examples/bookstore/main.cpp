@@ -29,9 +29,9 @@
 #include <QDeclarativeView>
 #include <QWidget>
 
-static QWidget *createDeclarativeWidgetsUi(BookStore *bookStore)
+static QWidget *createDeclarativeWidgetsUi(BookStore *bookStore, const QString &fileName)
 {
-  const QUrl documentUrl = QUrl("qrc:///widgets/main.qml");
+  const QUrl documentUrl = QUrl(QString("qrc:///widgets/%1").arg(fileName));
 
   DeclarativeWidgetsDocument *document = new DeclarativeWidgetsDocument(documentUrl, bookStore);
   QObject::connect(document->engine(), SIGNAL(quit()), QCoreApplication::instance(), SLOT(quit()));
@@ -45,7 +45,7 @@ static QWidget *createDeclarativeWidgetsUi(BookStore *bookStore)
   return widget;
 }
 
-static QWidget *createQtQuickUi(BookStore *bookStore)
+static QWidget *createQtQuickUi(BookStore *bookStore, const QString &fileName)
 {
   QDeclarativeView *view = new QDeclarativeView();
 
@@ -53,7 +53,7 @@ static QWidget *createQtQuickUi(BookStore *bookStore)
 
   view->engine()->rootContext()->setContextProperty("_store", bookStore);
 
-  view->setSource(QUrl("qrc:///qtquick/main.qml"));
+  view->setSource(QUrl(QString("qrc:///qtquick/%1").arg(fileName)));
 
   return view;
 }
@@ -62,29 +62,34 @@ int main(int argc, char **argv)
 {
   QApplication app(argc, argv);
 
-  bool useDeclarativeWidgets = false;
+  QString fileName = "developer.qml";
+  bool useDeclarativeWidgets = true;
 
   const QStringList args = app.arguments();
   if (args.count() >= 2) {
     Q_FOREACH (const QString &arg, args) {
       if (arg == "-h" || arg == "-help" || arg == "--help") {
-        qDebug() << "Usage: bookstore --mode staff|customer";
+        qDebug() << "Usage: bookstore --mode admin|staff|shop";
         return 0;
       }
     }
 
     if (args.count() != 3 || args[1] != "--mode")
-      qFatal("Usage: bookstore --mode staff|customer");
+      qFatal("Usage: bookstore --mode admin|staff|shop");
 
-    if (args[2] != "staff" && args[2] != "customer")
-      qFatal("Unknown mode option %s\nUsage: bookstore --mode staff|customer", qPrintable(argv[2]));
+    const QString mode = args[2].toLower();
+    if (mode != "admin" && mode != "staff" && mode != "shop")
+      qFatal("Unknown mode option %s\nUsage: bookstore --mode admin|staff|shop", qPrintable(mode));
 
-    useDeclarativeWidgets = (args[2] == "staff");
+    useDeclarativeWidgets = (mode != "shop");
+    fileName = mode + ".qml";
   }
+
+  fileName = fileName.left(1).toUpper() + fileName.mid(1);
 
   BookStore bookStore;
 
-  QWidget *widget = useDeclarativeWidgets ? createDeclarativeWidgetsUi(&bookStore) : createQtQuickUi(&bookStore);
+  QWidget *widget = useDeclarativeWidgets ? createDeclarativeWidgetsUi(&bookStore, fileName) : createQtQuickUi(&bookStore, fileName);
     
   widget->show();
 

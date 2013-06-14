@@ -59,6 +59,9 @@ class BookStore : public QObject
     QSqlTableModel *m_bookTable;
     BooksOfAuthorModel *m_booksOfAuthorTable;
     BookListProxyModel *m_bookList;
+
+  private:
+    void ensureDbPresence();
 };
 
 #endif // BOOKSTORE_H
