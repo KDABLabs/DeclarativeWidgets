@@ -197,4 +197,41 @@ TabWidget {
       }
     }
   }
+
+  Widget {
+    TabWidget.label: "Loader"
+
+    VBoxLayout {
+      HBoxLayout {
+        Label {
+          text: "File:"
+        }
+        LineEdit {
+          id: loaderFileEdit
+
+          onEditingFinished: load();
+
+          function load() {
+            loader.source = text
+          }
+        }
+        PushButton {
+          text: "Browse..."
+
+          onClicked: {
+            FileDialog.nameFilters = [ "QML files (*.qml)" ]
+            var file = FileDialog.getOpenFileName();
+            if (file != "") {
+              loaderFileEdit.text = file;
+              loaderFileEdit.load();
+            }
+          }
+        }
+      }
+
+      LoaderWidget {
+        id: loader
+      }
+    }
+  }
 }

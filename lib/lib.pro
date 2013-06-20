@@ -52,7 +52,8 @@ HEADERS = \
   stackedwidgetwidgetcontainer_p.h \
   staticdialogmethodattached_p.h \
   toolbarwidgetcontainer_p.h \
-  widgetcontainerinterface_p.h
+  widgetcontainerinterface_p.h \
+    declarativeloaderwidget_p.h
 
 SOURCES = \
   abstractdeclarativeobject.cpp \
@@ -97,4 +98,5 @@ SOURCES = \
   scrollareawidgetcontainer.cpp \
   stackedwidgetwidgetcontainer.cpp \
   staticdialogmethodattached.cpp \
-  toolbarwidgetcontainer.cpp
+  toolbarwidgetcontainer.cpp \
+    declarativeloaderwidget.cpp

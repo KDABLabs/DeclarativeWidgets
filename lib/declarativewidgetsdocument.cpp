@@ -38,6 +38,7 @@
 #include "declarativeicon_p.h"
 #include "declarativeinputdialog_p.h"
 #include "declarativeitemviewextension_p.h"
+#include "declarativeloaderwidget_p.h"
 #include "declarativemessagebox_p.h"
 #include "declarativeseparator_p.h"
 #include "declarativestackedlayout_p.h"
@@ -159,9 +160,10 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<DeclarativeInputDialog, DeclarativeWidgetExtension>("QtGui", 1, 0, "InputDialog");
   qmlRegisterUncreatableType<QHeaderView>("QtGui", 1, 0, "HeaderView", "");
   qmlRegisterExtendedType<QLabel, DeclarativeWidgetExtension>("QtGui", 1, 0, "Label");
-  qmlRegisterExtendedType<QLineEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "LineEdit");
   qmlRegisterExtendedType<QLCDNumber, DeclarativeWidgetExtension>("QtGui", 1, 0, "LCDNumber");
+  qmlRegisterExtendedType<QLineEdit, DeclarativeWidgetExtension>("QtGui", 1, 0, "LineEdit");
   qmlRegisterExtendedType<QListView, DeclarativeItemViewExtension>("QtGui", 1, 0, "ListView");
+  qmlRegisterExtendedType<DeclarativeLoaderWidget, DeclarativeWidgetExtension>("QtGui", 1, 0, "LoaderWidget");
   qmlRegisterExtendedType<QMainWindow, DeclarativeContainerWidgetExtension<MainWindowWidgetContainer> >("QtGui", 1, 0, "MainWindow");
   qmlRegisterExtendedType<Menu, DeclarativeContainerWidgetExtension<MenuWidgetContainer> >("QtGui", 1, 0, "Menu");
   qmlRegisterExtendedType<QMenuBar, DeclarativeContainerWidgetExtension<MenuBarWidgetContainer> >("QtGui", 1, 0, "MenuBar");
