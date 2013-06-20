@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
-SUBDIRS += text-editor bookstore
+SUBDIRS += text-editor bookstore config-editor
 
 OTHER_FILES += \
     animation.qml \

@@ -1,0 +1,16 @@
+[%General]
+Driver=QMYSQL
+SizeThreshold=4096
+ExternalPayload=true
+
+[QMYSQL]
+Name=akonadi
+User=
+Password=
+Options="UNIX_SOCKET=/home/username/.local/share/akonadi/socket-hostname/mysql.socket"
+ServerPath=/usr/sbin/mysqld
+StartServer=true
+Host=
+
+[Debug]
+Tracer=null
