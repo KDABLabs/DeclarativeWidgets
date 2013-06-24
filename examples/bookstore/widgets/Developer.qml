@@ -117,7 +117,10 @@ MainWindow {
         height: 480
 
         VBoxLayout {
-            Admin {
+            margin: 0
+
+            LoaderWidget {
+                source: "qrc:///widgets/Admin.qml"
             }
         }
     }
@@ -130,7 +133,10 @@ MainWindow {
         height: 480
 
         VBoxLayout {
-            Staff {
+            margin: 0
+
+            LoaderWidget {
+                source: "qrc:///widgets/Staff.qml"
             }
         }
     }
