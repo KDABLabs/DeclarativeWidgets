@@ -23,22 +23,41 @@
 #include "layoutcontainerinterface_p.h"
 
 #include <QDeclarativeInfo>
-#include <QWidget>
+#include <QLabel>
+#include <QPointer>
 
 class DeclarativeFormLayoutAttached::Private
 {
   public:
+    Private(QWidget *w, QLayout *l)
+      : widget(w), layout(l)
+    {}
+
     QString label;
+
+    QPointer<QWidget> widget;
+    QPointer<QLayout> layout;
+    QPointer<QFormLayout> parentLayout;
 };
 
-DeclarativeFormLayoutAttached::DeclarativeFormLayoutAttached(QObject *parent)
-  : QObject(parent), d(new Private)
+DeclarativeFormLayoutAttached::DeclarativeFormLayoutAttached(QWidget *parent)
+  : QObject(parent), d(new Private(parent, 0))
+{
+}
+
+DeclarativeFormLayoutAttached::DeclarativeFormLayoutAttached(QLayout *parent)
+  : QObject(parent), d(new Private(0, parent))
 {
 }
 
 DeclarativeFormLayoutAttached::~DeclarativeFormLayoutAttached()
 {
   delete d;
+}
+
+void DeclarativeFormLayoutAttached::setParentLayout(QFormLayout *parentLayout)
+{
+  d->parentLayout = parentLayout;
 }
 
 void DeclarativeFormLayoutAttached::setLabel(const QString &label)
@@ -48,6 +67,39 @@ void DeclarativeFormLayoutAttached::setLabel(const QString &label)
 
   d->label = label;
   emit labelChanged(label);
+
+  if (d->parentLayout) {
+    QWidget *labelWidget = 0;
+    int row = -1;
+
+    if (d->widget) {
+      labelWidget = d->parentLayout->labelForField(d->widget);
+
+      if (!labelWidget) {
+        QFormLayout::ItemRole role;
+        d->parentLayout->getWidgetPosition(d->widget, &row, &role);
+       }
+    } else if (d->layout) {
+      labelWidget = d->parentLayout->labelForField(d->layout);
+
+      if (!labelWidget) {
+        QFormLayout::ItemRole role;
+        d->parentLayout->getLayoutPosition(d->layout, &row, &role);
+       }
+    }
+
+    QLabel *rowLabel = 0;
+    if (labelWidget) {
+      rowLabel = qobject_cast<QLabel*>(labelWidget);
+    } else if (row != -1) {
+      rowLabel = new QLabel(d->parentLayout->parentWidget());
+      d->parentLayout->setWidget(row, QFormLayout::LabelRole, rowLabel);
+    }
+
+    if (rowLabel) {
+      rowLabel->setText(label);
+    }
+  }
 }
 
 QString DeclarativeFormLayoutAttached::label() const
@@ -65,11 +117,11 @@ DeclarativeFormLayoutAttached *DeclarativeFormLayout::qmlAttachedProperties(QObj
 {
   QWidget *widget = qobject_cast<QWidget*>(parent);
   if (widget)
-    return new DeclarativeFormLayoutAttached(parent);
+    return new DeclarativeFormLayoutAttached(widget);
 
   QLayout *layout = qobject_cast<QLayout*>(parent);
   if (layout)
-    return new DeclarativeFormLayoutAttached(parent);
+    return new DeclarativeFormLayoutAttached(layout);
 
   qmlInfo(parent) << "Can only attach FormLayout to widgets and layouts";
   return 0;
@@ -101,6 +153,8 @@ void FormLayoutContainer::addWidget(QWidget *widget)
   QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeFormLayout>(widget, false);
   DeclarativeFormLayoutAttached *properties = qobject_cast<DeclarativeFormLayoutAttached*>(attachedProperties);
   if (properties) {
+    properties->setParentLayout(m_layout);
+
     if (!properties->label().isEmpty()) {
       m_layout->addRow(properties->label(), widget);
       return;
@@ -115,6 +169,8 @@ void FormLayoutContainer::addLayout(QLayout *layout)
   QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeFormLayout>(layout, false);
   DeclarativeFormLayoutAttached *properties = qobject_cast<DeclarativeFormLayoutAttached*>(attachedProperties);
   if (properties) {
+    properties->setParentLayout(m_layout);
+
     if (!properties->label().isEmpty()) {
       m_layout->addRow(properties->label(), layout);
       return;

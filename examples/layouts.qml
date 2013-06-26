@@ -98,6 +98,7 @@ TabWidget {
           text: "Row 1"
         }
         CheckBox {
+          FormLayout.label: qsTr("Label 2")
           text: "Row 2"
         }
       }

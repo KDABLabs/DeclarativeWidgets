@@ -33,8 +33,11 @@ class DeclarativeFormLayoutAttached : public QObject
   Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
 
   public:
-    explicit DeclarativeFormLayoutAttached(QObject *parent);
+    explicit DeclarativeFormLayoutAttached(QWidget *parent);
+    explicit DeclarativeFormLayoutAttached(QLayout *parent);
     ~DeclarativeFormLayoutAttached();
+
+    void setParentLayout(QFormLayout *parentLayout);
 
     void setLabel(const QString &label);
     QString label() const;
