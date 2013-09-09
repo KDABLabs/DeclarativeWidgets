@@ -19,7 +19,7 @@
 */
 
 import QtQuick 1.0
-import QtGui 1.0
+import QtWidgets 1.0
 
 MainWindow {
   id: mainWindow

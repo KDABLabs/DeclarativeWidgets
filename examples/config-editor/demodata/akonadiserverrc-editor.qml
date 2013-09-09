@@ -1,5 +1,5 @@
 import QtCore 1.0
-import QtGui 1.0
+import QtWidgets 1.0
 import QtQuick 1.0 // for Component.onCompleted
 
 Widget {

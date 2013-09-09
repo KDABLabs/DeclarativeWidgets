@@ -90,7 +90,7 @@
 
 #include <qdeclarative.h>
 
-// @uri QtGui
+// @uri QtWidgets
 void ExtensionpluginPlugin::registerTypes(const char *uri)
 {
   // objects

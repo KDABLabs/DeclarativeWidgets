@@ -4,7 +4,7 @@ QT += declarative webkit
 CONFIG += qt plugin
 
 TARGET = $$qtLibraryTarget($$TARGET)
-uri = QtGui
+uri = QtWidgets
 
 # Input
 SOURCES += \
