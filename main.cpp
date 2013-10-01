@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 
   const QStringList arguments = app.arguments();
   if (arguments.count() < 2) {
-      qWarning("Missing QML file argument. Usage: qmlwidgets <qmlfile>");
+      qWarning("Missing QML file argument. Usage: declarativewidgets <qmlfile>");
       return -1;
   }
 
