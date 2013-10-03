@@ -40,6 +40,7 @@
 #include "declarativeitemviewextension_p.h"
 #include "declarativeloaderwidget_p.h"
 #include "declarativemessagebox_p.h"
+#include "declarativepixmap_p.h"
 #include "declarativeseparator_p.h"
 #include "declarativestackedlayout_p.h"
 #include "declarativestatusbar_p.h"
@@ -127,6 +128,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QFileSystemModel, DeclarativeFileSystemModelExtension>("QtWidgets", 1, 0, "FileSystemModel");
   qmlRegisterType<DeclarativeIcon>("QtWidgets", 1, 0, "Icon");
   qmlRegisterType<QItemSelectionModel>();
+  qmlRegisterType<DeclarativePixmap>("QtWidgets", 1, 0, "Pixmap");
   qmlRegisterExtendedType<DeclarativeSeparator, DeclarativeObjectExtension>("QtWidgets", 1, 0, "Separator");
   qmlRegisterExtendedType<QStringListModel, DeclarativeStringListModelExtension>("QtCore", 1, 0, "StringListModel");
   qmlRegisterType<QTextDocument>();

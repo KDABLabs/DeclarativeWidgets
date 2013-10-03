@@ -28,6 +28,7 @@ HEADERS = \
   declarativemessagebox_p.h \
   declarativeobjectextension.h \
   declarativeobjectproxy_p.h \
+  declarativepixmap_p.h \
   declarativeseparator_p.h \
   declarativestackedlayout_p.h \
   declarativestatusbar_p.h \
@@ -77,6 +78,7 @@ SOURCES = \
   declarativelayoutextension.cpp \
   declarativemessagebox.cpp \
   declarativeobjectextension.cpp \
+  declarativepixmap.cpp \
   declarativeseparator.cpp \
   declarativestackedlayout.cpp \
   declarativestatusbar.cpp \
