@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS = lib runner.pro examples \
-    extensionplugin
+    extensionplugin \
+    ui2dw

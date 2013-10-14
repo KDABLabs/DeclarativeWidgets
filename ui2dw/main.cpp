@@ -1,0 +1,116 @@
+/*
+  Copyright (C) 2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Author: Kevin Krammer, kevin.krammer@kdab.com
+  Author: Tobias Koenig, tobias.koenig@kdab.com
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+*/
+
+#include "parser.h"
+
+#include <QFile>
+#include <QString>
+
+#include <cstdio>
+#include <iostream>
+
+#include "elementnamevisitor.h"
+#include "idvisitor.h"
+#include "itemvisitor.h"
+#include "qmlwriter.h"
+#include "uitopnode.h"
+
+using namespace std;
+
+void printUsage()
+{
+  cout << "Usage: ui2dw [ -o <outputfile> ] inputfile" << endl;
+}
+
+int main(int argc, char *argv[])
+{
+  if (argc < 2) {
+    cerr << "Too few arguments" << endl;
+    printUsage();
+    return 1;
+  }
+
+  if (argc > 4) {
+    cerr << "Too many arguments" << endl;
+    printUsage();
+    return 1;
+  }
+
+  QString inputFileName;
+  QString outputFileName;
+  if (argc == 2) {
+    inputFileName = QString::fromLocal8Bit(argv[1]);
+  } else {
+    if (qstrncmp(argv[1], "-o", 2) == 0) {
+      inputFileName = QString::fromLocal8Bit(argv[3]);
+      outputFileName = QString::fromLocal8Bit(argv[2]);
+    } else if (qstrncmp(argv[2], "-o", 2) == 0) {
+      inputFileName = QString::fromLocal8Bit(argv[1]);
+      outputFileName = QString::fromLocal8Bit(argv[3]);
+    } else {
+      cerr << "Invalid usage" << endl;
+      printUsage();
+      return 2;
+    }
+  }
+
+  QFile inputFile(inputFileName);
+  if (!inputFile.open(QIODevice::ReadOnly)) {
+    cerr << "Cannot read input file " << inputFileName.toLocal8Bit().constData() << endl;
+    return 3;
+  }
+
+  QFile outputFile;
+  if (!outputFileName.isEmpty()) {
+    outputFile.setFileName(outputFileName);
+    if (!outputFile.open(QIODevice::WriteOnly)) {
+      cerr << "Cannot write to output file" << outputFileName.toLocal8Bit().constData() << endl;
+      return 4;
+    }
+  } else {
+    outputFile.open(stdout, QIODevice::WriteOnly);
+  }
+
+  Parser parser(&inputFile);
+
+  const QSharedPointer<UiTopNode> topNode = parser.parse();
+  if (!parser.errorString().isEmpty()) {
+    cerr << "Failed to parse input file" << inputFileName.toLocal8Bit().constData() << endl;
+    cerr << "Error: " << parser.errorString().toLocal8Bit().constData() << endl;
+    return 5;
+  }
+
+  // set element "id" from objectName
+  IdVisitor idVisitor;
+  topNode->accept(&idVisitor);
+
+  // handle layout items
+  ItemVisitor itemVisitor;
+  topNode->accept(&itemVisitor);
+
+  // adjust class names
+  ElementNameVisitor classVisitor;
+  topNode->accept(&classVisitor);
+
+  QmlWriter writer(&outputFile);
+  writer.write(topNode);
+
+  return 0;
+}
