@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2012-2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2012-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -26,6 +26,8 @@
 #include <qdeclarative.h>
 #include <QGridLayout>
 
+class DeclarativeSpacerItem;
+
 class DeclarativeGridLayoutAttached : public QObject
 {
   Q_OBJECT
@@ -39,6 +41,7 @@ class DeclarativeGridLayoutAttached : public QObject
   public:
     DeclarativeGridLayoutAttached(QWidget *widget, QObject *parent);
     DeclarativeGridLayoutAttached(QLayout *layout, QObject *parent);
+    DeclarativeGridLayoutAttached(DeclarativeSpacerItem *spacerItem, QObject *parent);
     ~DeclarativeGridLayoutAttached();
 
     void setParentLayout(QGridLayout *parentLayout);

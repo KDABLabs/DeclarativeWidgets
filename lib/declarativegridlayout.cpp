@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2012-2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2012-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -20,6 +20,7 @@
 
 #include "declarativegridlayout_p.h"
 
+#include "declarativespaceritem_p.h"
 #include "layoutcontainerinterface_p.h"
 
 #include <QDeclarativeInfo>
@@ -29,9 +30,9 @@
 class DeclarativeGridLayoutAttached::Private
 {
   public:
-    Private(QWidget *w, QLayout *l)
+    Private(QWidget *w, QLayout *l, DeclarativeSpacerItem *s)
       : row(0), column(0), rowSpan(1), columnSpan(1), alignment(0),
-        widget(w), layout(l)
+        widget(w), layout(l), spacerItem(s)
     {}
 
     int row;
@@ -42,16 +43,22 @@ class DeclarativeGridLayoutAttached::Private
 
     QPointer<QWidget> widget;
     QPointer<QLayout> layout;
+    QPointer<DeclarativeSpacerItem> spacerItem;
     QPointer<QGridLayout> parentLayout;
 };
 
 DeclarativeGridLayoutAttached::DeclarativeGridLayoutAttached(QWidget *widget, QObject *parent)
-  : QObject(parent), d(new Private(widget, 0))
+  : QObject(parent), d(new Private(widget, 0, 0))
 {
 }
 
 DeclarativeGridLayoutAttached::DeclarativeGridLayoutAttached(QLayout *layout, QObject *parent)
-  : QObject(parent), d(new Private(0, layout))
+  : QObject(parent), d(new Private(0, layout, 0))
+{
+}
+
+DeclarativeGridLayoutAttached::DeclarativeGridLayoutAttached(DeclarativeSpacerItem *spacerItem, QObject *parent)
+  : QObject(parent), d(new Private(0, 0, spacerItem))
 {
 }
 
@@ -159,7 +166,11 @@ DeclarativeGridLayoutAttached *DeclarativeGridLayout::qmlAttachedProperties(QObj
   if (layout)
     return new DeclarativeGridLayoutAttached(layout, parent);
 
-  qmlInfo(parent) << "Can only attach GridLayout to widgets and layouts";
+  DeclarativeSpacerItem *spacerItem = qobject_cast<DeclarativeSpacerItem*>(parent);
+  if (spacerItem)
+    return new DeclarativeGridLayoutAttached(spacerItem, parent);
+
+  qmlInfo(parent) << "Can only attach GridLayout to widgets, spacers and layouts";
   return 0;
 }
 
@@ -172,6 +183,7 @@ class GridLayoutContainer : public LayoutContainerInterface
       Q_ASSERT(m_layout);
     }
 
+    void addSpacer(DeclarativeSpacerItem *spacerItem);
     void addLayout(QLayout *layout);
     void addWidget(QWidget *widget);
 
@@ -182,29 +194,6 @@ class GridLayoutContainer : public LayoutContainerInterface
 DeclarativeGridLayoutExtension::DeclarativeGridLayoutExtension(QObject *parent)
   : DeclarativeLayoutExtension(new GridLayoutContainer(qobject_cast<QGridLayout*>(parent)), parent)
 {
-}
-
-void GridLayoutContainer::addWidget(QWidget *widget)
-{
-  int row = 0;
-  int column = 0;
-  int rowSpan = 1;
-  int columnSpan = 1;
-  Qt::Alignment alignment = 0;
-
-  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeGridLayout>(widget, false);
-  DeclarativeGridLayoutAttached *properties = qobject_cast<DeclarativeGridLayoutAttached*>(attachedProperties);
-  if (properties) {
-    row = properties->row();
-    column = properties->column();
-    rowSpan = properties->rowSpan();
-    columnSpan = properties->columnSpan();
-    alignment = properties->alignment();
-
-    properties->setParentLayout(m_layout);
-  }
-
-  m_layout->addWidget(widget, row, column, rowSpan, columnSpan, alignment);
 }
 
 void GridLayoutContainer::addLayout(QLayout *layout)
@@ -230,3 +219,48 @@ void GridLayoutContainer::addLayout(QLayout *layout)
   m_layout->addLayout(layout, row, column, rowSpan, columnSpan, alignment);
 }
 
+void GridLayoutContainer::addSpacer(DeclarativeSpacerItem *spacerItem)
+{
+    int row = 0;
+    int column = 0;
+    int rowSpan = 1;
+    int columnSpan = 1;
+    Qt::Alignment alignment = 0;
+
+    QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeGridLayout>(spacerItem, false);
+    DeclarativeGridLayoutAttached *properties = qobject_cast<DeclarativeGridLayoutAttached*>(attachedProperties);
+    if (properties) {
+      row = properties->row();
+      column = properties->column();
+      rowSpan = properties->rowSpan();
+      columnSpan = properties->columnSpan();
+      alignment = properties->alignment();
+
+      properties->setParentLayout(m_layout);
+    }
+
+    m_layout->addItem(spacerItem->spacer(), row, column, rowSpan, columnSpan, alignment);
+}
+
+void GridLayoutContainer::addWidget(QWidget *widget)
+{
+  int row = 0;
+  int column = 0;
+  int rowSpan = 1;
+  int columnSpan = 1;
+  Qt::Alignment alignment = 0;
+
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeGridLayout>(widget, false);
+  DeclarativeGridLayoutAttached *properties = qobject_cast<DeclarativeGridLayoutAttached*>(attachedProperties);
+  if (properties) {
+    row = properties->row();
+    column = properties->column();
+    rowSpan = properties->rowSpan();
+    columnSpan = properties->columnSpan();
+    alignment = properties->alignment();
+
+    properties->setParentLayout(m_layout);
+  }
+
+  m_layout->addWidget(widget, row, column, rowSpan, columnSpan, alignment);
+}

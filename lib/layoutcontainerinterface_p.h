@@ -21,6 +21,7 @@
 #ifndef LAYOUTCONTAINERINTERFACE_P_H
 #define LAYOUTCONTAINERINTERFACE_P_H
 
+class DeclarativeSpacerItem;
 class QLayout;
 class QWidget;
 
@@ -30,6 +31,7 @@ class LayoutContainerInterface
     virtual ~LayoutContainerInterface() {}
 
     virtual void addLayout(QLayout *layout) = 0;
+    virtual void addSpacer(DeclarativeSpacerItem *spacerItem) = 0;
     virtual void addWidget(QWidget *widget) = 0;
 };
 

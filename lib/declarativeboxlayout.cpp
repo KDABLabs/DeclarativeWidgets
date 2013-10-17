@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2012-2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2012-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -20,29 +20,38 @@
 
 #include "declarativeboxlayout_p.h"
 
+#include "declarativespaceritem_p.h"
+
 #include <QPointer>
 #include <QWidget>
 
 class DeclarativeBoxLayoutAttached::Private
 {
   public:
-    Private(QWidget *w, QLayout *l) : stretch(0), alignment(0), widget(w), layout(l) {}
+    Private(QWidget *w, QLayout *l, DeclarativeSpacerItem *s)
+      : stretch(0), alignment(0), widget(w), layout(l), spacerItem(s) {}
 
     int stretch;
     Qt::Alignment alignment;
 
     QPointer<QWidget> widget;
     QPointer<QLayout> layout;
+    QPointer<DeclarativeSpacerItem> spacerItem;
     QPointer<QBoxLayout> parentLayout;
 };
 
 DeclarativeBoxLayoutAttached::DeclarativeBoxLayoutAttached(QWidget *widget, QObject *parent)
-  : QObject(parent), d(new Private(widget, 0))
+  : QObject(parent), d(new Private(widget, 0, 0))
 {
 }
 
 DeclarativeBoxLayoutAttached::DeclarativeBoxLayoutAttached(QLayout *layout, QObject *parent)
-  : QObject(parent), d(new Private(0, layout))
+  : QObject(parent), d(new Private(0, layout, 0))
+{
+}
+
+DeclarativeBoxLayoutAttached::DeclarativeBoxLayoutAttached(DeclarativeSpacerItem *spacerItem, QObject *parent)
+  : QObject(parent), d(new Private(0, 0, spacerItem))
 {
 }
 

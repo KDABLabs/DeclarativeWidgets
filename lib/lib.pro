@@ -54,7 +54,8 @@ HEADERS = \
   staticdialogmethodattached_p.h \
   toolbarwidgetcontainer_p.h \
   widgetcontainerinterface_p.h \
-    declarativeloaderwidget_p.h
+    declarativeloaderwidget_p.h \
+    declarativespaceritem_p.h
 
 SOURCES = \
   abstractdeclarativeobject.cpp \
@@ -101,4 +102,5 @@ SOURCES = \
   stackedwidgetwidgetcontainer.cpp \
   staticdialogmethodattached.cpp \
   toolbarwidgetcontainer.cpp \
-    declarativeloaderwidget.cpp
+    declarativeloaderwidget.cpp \
+    declarativespaceritem.cpp

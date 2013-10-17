@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2012-2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2012-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -42,6 +42,7 @@
 #include "declarativemessagebox_p.h"
 #include "declarativepixmap_p.h"
 #include "declarativeseparator_p.h"
+#include "declarativespaceritem_p.h"
 #include "declarativestackedlayout_p.h"
 #include "declarativestatusbar_p.h"
 #include "declarativestringlistmodelextension_p.h"
@@ -177,6 +178,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QScrollArea, DeclarativeContainerWidgetExtension<ScrollAreaWidgetContainer> >("QtWidgets", 1, 0, "ScrollArea");
   qmlRegisterExtendedType<QScrollBar, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "ScrollBar");
   qmlRegisterExtendedType<QSlider, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "Slider");
+  qmlRegisterType<DeclarativeSpacerItem>("QtWidgets", 1, 0, "Spacer");
   qmlRegisterExtendedType<QStackedWidget, DeclarativeContainerWidgetExtension<StackedWidgetWidgetContainer> >("QtWidgets", 1, 0, "StackedWidget");
   qmlRegisterExtendedType<QSpinBox, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "SpinBox");
   qmlRegisterExtendedType<DeclarativeStatusBar, DeclarativeContainerWidgetExtension<StatusBarWidgetContainer> >("QtWidgets", 1, 0, "StatusBar");

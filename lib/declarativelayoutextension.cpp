@@ -20,6 +20,7 @@
 
 #include "declarativelayoutextension.h"
 
+#include "declarativespaceritem_p.h"
 #include "defaultobjectcontainer_p.h"
 #include "layoutcontainerinterface_p.h"
 
@@ -52,6 +53,12 @@ class LayoutContainerDelegate : public DefaultObjectContainer
       if (layout) {
         m_layoutContainer->addLayout(layout);
         return;
+      }
+
+      DeclarativeSpacerItem *spacer = qobject_cast<DeclarativeSpacerItem*>(object);
+      if (spacer) {
+          m_layoutContainer->addSpacer(spacer);
+          return;
       }
     }
 

@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2012-2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2012-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -20,6 +20,7 @@
 
 #include "declarativeformlayout_p.h"
 
+#include "declarativespaceritem_p.h"
 #include "layoutcontainerinterface_p.h"
 
 #include <QDeclarativeInfo>
@@ -136,6 +137,7 @@ class FormLayoutContainer : public LayoutContainerInterface
       Q_ASSERT(m_layout);
     }
 
+    void addSpacer(DeclarativeSpacerItem *spacerItem);
     void addLayout(QLayout *layout);
     void addWidget(QWidget *widget);
 
@@ -146,6 +148,27 @@ class FormLayoutContainer : public LayoutContainerInterface
 DeclarativeFormLayoutExtension::DeclarativeFormLayoutExtension(QObject *parent)
   : DeclarativeLayoutExtension(new FormLayoutContainer(qobject_cast<QFormLayout*>(parent)), parent)
 {
+}
+
+void FormLayoutContainer::addLayout(QLayout *layout)
+{
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeFormLayout>(layout, false);
+  DeclarativeFormLayoutAttached *properties = qobject_cast<DeclarativeFormLayoutAttached*>(attachedProperties);
+  if (properties) {
+    properties->setParentLayout(m_layout);
+
+    if (!properties->label().isEmpty()) {
+      m_layout->addRow(properties->label(), layout);
+      return;
+    }
+  }
+  m_layout->addRow(layout);
+}
+
+void FormLayoutContainer::addSpacer(DeclarativeSpacerItem *spacerItem)
+{
+    qWarning() << Q_FUNC_INFO << "Using QFormLayout::addItem for spacer item";
+    m_layout->addItem(spacerItem->spacer());
 }
 
 void FormLayoutContainer::addWidget(QWidget *widget)
@@ -162,19 +185,4 @@ void FormLayoutContainer::addWidget(QWidget *widget)
   }
 
   m_layout->addRow(widget);
-}
-
-void FormLayoutContainer::addLayout(QLayout *layout)
-{
-  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeFormLayout>(layout, false);
-  DeclarativeFormLayoutAttached *properties = qobject_cast<DeclarativeFormLayoutAttached*>(attachedProperties);
-  if (properties) {
-    properties->setParentLayout(m_layout);
-
-    if (!properties->label().isEmpty()) {
-      m_layout->addRow(properties->label(), layout);
-      return;
-    }
-  }
-  m_layout->addRow(layout);
 }

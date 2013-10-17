@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2012-2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2012-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -20,6 +20,7 @@
 
 #include "declarativestackedlayout_p.h"
 
+#include "declarativespaceritem_p.h"
 #include "layoutcontainerinterface_p.h"
 
 #include <QDeclarativeInfo>
@@ -41,6 +42,7 @@ class StackedLayoutContainer : public LayoutContainerInterface
     }
 
     void addLayout(QLayout *layout);
+    void addSpacer(DeclarativeSpacerItem *spacerItem);
     void addWidget(QWidget *widget);
 
   private:
@@ -60,12 +62,18 @@ int DeclarativeStackedLayoutExtension::count() const
   return stackedLayout->count();
 }
 
+void StackedLayoutContainer::addLayout(QLayout*)
+{
+    qmlInfo(m_layout) << "StackedLayout does not support child layouts";
+}
+
+void StackedLayoutContainer::addSpacer(DeclarativeSpacerItem *spacerItem)
+{
+    qWarning() << Q_FUNC_INFO << "Using QStackedLayout::addItem for spacer item";
+    m_layout->addItem(spacerItem->spacer());
+}
+
 void StackedLayoutContainer::addWidget(QWidget *widget)
 {
   m_layout->addWidget(widget);
-}
-
-void StackedLayoutContainer::addLayout(QLayout*)
-{
-  qmlInfo(m_layout) << "StackedLayout does not support child layouts";
 }

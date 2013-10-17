@@ -21,6 +21,9 @@
 import QtWidgets 1.0
 
 TabWidget {
+  width: 600
+  height: 800
+
   Widget {
     TabWidget.label: "Box Layouts"
 
@@ -41,6 +44,7 @@ TabWidget {
           }
         }
       }
+
       Widget {
         HBoxLayout {
           Label {
@@ -84,6 +88,29 @@ TabWidget {
             VBoxLayout.stretch: 2
           }
         }
+      }
+
+      Widget {
+          HBoxLayout {
+              Spacer {
+                sizeHint: Qt.size(100, 50)
+
+                horizontalSizePolicy: Spacer.Maximum
+              }
+              Label {
+                text: "Label between spacers"
+              }
+              Spacer {
+                sizeHint: Qt.size(20, 0)
+
+                horizontalSizePolicy: Spacer.Fixed
+              }
+              Label {
+                text: "Label after fixed spacer"
+
+                HBoxLayout.stretch: 1
+              }
+          }
       }
     }
   }

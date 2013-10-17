@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2012-2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2012-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -20,6 +20,7 @@
 
 #include "declarativehboxlayout_p.h"
 
+#include "declarativespaceritem_p.h"
 #include "layoutcontainerinterface_p.h"
 
 #include <QDeclarativeInfo>
@@ -41,7 +42,11 @@ DeclarativeBoxLayoutAttached *DeclarativeHBoxLayout::qmlAttachedProperties(QObje
   if (layout)
     return new DeclarativeBoxLayoutAttached(layout, parent);
 
-  qmlInfo(parent) << "Can only attach HBoxLayout to widgets and layouts";
+  DeclarativeSpacerItem *spacerItem = qobject_cast<DeclarativeSpacerItem*>(parent);
+  if (spacerItem)
+    return new DeclarativeBoxLayoutAttached(spacerItem, parent);
+
+  qmlInfo(parent) << "Can only attach HBoxLayout to widgets, spacers and layouts";
   return 0;
 }
 
@@ -55,6 +60,7 @@ class HBoxLayoutContainer : public LayoutContainerInterface
     }
 
     void addLayout(QLayout *layout);
+    void addSpacer(DeclarativeSpacerItem *spacerItem);
     void addWidget(QWidget *widget);
 
   private:
@@ -64,23 +70,6 @@ class HBoxLayoutContainer : public LayoutContainerInterface
 DeclarativeHBoxLayoutExtension::DeclarativeHBoxLayoutExtension(QObject *parent)
   : DeclarativeLayoutExtension(new HBoxLayoutContainer(qobject_cast<QHBoxLayout*>(parent)), parent)
 {
-}
-
-void HBoxLayoutContainer::addWidget(QWidget *widget)
-{
-  int stretch = 0;
-  Qt::Alignment alignment = 0;
-
-  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeHBoxLayout>(widget, false);
-  DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
-  if (properties) {
-    stretch = properties->stretch();
-    alignment = properties->alignment();
-
-    properties->setParentLayout(m_layout);
-  }
-
-  m_layout->addWidget(widget, stretch, alignment);
 }
 
 void HBoxLayoutContainer::addLayout(QLayout *layout)
@@ -99,4 +88,26 @@ void HBoxLayoutContainer::addLayout(QLayout *layout)
 
   m_layout->addLayout(layout, stretch);
   m_layout->setAlignment(layout, alignment);
+}
+
+void HBoxLayoutContainer::addSpacer(DeclarativeSpacerItem *spacerItem)
+{
+    m_layout->addSpacerItem(spacerItem->spacer());
+}
+
+void HBoxLayoutContainer::addWidget(QWidget *widget)
+{
+  int stretch = 0;
+  Qt::Alignment alignment = 0;
+
+  QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeHBoxLayout>(widget, false);
+  DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
+  if (properties) {
+    stretch = properties->stretch();
+    alignment = properties->alignment();
+
+    properties->setParentLayout(m_layout);
+  }
+
+  m_layout->addWidget(widget, stretch, alignment);
 }

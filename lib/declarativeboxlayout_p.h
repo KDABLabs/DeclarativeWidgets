@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2012-2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2012-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -23,6 +23,8 @@
 
 #include <QBoxLayout>
 
+class DeclarativeSpacerItem;
+
 class DeclarativeBoxLayoutAttached : public QObject
 {
   Q_OBJECT
@@ -33,6 +35,7 @@ class DeclarativeBoxLayoutAttached : public QObject
   public:
     DeclarativeBoxLayoutAttached(QWidget *widget, QObject *parent);
     DeclarativeBoxLayoutAttached(QLayout *layout, QObject *parent);
+    DeclarativeBoxLayoutAttached(DeclarativeSpacerItem *spacerItem, QObject *parent);
     ~DeclarativeBoxLayoutAttached();
 
     void setParentLayout(QBoxLayout *parentLayout);
