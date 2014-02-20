@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2013-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -23,6 +23,7 @@
 #include "uiaddactionnode.h"
 #include "uilayoutnode.h"
 #include "uipropertynode.h"
+#include "uispacernode.h"
 #include "uitopnode.h"
 #include "uiwidgetnode.h"
 
@@ -113,6 +114,23 @@ void QmlWriter::visit(UiObjectNode *objectNode)
 
   m_currentIndent += 2;
   objectNode->acceptChildren(this);
+  m_currentIndent -= 2;
+
+  *m_writer << indent << "}" << endl;
+}
+
+void QmlWriter::visit(UiSpacerNode *spacerNode)
+{
+  const QByteArray indent(m_currentIndent, ' ');
+  const QByteArray offsetIndent(2, ' ');
+
+  *m_writer << endl;
+  *m_writer << indent << "Spacer {" << endl;
+  *m_writer << indent << offsetIndent << "id: " << spacerNode->id() << endl;
+  *m_writer << indent << offsetIndent << "objectName: \"" << spacerNode->id() << "\"" << endl;
+
+  m_currentIndent += 2;
+  spacerNode->acceptChildren(this);
   m_currentIndent -= 2;
 
   *m_writer << indent << "}" << endl;

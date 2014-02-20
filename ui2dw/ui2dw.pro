@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     uiactionnode.cpp \
     uiaddactionnode.cpp \
     uiitemnode.cpp \
-    itemvisitor.cpp
+    itemvisitor.cpp \
+    uispacernode.cpp
 
 HEADERS += \
     uinode.h \
@@ -41,4 +42,5 @@ HEADERS += \
     uiactionnode.h \
     uiaddactionnode.h \
     uiitemnode.h \
-    itemvisitor.h
+    itemvisitor.h \
+    uispacernode.h

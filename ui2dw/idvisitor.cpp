@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2013-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -21,6 +21,7 @@
 #include "idvisitor.h"
 
 #include "uiobjectnode.h"
+#include "uispacernode.h"
 
 #include <QDebug>
 
@@ -30,28 +31,42 @@ IdVisitor::IdVisitor()
 
 void IdVisitor::visit(UiObjectNode *objectNode)
 {
-  QString objectName = objectNode->name();
-  if (m_idsByObjectName.contains(objectName)) {
-    qWarning() << Q_FUNC_INFO << "Object name" << objectName << "appears more than once. Generating new name";
-
-    const QString nameTemplate = objectName + QLatin1String("_%1");
-    int i = 2;
-    do {
-      objectName = nameTemplate.arg(i);
-      ++i;
-    } while (m_idsByObjectName.contains(objectName));
-  }
-
-  const QString id = objectNameToId(objectName);
-
-  m_idsByObjectName.insert(objectName, id);
+  const QString id = objectNameToUniqueId(objectNode->name());
 
   objectNode->setId(id);
 
   objectNode->acceptChildren(this);
 }
 
-QString IdVisitor::objectNameToId(const QString &objectName)
+void IdVisitor::visit(UiSpacerNode *spacerNode)
+{
+  const QString id = objectNameToUniqueId(spacerNode->name());
+
+  spacerNode->setId(id);
+}
+
+QString IdVisitor::objectNameToUniqueId(const QString &objectName)
+{
+  QString name = objectName;
+  if (m_idsByObjectName.contains(name)) {
+    qWarning() << Q_FUNC_INFO << "Object name" << name << "appears more than once. Generating new name";
+
+    const QString nameTemplate = name + QLatin1String("_%1");
+    int i = 2;
+    do {
+      name = nameTemplate.arg(i);
+      ++i;
+    } while (m_idsByObjectName.contains(name));
+  }
+
+  const QString id = objectNameStringToIdString(name);
+
+  m_idsByObjectName.insert(name, id);
+
+  return id;
+}
+
+QString IdVisitor::objectNameStringToIdString(const QString &objectName) const
 {
   QString id = objectName;
   id[0] = objectName[0].toLower();

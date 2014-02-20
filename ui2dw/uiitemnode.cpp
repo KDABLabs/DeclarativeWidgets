@@ -23,6 +23,7 @@
 #include "parser.h"
 #include "uilayoutnode.h"
 #include "uinodevisitor.h"
+#include "uispacernode.h"
 #include "uiwidgetnode.h"
 
 #include <QDebug>
@@ -90,6 +91,11 @@ UiNode *UiItemNode::parse(Parser *parser)
       }
     } else if (parser->reader()->name().compare(QLatin1String("layout"), Qt::CaseInsensitive) == 0) {
       UiNode *childNode = UiLayoutNode::parse(parser);
+      if (childNode != 0) {
+        target->appendChild(childNode);
+      }
+    } else if (parser->reader()->name().compare(QLatin1String("spacer"), Qt::CaseInsensitive) == 0) {
+      UiNode *childNode = UiSpacerNode::parse(parser);
       if (childNode != 0) {
         target->appendChild(childNode);
       }

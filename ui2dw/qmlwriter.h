@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2013-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -42,6 +42,7 @@ class QmlWriter : public UiNodeVisitor
     void visit(UiAddActionNode *addActionNode);
     void visit(UiPropertyNode *propertyNode);
     void visit(UiObjectNode *objectNode);
+    void visit(UiSpacerNode *spacerNode);
     void visit(UiTopNode*topNode);
 
   protected:

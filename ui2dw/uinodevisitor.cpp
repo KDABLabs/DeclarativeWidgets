@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2013-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -25,6 +25,7 @@
 #include "uiitemnode.h"
 #include "uilayoutnode.h"
 #include "uipropertynode.h"
+#include "uispacernode.h"
 #include "uitopnode.h"
 #include "uiwidgetnode.h"
 
@@ -71,6 +72,11 @@ void UiNodeVisitor::visit(UiPropertyNode *propertyNode)
 void UiNodeVisitor::visit(UiObjectNode *objectNode)
 {
   visit(static_cast<UiNode*>(objectNode));
+}
+
+void UiNodeVisitor::visit(UiSpacerNode *spacerNode)
+{
+  visit(static_cast<UiNode*>(spacerNode));
 }
 
 void UiNodeVisitor::visit(UiTopNode *topNode)

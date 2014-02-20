@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2013-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -18,27 +18,28 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef IDVISITOR_H
-#define IDVISITOR_H
+#ifndef UISPACERNODE_H
+#define UISPACERNODE_H
 
-#include "uinodevisitor.h"
+#include "uinode.h"
 
-#include <QHash>
+class UiNodeVisitor;
+class Parser;
 
-class IdVisitor : public UiNodeVisitor
+class UiSpacerNode : public UiNode
 {
   public:
-    IdVisitor();
+    UiSpacerNode();
 
-    void visit(UiObjectNode *objectNode);
-    void visit(UiSpacerNode *spacerNode);
+    static UiNode *parse(Parser *parser);
+
+    void accept(UiNodeVisitor *visitor);
+
+    QString id() const;
+    void setId(const QString &id);
 
   protected:
-    QHash<QString, QString> m_idsByObjectName;
-
-  protected:
-    QString objectNameToUniqueId(const QString &objectName);
-    QString objectNameStringToIdString(const QString &objectName) const;
+    QString m_id;
 };
 
-#endif // IDVISITOR_H
+#endif // UISPACERNODE_H

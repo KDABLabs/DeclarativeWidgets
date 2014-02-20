@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2013-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -28,6 +28,7 @@ class UiItemNode;
 class UiNode;
 class UiPropertyNode;
 class UiObjectNode;
+class UiSpacerNode;
 class UiTopNode;
 class UiWidgetNode;
 
@@ -44,6 +45,7 @@ class UiNodeVisitor
     virtual void visit(UiLayoutNode *layoutNode);
     virtual void visit(UiPropertyNode *propertyNode);
     virtual void visit(UiObjectNode *objectNode);
+    virtual void visit(UiSpacerNode *spacerNode);
     virtual void visit(UiTopNode*topNode);
     virtual void visit(UiWidgetNode *widgetNode);
 };
