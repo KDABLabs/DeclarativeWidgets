@@ -27,6 +27,7 @@
 #include "uitopnode.h"
 #include "uiwidgetnode.h"
 
+#include <QDebug>
 #include <QIODevice>
 #include <QRect>
 #include <QTextCodec>
@@ -141,6 +142,67 @@ void QmlWriter::visit(UiSpacerNode *spacerNode)
   *m_writer << indent << "Spacer {" << endl;
   *m_writer << indent << offsetIndent << "id: " << spacerNode->id() << endl;
   *m_writer << indent << offsetIndent << "objectName: \"" << spacerNode->id() << "\"" << endl;
+
+  // map the orientation property to spacer size policy enums
+  // TODO should probably be in a specialized "property transform" visitor
+  for (int i = 0; i < spacerNode->childCount(); ++i) {
+    UiNode *child = spacerNode->childAt(i);
+    if (child->name() == QLatin1String("orientation")) {
+      UiPropertyNode *orientationProperty = dynamic_cast<UiPropertyNode*>(child);
+      if (orientationProperty == 0) {
+        qWarning() << Q_FUNC_INFO << "Spacer orientation child node is not a propery node";
+        continue;
+      }
+
+      const QStringList nameParts = orientationProperty->value().value<EnumValue>().nameParts;
+      if (nameParts.count() != 2 || nameParts[0] != QLatin1String("Qt")) {
+        qWarning() << Q_FUNC_INFO << "Spacer orientation is neither Qt::Vertical nor Qt::Horizontal: "
+                   << nameParts.join(QLatin1String("::"));
+        continue;
+      }
+
+      if (nameParts[1] == QLatin1String("Horizontal")) {
+        EnumValue policyEnum;
+        UiPropertyNode *policyNode = 0;
+
+        policyEnum.nameParts << QLatin1String("Spacer") << QLatin1String("Expanding");
+        policyNode = new UiPropertyNode;
+        policyNode->setName(QLatin1String("horizontalSizePolicy"));
+        policyNode->setValue(QVariant::fromValue(policyEnum));;
+        spacerNode->appendChild(policyNode);
+
+        policyEnum.nameParts << QLatin1String("Spacer") << QLatin1String("Minimum");
+        policyNode = new UiPropertyNode;
+        policyNode->setName(QLatin1String("verticalSizePolicy"));
+        policyNode->setValue(QVariant::fromValue(policyEnum));;
+        spacerNode->appendChild(policyNode);
+
+      } else if (nameParts[1] == QLatin1String("Vertical")) {
+        EnumValue policyEnum;
+        UiPropertyNode *policyNode = 0;
+
+        policyEnum.nameParts << QLatin1String("Spacer") << QLatin1String("Minimum");
+        policyNode = new UiPropertyNode;
+        policyNode->setName(QLatin1String("horizontalSizePolicy"));
+        policyNode->setValue(QVariant::fromValue(policyEnum));;
+        spacerNode->appendChild(policyNode);
+
+        policyEnum.nameParts << QLatin1String("Spacer") << QLatin1String("Expanding");
+        policyNode = new UiPropertyNode;
+        policyNode->setName(QLatin1String("verticalSizePolicy"));
+        policyNode->setValue(QVariant::fromValue(policyEnum));;
+        spacerNode->appendChild(policyNode);
+
+      } else {
+        qWarning() << Q_FUNC_INFO << "Spacer orientation is neither Qt::Vertical nor Qt::Horizontal: "
+                   << nameParts.join(QLatin1String("::"));
+        continue;
+      }
+
+      delete spacerNode->takeChildAt(i);
+      break;
+    }
+  }
 
   m_currentIndent += 2;
   spacerNode->acceptChildren(this);
