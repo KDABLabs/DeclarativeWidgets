@@ -72,11 +72,11 @@ void QmlWriter::visit(UiPropertyNode *propertyNode)
 
   case QVariant::Double:
     *m_writer << propertyNode->value().toDouble();
-      break;
+    break;
 
   case QVariant::Int:
     *m_writer << propertyNode->value().toInt();
-      break;
+    break;
 
   case QVariant::Rect: {
     const QRect r = propertyNode->value().value<QRect>();
@@ -91,8 +91,21 @@ void QmlWriter::visit(UiPropertyNode *propertyNode)
   }
 
   case QVariant::UInt:
-      *m_writer << propertyNode->value().toUInt();
+    *m_writer << propertyNode->value().toUInt();
+    break;
+
+  case QVariant::UserType:
+    if (propertyNode->value().canConvert<EnumValue>()) {
+      QStringList nameParts = propertyNode->value().value<EnumValue>().nameParts;
+      while (nameParts.count() > 2) {
+        nameParts.pop_front();
+      }
+
+      *m_writer << nameParts.join(QLatin1String("."));
       break;
+    }
+
+    // fall through
 
   default:
     *m_writer << "\"" << propertyNode->value().toString() << "\"";

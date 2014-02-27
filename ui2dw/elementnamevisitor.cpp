@@ -21,6 +21,7 @@
 #include "elementnamevisitor.h"
 
 #include "uiobjectnode.h"
+#include "uipropertynode.h"
 
 #include <QDebug>
 
@@ -43,4 +44,21 @@ void ElementNameVisitor::visit(UiObjectNode *objectNode)
   objectNode->setClassName(className);
 
   objectNode->acceptChildren(this);
+}
+
+void ElementNameVisitor::visit(UiPropertyNode *propertyNode)
+{
+  if (!propertyNode->value().canConvert<EnumValue>())
+    return;
+
+  const QStringList nameParts = propertyNode->value().value<EnumValue>().nameParts;
+
+  // if we have two components and the first one is a Qt class, strip away the Q
+  if (nameParts.count() == 2 && nameParts[0].length() > 1 && nameParts[0][1].isUpper()) {
+    EnumValue value;
+    value.nameParts = nameParts;
+    value.nameParts[0] = nameParts[0].mid(1);
+
+    propertyNode->setValue(QVariant::fromValue(value));
+  }
 }

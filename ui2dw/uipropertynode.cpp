@@ -63,6 +63,17 @@ class DoubleValueParser : public PropertyValueParser
     }
 };
 
+class EnumValueParser : public PropertyValueParser
+{
+  public:
+    QVariant parse(Parser *parser)
+    {
+      EnumValue value;
+      value.nameParts = parser->reader()->readElementText().split(QLatin1String("::"));
+      return QVariant::fromValue(value);
+    }
+};
+
 class NumberValueParser : public PropertyValueParser
 {
   public:
@@ -244,6 +255,7 @@ void UiPropertyNode::initializeValueParsers()
 
   s_valueParsers.insert(QLatin1String("bool"), new BoolValueParser);
   s_valueParsers.insert(QLatin1String("double"), new DoubleValueParser);
+  s_valueParsers.insert(QLatin1String("enum"), new EnumValueParser);
   s_valueParsers.insert(QLatin1String("number"), new NumberValueParser);
   s_valueParsers.insert(QLatin1String("rect"), new RectValueParser);
   s_valueParsers.insert(QLatin1String("size"), new SizeValueParser);

@@ -29,6 +29,7 @@ class ElementNameVisitor : public UiNodeVisitor
     ElementNameVisitor();
 
     void visit(UiObjectNode *objectNode);
+    void visit(UiPropertyNode *propertyNode);
 };
 
 #endif // ELEMENTNAMEVISITOR_H

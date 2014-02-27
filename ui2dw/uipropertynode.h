@@ -24,10 +24,18 @@
 #include "uinode.h"
 
 #include <QHash>
+#include <QStringList>
 #include <QVariant>
 
 class Parser;
 class PropertyValueParser;
+
+struct EnumValue
+{
+    QStringList nameParts;
+};
+
+Q_DECLARE_METATYPE(EnumValue)
 
 class UiPropertyNode : public UiNode
 {
