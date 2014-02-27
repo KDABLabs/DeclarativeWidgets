@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2013-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -68,9 +68,14 @@ class EnumValueParser : public PropertyValueParser
   public:
     QVariant parse(Parser *parser)
     {
+      return QVariant::fromValue(parseEnumString(parser->reader()->readElementText()));
+    }
+
+    static EnumValue parseEnumString(const QString &enumString)
+    {
       EnumValue value;
-      value.nameParts = parser->reader()->readElementText().split(QLatin1String("::"));
-      return QVariant::fromValue(value);
+      value.nameParts = enumString.split(QLatin1String("::"));
+      return value;
     }
 };
 
@@ -136,6 +141,23 @@ class RectValueParser : public PropertyValueParser
       }
 
       return false;
+    }
+};
+
+class SetValueParser : public PropertyValueParser
+{
+  public:
+    QVariant parse(Parser *parser)
+    {
+      const QStringList flagList = parser->reader()->readElementText().split(QLatin1String("|"));
+
+      SetValue value;
+
+      Q_FOREACH (const QString &flagString, flagList) {
+        value.flags << EnumValueParser::parseEnumString(flagString);
+      }
+
+      return QVariant::fromValue(value);
     }
 };
 
@@ -258,6 +280,7 @@ void UiPropertyNode::initializeValueParsers()
   s_valueParsers.insert(QLatin1String("enum"), new EnumValueParser);
   s_valueParsers.insert(QLatin1String("number"), new NumberValueParser);
   s_valueParsers.insert(QLatin1String("rect"), new RectValueParser);
+  s_valueParsers.insert(QLatin1String("set"), new SetValueParser);
   s_valueParsers.insert(QLatin1String("size"), new SizeValueParser);
   s_valueParsers.insert(QLatin1String("string"), new StringValueParser);
 }

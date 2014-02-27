@@ -33,6 +33,30 @@
 #include <QTextCodec>
 #include <QTextStream>
 
+static void writeEnumValue(QTextStream &writer, const EnumValue &enumValue)
+{
+  QStringList nameParts = enumValue.nameParts;
+  while (nameParts.count() > 2) {
+    nameParts.pop_front();
+  }
+
+  writer << nameParts.join(QLatin1String("."));
+}
+
+static void writeSetValue(QTextStream &writer, const SetValue &setValue)
+{
+  int count = setValue.flags.count();
+
+  Q_FOREACH (const EnumValue &enumValue, setValue.flags) {
+    writeEnumValue(writer, enumValue);
+
+    --count;
+    if (count > 0) {
+      writer << " | ";
+    }
+  }
+}
+
 QmlWriter::QmlWriter(QIODevice *outputDevice)
   : m_writer(new QTextStream(outputDevice))
   , m_currentIndent(0)
@@ -97,12 +121,12 @@ void QmlWriter::visit(UiPropertyNode *propertyNode)
 
   case QVariant::UserType:
     if (propertyNode->value().canConvert<EnumValue>()) {
-      QStringList nameParts = propertyNode->value().value<EnumValue>().nameParts;
-      while (nameParts.count() > 2) {
-        nameParts.pop_front();
-      }
+      writeEnumValue(*m_writer, propertyNode->value().value<EnumValue>());
+      break;
+    }
 
-      *m_writer << nameParts.join(QLatin1String("."));
+    if (propertyNode->value().canConvert<SetValue>()) {
+      writeSetValue(*m_writer, propertyNode->value().value<SetValue>());
       break;
     }
 

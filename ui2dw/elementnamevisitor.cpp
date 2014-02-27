@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2013-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -25,6 +25,33 @@
 
 #include <QDebug>
 
+static EnumValue fixEnumValue(const EnumValue &enumValue)
+{
+  const QStringList nameParts = enumValue.nameParts;
+
+  // if we have two components and the first one is a Qt class, strip away the Q
+  if (nameParts.count() == 2 && nameParts[0].length() > 1 && nameParts[0][1].isUpper()) {
+    EnumValue value;
+    value.nameParts = nameParts;
+    value.nameParts[0] = nameParts[0].mid(1);
+
+    return value;
+  }
+
+  return enumValue;
+}
+
+static SetValue fixSetValue(const SetValue &setValue)
+{
+  SetValue value;
+
+  Q_FOREACH (const EnumValue &enumValue, setValue.flags) {
+    value.flags << fixEnumValue(enumValue);
+  }
+
+  return value;
+}
+
 ElementNameVisitor::ElementNameVisitor()
 {
 }
@@ -48,17 +75,9 @@ void ElementNameVisitor::visit(UiObjectNode *objectNode)
 
 void ElementNameVisitor::visit(UiPropertyNode *propertyNode)
 {
-  if (!propertyNode->value().canConvert<EnumValue>())
-    return;
-
-  const QStringList nameParts = propertyNode->value().value<EnumValue>().nameParts;
-
-  // if we have two components and the first one is a Qt class, strip away the Q
-  if (nameParts.count() == 2 && nameParts[0].length() > 1 && nameParts[0][1].isUpper()) {
-    EnumValue value;
-    value.nameParts = nameParts;
-    value.nameParts[0] = nameParts[0].mid(1);
-
-    propertyNode->setValue(QVariant::fromValue(value));
+  if (propertyNode->value().canConvert<EnumValue>()) {
+    propertyNode->setValue(QVariant::fromValue(fixEnumValue(propertyNode->value().value<EnumValue>())));
+  } else if (propertyNode->value().canConvert<SetValue>()) {
+    propertyNode->setValue(QVariant::fromValue(fixSetValue(propertyNode->value().value<SetValue>())));
   }
 }
