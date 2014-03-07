@@ -210,6 +210,76 @@ class StringValueParser : public PropertyValueParser
 };
 
 
+class FontValueParser : public PropertyValueParser
+{
+  public:
+    QVariant parse(Parser *parser)
+    {
+      initializeValueParsers();
+
+      FontValue fontValue;
+
+      while (!parser->reader()->atEnd()) {
+        parser->reader()->readNext();
+        if (parser->reader()->isEndElement() && parser->reader()->name().compare(QLatin1String("font")) == 0) {
+          break;
+        }
+
+        if (parser->reader()->isStartElement()) {
+          const QString valueName = parser->reader()->name().toString();
+          PropertyValueParser *const valueParser = s_valueParsers.value(valueName);
+          if (valueParser == 0) {
+            qWarning() << "skipping unsupported font property type" << valueName
+                       << "in line" << parser->reader()->lineNumber();
+            parser->reader()->skipCurrentElement();
+            continue;
+          }
+
+          const QVariant value = valueParser->parse(parser);
+          if (!value.isValid()) {
+            qWarning() << "skipping unsupported font property type" << valueName
+                       << "in line" << parser->reader()->lineNumber();
+            parser->reader()->skipCurrentElement();
+            continue;
+          }
+
+          fontValue.fontProperties.insert(valueName, value);
+        }
+      }
+
+      if (!fontValue.fontProperties.isEmpty()) {
+        return QVariant::fromValue(fontValue);
+      }
+
+      qWarning() << "font property without any supported sub properties";
+      return QVariant();
+    }
+
+  private:
+    typedef QHash<QString, PropertyValueParser*> ValueParserHash;
+    static ValueParserHash s_valueParsers;
+
+  private:
+    static void initializeValueParsers()
+    {
+      if (!s_valueParsers.isEmpty()) {
+        return;
+      }
+
+      s_valueParsers.insert(QLatin1String("bold"), new BoolValueParser);
+      s_valueParsers.insert(QLatin1String("family"), new StringValueParser);
+      s_valueParsers.insert(QLatin1String("italic"), new BoolValueParser);
+      s_valueParsers.insert(QLatin1String("kerning"), new BoolValueParser);
+      s_valueParsers.insert(QLatin1String("pointsize"), new NumberValueParser);
+      s_valueParsers.insert(QLatin1String("strikeout"), new BoolValueParser);
+      s_valueParsers.insert(QLatin1String("underline"), new BoolValueParser);
+      s_valueParsers.insert(QLatin1String("weight"), new NumberValueParser);
+      s_valueParsers.insert(QLatin1String("stylestrategy"), new EnumValueParser);
+    }
+};
+
+FontValueParser::ValueParserHash FontValueParser::s_valueParsers;
+
 UiPropertyNode::ValueParserHash UiPropertyNode::s_valueParsers;
 
 UiPropertyNode::UiPropertyNode()
@@ -278,6 +348,7 @@ void UiPropertyNode::initializeValueParsers()
   s_valueParsers.insert(QLatin1String("bool"), new BoolValueParser);
   s_valueParsers.insert(QLatin1String("double"), new DoubleValueParser);
   s_valueParsers.insert(QLatin1String("enum"), new EnumValueParser);
+  s_valueParsers.insert(QLatin1String("font"), new FontValueParser);
   s_valueParsers.insert(QLatin1String("number"), new NumberValueParser);
   s_valueParsers.insert(QLatin1String("rect"), new RectValueParser);
   s_valueParsers.insert(QLatin1String("set"), new SetValueParser);

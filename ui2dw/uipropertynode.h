@@ -44,6 +44,13 @@ struct SetValue
 
 Q_DECLARE_METATYPE(SetValue)
 
+struct FontValue
+{
+    QVariantHash fontProperties;
+};
+
+Q_DECLARE_METATYPE(FontValue)
+
 class UiPropertyNode : public UiNode
 {
   public:

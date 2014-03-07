@@ -33,33 +33,177 @@
 #include <QTextCodec>
 #include <QTextStream>
 
-static void writeEnumValue(QTextStream &writer, const EnumValue &enumValue)
+class PropertyWriter
 {
-  QStringList nameParts = enumValue.nameParts;
-  while (nameParts.count() > 2) {
-    nameParts.pop_front();
-  }
+  public:
+    PropertyWriter() {}
+    virtual ~PropertyWriter() {}
 
-  writer << nameParts.join(QLatin1String("."));
-}
-
-static void writeSetValue(QTextStream &writer, const SetValue &setValue)
-{
-  int count = setValue.flags.count();
-
-  Q_FOREACH (const EnumValue &enumValue, setValue.flags) {
-    writeEnumValue(writer, enumValue);
-
-    --count;
-    if (count > 0) {
-      writer << " | ";
+    void write(QTextStream &writer, const QByteArray &indent, const QString &name, const QVariant &value)
+    {
+      writeBeginProperty(writer, indent, name);
+      writeValue(writer, indent, value);
+      writeEndProperty(writer, indent);
     }
-  }
-}
+
+protected:
+    virtual void writeBeginProperty(QTextStream &writer, const QByteArray &indent, const QString &name)
+    {
+      writer << indent << name << QLatin1String(": ");
+    }
+
+    virtual void writeEndProperty(QTextStream &writer,const QByteArray &indent)
+    {
+      Q_UNUSED(indent);
+      writer << endl;
+    }
+
+    virtual void writeValue(QTextStream &writer, const QByteArray &indent, const QVariant &value)
+    {
+      Q_UNUSED(indent);
+
+      switch (value.type()) {
+      case QVariant::Bool:
+        writer << (value.toBool() ? "true" : "false");
+        break;
+
+      case QVariant::Double:
+        writer << value.toDouble();
+        break;
+
+      case QVariant::Int:
+        writer << value.toInt();
+        break;
+
+      case QVariant::Rect: {
+        const QRect r = value.value<QRect>();
+        writer << "Qt.rect(" << r.x() << ", " << r.y() << ", " << r.width() << ", " << r.height() << ")";
+        break;
+      }
+
+      case QVariant::Size: {
+        const QSize s = value.value<QSize>();
+        writer << "Qt.size(" << s.width() << ", " << s.height() << ")";
+        break;
+      }
+
+      case QVariant::UInt:
+        writer << value.toUInt();
+        break;
+
+      case QVariant::UserType:
+        if (value.canConvert<EnumValue>()) {
+          writeEnumValue(writer, value.value<EnumValue>());
+          break;
+        }
+
+        if (value.canConvert<SetValue>()) {
+          writeSetValue(writer, value.value<SetValue>());
+          break;
+        }
+
+        // fall through
+
+      default:
+        writer << "\"" << value.toString() << "\"";
+        break;
+      }
+    }
+
+    void writeEnumValue(QTextStream &writer, const EnumValue &enumValue)
+    {
+      QStringList nameParts = enumValue.nameParts;
+      while (nameParts.count() > 2) {
+        nameParts.pop_front();
+      }
+
+      writer << nameParts.join(QLatin1String("."));
+    }
+
+    void writeSetValue(QTextStream &writer, const SetValue &setValue)
+    {
+      int count = setValue.flags.count();
+
+      Q_FOREACH (const EnumValue &enumValue, setValue.flags) {
+        writeEnumValue(writer, enumValue);
+
+        --count;
+        if (count > 0) {
+          writer << " | ";
+        }
+      }
+    }
+};
+
+class GroupedPropertyWriter : public PropertyWriter
+{
+  public:
+    GroupedPropertyWriter()
+      : PropertyWriter()
+      , m_offsetIndent(2, ' ')
+    {
+    }
+
+  protected:
+    const QByteArray m_offsetIndent;
+
+  protected:
+    void writeBeginProperty(QTextStream &writer, const QByteArray &indent, const QString &name)
+    {
+      writer << indent << name << " {" << endl;
+    }
+
+    void writeEndProperty(QTextStream &writer, const QByteArray &indent)
+    {
+      writer << indent << "}" << endl;
+    }
+};
+
+class FontPropertyWriter : public GroupedPropertyWriter
+{
+  public:
+    FontPropertyWriter()
+      : GroupedPropertyWriter()
+      , m_subValueWriter(new PropertyWriter)
+      , m_orderedNames(QStringList() << "family" << "pointSize" << "bold" << "italic" << "underline" << "strikeout")
+    {
+    }
+
+  protected:
+    QScopedPointer<PropertyWriter> m_subValueWriter;
+    const QStringList m_orderedNames;
+
+  protected:
+    void writeValue(QTextStream &writer, const QByteArray &indent, const QVariant &value)
+    {
+      Q_ASSERT(value.canConvert<FontValue>());
+
+      const QByteArray subIndent = indent + m_offsetIndent;
+
+      QVariantHash fontProperties = value.value<FontValue>().fontProperties;
+
+      // first write properties that we want in a preferential order
+      Q_FOREACH (const QString &name, m_orderedNames) {
+        QVariantHash::iterator it = fontProperties.find(name);
+        if (it != fontProperties.end()) {
+          m_subValueWriter->write(writer, subIndent, it.key(), it.value());
+          fontProperties.erase(it);
+        }
+      }
+
+      // then write all the remaining ones
+      QVariantHash::const_iterator it = fontProperties.constBegin();
+      QVariantHash::const_iterator endIt = fontProperties.constEnd();
+      for (; it != endIt; ++it) {
+        m_subValueWriter->write(writer, subIndent, it.key(), it.value());
+      }
+    }
+};
 
 QmlWriter::QmlWriter(QIODevice *outputDevice)
   : m_writer(new QTextStream(outputDevice))
   , m_currentIndent(0)
+  , m_propertyWriter(new PropertyWriter)
 {
   m_writer->setCodec(QTextCodec::codecForName("UTF-8"));
 }
@@ -88,56 +232,14 @@ void QmlWriter::visit(UiPropertyNode *propertyNode)
 {
   const QByteArray indent(m_currentIndent, ' ');
 
-  *m_writer << indent << propertyNode->name() << ": ";
+  initializeUserProperyWriters();
 
-  switch (propertyNode->value().type()) {
-  case QVariant::Bool:
-    *m_writer << (propertyNode->value().toBool() ? "true" : "false");
-    break;
-
-  case QVariant::Double:
-    *m_writer << propertyNode->value().toDouble();
-    break;
-
-  case QVariant::Int:
-    *m_writer << propertyNode->value().toInt();
-    break;
-
-  case QVariant::Rect: {
-    const QRect r = propertyNode->value().value<QRect>();
-    *m_writer << "Qt.rect(" << r.x() << ", " << r.y() << ", " << r.width() << ", " << r.height() << ")";
-    break;
+  UserPropertyWriterHash::const_iterator it = m_userPropertyWriters.constFind(propertyNode->value().userType());
+  if (it != m_userPropertyWriters.constEnd()) {
+    it.value()->write(*m_writer, indent, propertyNode->name(), propertyNode->value());
+  } else {
+    m_propertyWriter->write(*m_writer, indent, propertyNode->name(), propertyNode->value());
   }
-
-  case QVariant::Size: {
-    const QSize s = propertyNode->value().value<QSize>();
-    *m_writer << "Qt.size(" << s.width() << ", " << s.height() << ")";
-    break;
-  }
-
-  case QVariant::UInt:
-    *m_writer << propertyNode->value().toUInt();
-    break;
-
-  case QVariant::UserType:
-    if (propertyNode->value().canConvert<EnumValue>()) {
-      writeEnumValue(*m_writer, propertyNode->value().value<EnumValue>());
-      break;
-    }
-
-    if (propertyNode->value().canConvert<SetValue>()) {
-      writeSetValue(*m_writer, propertyNode->value().value<SetValue>());
-      break;
-    }
-
-    // fall through
-
-  default:
-    *m_writer << "\"" << propertyNode->value().toString() << "\"";
-    break;
-  }
-
-  *m_writer << endl;
 }
 
 void QmlWriter::visit(UiObjectNode *objectNode)
@@ -243,4 +345,13 @@ void QmlWriter::visit(UiTopNode *topNode)
   *m_writer << endl;
 
   topNode->acceptChildren(this);
+}
+
+void QmlWriter::initializeUserProperyWriters()
+{
+  if (!m_userPropertyWriters.isEmpty()) {
+    return;
+  }
+
+  m_userPropertyWriters.insert(qMetaTypeId<FontValue>(), new FontPropertyWriter);
 }

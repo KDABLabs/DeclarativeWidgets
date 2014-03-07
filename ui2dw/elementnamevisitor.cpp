@@ -52,6 +52,23 @@ static SetValue fixSetValue(const SetValue &setValue)
   return value;
 }
 
+static FontValue fixFontValue(const FontValue &fontValue)
+{
+  FontValue value;
+
+  QVariantHash::const_iterator it = fontValue.fontProperties.constBegin();
+  QVariantHash::const_iterator endIt = fontValue.fontProperties.constEnd();
+  for (; it != endIt; ++it) {
+    if (it.value().canConvert<EnumValue>()) {
+      value.fontProperties.insert(it.key(), QVariant::fromValue(fixEnumValue(it.value().value<EnumValue>())));
+    } else {
+      value.fontProperties.insert(it.key(), it.value());
+    }
+  }
+
+  return value;
+}
+
 ElementNameVisitor::ElementNameVisitor()
 {
 }
@@ -79,5 +96,7 @@ void ElementNameVisitor::visit(UiPropertyNode *propertyNode)
     propertyNode->setValue(QVariant::fromValue(fixEnumValue(propertyNode->value().value<EnumValue>())));
   } else if (propertyNode->value().canConvert<SetValue>()) {
     propertyNode->setValue(QVariant::fromValue(fixSetValue(propertyNode->value().value<SetValue>())));
+  } else if (propertyNode->value().canConvert<SetValue>()) {
+    propertyNode->setValue(QVariant::fromValue(fixFontValue(propertyNode->value().value<FontValue>())));
   }
 }

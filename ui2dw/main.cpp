@@ -27,6 +27,7 @@
 #include <iostream>
 
 #include "elementnamevisitor.h"
+#include "fontproperyvisitor.h"
 #include "idvisitor.h"
 #include "itemvisitor.h"
 #include "qmlwriter.h"
@@ -108,6 +109,10 @@ int main(int argc, char *argv[])
   // adjust class names
   ElementNameVisitor classVisitor;
   topNode->accept(&classVisitor);
+
+  // adjust font properties
+  FontProperyVisitor fontPropertiesVisitor;
+  topNode->accept(&fontPropertiesVisitor);
 
   QmlWriter writer(&outputFile);
   writer.write(topNode);

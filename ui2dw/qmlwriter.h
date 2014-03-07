@@ -23,12 +23,14 @@
 
 #include "uinodevisitor.h"
 
+#include <QHash>
 #include <QSharedPointer>
 #include <QScopedPointer>
 
 class QIODevice;
 class QTextStream;
 
+class PropertyWriter;
 class UiTopNode;
 
 class QmlWriter : public UiNodeVisitor
@@ -48,6 +50,14 @@ class QmlWriter : public UiNodeVisitor
   protected:
     QScopedPointer<QTextStream> m_writer;
     int m_currentIndent;
+
+    QScopedPointer<PropertyWriter> m_propertyWriter;
+
+    typedef QHash<int, PropertyWriter*> UserPropertyWriterHash;
+    UserPropertyWriterHash m_userPropertyWriters;
+
+  protected:
+    void initializeUserProperyWriters();
 };
 
 #endif // QMLWRITER_H
