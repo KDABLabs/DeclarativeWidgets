@@ -100,11 +100,9 @@ void FontProperyVisitor::visit(UiPropertyNode *propertyNode)
     if (it.key() == QLatin1String("pointsize")) {
       fontValue.fontProperties.insert(QLatin1String("pointSize"), it.value());
     } else if (it.key() == QLatin1String("weight")) {
-      // TODO: "Font" enum currently requires QtQuick import, skip for now
-#if 0
-      const EnumValue weightValue = weightIntToEnumValue(it.value().toInt());
+      EnumValue weightValue = weightIntToEnumValue(it.value().toInt());
+      weightValue.nameParts.prepend(m_sharedContext->registerImport("QtQuick", "1.0"));
       fontValue.fontProperties.insert(it.key(), QVariant::fromValue(weightValue));
-#endif
     } else {
       fontValue.fontProperties.insert(it.key(), it.value());
     }

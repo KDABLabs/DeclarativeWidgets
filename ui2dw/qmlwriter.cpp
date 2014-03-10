@@ -112,12 +112,7 @@ protected:
 
     void writeEnumValue(QTextStream &writer, const EnumValue &enumValue)
     {
-      QStringList nameParts = enumValue.nameParts;
-      while (nameParts.count() > 2) {
-        nameParts.pop_front();
-      }
-
-      writer << nameParts.join(QLatin1String("."));
+      writer << enumValue.nameParts.join(QLatin1String("."));
     }
 
     void writeSetValue(QTextStream &writer, const SetValue &setValue)
