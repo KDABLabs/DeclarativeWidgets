@@ -36,7 +36,7 @@ class UiTopNode;
 class QmlWriter : public UiNodeVisitor
 {
   public:
-    explicit QmlWriter(QIODevice *outputDevice);
+    QmlWriter(QIODevice *outputDevice, const SharedVisitationContext &sharedContext);
     ~QmlWriter();
 
     void write(const QSharedPointer<UiTopNode> &topNode);

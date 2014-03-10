@@ -200,8 +200,9 @@ class FontPropertyWriter : public GroupedPropertyWriter
     }
 };
 
-QmlWriter::QmlWriter(QIODevice *outputDevice)
-  : m_writer(new QTextStream(outputDevice))
+QmlWriter::QmlWriter(QIODevice *outputDevice, const SharedVisitationContext &sharedContext)
+  : UiNodeVisitor(sharedContext)
+  , m_writer(new QTextStream(outputDevice))
   , m_currentIndent(0)
   , m_propertyWriter(new PropertyWriter)
 {
@@ -347,6 +348,14 @@ void QmlWriter::visit(UiTopNode *topNode)
 
   *m_writer << "import QtWidgets 1.0" << endl;
   *m_writer << endl;
+
+  const QStringList additionalImportLines = m_sharedContext->generateImportLines();
+  if (!additionalImportLines.isEmpty()) {
+    Q_FOREACH (const QString &importLine, additionalImportLines) {
+      *m_writer << importLine << endl;
+    }
+    *m_writer << endl;
+  }
 
   topNode->acceptChildren(this);
 }

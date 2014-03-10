@@ -29,7 +29,12 @@
 class LabelTextVisitor : public UiNodeVisitor
 {
   public:
-    static QString getText(UiNode *node);
+    explicit LabelTextVisitor(const SharedVisitationContext &sharedContext)
+      : UiNodeVisitor(sharedContext)
+    {
+    }
+
+    static QString getText(UiNode *node, const SharedVisitationContext &sharedContext);
 
     void visit(UiPropertyNode *propertyNode);
     void visit(UiWidgetNode *widgetNode);
@@ -38,9 +43,9 @@ class LabelTextVisitor : public UiNodeVisitor
     QString m_labelText;
 };
 
-QString LabelTextVisitor::getText(UiNode *node)
+QString LabelTextVisitor::getText(UiNode *node, const SharedVisitationContext &sharedContext)
 {
-  LabelTextVisitor visitor;
+  LabelTextVisitor visitor(sharedContext);
 
   node->accept(&visitor);
 
@@ -71,7 +76,8 @@ void LabelTextVisitor::visit(UiWidgetNode *widgetNode)
 }
 
 
-ItemVisitor::ItemVisitor()
+ItemVisitor::ItemVisitor(const SharedVisitationContext &sharedContext)
+  : UiNodeVisitor(sharedContext)
 {
 }
 
@@ -152,7 +158,7 @@ void ItemVisitor::visitFormLayoutItem(UiItemNode *itemNode)
   UiNode *childNode = itemNode->childAt(0);
   if (column == 0) {
     // TODO can we add support for non-QLabels in label role?
-    m_labels.insert(row, LabelTextVisitor::getText(childNode));
+    m_labels.insert(row, LabelTextVisitor::getText(childNode, m_sharedContext));
     delete itemNode->takeChildAt(0);
   } else {
     UiPropertyNode *property = new UiPropertyNode;

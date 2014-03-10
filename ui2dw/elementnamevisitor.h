@@ -26,7 +26,7 @@
 class ElementNameVisitor : public UiNodeVisitor
 {
   public:
-    ElementNameVisitor();
+    explicit ElementNameVisitor(const SharedVisitationContext &sharedContext);
 
     void visit(UiObjectNode *objectNode);
     void visit(UiPropertyNode *propertyNode);

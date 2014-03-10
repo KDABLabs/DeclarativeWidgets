@@ -28,7 +28,7 @@
 class IdVisitor : public UiNodeVisitor
 {
   public:
-    IdVisitor();
+    explicit IdVisitor(const SharedVisitationContext &sharedContext);
 
     void visit(UiObjectNode *objectNode);
     void visit(UiSpacerNode *spacerNode);

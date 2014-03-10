@@ -31,7 +31,70 @@
 
 #include <QDebug>
 
-UiNodeVisitor::UiNodeVisitor()
+static QString cleanVersion(const QString &version)
+{
+  return version.split('.').join("_");
+}
+
+static QString cleanModule(const QString &module)
+{
+  QString result;
+  Q_FOREACH (const QString &part, module.split('.')) {
+    result.append(part[0].toUpper()).append(part.mid(1));
+  }
+
+  return result;
+}
+
+VisitationContext::VisitationContext()
+{
+}
+
+QString VisitationContext::registerImport(const QString &module, const QString &version)
+{
+  VersionMap &versionHash = m_imports[module];
+  QString &alias = versionHash[version];
+  if (alias.isEmpty()) {
+    const QString modulePart = cleanModule(module);
+    const QString versionPart = cleanVersion(version);
+
+    alias = modulePart + versionPart;
+
+    int count = 1;
+    while (m_aliases.contains(alias)) {
+      alias = modulePart + versionPart + QString("_%1").arg(++count);
+    }
+
+    m_aliases.insert(alias);
+  }
+
+  return alias;
+}
+
+QStringList VisitationContext::generateImportLines() const
+{
+  static QString linePattern = QLatin1String("import %1 %2 as %3");
+
+  QStringList result;
+
+  ModuleMap::const_iterator moduleIt = m_imports.constBegin();
+  ModuleMap::const_iterator moduleEndIt = m_imports.constEnd();
+  for (; moduleIt != moduleEndIt; ++moduleIt) {
+    const VersionMap &versions = moduleIt.value();
+
+    VersionMap::const_iterator versionIt = versions.constBegin();
+    VersionMap::const_iterator versionEndIt = versions.constEnd();
+    for (; versionIt != versionEndIt; ++versionIt) {
+      result << linePattern.arg(moduleIt.key(), versionIt.key(), versionIt.value());
+    }
+  }
+
+  return result;
+}
+
+
+UiNodeVisitor::UiNodeVisitor(const SharedVisitationContext &sharedContext)
+  : m_sharedContext(sharedContext)
 {
 }
 

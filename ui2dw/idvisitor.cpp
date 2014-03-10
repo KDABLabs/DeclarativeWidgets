@@ -25,7 +25,8 @@
 
 #include <QDebug>
 
-IdVisitor::IdVisitor()
+IdVisitor::IdVisitor(const SharedVisitationContext &sharedContext)
+  : UiNodeVisitor(sharedContext)
 {
 }
 

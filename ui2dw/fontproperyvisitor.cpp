@@ -71,8 +71,8 @@ EnumValue weightIntToEnumValue(int weight)
 
 }
 
-FontProperyVisitor::FontProperyVisitor()
-  : UiNodeVisitor()
+FontProperyVisitor::FontProperyVisitor(const SharedVisitationContext &sharedContext)
+  : UiNodeVisitor(sharedContext)
   , m_unhandledSubProperties(QSet<QString>() << "stylestrategy" << "kerning")
 {
 }

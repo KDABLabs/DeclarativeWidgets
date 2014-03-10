@@ -69,7 +69,8 @@ static FontValue fixFontValue(const FontValue &fontValue)
   return value;
 }
 
-ElementNameVisitor::ElementNameVisitor()
+ElementNameVisitor::ElementNameVisitor(const SharedVisitationContext &sharedContext)
+  : UiNodeVisitor(sharedContext)
 {
 }
 

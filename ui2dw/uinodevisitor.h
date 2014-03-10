@@ -21,6 +21,10 @@
 #ifndef UINODEVISITOR_H
 #define UINODEVISITOR_H
 
+#include <QMap>
+#include <QSet>
+#include <QSharedPointer>
+
 class UiActionNode;
 class UiAddActionNode;
 class UiLayoutNode;
@@ -32,10 +36,29 @@ class UiSpacerNode;
 class UiTopNode;
 class UiWidgetNode;
 
+class VisitationContext
+{
+  public:
+    VisitationContext();
+
+    QString registerImport(const QString &module, const QString &version);
+
+    QStringList generateImportLines() const;
+
+  private:
+    typedef QMap<QString, QString> VersionMap;
+    typedef QMap<QString, VersionMap> ModuleMap;
+    ModuleMap m_imports;
+
+    QSet<QString> m_aliases;
+};
+
+typedef QSharedPointer<VisitationContext> SharedVisitationContext;
+
 class UiNodeVisitor
 {
   public:
-    UiNodeVisitor();
+    explicit UiNodeVisitor(const SharedVisitationContext &sharedContext);
     virtual ~UiNodeVisitor();
 
     virtual void visit(UiActionNode *actionNode);
@@ -48,6 +71,9 @@ class UiNodeVisitor
     virtual void visit(UiSpacerNode *spacerNode);
     virtual void visit(UiTopNode*topNode);
     virtual void visit(UiWidgetNode *widgetNode);
+
+  protected:
+    SharedVisitationContext m_sharedContext;
 };
 
 #endif // UINODEVISITOR_H

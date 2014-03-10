@@ -28,7 +28,7 @@
 class FontProperyVisitor : public UiNodeVisitor
 {
   public:
-    FontProperyVisitor();
+    explicit FontProperyVisitor(const SharedVisitationContext &sharedContext);
 
     void visit(UiPropertyNode *propertyNode);
 

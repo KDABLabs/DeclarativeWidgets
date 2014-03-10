@@ -98,23 +98,25 @@ int main(int argc, char *argv[])
     return 5;
   }
 
+  SharedVisitationContext sharedVisitationContext(new VisitationContext);
+
   // set element "id" from objectName
-  IdVisitor idVisitor;
+  IdVisitor idVisitor(sharedVisitationContext);
   topNode->accept(&idVisitor);
 
   // handle layout items
-  ItemVisitor itemVisitor;
+  ItemVisitor itemVisitor(sharedVisitationContext);
   topNode->accept(&itemVisitor);
 
   // adjust class names
-  ElementNameVisitor classVisitor;
+  ElementNameVisitor classVisitor(sharedVisitationContext);
   topNode->accept(&classVisitor);
 
   // adjust font properties
-  FontProperyVisitor fontPropertiesVisitor;
+  FontProperyVisitor fontPropertiesVisitor(sharedVisitationContext);
   topNode->accept(&fontPropertiesVisitor);
 
-  QmlWriter writer(&outputFile);
+  QmlWriter writer(&outputFile, sharedVisitationContext);
   writer.write(topNode);
 
   return 0;

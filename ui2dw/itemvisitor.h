@@ -28,7 +28,7 @@
 class ItemVisitor : public UiNodeVisitor
 {
   public:
-    ItemVisitor();
+    explicit ItemVisitor(const SharedVisitationContext &sharedContext);
 
     void visit(UiItemNode *itemNode);
 
