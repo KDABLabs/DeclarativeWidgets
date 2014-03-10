@@ -31,18 +31,20 @@ IdVisitor::IdVisitor()
 
 void IdVisitor::visit(UiObjectNode *objectNode)
 {
-  const QString id = objectNameToUniqueId(objectNode->name());
-
-  objectNode->setId(id);
+  const QString name = objectNode->name();
+  if (!name.isEmpty()) {
+    objectNode->setId(objectNameToUniqueId(name));
+  }
 
   objectNode->acceptChildren(this);
 }
 
 void IdVisitor::visit(UiSpacerNode *spacerNode)
 {
-  const QString id = objectNameToUniqueId(spacerNode->name());
-
-  spacerNode->setId(id);
+  const QString name = spacerNode->name();
+  if (!name.isEmpty()) {
+    spacerNode->setId(objectNameToUniqueId(name));
+  }
 }
 
 QString IdVisitor::objectNameToUniqueId(const QString &objectName)

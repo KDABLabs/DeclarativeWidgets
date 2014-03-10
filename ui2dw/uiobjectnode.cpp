@@ -72,14 +72,16 @@ UiObjectNode *UiObjectNode::parse(UiObjectNode *target, Parser *parser)
     return 0;
   }
 
-  const QString objectName = parser->reader()->attributes().value(QLatin1String("name")).toString();
-  if (objectName.isEmpty()) {
-    parser->reader()->raiseError(target->m_elementName + QLatin1String(" element is missing the name attribute"));
-    delete target;
-    return 0;
+  QString objectName;
+  if (parser->reader()->attributes().hasAttribute(QLatin1String("name"))) {
+    objectName = parser->reader()->attributes().value(QLatin1String("name")).toString();
+    if (objectName.isEmpty()) {
+      qWarning() << target->m_elementName << "element has an empty name attribute";
+    } else {
+      target->setName(objectName);
+    }
   }
 
-  target->setName(objectName);
   target->setClassName(className.split(QLatin1String("::")));
 
   while (!parser->reader()->atEnd()) {

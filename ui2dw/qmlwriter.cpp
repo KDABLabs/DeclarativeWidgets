@@ -249,8 +249,12 @@ void QmlWriter::visit(UiObjectNode *objectNode)
 
   *m_writer << endl;
   *m_writer << indent << objectNode->className().last() << " {" << endl;
-  *m_writer << indent << offsetIndent << "id: " << objectNode->id() << endl;
-  *m_writer << indent << offsetIndent << "objectName: \"" << objectNode->id() << "\"" << endl;
+  if (!objectNode->id().isEmpty()) {
+    *m_writer << indent << offsetIndent << "id: " << objectNode->id() << endl;
+  }
+  if (!objectNode->name().isEmpty()) {
+    *m_writer << indent << offsetIndent << "objectName: \"" << objectNode->id() << "\"" << endl;
+  }
 
   m_currentIndent += 2;
   objectNode->acceptChildren(this);
