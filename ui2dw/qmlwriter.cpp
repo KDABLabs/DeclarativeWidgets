@@ -295,13 +295,13 @@ void QmlWriter::visit(UiSpacerNode *spacerNode)
         EnumValue policyEnum;
         UiPropertyNode *policyNode = 0;
 
-        policyEnum.nameParts << QLatin1String("Spacer") << QLatin1String("Expanding");
+        policyEnum.nameParts = QStringList() << QLatin1String("Spacer") << QLatin1String("Expanding");
         policyNode = new UiPropertyNode;
         policyNode->setName(QLatin1String("horizontalSizePolicy"));
         policyNode->setValue(QVariant::fromValue(policyEnum));;
         spacerNode->appendChild(policyNode);
 
-        policyEnum.nameParts << QLatin1String("Spacer") << QLatin1String("Minimum");
+        policyEnum.nameParts = QStringList() << QLatin1String("Spacer") << QLatin1String("Minimum");
         policyNode = new UiPropertyNode;
         policyNode->setName(QLatin1String("verticalSizePolicy"));
         policyNode->setValue(QVariant::fromValue(policyEnum));;
@@ -311,13 +311,13 @@ void QmlWriter::visit(UiSpacerNode *spacerNode)
         EnumValue policyEnum;
         UiPropertyNode *policyNode = 0;
 
-        policyEnum.nameParts << QLatin1String("Spacer") << QLatin1String("Minimum");
+        policyEnum.nameParts = QStringList() << QLatin1String("Spacer") << QLatin1String("Minimum");
         policyNode = new UiPropertyNode;
         policyNode->setName(QLatin1String("horizontalSizePolicy"));
         policyNode->setValue(QVariant::fromValue(policyEnum));;
         spacerNode->appendChild(policyNode);
 
-        policyEnum.nameParts << QLatin1String("Spacer") << QLatin1String("Expanding");
+        policyEnum.nameParts = QStringList() << QLatin1String("Spacer") << QLatin1String("Expanding");
         policyNode = new UiPropertyNode;
         policyNode->setName(QLatin1String("verticalSizePolicy"));
         policyNode->setValue(QVariant::fromValue(policyEnum));;
