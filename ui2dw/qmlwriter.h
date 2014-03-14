@@ -42,6 +42,7 @@ class QmlWriter : public UiNodeVisitor
     void write(const QSharedPointer<UiTopNode> &topNode);
 
     void visit(UiAddActionNode *addActionNode);
+    void visit(UiConnectionNode *connectionNode);
     void visit(UiPropertyNode *propertyNode);
     void visit(UiObjectNode *objectNode);
     void visit(UiSpacerNode *spacerNode);

@@ -26,7 +26,9 @@ SOURCES += main.cpp \
     uiitemnode.cpp \
     itemvisitor.cpp \
     uispacernode.cpp \
-    fontproperyvisitor.cpp
+    fontproperyvisitor.cpp \
+    uiconnectionnode.cpp \
+    connectionnodevisitor.cpp
 
 HEADERS += \
     uinode.h \
@@ -45,4 +47,6 @@ HEADERS += \
     uiitemnode.h \
     itemvisitor.h \
     uispacernode.h \
-    fontproperyvisitor.h
+    fontproperyvisitor.h \
+    uiconnectionnode.h \
+    connectionnodevisitor.h

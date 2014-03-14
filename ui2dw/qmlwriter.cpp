@@ -21,6 +21,7 @@
 #include "qmlwriter.h"
 
 #include "uiaddactionnode.h"
+#include "uiconnectionnode.h"
 #include "uilayoutnode.h"
 #include "uipropertynode.h"
 #include "uispacernode.h"
@@ -221,6 +222,48 @@ void QmlWriter::visit(UiAddActionNode *addActionNode)
   *m_writer << endl;
   *m_writer << indent << "ActionItem {" << endl;
   *m_writer << indent << offsetIndent << "action: " << addActionNode->name() << endl;
+  *m_writer << indent << "}" << endl;
+}
+
+void QmlWriter::visit(UiConnectionNode *connectionNode)
+{
+  const QByteArray indent(m_currentIndent, ' ');
+  const QByteArray offsetIndent(2, ' ');
+
+  *m_writer << endl;
+  *m_writer << indent << m_sharedContext->registerImport("QtQuick", "1.0")
+            << ".Connections {" << endl;
+
+  *m_writer << indent << offsetIndent << "target: " << connectionNode->sender() << endl;
+  *m_writer << indent << offsetIndent << connectionNode->signalHandler() << ": ";
+
+  const QStringList argumentTypes = connectionNode->argumentTypes();
+  if (argumentTypes.count() == 0) {
+    *m_writer << connectionNode->receiver() << "." << connectionNode->slotName() << "()" << endl;
+  } else {
+    *m_writer << "{" << endl;
+
+    // add comment since we can't easily determine the argument names
+    *m_writer << indent << offsetIndent << offsetIndent
+              << "// TODO: find names of signal arguments or respective properties to pass to the slot"
+              << endl;
+
+    QStringList args;
+    for (int i = 0; i < argumentTypes.count(); ++i) {
+      args << QString("arg%1").arg(i);
+      *m_writer << indent << offsetIndent << offsetIndent
+                << "// " << args[i] << " is of type \"" << argumentTypes[i] << "\"" << endl;
+    }
+    *m_writer << endl;
+
+    *m_writer << indent << offsetIndent << offsetIndent
+              << connectionNode->receiver() << "." << connectionNode->slotName() << "(";
+
+    *m_writer << args.join(", ") << ")" << endl;
+
+    *m_writer << indent << offsetIndent << "}" << endl;
+  }
+
   *m_writer << indent << "}" << endl;
 }
 

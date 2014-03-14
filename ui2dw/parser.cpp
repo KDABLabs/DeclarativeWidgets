@@ -20,7 +20,7 @@
 
 #include "parser.h"
 
-#include "uilayoutnode.h"
+#include "uiconnectionnode.h"
 #include "uitopnode.h"
 #include "uiwidgetnode.h"
 
@@ -42,8 +42,9 @@ QSharedPointer<UiTopNode> Parser::parse()
   QSharedPointer<UiTopNode> topNode(new UiTopNode);
 
   while (!m_reader->atEnd()) {
-    if (!m_reader->readNextStartElement()) {
-      break;
+    m_reader->readNext();
+    if (!m_reader->isStartElement()) {
+      continue;
     }
 
     if (m_reader->name().compare(QLatin1String("widget"), Qt::CaseInsensitive) == 0) {
@@ -53,6 +54,15 @@ QSharedPointer<UiTopNode> Parser::parse()
       }
     } else if (m_reader->name().compare(QLatin1String("class"), Qt::CaseInsensitive) == 0) {
       topNode->setClassName(m_reader->readElementText().split(QLatin1String("::")));
+    } else if (m_reader->name().compare(QLatin1String("connection"), Qt::CaseInsensitive) == 0) {
+      UiNode *connectionNode = UiConnectionNode::parse(this);
+      if (connectionNode != 0) {
+        topNode->appendChild(connectionNode);
+      }
+    } else if (m_reader->name().compare(QLatin1String("connections"), Qt::CaseInsensitive) == 0) {
+      continue;
+    } else {
+      qWarning() << "Skipping unsupported element" << m_reader->name();
     }
   }
 

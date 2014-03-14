@@ -28,6 +28,7 @@
 
 class UiActionNode;
 class UiAddActionNode;
+class UiConnectionNode;
 class UiLayoutNode;
 class UiItemNode;
 class UiNode;
@@ -69,6 +70,7 @@ class UiNodeVisitor
 
     virtual void visit(UiActionNode *actionNode);
     virtual void visit(UiAddActionNode *addActionNode);
+    virtual void visit(UiConnectionNode *connectionNode);
     virtual void visit(UiItemNode *itemNode);
     virtual void visit(UiNode *node);
     virtual void visit(UiLayoutNode *layoutNode);

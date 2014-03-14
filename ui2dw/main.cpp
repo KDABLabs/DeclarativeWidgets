@@ -26,6 +26,7 @@
 #include <cstdio>
 #include <iostream>
 
+#include "connectionnodevisitor.h"
 #include "elementnamevisitor.h"
 #include "fontproperyvisitor.h"
 #include "idvisitor.h"
@@ -115,6 +116,10 @@ int main(int argc, char *argv[])
   // adjust font properties
   FontProperyVisitor fontPropertiesVisitor(sharedVisitationContext);
   topNode->accept(&fontPropertiesVisitor);
+
+  // handle connections
+  ConnectionNodeVisitor connectionVisitor(sharedVisitationContext);
+  topNode->accept(&connectionVisitor);
 
   QmlWriter writer(&outputFile, sharedVisitationContext);
   writer.write(topNode);

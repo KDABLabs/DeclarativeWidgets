@@ -22,6 +22,7 @@
 
 #include "uiactionnode.h"
 #include "uiaddactionnode.h"
+#include "uiconnectionnode.h"
 #include "uiitemnode.h"
 #include "uilayoutnode.h"
 #include "uipropertynode.h"
@@ -120,6 +121,11 @@ void UiNodeVisitor::visit(UiActionNode *actionNode)
 void UiNodeVisitor::visit(UiAddActionNode *addActionNode)
 {
   visit(static_cast<UiNode*>(addActionNode));
+}
+
+void UiNodeVisitor::visit(UiConnectionNode *connectionNode)
+{
+  visit(static_cast<UiNode*>(connectionNode));
 }
 
 void UiNodeVisitor::visit(UiItemNode *itemNode)
