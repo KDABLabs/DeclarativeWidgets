@@ -37,7 +37,7 @@ class IdVisitor : public UiNodeVisitor
     QHash<QString, QString> m_idsByObjectName;
 
   protected:
-    QString objectNameToUniqueId(const QString &objectName);
+    QString objectNameToUniqueId(QString &objectName);
     QString objectNameStringToIdString(const QString &objectName) const;
 };
 

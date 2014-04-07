@@ -32,9 +32,10 @@ IdVisitor::IdVisitor(const SharedVisitationContext &sharedContext)
 
 void IdVisitor::visit(UiObjectNode *objectNode)
 {
-  const QString name = objectNode->name();
+  QString name = objectNode->name();
   if (!name.isEmpty()) {
     objectNode->setId(objectNameToUniqueId(name));
+    objectNode->setName(name);
   }
 
   objectNode->acceptChildren(this);
@@ -42,29 +43,29 @@ void IdVisitor::visit(UiObjectNode *objectNode)
 
 void IdVisitor::visit(UiSpacerNode *spacerNode)
 {
-  const QString name = spacerNode->name();
+  QString name = spacerNode->name();
   if (!name.isEmpty()) {
     spacerNode->setId(objectNameToUniqueId(name));
+    spacerNode->setName(name);
   }
 }
 
-QString IdVisitor::objectNameToUniqueId(const QString &objectName)
+QString IdVisitor::objectNameToUniqueId(QString &objectName)
 {
-  QString name = objectName;
-  if (m_idsByObjectName.contains(name)) {
-    qWarning() << Q_FUNC_INFO << "Object name" << name << "appears more than once. Generating new name";
+  if (m_idsByObjectName.contains(objectName)) {
+    qWarning() << Q_FUNC_INFO << "Object name" << objectName << "appears more than once. Generating new name";
 
-    const QString nameTemplate = name + QLatin1String("_%1");
+    const QString nameTemplate = objectName + QLatin1String("_%1");
     int i = 2;
     do {
-      name = nameTemplate.arg(i);
+      objectName = nameTemplate.arg(i);
       ++i;
-    } while (m_idsByObjectName.contains(name));
+    } while (m_idsByObjectName.contains(objectName));
   }
 
-  const QString id = objectNameStringToIdString(name);
+  const QString id = objectNameStringToIdString(objectName);
 
-  m_idsByObjectName.insert(name, id);
+  m_idsByObjectName.insert(objectName, id);
 
   return id;
 }
