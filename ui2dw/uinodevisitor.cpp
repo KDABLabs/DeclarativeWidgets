@@ -92,6 +92,16 @@ QStringList VisitationContext::generateImportLines() const
   return result;
 }
 
+void VisitationContext::insertIdForObjectName(const QString &objectName, const QString &id)
+{
+  m_idsByObjectName.insert(objectName, id);
+}
+
+QString VisitationContext::idForObjectName(const QString &objectName) const
+{
+  return m_idsByObjectName.value(objectName);
+}
+
 
 UiNodeVisitor::UiNodeVisitor(const SharedVisitationContext &sharedContext)
   : m_sharedContext(sharedContext)

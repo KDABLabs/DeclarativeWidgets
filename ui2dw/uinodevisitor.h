@@ -22,6 +22,7 @@
 #define UINODEVISITOR_H
 
 #include <QMap>
+#include <QHash>
 #include <QSet>
 #include <QSharedPointer>
 
@@ -45,12 +46,17 @@ class VisitationContext
 
     QStringList generateImportLines() const;
 
+    void insertIdForObjectName(const QString &objectName, const QString &id);
+    QString idForObjectName(const QString &objectName) const;
+
   private:
     typedef QMap<QString, QString> VersionMap;
     typedef QMap<QString, VersionMap> ModuleMap;
     ModuleMap m_imports;
 
     QSet<QString> m_aliases;
+
+    QHash<QString, QString> m_idsByObjectName;
 };
 
 typedef QSharedPointer<VisitationContext> SharedVisitationContext;

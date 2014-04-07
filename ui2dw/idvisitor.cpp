@@ -66,6 +66,7 @@ QString IdVisitor::objectNameToUniqueId(QString &objectName)
   const QString id = objectNameStringToIdString(objectName);
 
   m_idsByObjectName.insert(objectName, id);
+  m_sharedContext->insertIdForObjectName(objectName, id);
 
   return id;
 }
