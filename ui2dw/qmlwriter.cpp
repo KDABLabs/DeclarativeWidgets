@@ -339,8 +339,6 @@ void QmlWriter::visit(UiSpacerNode *spacerNode)
 
 void QmlWriter::visit(UiTopNode *topNode)
 {
-  Q_UNUSED(topNode);
-
   *m_writer << "import QtWidgets 1.0" << endl;
   *m_writer << endl;
 

@@ -45,7 +45,7 @@ class QmlWriter : public UiNodeVisitor
     void visit(UiPropertyNode *propertyNode);
     void visit(UiObjectNode *objectNode);
     void visit(UiSpacerNode *spacerNode);
-    void visit(UiTopNode*topNode);
+    void visit(UiTopNode *topNode);
 
   protected:
     QScopedPointer<QTextStream> m_writer;
