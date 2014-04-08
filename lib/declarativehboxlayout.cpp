@@ -62,6 +62,8 @@ class HBoxLayoutContainer : public LayoutContainerInterface
     void addLayout(QLayout *layout);
     void addSpacer(DeclarativeSpacerItem *spacerItem);
     void addWidget(QWidget *widget);
+    void setContentsMargins(int left, int top, int right, int bottom);
+    void getContentsMargins(int &left, int &top, int &right, int &bottom);
 
   private:
     QHBoxLayout *m_layout;
@@ -110,4 +112,14 @@ void HBoxLayoutContainer::addWidget(QWidget *widget)
   }
 
   m_layout->addWidget(widget, stretch, alignment);
+}
+
+void HBoxLayoutContainer::setContentsMargins(int left, int top, int right, int bottom)
+{
+  m_layout->setContentsMargins(left, top, right, bottom);
+}
+
+void HBoxLayoutContainer::getContentsMargins(int &left, int &top, int &right, int &bottom)
+{
+  m_layout->getContentsMargins(&left, &top, &right, &bottom);
 }

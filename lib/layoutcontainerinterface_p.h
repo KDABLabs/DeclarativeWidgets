@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2012-2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2012-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -33,6 +33,8 @@ class LayoutContainerInterface
     virtual void addLayout(QLayout *layout) = 0;
     virtual void addSpacer(DeclarativeSpacerItem *spacerItem) = 0;
     virtual void addWidget(QWidget *widget) = 0;
+    virtual void setContentsMargins(int left, int top, int right, int bottom) = 0;
+    virtual void getContentsMargins(int &left, int &top, int &right, int &bottom) = 0;
 };
 
 #endif // LAYOUTCONTAINERINTERFACE_P_H

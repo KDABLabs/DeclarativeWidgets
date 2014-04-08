@@ -186,6 +186,8 @@ class GridLayoutContainer : public LayoutContainerInterface
     void addSpacer(DeclarativeSpacerItem *spacerItem);
     void addLayout(QLayout *layout);
     void addWidget(QWidget *widget);
+    void setContentsMargins(int left, int top, int right, int bottom);
+    void getContentsMargins(int &left, int &top, int &right, int &bottom);
 
   private:
     QGridLayout *m_layout;
@@ -263,4 +265,14 @@ void GridLayoutContainer::addWidget(QWidget *widget)
   }
 
   m_layout->addWidget(widget, row, column, rowSpan, columnSpan, alignment);
+}
+
+void GridLayoutContainer::setContentsMargins(int left, int top, int right, int bottom)
+{
+  m_layout->setContentsMargins(left, top, right, bottom);
+}
+
+void GridLayoutContainer::getContentsMargins(int &left, int &top, int &right, int &bottom)
+{
+  m_layout->getContentsMargins(&left, &top, &right, &bottom);
 }

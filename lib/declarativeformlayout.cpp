@@ -140,6 +140,8 @@ class FormLayoutContainer : public LayoutContainerInterface
     void addSpacer(DeclarativeSpacerItem *spacerItem);
     void addLayout(QLayout *layout);
     void addWidget(QWidget *widget);
+    void setContentsMargins(int left, int top, int right, int bottom);
+    void getContentsMargins(int &left, int &top, int &right, int &bottom);
 
   private:
     QFormLayout *m_layout;
@@ -185,4 +187,14 @@ void FormLayoutContainer::addWidget(QWidget *widget)
   }
 
   m_layout->addRow(widget);
+}
+
+void FormLayoutContainer::setContentsMargins(int left, int top, int right, int bottom)
+{
+  m_layout->setContentsMargins(left, top, right, bottom);
+}
+
+void FormLayoutContainer::getContentsMargins(int &left, int &top, int &right, int &bottom)
+{
+  m_layout->getContentsMargins(&left, &top, &right, &bottom);
 }

@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2012-2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2012-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -26,6 +26,94 @@
 
 #include <QLayout>
 #include <QWidget>
+
+#define GET_CONTENTS_MARGINS \
+  int left = 0; \
+  int top = 0; \
+  int right = 0; \
+  int bottom = 0; \
+  m_layoutContainer->getContentsMargins(left, top, right, bottom)
+
+DeclarativeLayoutContentsMargins::DeclarativeLayoutContentsMargins(LayoutContainerInterface *layoutContainer, QObject *parent)
+  : QObject(parent)
+  , m_layoutContainer(layoutContainer)
+{
+}
+
+void DeclarativeLayoutContentsMargins::setLeftMargin(int margin)
+{
+  GET_CONTENTS_MARGINS;
+
+  changeMargins(margin, top, right, bottom);
+}
+
+int DeclarativeLayoutContentsMargins::leftMargin() const
+{
+  GET_CONTENTS_MARGINS;
+
+  return left;
+}
+
+void DeclarativeLayoutContentsMargins::setTopMargin(int margin)
+{
+  GET_CONTENTS_MARGINS;
+
+  changeMargins(left, margin, right, bottom);
+}
+
+int DeclarativeLayoutContentsMargins::topMargin() const
+{
+  GET_CONTENTS_MARGINS;
+
+  return top;
+}
+
+void DeclarativeLayoutContentsMargins::setRightMargin(int margin)
+{
+  GET_CONTENTS_MARGINS;
+
+  changeMargins(left, top, margin, bottom);
+}
+
+int DeclarativeLayoutContentsMargins::rightMargin() const
+{
+  GET_CONTENTS_MARGINS;
+
+  return right;
+}
+
+void DeclarativeLayoutContentsMargins::setBottomMargin(int margin)
+{
+  GET_CONTENTS_MARGINS;
+
+  changeMargins(left, top, right, margin);
+}
+
+int DeclarativeLayoutContentsMargins::bottomMargin() const
+{
+  GET_CONTENTS_MARGINS;
+
+  return bottom;
+}
+
+void DeclarativeLayoutContentsMargins::changeMargins(int left, int top, int right, int bottom)
+{
+  int oldLeft = 0;
+  int oldTop = 0;
+  int oldRight = 0;
+  int oldBottom = 0;
+
+  m_layoutContainer->getContentsMargins(oldLeft, oldTop, oldRight, oldBottom);
+
+  const bool changed = (oldLeft != left) || (oldTop != top) || (oldRight != right) || (oldBottom != bottom);
+
+  m_layoutContainer->setContentsMargins(left, top, right, bottom);
+
+  if (changed) {
+    emit marginsChanged();
+  }
+}
+
 
 class LayoutContainerDelegate : public DefaultObjectContainer
 {
@@ -75,8 +163,14 @@ QLayout *DeclarativeLayoutExtension::extendedLayout() const
   return parentLayout;
 }
 
+DeclarativeLayoutContentsMargins *DeclarativeLayoutExtension::contentsMargins() const
+{
+  return m_contentsMargins;
+}
+
 DeclarativeLayoutExtension::DeclarativeLayoutExtension(LayoutContainerInterface *layoutContainer, QObject *parent)
   : DeclarativeObjectExtension(new LayoutContainerDelegate(layoutContainer), parent)
+  , m_contentsMargins(new DeclarativeLayoutContentsMargins(layoutContainer, this))
 {
   parent->setParent(0); // otherwise first call to parentWidget() will complain about wrong parent class
 }

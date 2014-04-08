@@ -91,6 +91,7 @@ class DeclarativeGridLayoutExtension : public DeclarativeLayoutExtension
 
   // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
   Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(DeclarativeLayoutContentsMargins* contentsMargins READ contentsMargins CONSTANT)
 
   Q_CLASSINFO("DefaultProperty", "data")
 

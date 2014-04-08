@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2012-2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2012-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -151,6 +151,7 @@ TabWidget {
       }
     }
   }
+
   Widget {
     TabWidget.label: "Grid Layout"
 
@@ -224,6 +225,103 @@ TabWidget {
         }
         Label {
           text: "Page 3"
+        }
+      }
+    }
+  }
+
+  Widget {
+    TabWidget.label: "Contents Margins"
+
+    GridLayout {
+      Slider {
+        id: marginSlider
+
+        GridLayout.row: 0
+        GridLayout.column: 0
+        GridLayout.columnSpan: 2
+
+        orientation: Qt.Horizontal
+      }
+
+      GroupBox {
+        GridLayout.row: 1
+        GridLayout.column: 0
+        title: "HBox"
+
+        HBoxLayout {
+          contentsMargins {
+            left: marginSlider.value
+            top: marginSlider.value
+            right: marginSlider.value
+            bottom: marginSlider.value
+          }
+
+          TextEdit {}
+        }
+      }
+      GroupBox {
+        GridLayout.row: 1
+        GridLayout.column: 1
+        title: "VBox"
+
+        HBoxLayout {
+          contentsMargins {
+            left: marginSlider.value
+            top: marginSlider.value
+            right: marginSlider.value
+            bottom: marginSlider.value
+          }
+
+          TextEdit {}
+        }
+      }
+      GroupBox {
+        GridLayout.row: 2
+        GridLayout.column: 0
+        title: "Form"
+
+        HBoxLayout {
+          contentsMargins {
+            left: marginSlider.value
+            top: marginSlider.value
+            right: marginSlider.value
+            bottom: marginSlider.value
+          }
+
+          TextEdit {}
+        }
+      }
+      GroupBox {
+        GridLayout.row: 2
+        GridLayout.column: 1
+        title: "Grid"
+
+        HBoxLayout {
+          contentsMargins {
+            left: marginSlider.value
+            top: marginSlider.value
+            right: marginSlider.value
+            bottom: marginSlider.value
+          }
+
+          TextEdit {}
+        }
+      }
+      GroupBox {
+        GridLayout.row: 3
+        GridLayout.column: 0
+        title: "Stacked"
+
+        HBoxLayout {
+          contentsMargins {
+            left: marginSlider.value
+            top: marginSlider.value
+            right: marginSlider.value
+            bottom: marginSlider.value
+          }
+
+          TextEdit {}
         }
       }
     }

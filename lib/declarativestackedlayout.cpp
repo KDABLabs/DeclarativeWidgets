@@ -44,6 +44,8 @@ class StackedLayoutContainer : public LayoutContainerInterface
     void addLayout(QLayout *layout);
     void addSpacer(DeclarativeSpacerItem *spacerItem);
     void addWidget(QWidget *widget);
+    void setContentsMargins(int left, int top, int right, int bottom);
+    void getContentsMargins(int &left, int &top, int &right, int &bottom);
 
   private:
     QStackedLayout *m_layout;
@@ -76,4 +78,14 @@ void StackedLayoutContainer::addSpacer(DeclarativeSpacerItem *spacerItem)
 void StackedLayoutContainer::addWidget(QWidget *widget)
 {
   m_layout->addWidget(widget);
+}
+
+void StackedLayoutContainer::setContentsMargins(int left, int top, int right, int bottom)
+{
+  m_layout->setContentsMargins(left, top, right, bottom);
+}
+
+void StackedLayoutContainer::getContentsMargins(int &left, int &top, int &right, int &bottom)
+{
+  m_layout->getContentsMargins(&left, &top, &right, &bottom);
 }

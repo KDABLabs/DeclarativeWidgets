@@ -140,6 +140,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<DeclarativeHBoxLayout, DeclarativeHBoxLayoutExtension>("QtWidgets", 1, 0, "HBoxLayout");
   qmlRegisterExtendedType<DeclarativeGridLayout, DeclarativeGridLayoutExtension>("QtWidgets", 1, 0, "GridLayout");
   qmlRegisterUncreatableType<QLayout>("QtWidgets", 1, 0, "Layout", "For access of SizeConstraint enum");
+  qmlRegisterUncreatableType<DeclarativeLayoutContentsMargins>("QtWidgets", 1, 0, "LayoutContentMargins", "Grouped Property");
   qmlRegisterExtendedType<DeclarativeStackedLayout, DeclarativeStackedLayoutExtension>("QtWidgets", 1, 0, "StackedLayout");
   qmlRegisterExtendedType<DeclarativeVBoxLayout, DeclarativeVBoxLayoutExtension>("QtWidgets", 1, 0, "VBoxLayout");
 

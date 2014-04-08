@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2012-2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2012-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -28,20 +28,58 @@ class LayoutContainerInterface;
 class QLayout;
 class QWidget;
 
+class DeclarativeLayoutContentsMargins : public QObject
+{
+  Q_OBJECT
+  Q_PROPERTY(int left READ leftMargin WRITE setLeftMargin NOTIFY marginsChanged)
+  Q_PROPERTY(int top READ topMargin WRITE setTopMargin NOTIFY marginsChanged)
+  Q_PROPERTY(int right READ rightMargin WRITE setRightMargin NOTIFY marginsChanged)
+  Q_PROPERTY(int bottom READ bottomMargin WRITE setBottomMargin NOTIFY marginsChanged)
+
+  public:
+    DeclarativeLayoutContentsMargins(LayoutContainerInterface *layoutContainer, QObject *parent = 0);
+
+    void setLeftMargin(int margin);
+    int leftMargin() const;
+
+    void setTopMargin(int margin);
+    int topMargin() const;
+
+    void setRightMargin(int margin);
+    int rightMargin() const;
+
+    void setBottomMargin(int margin);
+    int bottomMargin() const;
+
+  Q_SIGNALS:
+    void marginsChanged();
+
+  private:
+    LayoutContainerInterface *m_layoutContainer;
+
+  private:
+    void changeMargins(int left, int top, int right, int bottom);
+};
+
 class DeclarativeLayoutExtension : public DeclarativeObjectExtension
 {
   Q_OBJECT
 
   // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
   Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(DeclarativeLayoutContentsMargins* contentsMargins READ contentsMargins CONSTANT)
 
   Q_CLASSINFO("DefaultProperty", "data")
 
   public:
     QLayout *extendedLayout() const;
+    DeclarativeLayoutContentsMargins *contentsMargins() const;
 
   protected:
     explicit DeclarativeLayoutExtension(LayoutContainerInterface *layoutContainer, QObject *parent = 0);
+
+  private:
+    DeclarativeLayoutContentsMargins *m_contentsMargins;
 };
 
 #endif // DECLARATIVELAYOUTEXTENSION_H
