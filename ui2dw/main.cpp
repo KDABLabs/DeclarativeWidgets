@@ -31,6 +31,7 @@
 #include "fontproperyvisitor.h"
 #include "idvisitor.h"
 #include "itemvisitor.h"
+#include "layoutvisitor.h"
 #include "qmlwriter.h"
 #include "uitopnode.h"
 
@@ -108,6 +109,10 @@ int main(int argc, char *argv[])
   // handle layout items
   ItemVisitor itemVisitor(sharedVisitationContext);
   topNode->accept(&itemVisitor);
+
+  // handle layout adjustments
+  LayoutVisitor layoutVisitor(sharedVisitationContext);
+  topNode->accept(&layoutVisitor);
 
   // adjust class names
   ElementNameVisitor classVisitor(sharedVisitationContext);

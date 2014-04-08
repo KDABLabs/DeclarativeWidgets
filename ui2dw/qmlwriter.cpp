@@ -196,6 +196,34 @@ class FontPropertyWriter : public GroupedPropertyWriter
     }
 };
 
+class MarginsPropertyWriter : public GroupedPropertyWriter
+{
+  public:
+    MarginsPropertyWriter()
+      : GroupedPropertyWriter()
+      , m_subValueWriter(new PropertyWriter)
+    {
+    }
+
+  protected:
+    QScopedPointer<PropertyWriter> m_subValueWriter;
+
+  protected:
+    void writeValue(QTextStream &writer, const QByteArray &indent, const QVariant &value)
+    {
+      Q_ASSERT(value.canConvert<QMargins>());
+
+      const QByteArray subIndent = indent + m_offsetIndent;
+
+      const QMargins margins = value.value<QMargins>();
+
+      m_subValueWriter->write(writer, subIndent, QLatin1String("left"), margins.left());
+      m_subValueWriter->write(writer, subIndent, QLatin1String("top"), margins.top());
+      m_subValueWriter->write(writer, subIndent, QLatin1String("right"), margins.right());
+      m_subValueWriter->write(writer, subIndent, QLatin1String("bottom"), margins.bottom());
+    }
+};
+
 QmlWriter::QmlWriter(QIODevice *outputDevice, const SharedVisitationContext &sharedContext)
   : UiNodeVisitor(sharedContext)
   , m_writer(new QTextStream(outputDevice))
@@ -403,4 +431,5 @@ void QmlWriter::initializeUserProperyWriters()
   }
 
   m_userPropertyWriters.insert(qMetaTypeId<FontValue>(), new FontPropertyWriter);
+  m_userPropertyWriters.insert(qMetaTypeId<QMargins>(), new MarginsPropertyWriter);
 }

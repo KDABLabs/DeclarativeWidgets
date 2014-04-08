@@ -24,11 +24,14 @@
 #include "uinode.h"
 
 #include <QHash>
+#include <QMargins>
 #include <QStringList>
 #include <QVariant>
 
 class Parser;
 class PropertyValueParser;
+
+Q_DECLARE_METATYPE(QMargins);
 
 struct EnumValue
 {
