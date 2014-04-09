@@ -35,6 +35,11 @@ static EnumValue fixEnumValue(const EnumValue &enumValue)
     value.nameParts = nameParts;
     value.nameParts[0] = nameParts[0].mid(1);
 
+    // if it now starts with "Abstract" strip that away as well
+    if (value.nameParts[0].startsWith(QLatin1String("Abstract"))) {
+      value.nameParts[0] = value.nameParts[0].mid(8);
+    }
+
     return value;
   }
 
