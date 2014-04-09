@@ -56,7 +56,8 @@ HEADERS = \
   widgetcontainerinterface_p.h \
     declarativeloaderwidget_p.h \
     declarativespaceritem_p.h \
-    declarativeline_p.h
+    declarativeline_p.h \
+    declarativelabelextension_p.h
 
 SOURCES = \
   abstractdeclarativeobject.cpp \
@@ -105,4 +106,5 @@ SOURCES = \
   toolbarwidgetcontainer.cpp \
     declarativeloaderwidget.cpp \
     declarativespaceritem.cpp \
-    declarativeline.cpp
+    declarativeline.cpp \
+    declarativelabelextension.cpp
