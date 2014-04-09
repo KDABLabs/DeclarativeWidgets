@@ -100,47 +100,31 @@ class RectValueParser : public PropertyValueParser
     {
       QRect r;
 
-      if (!readUntil(parser, QLatin1String("x")) || parser->reader()->name().compare(QLatin1String("x")) != 0) {
+      if (!parser->readUntilElement(QLatin1String("rect"), QLatin1String("x"))) {
         parser->reader()->raiseError(QLatin1String("rect property element does not have an x element"));
         return QVariant();
       }
       r.setX(parser->reader()->readElementText().toInt());
 
-      if (!readUntil(parser, QLatin1String("y")) || parser->reader()->name().compare(QLatin1String("y")) != 0) {
+      if (!parser->readUntilElement(QLatin1String("rect"), QLatin1String("y"))) {
         parser->reader()->raiseError(QLatin1String("rect property element does not have a y element"));
         return QVariant();
       }
       r.setY(parser->reader()->readElementText().toInt());
 
-      if (!readUntil(parser, QLatin1String("width")) || parser->reader()->name().compare(QLatin1String("width")) != 0) {
+      if (!parser->readUntilElement(QLatin1String("rect"), QLatin1String("width"))) {
         parser->reader()->raiseError(QLatin1String("rect property element does not have a width element"));
         return QVariant();
       }
       r.setWidth(parser->reader()->readElementText().toInt());
 
-      if (!readUntil(parser, QLatin1String("height")) || parser->reader()->name().compare(QLatin1String("height")) != 0) {
+      if (!parser->readUntilElement(QLatin1String("rect"), QLatin1String("height"))) {
         parser->reader()->raiseError(QLatin1String("rect property element does not have a height element"));
         return QVariant();
       }
       r.setHeight(parser->reader()->readElementText().toInt());
 
       return QVariant(r);
-    }
-
-    bool readUntil(Parser *parser, const QLatin1String &element)
-    {
-      while (!parser->reader()->atEnd()) {
-        parser->reader()->readNext();
-        if (parser->reader()->isEndElement() && parser->reader()->name().compare(QLatin1String("rect")) == 0) {
-          return false;
-        }
-
-        if (parser->reader()->isStartElement() && parser->reader()->name().compare(element) == 0) {
-          return true;
-        }
-      }
-
-      return false;
     }
 };
 
@@ -168,35 +152,19 @@ class SizeValueParser : public PropertyValueParser
     {
       QSize s;
 
-      if (!readUntil(parser, QLatin1String("width")) || parser->reader()->name().compare(QLatin1String("width")) != 0) {
+      if (!parser->readUntilElement(QLatin1String("size"), QLatin1String("width"))) {
         parser->reader()->raiseError(QLatin1String("size property element does not have a width element"));
         return QVariant();
       }
       s.setWidth(parser->reader()->readElementText().toInt());
 
-      if (!readUntil(parser, QLatin1String("height")) || parser->reader()->name().compare(QLatin1String("height")) != 0) {
+      if (!parser->readUntilElement(QLatin1String("size"), QLatin1String("height"))) {
         parser->reader()->raiseError(QLatin1String("size property element does not have a height element"));
         return QVariant();
       }
       s.setHeight(parser->reader()->readElementText().toInt());
 
       return QVariant(s);
-    }
-
-    bool readUntil(Parser *parser, const QLatin1String &element)
-    {
-      while (!parser->reader()->atEnd()) {
-        parser->reader()->readNext();
-        if (parser->reader()->isEndElement() && parser->reader()->name().compare(QLatin1String("size")) == 0) {
-          return false;
-        }
-
-        if (parser->reader()->isStartElement() && parser->reader()->name().compare(element) == 0) {
-          return true;
-        }
-      }
-
-      return false;
     }
 };
 

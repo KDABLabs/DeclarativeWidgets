@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2013-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -28,8 +28,29 @@
 #include <QIODevice>
 #include <QXmlStreamReader>
 
+static QSet<QString> ignoredElementNames()
+{
+  QSet<QString> result;
+
+  result << QLatin1String("connections");
+  result << QLatin1String("ui");
+
+  return result;
+}
+
+static QSet<QString> skippedElementNames()
+{
+  QSet<QString> result;
+
+  result << QLatin1String("resources");
+
+  return result;
+}
+
 Parser::Parser(QIODevice *inputDevice)
   : m_reader(new QXmlStreamReader(inputDevice))
+  , m_ignoredElementNames(ignoredElementNames())
+  , m_skippedElementNames(skippedElementNames())
 {
 }
 
@@ -59,8 +80,10 @@ QSharedPointer<UiTopNode> Parser::parse()
       if (connectionNode != 0) {
         topNode->appendChild(connectionNode);
       }
-    } else if (m_reader->name().compare(QLatin1String("connections"), Qt::CaseInsensitive) == 0) {
+    } else if (m_ignoredElementNames.contains(m_reader->name().toString())) {
       continue;
+    } else if (m_skippedElementNames.contains(m_reader->name().toString())) {
+      m_reader->skipCurrentElement();
     } else {
       qWarning() << "Skipping unsupported element" << m_reader->name();
     }
@@ -77,4 +100,20 @@ QString Parser::errorString() const
 QXmlStreamReader *Parser::reader() const
 {
   return m_reader.data();
+}
+
+bool Parser::readUntilElement(const QString &parent, const QString &element)
+{
+  while (!m_reader->atEnd()) {
+    m_reader->readNext();
+    if (m_reader->isEndElement() && m_reader->name().compare(parent) == 0) {
+      return false;
+    }
+
+    if (m_reader->isStartElement() && m_reader->name().compare(element) == 0) {
+      return true;
+    }
+  }
+
+  return false;
 }

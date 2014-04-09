@@ -31,7 +31,7 @@
 class Parser;
 class PropertyValueParser;
 
-Q_DECLARE_METATYPE(QMargins);
+Q_DECLARE_METATYPE(QMargins)
 
 struct EnumValue
 {

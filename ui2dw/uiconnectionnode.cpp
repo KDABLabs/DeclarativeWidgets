@@ -25,25 +25,9 @@
 
 #include <QXmlStreamReader>
 
-static bool readUntil(Parser *parser, const QLatin1String &element)
-{
-  while (!parser->reader()->atEnd()) {
-    parser->reader()->readNext();
-    if (parser->reader()->isEndElement() && parser->reader()->name().compare(QLatin1String("connection")) == 0) {
-      return false;
-    }
-
-    if (parser->reader()->isStartElement() && parser->reader()->name().compare(element) == 0) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
 static QString readStringElement(Parser *parser, const QLatin1String &element)
 {
-  if (!readUntil(parser, element) || parser->reader()->name().compare(element) != 0) {
+  if (!parser->readUntilElement(QLatin1String("connection"), element)) {
     parser->reader()->raiseError(QString::fromUtf8("connection element does not have a %1 element").arg(element));
     return QString();
   }

@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2013-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -21,6 +21,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include <QSet>
 #include <QSharedPointer>
 #include <QScopedPointer>
 
@@ -42,8 +43,12 @@ class Parser
 
     QXmlStreamReader *reader() const;
 
+    bool readUntilElement(const QString &parent, const QString &element);
+
   protected:
     QScopedPointer<QXmlStreamReader> m_reader;
+    const QSet<QString> m_ignoredElementNames;
+    const QSet<QString> m_skippedElementNames;
 };
 
 #endif // PARSER_H
