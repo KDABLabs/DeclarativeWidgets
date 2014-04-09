@@ -38,6 +38,7 @@
 #include "declarativeicon_p.h"
 #include "declarativeinputdialog_p.h"
 #include "declarativeitemviewextension_p.h"
+#include "declarativeline_p.h"
 #include "declarativeloaderwidget_p.h"
 #include "declarativemessagebox_p.h"
 #include "declarativepixmap_p.h"
@@ -168,6 +169,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QLCDNumber, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "LCDNumber");
   qmlRegisterExtendedType<QLineEdit, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "LineEdit");
   qmlRegisterExtendedType<QListView, DeclarativeItemViewExtension>("QtWidgets", 1, 0, "ListView");
+  qmlRegisterExtendedType<DeclarativeLine, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "Line");
   qmlRegisterExtendedType<DeclarativeLoaderWidget, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "LoaderWidget");
   qmlRegisterExtendedType<QMainWindow, DeclarativeContainerWidgetExtension<MainWindowWidgetContainer> >("QtWidgets", 1, 0, "MainWindow");
   qmlRegisterExtendedType<Menu, DeclarativeContainerWidgetExtension<MenuWidgetContainer> >("QtWidgets", 1, 0, "Menu");
