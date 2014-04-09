@@ -105,9 +105,12 @@ protected:
 
         // fall through
 
-      default:
-        writer << "\"" << value.toString() << "\"";
+      default: {
+        QString text = value.toString();
+        text.replace('"', QLatin1String("\\\""));
+        writer << "\"" << text << "\"";
         break;
+      }
       }
     }
 
