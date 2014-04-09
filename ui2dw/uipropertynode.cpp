@@ -328,6 +328,7 @@ void UiPropertyNode::initializeValueParsers()
   }
 
   s_valueParsers.insert(QLatin1String("bool"), new BoolValueParser);
+  s_valueParsers.insert(QLatin1String("cstring"), new StringValueParser);
   s_valueParsers.insert(QLatin1String("double"), new DoubleValueParser);
   s_valueParsers.insert(QLatin1String("enum"), new EnumValueParser);
   s_valueParsers.insert(QLatin1String("font"), new FontValueParser);
