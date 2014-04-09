@@ -26,6 +26,7 @@
 #include <cstdio>
 #include <iostream>
 
+#include "buddyvisitor.h"
 #include "connectionnodevisitor.h"
 #include "elementnamevisitor.h"
 #include "fontproperyvisitor.h"
@@ -121,6 +122,10 @@ int main(int argc, char *argv[])
   // adjust font properties
   FontProperyVisitor fontPropertiesVisitor(sharedVisitationContext);
   topNode->accept(&fontPropertiesVisitor);
+
+  // handle label buddies
+  BuddyVisitor buddyVisitor(sharedVisitationContext);
+  topNode->accept(&buddyVisitor);
 
   // handle connections
   ConnectionNodeVisitor connectionVisitor(sharedVisitationContext);

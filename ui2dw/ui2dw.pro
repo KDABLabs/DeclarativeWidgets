@@ -29,7 +29,8 @@ SOURCES += main.cpp \
     fontproperyvisitor.cpp \
     uiconnectionnode.cpp \
     connectionnodevisitor.cpp \
-    layoutvisitor.cpp
+    layoutvisitor.cpp \
+    buddyvisitor.cpp
 
 HEADERS += \
     uinode.h \
@@ -51,4 +52,5 @@ HEADERS += \
     fontproperyvisitor.h \
     uiconnectionnode.h \
     connectionnodevisitor.h \
-    layoutvisitor.h
+    layoutvisitor.h \
+    buddyvisitor.h
