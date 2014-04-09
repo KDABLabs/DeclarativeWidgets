@@ -47,6 +47,13 @@ struct FontValue
 
 Q_DECLARE_METATYPE(FontValue)
 
+struct IdValue
+{
+    QString id;
+};
+
+Q_DECLARE_METATYPE(IdValue)
+
 struct PixmapValue
 {
     QString fileName;

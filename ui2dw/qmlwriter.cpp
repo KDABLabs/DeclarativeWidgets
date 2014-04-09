@@ -98,6 +98,11 @@ protected:
           break;
         }
 
+        if (value.canConvert<IdValue>()) {
+          writer << value.value<IdValue>().id;
+          break;
+        }
+
         if (value.canConvert<PixmapValue>()) {
           writer << "Pixmap.fromFileName(\"" << value.value<PixmapValue>().fileName << "\")";
           break;
