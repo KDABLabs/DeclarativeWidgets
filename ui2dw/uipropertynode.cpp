@@ -93,6 +93,20 @@ class NumberValueParser : public PropertyValueParser
     }
 };
 
+class PixmapValueParser : public PropertyValueParser
+{
+  public:
+    QVariant parse(Parser *parser)
+    {
+      PixmapValue value;
+
+      value.resource = parser->reader()->attributes().value(QLatin1String("resource")).toString();
+      value.fileName = parser->reader()->readElementText();
+
+      return QVariant::fromValue(value);
+    }
+};
+
 class RectValueParser : public PropertyValueParser
 {
   public:
@@ -318,6 +332,7 @@ void UiPropertyNode::initializeValueParsers()
   s_valueParsers.insert(QLatin1String("enum"), new EnumValueParser);
   s_valueParsers.insert(QLatin1String("font"), new FontValueParser);
   s_valueParsers.insert(QLatin1String("number"), new NumberValueParser);
+  s_valueParsers.insert(QLatin1String("pixmap"), new PixmapValueParser);
   s_valueParsers.insert(QLatin1String("rect"), new RectValueParser);
   s_valueParsers.insert(QLatin1String("set"), new SetValueParser);
   s_valueParsers.insert(QLatin1String("size"), new SizeValueParser);

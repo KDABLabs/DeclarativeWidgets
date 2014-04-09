@@ -40,19 +40,27 @@ struct EnumValue
 
 Q_DECLARE_METATYPE(EnumValue)
 
-struct SetValue
-{
-    QList<EnumValue> flags;
-};
-
-Q_DECLARE_METATYPE(SetValue)
-
 struct FontValue
 {
     QVariantHash fontProperties;
 };
 
 Q_DECLARE_METATYPE(FontValue)
+
+struct PixmapValue
+{
+    QString fileName;
+    QString resource;
+};
+
+Q_DECLARE_METATYPE(PixmapValue)
+
+struct SetValue
+{
+    QList<EnumValue> flags;
+};
+
+Q_DECLARE_METATYPE(SetValue)
 
 class UiPropertyNode : public UiNode
 {

@@ -98,6 +98,11 @@ protected:
           break;
         }
 
+        if (value.canConvert<PixmapValue>()) {
+          writer << "Pixmap.fromFileName(\"" << value.value<PixmapValue>().fileName << "\")";
+          break;
+        }
+
         if (value.canConvert<SetValue>()) {
           writeSetValue(writer, value.value<SetValue>());
           break;
