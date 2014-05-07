@@ -23,7 +23,7 @@ SOURCES += main.cpp \
     elementnamevisitor.cpp \
     uiactionnode.cpp \
     uiaddactionnode.cpp \
-    uiitemnode.cpp \
+    uilayoutitemnode.cpp \
     itemvisitor.cpp \
     uispacernode.cpp \
     fontproperyvisitor.cpp \
@@ -46,7 +46,7 @@ HEADERS += \
     elementnamevisitor.h \
     uiactionnode.h \
     uiaddactionnode.h \
-    uiitemnode.h \
+    uilayoutitemnode.h \
     itemvisitor.h \
     uispacernode.h \
     fontproperyvisitor.h \

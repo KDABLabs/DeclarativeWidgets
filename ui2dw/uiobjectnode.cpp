@@ -22,7 +22,7 @@
 
 #include "uiactionnode.h"
 #include "uiaddactionnode.h"
-#include "uiitemnode.h"
+#include "uilayoutitemnode.h"
 #include "uilayoutnode.h"
 #include "uinodevisitor.h"
 #include "uipropertynode.h"
@@ -125,7 +125,7 @@ UiObjectNode *UiObjectNode::parse(UiObjectNode *target, Parser *parser)
       childNode->setName(actionName);
       target->appendChild(childNode);
     } else if (parser->reader()->name().compare(QLatin1String("item"), Qt::CaseInsensitive) == 0) {
-      UiNode *childNode = UiItemNode::parse(parser);
+      UiNode *childNode = UiLayoutItemNode::parse(parser);
       if (childNode != 0) {
         childNode->setName(className);
         target->appendChild(childNode);

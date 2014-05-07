@@ -20,7 +20,7 @@
 
 #include "itemvisitor.h"
 
-#include "uiitemnode.h"
+#include "uilayoutitemnode.h"
 #include "uipropertynode.h"
 #include "uiwidgetnode.h"
 
@@ -81,7 +81,7 @@ ItemVisitor::ItemVisitor(const SharedVisitationContext &sharedContext)
 {
 }
 
-void ItemVisitor::visit(UiItemNode *itemNode)
+void ItemVisitor::visit(UiLayoutItemNode *itemNode)
 {
   if (itemNode->name() == QLatin1String("QGridLayout")) {
     visitGridLayoutItem(itemNode);
@@ -92,7 +92,7 @@ void ItemVisitor::visit(UiItemNode *itemNode)
   itemNode->acceptChildren(this);
 }
 
-void ItemVisitor::visitGridLayoutItem(UiItemNode *itemNode)
+void ItemVisitor::visitGridLayoutItem(UiLayoutItemNode *itemNode)
 {
   const int row = itemNode->row();
   const int column = itemNode->column();
@@ -135,7 +135,7 @@ void ItemVisitor::visitGridLayoutItem(UiItemNode *itemNode)
   childNode->prependChild(property);
 }
 
-void ItemVisitor::visitFormLayoutItem(UiItemNode *itemNode)
+void ItemVisitor::visitFormLayoutItem(UiLayoutItemNode *itemNode)
 {
   const int row = itemNode->row();
   const int column = itemNode->column();

@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2013-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -18,17 +18,17 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef UIITEMNODE_H
-#define UIITEMNODE_H
+#ifndef UILAYOUTITEMNODE_H
+#define UILAYOUTITEMNODE_H
 
 #include "uinode.h"
 
 class Parser;
 
-class UiItemNode : public UiNode
+class UiLayoutItemNode : public UiNode
 {
   public:
-    UiItemNode();
+    UiLayoutItemNode();
 
     static UiNode *parse(Parser *parser);
 
@@ -53,4 +53,4 @@ class UiItemNode : public UiNode
     int m_colSpan;
 };
 
-#endif // UIITEMNODE_H
+#endif // UIITEMLAYOUTNODE_H

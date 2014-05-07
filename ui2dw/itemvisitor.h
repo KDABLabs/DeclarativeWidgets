@@ -30,11 +30,11 @@ class ItemVisitor : public UiNodeVisitor
   public:
     explicit ItemVisitor(const SharedVisitationContext &sharedContext);
 
-    void visit(UiItemNode *itemNode);
+    void visit(UiLayoutItemNode *itemNode);
 
   private:
-    void visitGridLayoutItem(UiItemNode *itemNode);
-    void visitFormLayoutItem(UiItemNode *itemNode);
+    void visitGridLayoutItem(UiLayoutItemNode *itemNode);
+    void visitFormLayoutItem(UiLayoutItemNode *itemNode);
 
   private:
     QHash<int, QString> m_labels;

@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2013 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2013-2014 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer, kevin.krammer@kdab.com
   Author: Tobias Koenig, tobias.koenig@kdab.com
 
@@ -18,7 +18,7 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "uiitemnode.h"
+#include "uilayoutitemnode.h"
 
 #include "parser.h"
 #include "uilayoutnode.h"
@@ -30,7 +30,7 @@
 #include <QXmlStreamAttributes>
 #include <QXmlStreamReader>
 
-UiItemNode::UiItemNode()
+UiLayoutItemNode::UiLayoutItemNode()
   : UiNode()
   , m_row(-1)
   , m_column(-1)
@@ -39,9 +39,9 @@ UiItemNode::UiItemNode()
 {
 }
 
-UiNode *UiItemNode::parse(Parser *parser)
+UiNode *UiLayoutItemNode::parse(Parser *parser)
 {
-  UiItemNode *target = new UiItemNode;
+  UiLayoutItemNode *target = new UiLayoutItemNode;
 
   const QXmlStreamAttributes attributes = parser->reader()->attributes();
   if (attributes.hasAttribute(QLatin1String("row"))) {
@@ -109,47 +109,47 @@ UiNode *UiItemNode::parse(Parser *parser)
   return target;
 }
 
-void UiItemNode::accept(UiNodeVisitor *visitor)
+void UiLayoutItemNode::accept(UiNodeVisitor *visitor)
 {
   visitor->visit(this);
 }
 
-int UiItemNode::row() const
+int UiLayoutItemNode::row() const
 {
   return m_row;
 }
 
-void UiItemNode::setRow(int row)
+void UiLayoutItemNode::setRow(int row)
 {
   m_row = row;
 }
 
-int UiItemNode::column() const
+int UiLayoutItemNode::column() const
 {
   return m_column;
 }
 
-void UiItemNode::setColumn(int column)
+void UiLayoutItemNode::setColumn(int column)
 {
   m_column = column;
 }
 
-int UiItemNode::rowSpan() const
+int UiLayoutItemNode::rowSpan() const
 {
   return m_rowSpan;
 }
 
-void UiItemNode::setRowSpan(int rowSpan)
+void UiLayoutItemNode::setRowSpan(int rowSpan)
 {
   m_rowSpan = rowSpan;
 }
 
-int UiItemNode::colSpan() const
+int UiLayoutItemNode::colSpan() const
 {
   return m_colSpan;
 }
 
-void UiItemNode::setColSpan(int colSpan)
+void UiLayoutItemNode::setColSpan(int colSpan)
 {
   m_colSpan = colSpan;
 }
