@@ -49,6 +49,7 @@
 #include "declarativestatusbar_p.h"
 #include "declarativestringlistmodelextension_p.h"
 #include "declarativetableviewextension_p.h"
+#include "declarativetabstops_p.h"
 #include "declarativetabwidget_p.h"
 #include "declarativetexteditextension_p.h"
 #include "declarativetreeviewextension_p.h"
@@ -134,6 +135,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterType<DeclarativePixmap>("QtWidgets", 1, 0, "Pixmap");
   qmlRegisterExtendedType<DeclarativeSeparator, DeclarativeObjectExtension>("QtWidgets", 1, 0, "Separator");
   qmlRegisterExtendedType<QStringListModel, DeclarativeStringListModelExtension>("QtCore", 1, 0, "StringListModel");
+  qmlRegisterType<DeclarativeTabStops>("QtWidgets", 1, 0, "TabStops");
   qmlRegisterType<QTextDocument>();
   qmlRegisterType<QTimer>("QtCore", 1, 0, "Timer");
 

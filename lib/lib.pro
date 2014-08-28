@@ -57,7 +57,8 @@ HEADERS = \
     declarativeloaderwidget_p.h \
     declarativespaceritem_p.h \
     declarativeline_p.h \
-    declarativelabelextension_p.h
+    declarativelabelextension_p.h \
+    declarativetabstops_p.h
 
 SOURCES = \
   abstractdeclarativeobject.cpp \
@@ -107,4 +108,5 @@ SOURCES = \
     declarativeloaderwidget.cpp \
     declarativespaceritem.cpp \
     declarativeline.cpp \
-    declarativelabelextension.cpp
+    declarativelabelextension.cpp \
+    declarativetabstops.cpp
