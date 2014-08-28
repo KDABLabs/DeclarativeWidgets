@@ -21,6 +21,7 @@
 #include "parser.h"
 
 #include "uiconnectionnode.h"
+#include "uitabstopsnode.h"
 #include "uitopnode.h"
 #include "uiwidgetnode.h"
 
@@ -79,6 +80,11 @@ QSharedPointer<UiTopNode> Parser::parse()
       UiNode *connectionNode = UiConnectionNode::parse(this);
       if (connectionNode != 0) {
         topNode->appendChild(connectionNode);
+      }
+    } else if (m_reader->name().compare(QLatin1String("tabstops"), Qt::CaseInsensitive) == 0) {
+      UiNode *tabStopsNode = UiTabStopsNode::parse(this);
+      if (tabStopsNode != 0) {
+        topNode->appendChild(tabStopsNode);
       }
     } else if (m_ignoredElementNames.contains(m_reader->name().toString())) {
       continue;

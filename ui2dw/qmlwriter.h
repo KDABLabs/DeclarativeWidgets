@@ -46,6 +46,7 @@ class QmlWriter : public UiNodeVisitor
     void visit(UiPropertyNode *propertyNode);
     void visit(UiObjectNode *objectNode);
     void visit(UiSpacerNode *spacerNode);
+    void visit(UiTabStopsNode *tabStopsNode);
     void visit(UiTopNode *topNode);
 
   protected:

@@ -30,7 +30,9 @@ SOURCES += main.cpp \
     uiconnectionnode.cpp \
     connectionnodevisitor.cpp \
     layoutvisitor.cpp \
-    buddyvisitor.cpp
+    buddyvisitor.cpp \
+    uitabstopsnode.cpp \
+    tabstopsnodevisitor.cpp
 
 HEADERS += \
     uinode.h \
@@ -53,4 +55,6 @@ HEADERS += \
     uiconnectionnode.h \
     connectionnodevisitor.h \
     layoutvisitor.h \
-    buddyvisitor.h
+    buddyvisitor.h \
+    uitabstopsnode.h \
+    tabstopsnodevisitor.h

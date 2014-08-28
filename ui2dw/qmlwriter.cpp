@@ -25,6 +25,7 @@
 #include "uilayoutnode.h"
 #include "uipropertynode.h"
 #include "uispacernode.h"
+#include "uitabstopsnode.h"
 #include "uitopnode.h"
 #include "uiwidgetnode.h"
 
@@ -418,6 +419,20 @@ void QmlWriter::visit(UiSpacerNode *spacerNode)
   spacerNode->acceptChildren(this);
   m_currentIndent -= 2;
 
+  *m_writer << indent << "}" << endl;
+}
+
+void QmlWriter::visit(UiTabStopsNode *tabStopsNode)
+{
+  if (tabStopsNode->tabStops().isEmpty())
+    return;
+
+  const QByteArray indent(m_currentIndent, ' ');
+  const QByteArray offsetIndent(2, ' ');
+
+  *m_writer << endl;
+  *m_writer << indent << "TabStops {" << endl;
+  *m_writer << indent << offsetIndent << "tabStops: [ " << tabStopsNode->tabStops().join(", ") << " ]" << endl;
   *m_writer << indent << "}" << endl;
 }
 

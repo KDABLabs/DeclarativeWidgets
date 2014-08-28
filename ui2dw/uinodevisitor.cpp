@@ -27,6 +27,7 @@
 #include "uilayoutnode.h"
 #include "uipropertynode.h"
 #include "uispacernode.h"
+#include "uitabstopsnode.h"
 #include "uitopnode.h"
 #include "uiwidgetnode.h"
 
@@ -156,6 +157,11 @@ void UiNodeVisitor::visit(UiObjectNode *objectNode)
 void UiNodeVisitor::visit(UiSpacerNode *spacerNode)
 {
   visit(static_cast<UiNode*>(spacerNode));
+}
+
+void UiNodeVisitor::visit(UiTabStopsNode *tabStopsNode)
+{
+  visit(static_cast<UiNode*>(tabStopsNode));
 }
 
 void UiNodeVisitor::visit(UiTopNode *topNode)

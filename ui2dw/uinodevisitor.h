@@ -35,6 +35,7 @@ class UiNode;
 class UiPropertyNode;
 class UiObjectNode;
 class UiSpacerNode;
+class UiTabStopsNode;
 class UiTopNode;
 class UiWidgetNode;
 
@@ -77,6 +78,7 @@ class UiNodeVisitor
     virtual void visit(UiPropertyNode *propertyNode);
     virtual void visit(UiObjectNode *objectNode);
     virtual void visit(UiSpacerNode *spacerNode);
+    virtual void visit(UiTabStopsNode *tabStopsNode);
     virtual void visit(UiTopNode*topNode);
     virtual void visit(UiWidgetNode *widgetNode);
 

@@ -34,6 +34,7 @@
 #include "itemvisitor.h"
 #include "layoutvisitor.h"
 #include "qmlwriter.h"
+#include "tabstopsnodevisitor.h"
 #include "uitopnode.h"
 
 using namespace std;
@@ -130,6 +131,10 @@ int main(int argc, char *argv[])
   // handle connections
   ConnectionNodeVisitor connectionVisitor(sharedVisitationContext);
   topNode->accept(&connectionVisitor);
+
+  // handle tab stops
+  TabStopsNodeVisitor tabStopsVisitor(sharedVisitationContext);
+  topNode->accept(&tabStopsVisitor);
 
   QmlWriter writer(&outputFile, sharedVisitationContext);
   writer.write(topNode);
