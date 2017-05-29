@@ -19,7 +19,7 @@
 */
 
 #ifndef DECLARATIVECOMBOBOXEXTENSION_P_H
-#define DECLARATIVECOMBOBOCEXTENSION_P_H
+#define DECLARATIVECOMBOBOXEXTENSION_P_H
 
 #include "declarativewidgetextension.h"
 
