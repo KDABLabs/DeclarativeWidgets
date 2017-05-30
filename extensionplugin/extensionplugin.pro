@@ -1,6 +1,6 @@
 TEMPLATE = lib
 TARGET = declarativewidgetsplugin
-QT += core-private qml widgets webkit
+QT += core-private qml widgets webengine
 CONFIG += qt plugin
 
 TARGET = $$qtLibraryTarget($$TARGET)
