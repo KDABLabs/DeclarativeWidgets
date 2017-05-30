@@ -23,9 +23,9 @@
 
 #include "abstractdeclarativeobject_p.h"
 
-#include <qdeclarative.h>
-#include <QDeclarativeInfo>
 #include <QPointer>
+#include <qqml.h>
+#include <QQmlInfo>
 #include <QVector>
 
 #define DECLARATIVE_OBJECT \
@@ -77,7 +77,7 @@ class DeclarativeObjectProxy : public AbstractDeclarativeObject
 
 //TODO: Find a solution to make the macro public but the usage of QMetaObjectBuilder private
 
-#include "qmetaobjectbuilder_p.h"
+#include "private/qmetaobjectbuilder_p.h"
 
 #define CUSTOM_METAOBJECT(ClassName, ProxyObjectType) \
 QMetaObject ClassName::staticMetaObject;\
@@ -99,7 +99,7 @@ const QMetaObject &ClassName::getStaticMetaObject() \
 } \
 const QMetaObject* ClassName::metaObject() const \
 { \
-  return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject; \
+  return QObject::d_ptr->metaObject ? QObject::metaObject() : &staticMetaObject; \
 } \
 void* ClassName::qt_metacast(const char*) \
 { \

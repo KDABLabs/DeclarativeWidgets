@@ -23,8 +23,8 @@
 
 #include "staticdialogmethodattached_p.h"
 
-#include <qdeclarative.h>
 #include <QColorDialog>
+#include <qqml.h>
 
 class DeclarativeColorDialogAttached : public StaticDialogMethodAttached
 {

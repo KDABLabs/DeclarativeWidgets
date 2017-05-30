@@ -23,8 +23,8 @@
 #include "abstractdeclarativeobject_p.h"
 
 #include <QDebug>
-#include <qdeclarative.h>
-#include <QDeclarativeComponent>
+#include <qqml.h>
+#include <QQmlComponent>
 #include <QVBoxLayout>
 
 class DeclarativeLoaderWidget::Private
@@ -36,7 +36,7 @@ class DeclarativeLoaderWidget::Private
 
   public:
     QUrl source;
-    QDeclarativeComponent *component;
+    QQmlComponent *component;
 };
 
 DeclarativeLoaderWidget::DeclarativeLoaderWidget(QWidget *parent)
@@ -91,9 +91,9 @@ void DeclarativeLoaderWidget::updateDelegate()
     return;
   }
 
-  d->component = new QDeclarativeComponent(qmlEngine(this), d->source, this);
+  d->component = new QQmlComponent(qmlEngine(this), d->source, this);
   if (d->component->isLoading()) {
-    connect(d->component, SIGNAL(statusChanged(QDeclarativeComponent::Status)), this, SLOT(onStatusChanged()));
+    connect(d->component, SIGNAL(statusChanged(QQmlComponent::Status)), this, SLOT(onStatusChanged()));
     return;
   }
 
@@ -103,7 +103,7 @@ void DeclarativeLoaderWidget::updateDelegate()
 void DeclarativeLoaderWidget::onStatusChanged()
 {
   if (d->component->isError()) {
-    foreach (const QDeclarativeError &error, d->component->errors()) {
+    foreach (const QQmlError &error, d->component->errors()) {
       qDebug() << error.toString();
     }
     return;

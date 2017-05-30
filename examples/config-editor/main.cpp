@@ -3,7 +3,7 @@
 #include "declarativewidgetsdocument.h"
 
 #include <QApplication>
-#include <QDeclarativeEngine>
+#include <QQmlEngine>
 #include <QWidget>
 
 int main(int argc, char *argv[])

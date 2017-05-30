@@ -20,7 +20,7 @@
 
 #include "scrollareawidgetcontainer_p.h"
 
-#include <QDeclarativeInfo>
+#include <QQmlInfo>
 #include <QScrollArea>
 
 ScrollAreaWidgetContainer::ScrollAreaWidgetContainer(QObject *parent)

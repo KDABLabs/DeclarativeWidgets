@@ -24,8 +24,8 @@
 #include "declarativeboxlayout_p.h"
 #include "declarativelayoutextension.h"
 
-#include <qdeclarative.h>
 #include <QHBoxLayout>
+#include <qqml.h>
 
 class DeclarativeHBoxLayout : public QHBoxLayout
 {
@@ -44,7 +44,7 @@ class DeclarativeHBoxLayoutExtension : public DeclarativeLayoutExtension
   Q_OBJECT
 
   // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false)
   Q_PROPERTY(DeclarativeLayoutContentsMargins* contentsMargins READ contentsMargins CONSTANT)
 
   Q_CLASSINFO("DefaultProperty", "data")

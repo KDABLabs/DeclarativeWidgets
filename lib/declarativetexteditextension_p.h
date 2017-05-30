@@ -37,7 +37,7 @@ class DeclarativeTextEditExtension : public DeclarativeWidgetExtension
   Q_PROPERTY(QTextDocument* document READ document WRITE setDocument NOTIFY documentChanged)
 
   // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false)
 
   Q_CLASSINFO("DefaultProperty", "data")
 

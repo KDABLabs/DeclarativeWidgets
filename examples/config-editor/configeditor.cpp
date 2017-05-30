@@ -133,6 +133,7 @@ QUrl ConfigEditor::findCustomEditorQml(const QFileInfo &configFile) const
   }
 
   // otherwise look into our data storage location
+#if defined(QT5_PORT)
   const QString dataDirLocation = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
   qDebug() << "dataDirLocation" << dataDirLocation;
   if (!dataDirLocation.isEmpty()) {
@@ -141,6 +142,9 @@ QUrl ConfigEditor::findCustomEditorQml(const QFileInfo &configFile) const
       return QUrl::fromLocalFile(qmlFileInfo.absoluteFilePath());
     }
   }
+#else
+#warning NOT PORTED YET
+#endif
 
   // finally check our resources
   qmlFileInfo = QFileInfo(QDir(":/editors"), qmlFile);

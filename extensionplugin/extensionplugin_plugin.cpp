@@ -27,7 +27,11 @@
 #include "declarativecomboboxextension_p.h"
 #include "declarativecontainerwidgetextension_p.h"
 #include "declarativedeclarativecontext_p.h"
+#if defined(QT5_PORT)
 #include "declarativedeclarativeviewextension_p.h"
+#else
+#warning NOT PORTED YET
+#endif
 #include "declarativefiledialog_p.h"
 #include "declarativefilesystemmodelextension_p.h"
 #include "declarativefontdialog_p.h"
@@ -63,7 +67,11 @@
 #include <QComboBox>
 #include <QCommandLinkButton>
 #include <QDateTimeEdit>
+#if defined(QT5_PORT)
 #include <QDeclarativeView>
+#else
+#warning NOT PORTED YET
+#endif
 #include <QDial>
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
@@ -87,9 +95,13 @@
 #include <QToolBar>
 #include <QToolButton>
 #include <QTreeView>
+#if defined(QT5_PORT)
 #include <QWebView>
+#else
+#warning NOT PORTED YET
+#endif
 
-#include <qdeclarative.h>
+#include <qqml.h>
 
 // @uri QtWidgets
 void ExtensionpluginPlugin::registerTypes(const char *uri)
@@ -127,7 +139,11 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QComboBox, DeclarativeComboBoxExtension>(uri, 1, 0, "ComboBox");
   qmlRegisterExtendedType<QDateEdit, DeclarativeWidgetExtension>(uri, 1, 0, "DateEdit");
   qmlRegisterExtendedType<QDateTimeEdit, DeclarativeWidgetExtension>(uri, 1, 0, "DateTimeEdit");
+#if defined(QT5_PORT)
   qmlRegisterExtendedType<QDeclarativeView, DeclarativeDeclarativeViewExtension>(uri, 1, 0, "DeclarativeView");
+#else
+#warning NOT PORTED YET
+#endif
   qmlRegisterExtendedType<QDial, DeclarativeWidgetExtension>(uri, 1, 0, "Dial");
   qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>(uri, 1, 0, "Dialog");
   qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>(uri, 1, 0, "DialogButtonBox");
@@ -150,7 +166,11 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QProgressBar, DeclarativeWidgetExtension>(uri, 1, 0, "ProgressBar");
   qmlRegisterExtendedType<QPushButton, DeclarativeWidgetExtension>(uri, 1, 0, "PushButton");
   qmlRegisterExtendedType<QRadioButton, DeclarativeWidgetExtension>(uri, 1, 0, "RadioButton");
+#if defined(QT5_PORT)
   qmlRegisterExtendedType<QScrollArea, DeclarativeContainerWidgetExtension<ScrollAreaWidgetContainer> >(uri, 1, 0, "ScrollArea");
+#else
+#warning NOT PORTED YET
+#endif
   qmlRegisterExtendedType<QScrollBar, DeclarativeWidgetExtension>(uri, 1, 0, "ScrollBar");
   qmlRegisterExtendedType<QSlider, DeclarativeWidgetExtension>(uri, 1, 0, "Slider");
   qmlRegisterExtendedType<QStackedWidget, DeclarativeContainerWidgetExtension<StackedWidgetWidgetContainer> >(uri, 1, 0, "StackedWidget");
@@ -164,9 +184,17 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QToolBar, DeclarativeContainerWidgetExtension<ToolBarWidgetContainer> >(uri, 1, 0, "ToolBar");
   qmlRegisterExtendedType<QToolButton, DeclarativeWidgetExtension>(uri, 1, 0, "ToolButton");
   qmlRegisterExtendedType<QTreeView, DeclarativeTreeViewExtension>(uri, 1, 0, "TreeView");
+#if defined(QT5_PORT)
   qmlRegisterExtendedType<QWebView, DeclarativeWidgetExtension>(uri, 1, 0, "WebView");
+#else
+#warning NOT PORTED YET
+#endif
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>(uri, 1, 0, "Widget");
 }
 
+#if defined(QT5_PORT)
 Q_EXPORT_PLUGIN2(Extensionplugin, ExtensionpluginPlugin)
+#else
+#warning NOT PORTED YET
+#endif
 

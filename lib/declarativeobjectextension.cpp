@@ -38,15 +38,15 @@ DeclarativeObjectExtension::DeclarativeObjectExtension(ObjectContainerInterface 
 {
 }
 
-QDeclarativeListProperty<QObject> DeclarativeObjectExtension::data()
+QQmlListProperty<QObject> DeclarativeObjectExtension::data()
 {
-  return QDeclarativeListProperty<QObject>(this, 0, DeclarativeObjectExtension::data_append,
-                                                    DeclarativeObjectExtension::data_count,
-                                                    DeclarativeObjectExtension::data_at,
-                                                    DeclarativeObjectExtension::data_clear);
+  return QQmlListProperty<QObject>(this, 0, DeclarativeObjectExtension::data_append,
+                                            DeclarativeObjectExtension::data_count,
+                                            DeclarativeObjectExtension::data_at,
+                                            DeclarativeObjectExtension::data_clear);
 }
 
-void DeclarativeObjectExtension::data_append(QDeclarativeListProperty<QObject> *property, QObject *object)
+void DeclarativeObjectExtension::data_append(QQmlListProperty<QObject> *property, QObject *object)
 {
   if (!object)
     return;
@@ -58,7 +58,7 @@ void DeclarativeObjectExtension::data_append(QDeclarativeListProperty<QObject> *
     qWarning("cast went wrong in data_append");
 }
 
-int DeclarativeObjectExtension::data_count(QDeclarativeListProperty<QObject> *property)
+int DeclarativeObjectExtension::data_count(QQmlListProperty<QObject> *property)
 {
   DeclarativeObjectExtension *that = qobject_cast<DeclarativeObjectExtension*>(property->object);
   if (that && that->m_objectContainer)
@@ -69,7 +69,7 @@ int DeclarativeObjectExtension::data_count(QDeclarativeListProperty<QObject> *pr
   }
 }
 
-QObject* DeclarativeObjectExtension::data_at(QDeclarativeListProperty<QObject> *property, int index)
+QObject* DeclarativeObjectExtension::data_at(QQmlListProperty<QObject> *property, int index)
 {
   DeclarativeObjectExtension *that = qobject_cast<DeclarativeObjectExtension*>(property->object);
   if (that && that->m_objectContainer)
@@ -80,7 +80,7 @@ QObject* DeclarativeObjectExtension::data_at(QDeclarativeListProperty<QObject> *
   }
 }
 
-void DeclarativeObjectExtension::data_clear(QDeclarativeListProperty<QObject> *property)
+void DeclarativeObjectExtension::data_clear(QQmlListProperty<QObject> *property)
 {
   DeclarativeObjectExtension *that = qobject_cast<DeclarativeObjectExtension*>(property->object);
   if (that && that->m_objectContainer)

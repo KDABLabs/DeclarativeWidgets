@@ -31,12 +31,12 @@ AbstractDeclarativeObject::~AbstractDeclarativeObject()
 {
 }
 
-QDeclarativeListProperty<QObject> AbstractDeclarativeObject::data()
+QQmlListProperty<QObject> AbstractDeclarativeObject::data()
 {
-  return QDeclarativeListProperty<QObject>(this, 0, AbstractDeclarativeObject::data_append,
-                                                    AbstractDeclarativeObject::data_count,
-                                                    AbstractDeclarativeObject::data_at,
-                                                    AbstractDeclarativeObject::data_clear);
+  return QQmlListProperty<QObject>(this, 0, AbstractDeclarativeObject::data_append,
+                                            AbstractDeclarativeObject::data_count,
+                                            AbstractDeclarativeObject::data_at,
+                                            AbstractDeclarativeObject::data_clear);
 }
 
 void AbstractDeclarativeObject::dataAppend(QObject *)
@@ -62,16 +62,16 @@ void AbstractDeclarativeObject::connectAllSignals(const QObject *sender, const Q
   for (int i = 0; i < sender->metaObject()->methodCount(); ++i) {
     const QMetaMethod method = sender->metaObject()->method(i);
     if (method.methodType() == QMetaMethod::Signal) {
-      if (blacklist.contains(method.signature()))
+      if (blacklist.contains(method.methodSignature()))
         continue;
 
-      const QByteArray signature = "2" + QByteArray(method.signature());
+      const QByteArray signature = "2" + QByteArray(method.methodSignature());
       QObject::connect(sender, signature.data(), receiver, signature.data());
     }
   }
 }
 
-void AbstractDeclarativeObject::data_append(QDeclarativeListProperty<QObject> *property, QObject *object)
+void AbstractDeclarativeObject::data_append(QQmlListProperty<QObject> *property, QObject *object)
 {
   if (!object)
     return;
@@ -83,7 +83,7 @@ void AbstractDeclarativeObject::data_append(QDeclarativeListProperty<QObject> *p
     qWarning("cast went wrong in data_append");
 }
 
-int AbstractDeclarativeObject::data_count(QDeclarativeListProperty<QObject> *property)
+int AbstractDeclarativeObject::data_count(QQmlListProperty<QObject> *property)
 {
   AbstractDeclarativeObject *that = dynamic_cast<AbstractDeclarativeObject*>(property->object);
   if (that)
@@ -94,7 +94,7 @@ int AbstractDeclarativeObject::data_count(QDeclarativeListProperty<QObject> *pro
   }
 }
 
-QObject* AbstractDeclarativeObject::data_at(QDeclarativeListProperty<QObject> *property, int index)
+QObject* AbstractDeclarativeObject::data_at(QQmlListProperty<QObject> *property, int index)
 {
   AbstractDeclarativeObject *that = dynamic_cast<AbstractDeclarativeObject*>(property->object);
   if (that)
@@ -105,7 +105,7 @@ QObject* AbstractDeclarativeObject::data_at(QDeclarativeListProperty<QObject> *p
   }
 }
 
-void AbstractDeclarativeObject::data_clear(QDeclarativeListProperty<QObject> *property)
+void AbstractDeclarativeObject::data_clear(QQmlListProperty<QObject> *property)
 {
   AbstractDeclarativeObject *that = dynamic_cast<AbstractDeclarativeObject*>(property->object);
   if (that)

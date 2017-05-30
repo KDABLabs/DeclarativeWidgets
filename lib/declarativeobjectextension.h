@@ -21,8 +21,8 @@
 #ifndef DECLARATIVEOBJECTEXTENSION_H
 #define DECLARATIVEOBJECTEXTENSION_H
 
-#include <QDeclarativeListProperty>
 #include <QObject>
+#include <QQmlListProperty>
 
 class ObjectContainerInterface;
 
@@ -30,7 +30,7 @@ class DeclarativeObjectExtension : public QObject
 {
   Q_OBJECT
 
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false)
 
   Q_CLASSINFO("DefaultProperty", "data")
 
@@ -45,13 +45,13 @@ class DeclarativeObjectExtension : public QObject
 
     explicit DeclarativeObjectExtension(ObjectContainerInterface *objectContainer, QObject *parent = 0);
 
-    QDeclarativeListProperty<QObject> data();
+    QQmlListProperty<QObject> data();
 
   private:
-    static void data_append(QDeclarativeListProperty<QObject> *, QObject *);
-    static int data_count(QDeclarativeListProperty<QObject> *);
-    static QObject *data_at(QDeclarativeListProperty<QObject> *, int);
-    static void data_clear(QDeclarativeListProperty<QObject> *);
+    static void data_append(QQmlListProperty<QObject> *, QObject *);
+    static int data_count(QQmlListProperty<QObject> *);
+    static QObject *data_at(QQmlListProperty<QObject> *, int);
+    static void data_clear(QQmlListProperty<QObject> *);
 };
 
 #endif // DECLARATIVEOBJECTEXTENSION_H

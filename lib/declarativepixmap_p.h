@@ -21,9 +21,9 @@
 #ifndef DECLARATIVEPIXMAP_P_H
 #define DECLARATIVEPIXMAP_P_H
 
-#include <qdeclarative.h>
-#include <QPixmap>
 #include <QObject>
+#include <QPixmap>
+#include <qqml.h>
 #include <QStringList>
 
 class DeclarativePixmapAttached : public QObject

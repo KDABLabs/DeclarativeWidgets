@@ -27,9 +27,9 @@
 #include "widgetcontainerinterface_p.h"
 
 #include <QAction>
-#include <QDeclarativeInfo>
 #include <QEvent>
 #include <QLayout>
+#include <QQmlInfo>
 #include <QWidget>
 
 class WidgetContainerDelegate : public DefaultObjectContainer

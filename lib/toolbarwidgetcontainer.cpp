@@ -20,7 +20,7 @@
 
 #include "toolbarwidgetcontainer_p.h"
 
-#include <QDeclarativeInfo>
+#include <QQmlInfo>
 #include <QToolBar>
 
 ToolBarWidgetContainer::ToolBarWidgetContainer(QObject *parent)

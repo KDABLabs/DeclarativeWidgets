@@ -24,7 +24,7 @@
 
 #include <QApplication>
 #include <QDebug>
-#include <QDeclarativeEngine>
+#include <QQmlEngine>
 #include <QWidget>
 
 int main(int argc, char **argv)
