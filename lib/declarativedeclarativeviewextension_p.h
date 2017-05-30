@@ -26,7 +26,7 @@
 #include <QPointer>
 
 class DeclarativeContext;
-class QDeclarativeView;
+class QQuickView;
 
 class DeclarativeDeclarativeViewExtension : public DeclarativeWidgetExtension
 {
@@ -36,7 +36,7 @@ class DeclarativeDeclarativeViewExtension : public DeclarativeWidgetExtension
              NOTIFY declarativeRootContextChanged)
 
   // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false)
 
   Q_CLASSINFO("DefaultProperty", "data")
 
@@ -44,7 +44,7 @@ class DeclarativeDeclarativeViewExtension : public DeclarativeWidgetExtension
     explicit DeclarativeDeclarativeViewExtension(QObject *parent = 0);
     ~DeclarativeDeclarativeViewExtension();
 
-    QDeclarativeView *extendedDeclarativeView() const;
+    QQuickView *extendedDeclarativeView() const;
 
     void setDeclarativeRootContext(QObject *context);
     QObject *declarativeRootContext() const;

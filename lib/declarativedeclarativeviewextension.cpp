@@ -22,7 +22,7 @@
 
 #include "declarativedeclarativecontext_p.h"
 
-#include <QDeclarativeView>
+#include <QQuickView>
 
 DeclarativeDeclarativeViewExtension::DeclarativeDeclarativeViewExtension(QObject *parent)
   : DeclarativeWidgetExtension(parent)
@@ -33,9 +33,9 @@ DeclarativeDeclarativeViewExtension::~DeclarativeDeclarativeViewExtension()
 {
 }
 
-QDeclarativeView *DeclarativeDeclarativeViewExtension::extendedDeclarativeView() const
+QQuickView *DeclarativeDeclarativeViewExtension::extendedDeclarativeView() const
 {
-  QDeclarativeView *declarativeView = qobject_cast<QDeclarativeView*>(extendedWidget());
+  QQuickView *declarativeView = qobject_cast<QQuickView*>(extendedWidget());
   Q_ASSERT(declarativeView);
 
   return declarativeView;
