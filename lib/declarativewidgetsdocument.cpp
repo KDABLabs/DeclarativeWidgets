@@ -93,6 +93,7 @@
 #include <QQmlContext>
 #include <QQmlEngine>
 #include <QRadioButton>
+#include <QScrollArea>
 #include <QScrollBar>
 #include <QStackedWidget>
 #include <QStringListModel>
@@ -194,11 +195,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QProgressBar, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "ProgressBar");
   qmlRegisterExtendedType<QPushButton, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "PushButton");
   qmlRegisterExtendedType<QRadioButton, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "RadioButton");
-#if defined(QT5_PORT)
   qmlRegisterExtendedType<QScrollArea, DeclarativeContainerWidgetExtension<ScrollAreaWidgetContainer> >("QtWidgets", 1, 0, "ScrollArea");
-#else
-#warning NOT PORTED YET
-#endif
   qmlRegisterExtendedType<QScrollBar, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "ScrollBar");
   qmlRegisterExtendedType<QSlider, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "Slider");
   qmlRegisterType<DeclarativeSpacerItem>("QtWidgets", 1, 0, "Spacer");

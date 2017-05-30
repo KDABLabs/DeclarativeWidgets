@@ -86,6 +86,7 @@
 #include <QPlainTextEdit>
 #include <QProgressBar>
 #include <QRadioButton>
+#include <QScrollArea>
 #include <QScrollBar>
 #include <QStackedWidget>
 #include <QStringListModel>
@@ -106,6 +107,8 @@
 // @uri QtWidgets
 void ExtensionpluginPlugin::registerTypes(const char *uri)
 {
+  Q_ASSERT(uri == QLatin1String("QtWidgets"));
+
   // objects
   qmlRegisterType<QAbstractItemModel>();
   qmlRegisterType<QAction>();
@@ -166,11 +169,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QProgressBar, DeclarativeWidgetExtension>(uri, 1, 0, "ProgressBar");
   qmlRegisterExtendedType<QPushButton, DeclarativeWidgetExtension>(uri, 1, 0, "PushButton");
   qmlRegisterExtendedType<QRadioButton, DeclarativeWidgetExtension>(uri, 1, 0, "RadioButton");
-#if defined(QT5_PORT)
   qmlRegisterExtendedType<QScrollArea, DeclarativeContainerWidgetExtension<ScrollAreaWidgetContainer> >(uri, 1, 0, "ScrollArea");
-#else
-#warning NOT PORTED YET
-#endif
   qmlRegisterExtendedType<QScrollBar, DeclarativeWidgetExtension>(uri, 1, 0, "ScrollBar");
   qmlRegisterExtendedType<QSlider, DeclarativeWidgetExtension>(uri, 1, 0, "Slider");
   qmlRegisterExtendedType<QStackedWidget, DeclarativeContainerWidgetExtension<StackedWidgetWidgetContainer> >(uri, 1, 0, "StackedWidget");
@@ -191,10 +190,3 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
 #endif
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>(uri, 1, 0, "Widget");
 }
-
-#if defined(QT5_PORT)
-Q_EXPORT_PLUGIN2(Extensionplugin, ExtensionpluginPlugin)
-#else
-#warning NOT PORTED YET
-#endif
-
