@@ -26,7 +26,7 @@
 #include <QDebug>
 #include <QQmlContext>
 #include <QQmlEngine>
-#include <QQuickView>
+#include <QQuickWidget>
 #include <QWidget>
 
 static QWidget *createDeclarativeWidgetsUi(BookStore *bookStore, const QString &fileName)
@@ -47,7 +47,7 @@ static QWidget *createDeclarativeWidgetsUi(BookStore *bookStore, const QString &
 
 static QWidget *createQtQuickUi(BookStore *bookStore, const QString &fileName)
 {
-  QQuickView *view = new QQuickView();
+  QQuickWidget *view = new QQuickWidget();
 
   QObject::connect(view->engine(), SIGNAL(quit()), QCoreApplication::instance(), SLOT(quit()));
 
