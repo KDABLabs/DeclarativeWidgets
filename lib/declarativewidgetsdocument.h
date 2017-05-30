@@ -24,7 +24,7 @@
 #include <QObject>
 #include <QUrl>
 
-class QDeclarativeEngine;
+class QQmlEngine;
 
 class DeclarativeWidgetsDocument : public QObject
 {
@@ -37,7 +37,7 @@ class DeclarativeWidgetsDocument : public QObject
     void setContextProperty(const QString &name, const QVariant &value);
     void setContextProperty(const QString &name, QObject *object);
 
-    QDeclarativeEngine* engine() const;
+    QQmlEngine* engine() const;
 
     template <typename T>
     T* create()

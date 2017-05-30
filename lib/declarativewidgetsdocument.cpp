@@ -71,10 +71,11 @@
 #include <QCoreApplication>
 #include <QDateTimeEdit>
 #include <QDebug>
+#if defined(QT5_PORT)
 #include <QDeclarativeView>
-#include <QDeclarativeComponent>
-#include <QDeclarativeContext>
-#include <QDeclarativeEngine>
+#else
+#warning NOT PORTED YET
+#endif
 #include <QDial>
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
@@ -88,6 +89,9 @@
 #include <QMenuBar>
 #include <QPlainTextEdit>
 #include <QProgressBar>
+#include <QQmlComponent>
+#include <QQmlContext>
+#include <QQmlEngine>
 #include <QRadioButton>
 #include <QScrollBar>
 #include <QStackedWidget>
@@ -98,7 +102,11 @@
 #include <QToolBar>
 #include <QToolButton>
 #include <QTreeView>
+#if defined(QT5_PORT)
 #include <QWebView>
+#else
+#warning NOT PORTED YET
+#endif
 
 class DeclarativeWidgetsDocument::Private
 {
@@ -106,15 +114,15 @@ class DeclarativeWidgetsDocument::Private
     Private(DeclarativeWidgetsDocument *qq, const QUrl &url)
       : q(qq)
       , m_url(url)
-      , m_engine(new QDeclarativeEngine(q))
-      , m_component(new QDeclarativeComponent(m_engine, q))
+      , m_engine(new QQmlEngine(q))
+      , m_component(new QQmlComponent(m_engine, q))
     {
     }
 
     DeclarativeWidgetsDocument* q;
     QUrl m_url;
-    QDeclarativeEngine* m_engine;
-    QDeclarativeComponent* m_component;
+    QQmlEngine* m_engine;
+    QQmlComponent* m_component;
 };
 
 DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject *parent)
@@ -157,7 +165,11 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QComboBox, DeclarativeComboBoxExtension>("QtWidgets", 1, 0, "ComboBox");
   qmlRegisterExtendedType<QDateEdit, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "DateEdit");
   qmlRegisterExtendedType<QDateTimeEdit, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "DateTimeEdit");
+#if defined(QT5_PORT)
   qmlRegisterExtendedType<QDeclarativeView, DeclarativeDeclarativeViewExtension>("QtWidgets", 1, 0, "DeclarativeView");
+#else
+#warning NOT PORTED YET
+#endif
   qmlRegisterExtendedType<QDial, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "Dial");
   qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "Dialog");
   qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "DialogButtonBox");
@@ -182,7 +194,11 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QProgressBar, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "ProgressBar");
   qmlRegisterExtendedType<QPushButton, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "PushButton");
   qmlRegisterExtendedType<QRadioButton, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "RadioButton");
+#if defined(QT5_PORT)
   qmlRegisterExtendedType<QScrollArea, DeclarativeContainerWidgetExtension<ScrollAreaWidgetContainer> >("QtWidgets", 1, 0, "ScrollArea");
+#else
+#warning NOT PORTED YET
+#endif
   qmlRegisterExtendedType<QScrollBar, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "ScrollBar");
   qmlRegisterExtendedType<QSlider, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "Slider");
   qmlRegisterType<DeclarativeSpacerItem>("QtWidgets", 1, 0, "Spacer");
@@ -197,12 +213,16 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QToolBar, DeclarativeContainerWidgetExtension<ToolBarWidgetContainer> >("QtWidgets", 1, 0, "ToolBar");
   qmlRegisterExtendedType<QToolButton, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "ToolButton");
   qmlRegisterExtendedType<QTreeView, DeclarativeTreeViewExtension>("QtWidgets", 1, 0, "TreeView");
+#if defined(QT5_PORT)
   qmlRegisterExtendedType<QWebView, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "WebView");
+#else
+#warning NOT PORTED YET
+#endif
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "Widget");
 
   d->m_component->loadUrl(d->m_url);
   if (d->m_component->isError()) {
-    foreach (const QDeclarativeError &error, d->m_component->errors())
+    foreach (const QQmlError &error, d->m_component->errors())
       qDebug() << error.toString();
   }
 }
@@ -222,7 +242,7 @@ void DeclarativeWidgetsDocument::setContextProperty(const QString &name, QObject
   d->m_engine->rootContext()->setContextProperty(name, object);
 }
 
-QDeclarativeEngine* DeclarativeWidgetsDocument::engine() const
+QQmlEngine* DeclarativeWidgetsDocument::engine() const
 {
   return d->m_engine;
 }

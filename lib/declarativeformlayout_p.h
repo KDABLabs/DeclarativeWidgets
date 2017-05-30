@@ -23,8 +23,8 @@
 
 #include "declarativelayoutextension.h"
 
-#include <qdeclarative.h>
 #include <QFormLayout>
+#include <qqml.h>
 
 class DeclarativeFormLayoutAttached : public QObject
 {
@@ -67,7 +67,7 @@ class DeclarativeFormLayoutExtension : public DeclarativeLayoutExtension
   Q_OBJECT
 
   // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false)
   Q_PROPERTY(DeclarativeLayoutContentsMargins* contentsMargins READ contentsMargins CONSTANT)
 
   Q_CLASSINFO("DefaultProperty", "data")

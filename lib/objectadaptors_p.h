@@ -21,10 +21,10 @@
 #ifndef OBJECTADAPTORS_P_H
 #define OBJECTADAPTORS_P_H
 
-#include <QDeclarativeContext>
 #include <QDialog>
 #include <QMenu>
 #include <QPointer>
+#include <QQmlContext>
 
 class DeclarativeContext : public QObject
 {
@@ -32,16 +32,16 @@ class DeclarativeContext : public QObject
   Q_PROPERTY(QUrl baseUrl READ baseUrl WRITE setBaseUrl NOTIFY baseUrlChanged)
 
   public:
-    explicit DeclarativeContext(QDeclarativeEngine *engine, QObject *parent = 0);
+    explicit DeclarativeContext(QQmlEngine *engine, QObject *parent = 0);
     explicit DeclarativeContext(DeclarativeContext *parentContext, QObject *parent = 0);
     ~DeclarativeContext();
 
     void setBaseUrl(const QUrl &url);
     QUrl baseUrl() const;
 
-    static DeclarativeContext *createWrapper(QDeclarativeContext *context, QObject *parent = 0);
+    static DeclarativeContext *createWrapper(QQmlContext *context, QObject *parent = 0);
 
-    QDeclarativeContext *context() const { return m_context.data(); }
+    QQmlContext *context() const { return m_context.data(); }
 
     void setContextProperty(const QString &name, const QVariant &value);
 
@@ -49,7 +49,7 @@ class DeclarativeContext : public QObject
     void baseUrlChanged(const QUrl &url);
 
   private:
-    QPointer<QDeclarativeContext> m_context;
+    QPointer<QQmlContext> m_context;
 
     DeclarativeContext(QObject *parent);
 };

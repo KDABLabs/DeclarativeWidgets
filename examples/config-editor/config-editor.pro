@@ -4,7 +4,7 @@ INCLUDEPATH += . ../../lib
 
 LIBS += -L ../../lib -ldeclarativewidgets
 
-QT += declarative
+QT += qml widgets
 
 TARGET = config-editor
 

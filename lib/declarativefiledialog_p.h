@@ -23,8 +23,8 @@
 
 #include "staticdialogmethodattached_p.h"
 
-#include <qdeclarative.h>
 #include <QFileDialog>
+#include <qqml.h>
 
 class DeclarativeFileDialogAttached : public StaticDialogMethodAttached
 {

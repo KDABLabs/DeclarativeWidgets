@@ -20,10 +20,10 @@
 
 #include "mainwindowwidgetcontainer_p.h"
 
-#include <QDeclarativeInfo>
 #include <QDialog>
 #include <QMainWindow>
 #include <QMenuBar>
+#include <QQmlInfo>
 #include <QStatusBar>
 #include <QToolBar>
 

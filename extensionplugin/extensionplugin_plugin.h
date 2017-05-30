@@ -21,9 +21,9 @@
 #ifndef EXTENSIONPLUGIN_PLUGIN_H
 #define EXTENSIONPLUGIN_PLUGIN_H
 
-#include <QDeclarativeExtensionPlugin>
+#include <QQmlExtensionPlugin>
 
-class ExtensionpluginPlugin : public QDeclarativeExtensionPlugin
+class ExtensionpluginPlugin : public QQmlExtensionPlugin
 {
   Q_OBJECT
     

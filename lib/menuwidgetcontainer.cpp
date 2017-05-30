@@ -20,8 +20,8 @@
 
 #include "menuwidgetcontainer_p.h"
 
-#include <QDeclarativeInfo>
 #include <QMenu>
+#include <QQmlInfo>
 
 MenuWidgetContainer::MenuWidgetContainer(QObject *parent)
   : DefaultWidgetContainer(qobject_cast<QMenu*>(parent))

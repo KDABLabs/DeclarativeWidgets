@@ -23,7 +23,7 @@
 
 #include "defaultwidgetcontainer.h"
 
-#include <qdeclarative.h>
+#include <qqml.h>
 #include <QStatusBar>
 
 class DeclarativeStatusBarAttached : public QObject

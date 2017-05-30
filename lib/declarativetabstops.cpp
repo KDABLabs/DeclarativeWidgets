@@ -19,7 +19,7 @@
 
 #include "declarativetabstops_p.h"
 
-#include <QDeclarativeInfo>
+#include <QQmlInfo>
 #include <QWidget>
 
 DeclarativeTabStops::DeclarativeTabStops(QObject *parent)

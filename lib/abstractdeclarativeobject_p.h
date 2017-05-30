@@ -21,15 +21,15 @@
 #ifndef ABSTRACTDECLARATIVEOBJECT_P_H
 #define ABSTRACTDECLARATIVEOBJECT_P_H
 
-#include <QDeclarativeListProperty>
 #include <QObject>
+#include <QQmlListProperty>
 #include <QSet>
 
 class AbstractDeclarativeObject : public QObject
 {
   Q_OBJECT
 
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false)
 
   Q_CLASSINFO("DefaultProperty", "data")
 
@@ -48,12 +48,12 @@ class AbstractDeclarativeObject : public QObject
     void connectAllSignals(const QObject *sender, const QObject *receiver, const QSet<QByteArray> &blacklist = QSet<QByteArray>()) const;
 
   private:
-    QDeclarativeListProperty<QObject> data();
+    QQmlListProperty<QObject> data();
 
-    static void data_append(QDeclarativeListProperty<QObject> *, QObject *);
-    static int data_count(QDeclarativeListProperty<QObject> *);
-    static QObject *data_at(QDeclarativeListProperty<QObject> *, int);
-    static void data_clear(QDeclarativeListProperty<QObject> *);
+    static void data_append(QQmlListProperty<QObject> *, QObject *);
+    static int data_count(QQmlListProperty<QObject> *);
+    static QObject *data_at(QQmlListProperty<QObject> *, int);
+    static void data_clear(QQmlListProperty<QObject> *);
 };
 
 #endif

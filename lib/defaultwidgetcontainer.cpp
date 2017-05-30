@@ -20,8 +20,8 @@
 
 #include "defaultwidgetcontainer.h"
 
-#include <QDeclarativeInfo>
 #include <QLayout>
+#include <QQmlInfo>
 #include <QWidget>
 
 DefaultWidgetContainer::DefaultWidgetContainer(QWidget *widget)

@@ -23,9 +23,9 @@
 #include "declarativespaceritem_p.h"
 #include "layoutcontainerinterface_p.h"
 
-#include <QDeclarativeInfo>
 #include <QLabel>
 #include <QPointer>
+#include <QQmlInfo>
 
 class DeclarativeFormLayoutAttached::Private
 {

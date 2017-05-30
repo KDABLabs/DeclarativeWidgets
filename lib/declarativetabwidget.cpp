@@ -20,8 +20,8 @@
 
 #include "declarativetabwidget_p.h"
 
-#include <QDeclarativeInfo>
 #include <QPointer>
+#include <QQmlInfo>
 
 class DeclarativeTabWidgetAttached::Private
 {

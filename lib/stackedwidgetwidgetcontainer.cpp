@@ -20,7 +20,7 @@
 
 #include "stackedwidgetwidgetcontainer_p.h"
 
-#include <QDeclarativeInfo>
+#include <QQmlInfo>
 #include <QStackedWidget>
 
 StackedWidgetWidgetContainer::StackedWidgetWidgetContainer(QObject *parent)

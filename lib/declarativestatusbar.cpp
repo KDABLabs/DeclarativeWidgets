@@ -20,7 +20,7 @@
 
 #include "declarativestatusbar_p.h"
 
-#include <QDeclarativeInfo>
+#include <QQmlInfo>
 
 class DeclarativeStatusBarAttached::Private
 {

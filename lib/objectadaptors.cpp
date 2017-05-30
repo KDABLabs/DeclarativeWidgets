@@ -24,18 +24,18 @@
 
 #include <QAbstractButton>
 #include <QDebug>
-#include <QDeclarativeInfo>
+#include <QQmlInfo>
 
 // DeclarativeContext
-DeclarativeContext::DeclarativeContext(QDeclarativeEngine *engine, QObject *parent)
+DeclarativeContext::DeclarativeContext(QQmlEngine *engine, QObject *parent)
   : QObject(parent),
-    m_context(new QDeclarativeContext(engine, parent))
+    m_context(new QQmlContext(engine, parent))
 {
 }
 
 DeclarativeContext::DeclarativeContext(DeclarativeContext *parentContext, QObject *parent)
   : QObject(parent),
-    m_context(new QDeclarativeContext(parentContext->m_context.data(), parent))
+    m_context(new QQmlContext(parentContext->m_context.data(), parent))
 {
 }
 
@@ -48,7 +48,7 @@ DeclarativeContext::~DeclarativeContext()
 void DeclarativeContext::setBaseUrl(const QUrl &url)
 {
   if (!m_context) {
-    qWarning() << Q_FUNC_INFO << "wrapped QDeclarativeContext is no longer available";
+    qWarning() << Q_FUNC_INFO << "wrapped QQmlContext is no longer available";
     return;
   }
 
@@ -62,17 +62,17 @@ void DeclarativeContext::setBaseUrl(const QUrl &url)
 QUrl DeclarativeContext::baseUrl() const
 {
   if (!m_context) {
-    qWarning() << Q_FUNC_INFO << "wrapped QDeclarativeContext is no longer available";
+    qWarning() << Q_FUNC_INFO << "wrapped QQmlContext is no longer available";
     return QUrl();
   }
 
   return m_context->baseUrl();
 }
 
-DeclarativeContext *DeclarativeContext::createWrapper(QDeclarativeContext *context, QObject *parent)
+DeclarativeContext *DeclarativeContext::createWrapper(QQmlContext *context, QObject *parent)
 {
   DeclarativeContext *wrapper = new DeclarativeContext(parent);
-  wrapper->m_context = QPointer<QDeclarativeContext>(context);
+  wrapper->m_context = QPointer<QQmlContext>(context);
 
   return wrapper;
 }
@@ -80,7 +80,7 @@ DeclarativeContext *DeclarativeContext::createWrapper(QDeclarativeContext *conte
 void DeclarativeContext::setContextProperty(const QString &name, const QVariant &value)
 {
   if (!m_context) {
-    qWarning() << Q_FUNC_INFO << "wrapped QDeclarativeContext is no longer available";
+    qWarning() << Q_FUNC_INFO << "wrapped QQmlContext is no longer available";
     return;
   }
 

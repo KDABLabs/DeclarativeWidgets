@@ -23,8 +23,8 @@
 
 #include "staticdialogmethodattached_p.h"
 
-#include <qdeclarative.h>
 #include <QFontDialog>
+#include <qqml.h>
 
 class DeclarativeFontDialogAttached : public StaticDialogMethodAttached
 {

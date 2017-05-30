@@ -50,7 +50,11 @@ void BookListProxyModel::addColumnToRoleMapping(int column, int role)
 
   QHash<int, QByteArray> rolesToNames = roleNames();
   rolesToNames[role] = m_rolesToNames[role];
+#if defined(QT5_PORT)
   setRoleNames(rolesToNames);
+#else
+#warning NOT PORTED YET
+#endif
 }
 
 int BookListProxyModel::columnCount(const QModelIndex &parent) const
@@ -76,7 +80,7 @@ QModelIndex BookListProxyModel::index(int row, int column, const QModelIndex &pa
   if (parent.isValid())
     return QModelIndex();
 
-  return createIndex(row, 0, 0);
+  return createIndex(row, 0);
 }
 
 QModelIndex BookListProxyModel::parent(const QModelIndex &child) const

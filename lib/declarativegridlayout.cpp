@@ -23,8 +23,8 @@
 #include "declarativespaceritem_p.h"
 #include "layoutcontainerinterface_p.h"
 
-#include <QDeclarativeInfo>
 #include <QPointer>
+#include <QQmlInfo>
 #include <QWidget>
 
 class DeclarativeGridLayoutAttached::Private

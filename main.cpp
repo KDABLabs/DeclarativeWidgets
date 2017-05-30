@@ -22,9 +22,9 @@
 
 #include <QApplication>
 #include <QDebug>
-#include <QDeclarativeEngine>
 #include <QDir>
 #include <QFileInfo>
+#include <QQmlEngine>
 #include <QWidget>
 
 int main(int argc, char **argv)

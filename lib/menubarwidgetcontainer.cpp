@@ -20,8 +20,8 @@
 
 #include "menubarwidgetcontainer_p.h"
 
-#include <QDeclarativeInfo>
 #include <QMenuBar>
+#include <QQmlInfo>
 
 MenuBarWidgetContainer::MenuBarWidgetContainer(QObject *parent)
   : DefaultWidgetContainer(qobject_cast<QMenuBar*>(parent))

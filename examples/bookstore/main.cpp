@@ -24,9 +24,13 @@
 
 #include <QApplication>
 #include <QDebug>
-#include <QDeclarativeContext>
-#include <QDeclarativeEngine>
+#include <QQmlContext>
+#include <QQmlEngine>
+#if defined(QT5_PORT)
 #include <QDeclarativeView>
+#else
+#warning NOT PORTED YET
+#endif
 #include <QWidget>
 
 static QWidget *createDeclarativeWidgetsUi(BookStore *bookStore, const QString &fileName)
@@ -47,6 +51,7 @@ static QWidget *createDeclarativeWidgetsUi(BookStore *bookStore, const QString &
 
 static QWidget *createQtQuickUi(BookStore *bookStore, const QString &fileName)
 {
+#if defined(QT5_PORT)
   QDeclarativeView *view = new QDeclarativeView();
 
   QObject::connect(view->engine(), SIGNAL(quit()), QCoreApplication::instance(), SLOT(quit()));
@@ -56,6 +61,10 @@ static QWidget *createQtQuickUi(BookStore *bookStore, const QString &fileName)
   view->setSource(QUrl(QString("qrc:///qtquick/%1").arg(fileName)));
 
   return view;
+#else
+#warning NOT PORTED YET
+  return 0;
+#endif
 }
 
 int main(int argc, char **argv)

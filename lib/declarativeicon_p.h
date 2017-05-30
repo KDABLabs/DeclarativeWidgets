@@ -21,9 +21,9 @@
 #ifndef DECLARATIVEICON_P_H
 #define DECLARATIVEICON_P_H
 
-#include <qdeclarative.h>
 #include <QIcon>
 #include <QObject>
+#include <qqml.h>
 #include <QStringList>
 
 class DeclarativeIconAttached : public QObject

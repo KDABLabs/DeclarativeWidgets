@@ -23,7 +23,7 @@
 #include "declarativespaceritem_p.h"
 #include "layoutcontainerinterface_p.h"
 
-#include <QDeclarativeInfo>
+#include <QQmlInfo>
 #include <QWidget>
 
 DeclarativeVBoxLayout::DeclarativeVBoxLayout(QObject *parent)

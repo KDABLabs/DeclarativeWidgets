@@ -30,7 +30,7 @@ class DeclarativeFileSystemModelExtension : public DeclarativeObjectExtension
   Q_OBJECT
 
   // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QDeclarativeListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false)
   Q_PROPERTY(QString rootPath READ rootPath WRITE setRootPath NOTIFY rootPathChanged)
 
   Q_CLASSINFO("DefaultProperty", "data")
