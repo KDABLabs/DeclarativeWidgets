@@ -4,7 +4,7 @@ INCLUDEPATH += . ../../lib
 
 LIBS += -L ../../lib -ldeclarativewidgets
 
-QT += qml widgets sql
+QT += qml widgets sql quickwidgets
 
 SOURCES += \
     main.cpp \
