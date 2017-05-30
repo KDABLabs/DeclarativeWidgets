@@ -48,7 +48,7 @@ Widget {
       }
     }
 
-    WebView {
+    WebEngineView {
       id: webView
 
       onTitleChanged: mainWidget.windowTitle = title

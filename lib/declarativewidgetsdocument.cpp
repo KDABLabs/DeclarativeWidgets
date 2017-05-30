@@ -99,11 +99,7 @@
 #include <QToolBar>
 #include <QToolButton>
 #include <QTreeView>
-#if defined(QT5_PORT)
-#include <QWebView>
-#else
-#warning NOT PORTED YET
-#endif
+#include <QWebEngineView>
 
 class DeclarativeWidgetsDocument::Private
 {
@@ -202,11 +198,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QToolBar, DeclarativeContainerWidgetExtension<ToolBarWidgetContainer> >("QtWidgets", 1, 0, "ToolBar");
   qmlRegisterExtendedType<QToolButton, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "ToolButton");
   qmlRegisterExtendedType<QTreeView, DeclarativeTreeViewExtension>("QtWidgets", 1, 0, "TreeView");
-#if defined(QT5_PORT)
-  qmlRegisterExtendedType<QWebView, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "WebView");
-#else
-#warning NOT PORTED YET
-#endif
+  qmlRegisterExtendedType<QWebEngineView, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "WebEngineView");
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "Widget");
 
   d->m_component->loadUrl(d->m_url);
