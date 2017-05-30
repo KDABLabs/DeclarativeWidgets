@@ -3,10 +3,10 @@
 #include "settingsadaptor.h"
 
 #include <QDebug>
-#include <QDesktopServices>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QStandardPaths>
 #include <QTextStream>
 
 ConfigEditor::ConfigEditor(QObject *parent)
@@ -133,8 +133,7 @@ QUrl ConfigEditor::findCustomEditorQml(const QFileInfo &configFile) const
   }
 
   // otherwise look into our data storage location
-#if defined(QT5_PORT)
-  const QString dataDirLocation = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+  const QString dataDirLocation = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
   qDebug() << "dataDirLocation" << dataDirLocation;
   if (!dataDirLocation.isEmpty()) {
     qmlFileInfo = QFileInfo(QDir(dataDirLocation + "config-editor"), qmlFile);
@@ -142,9 +141,6 @@ QUrl ConfigEditor::findCustomEditorQml(const QFileInfo &configFile) const
       return QUrl::fromLocalFile(qmlFileInfo.absoluteFilePath());
     }
   }
-#else
-#warning NOT PORTED YET
-#endif
 
   // finally check our resources
   qmlFileInfo = QFileInfo(QDir(":/editors"), qmlFile);

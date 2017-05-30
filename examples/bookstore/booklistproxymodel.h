@@ -42,6 +42,7 @@ class BookListProxyModel : public QAbstractProxyModel
     explicit BookListProxyModel(QObject *parent = 0);
 
     void addColumnToRoleMapping(int column, int role);
+    QHash<int, QByteArray> roleNames() const;
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;

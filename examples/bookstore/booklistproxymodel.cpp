@@ -47,14 +47,11 @@ void BookListProxyModel::addColumnToRoleMapping(int column, int role)
 {
   m_sourceColumnsToRoles[column] = role;
   m_rolesToSourceColumns[role] = column;
+}
 
-  QHash<int, QByteArray> rolesToNames = roleNames();
-  rolesToNames[role] = m_rolesToNames[role];
-#if defined(QT5_PORT)
-  setRoleNames(rolesToNames);
-#else
-#warning NOT PORTED YET
-#endif
+QHash<int, QByteArray> BookListProxyModel::roleNames() const
+{
+    return m_rolesToNames;
 }
 
 int BookListProxyModel::columnCount(const QModelIndex &parent) const
