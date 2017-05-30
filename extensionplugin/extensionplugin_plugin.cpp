@@ -67,11 +67,7 @@
 #include <QComboBox>
 #include <QCommandLinkButton>
 #include <QDateTimeEdit>
-#if defined(QT5_PORT)
-#include <QDeclarativeView>
-#else
-#warning NOT PORTED YET
-#endif
+#include <QQuickView>
 #include <QDial>
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
@@ -142,11 +138,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QComboBox, DeclarativeComboBoxExtension>(uri, 1, 0, "ComboBox");
   qmlRegisterExtendedType<QDateEdit, DeclarativeWidgetExtension>(uri, 1, 0, "DateEdit");
   qmlRegisterExtendedType<QDateTimeEdit, DeclarativeWidgetExtension>(uri, 1, 0, "DateTimeEdit");
-#if defined(QT5_PORT)
-  qmlRegisterExtendedType<QDeclarativeView, DeclarativeDeclarativeViewExtension>(uri, 1, 0, "DeclarativeView");
-#else
-#warning NOT PORTED YET
-#endif
+  qmlRegisterExtendedType<QQuickView, DeclarativeDeclarativeViewExtension>(uri, 1, 0, "DeclarativeView");
   qmlRegisterExtendedType<QDial, DeclarativeWidgetExtension>(uri, 1, 0, "Dial");
   qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>(uri, 1, 0, "Dialog");
   qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>(uri, 1, 0, "DialogButtonBox");

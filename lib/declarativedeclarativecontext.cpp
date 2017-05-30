@@ -20,6 +20,8 @@
 
 #include "declarativedeclarativecontext_p.h"
 
+#include <QQuickView>
+
 DeclarativeDeclarativeContext::DeclarativeDeclarativeContext(QObject *parent)
   : DeclarativeObjectProxy<DeclarativeContext>(parent)
 {
@@ -37,17 +39,13 @@ void DeclarativeDeclarativeContext::createProxiedObject() const
       return;
     }
   } else {
-#if defined(QT5_PORT)
-    QDeclarativeView *view = qobject_cast<QDeclarativeView*>(parent());
+    QQuickView *view = qobject_cast<QQuickView*>(parent());
     if (view) {
       DeclarativeContext *context = DeclarativeContext::createWrapper(view->rootContext());
       m_proxiedObject = QPointer<DeclarativeContext>(context);
       connectAllSignals(m_proxiedObject, this);
       return;
     }
-#else
-#warning NOT PORTED YET
-#endif
   }
 
   qmlInfo(this) << "Cannot create DeclarativeContext, parent is neither DeclarativeView nor DeclarativeContext";
