@@ -14,7 +14,7 @@ HEADERS = \
   declarativecomboboxextension_p.h \
   declarativecontainerwidgetextension_p.h \
   declarativedeclarativecontext_p.h \
-#  declarativedeclarativeviewextension_p.h \
+  declarativedeclarativeviewextension_p.h \
   declarativefiledialog_p.h \
   declarativefilesystemmodelextension_p.h \
   declarativefontdialog_p.h \
@@ -68,7 +68,7 @@ SOURCES = \
   declarativecolordialog.cpp \
   declarativecomboboxextension.cpp \
   declarativedeclarativecontext.cpp \
-#  declarativedeclarativeviewextension.cpp \
+  declarativedeclarativeviewextension.cpp \
   declarativefiledialog.cpp \
   declarativefilesystemmodelextension.cpp \
   declarativefontdialog.cpp \

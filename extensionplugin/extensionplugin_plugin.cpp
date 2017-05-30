@@ -27,11 +27,7 @@
 #include "declarativecomboboxextension_p.h"
 #include "declarativecontainerwidgetextension_p.h"
 #include "declarativedeclarativecontext_p.h"
-#if defined(QT5_PORT)
 #include "declarativedeclarativeviewextension_p.h"
-#else
-#warning NOT PORTED YET
-#endif
 #include "declarativefiledialog_p.h"
 #include "declarativefilesystemmodelextension_p.h"
 #include "declarativefontdialog_p.h"
