@@ -2,7 +2,7 @@ TEMPLATE = lib
 
 TARGET = declarativewidgets
 
-QT += core-private qml widgets webkit
+QT += core-private qml widgets webengine
 
 HEADERS = \
   abstractdeclarativeobject_p.h \
