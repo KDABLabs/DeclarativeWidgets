@@ -4,6 +4,10 @@ TARGET = declarativewidgets
 
 QT += core-private qml widgets webenginewidgets
 
+mac {
+    QMAKE_SONAME_PREFIX = @executable_path/../Frameworks
+}
+
 HEADERS = \
   abstractdeclarativeobject_p.h \
   declarativeactionitem_p.h \
