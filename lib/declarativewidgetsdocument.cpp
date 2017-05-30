@@ -71,11 +71,7 @@
 #include <QCoreApplication>
 #include <QDateTimeEdit>
 #include <QDebug>
-#if defined(QT5_PORT)
-#include <QDeclarativeView>
-#else
-#warning NOT PORTED YET
-#endif
+#include <QQuickView>
 #include <QDial>
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
@@ -166,11 +162,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QComboBox, DeclarativeComboBoxExtension>("QtWidgets", 1, 0, "ComboBox");
   qmlRegisterExtendedType<QDateEdit, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "DateEdit");
   qmlRegisterExtendedType<QDateTimeEdit, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "DateTimeEdit");
-#if defined(QT5_PORT)
-  qmlRegisterExtendedType<QDeclarativeView, DeclarativeDeclarativeViewExtension>("QtWidgets", 1, 0, "DeclarativeView");
-#else
-#warning NOT PORTED YET
-#endif
+  qmlRegisterExtendedType<QQuickView, DeclarativeDeclarativeViewExtension>("QtWidgets", 1, 0, "DeclarativeView");
   qmlRegisterExtendedType<QDial, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "Dial");
   qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "Dialog");
   qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "DialogButtonBox");
