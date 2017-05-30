@@ -34,7 +34,7 @@ UiNode *UiTabStopsNode::parse(Parser *parser)
 
   while (!parser->reader()->atEnd()) {
     if (!parser->reader()->readNextStartElement()) {
-      if (parser->reader()->isEndElement() && parser->reader()->name().compare("tabstops", Qt::CaseInsensitive) == 0) {
+      if (parser->reader()->isEndElement() && parser->reader()->name().compare(QLatin1String("tabstops"), Qt::CaseInsensitive) == 0) {
         break;
       } else {
         continue;
