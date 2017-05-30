@@ -92,11 +92,7 @@
 #include <QToolBar>
 #include <QToolButton>
 #include <QTreeView>
-#if defined(QT5_PORT)
-#include <QWebView>
-#else
-#warning NOT PORTED YET
-#endif
+#include <QWebEngineView>
 
 #include <qqml.h>
 
@@ -175,10 +171,6 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QToolBar, DeclarativeContainerWidgetExtension<ToolBarWidgetContainer> >(uri, 1, 0, "ToolBar");
   qmlRegisterExtendedType<QToolButton, DeclarativeWidgetExtension>(uri, 1, 0, "ToolButton");
   qmlRegisterExtendedType<QTreeView, DeclarativeTreeViewExtension>(uri, 1, 0, "TreeView");
-#if defined(QT5_PORT)
-  qmlRegisterExtendedType<QWebView, DeclarativeWidgetExtension>(uri, 1, 0, "WebView");
-#else
-#warning NOT PORTED YET
-#endif
+  qmlRegisterExtendedType<QWebEngineView, DeclarativeWidgetExtension>(uri, 1, 0, "WebEngineView");
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>(uri, 1, 0, "Widget");
 }

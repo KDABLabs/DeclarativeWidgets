@@ -192,7 +192,7 @@ TabWidget {
         textVisible: true
       }
 
-      WebView {
+      WebEngineView {
         url: "http://www.kdab.com"
       }
     }
