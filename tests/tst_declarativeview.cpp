@@ -15,6 +15,7 @@ public:
 
 private slots:
     void instantiateQQuickWidget();
+    void instantiateQQuickWidgetWithContext();
 };
 
 tst_DeclarativeView::tst_DeclarativeView()
@@ -41,6 +42,27 @@ void tst_DeclarativeView::instantiateQQuickWidget()
 
     QQuickItem *rootItem = rootView->rootObject();
     QVERIFY(rootItem != nullptr);
+}
+
+void tst_DeclarativeView::instantiateQQuickWidgetWithContext()
+{
+    QQmlEngine engine;
+    QQmlComponent component(&engine);
+    component.setData("import Qt.Widgets 1.0;\n"
+                      "DeclarativeView { \n"
+                      "    source: \"qrc:///rectangle.qml\"\n"
+                      "    rootContext: DeclarativeContext { }"
+                      "}", QUrl());
+    {
+        QScopedPointer<QObject> object(component.create());
+        QVERIFY(!object.isNull());
+
+        QQuickWidget *rootView = qobject_cast<QQuickWidget*>(object.data());
+        QVERIFY(rootView != nullptr);
+    }
+
+    // Verify that the root context hasn't been deleted when the created object is deleted
+    QVERIFY(engine.rootContext() != nullptr);
 }
 
 QTEST_MAIN(tst_DeclarativeView)
