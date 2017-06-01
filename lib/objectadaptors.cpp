@@ -72,7 +72,7 @@ QUrl DeclarativeContext::baseUrl() const
 DeclarativeContext *DeclarativeContext::createWrapper(QQmlContext *context, QObject *parent)
 {
   DeclarativeContext *wrapper = new DeclarativeContext(parent);
-  wrapper->m_context = QPointer<QQmlContext>(context);
+  wrapper->m_context = QPointer<QQmlContext>(new QQmlContext(context, wrapper));
 
   return wrapper;
 }
