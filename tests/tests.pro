@@ -13,7 +13,8 @@ SOURCES += \
 macos:CONFIG -= app_bundle
 
 DISTFILES += \
-    rectangle.qml
+    rectangle.qml \
+    rectangle-context.qml
 
 RESOURCES += \
     tests.qrc
