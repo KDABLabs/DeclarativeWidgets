@@ -22,7 +22,7 @@
 
 #include "declarativedeclarativecontext_p.h"
 
-#include <QQuickView>
+#include <QQuickWidget>
 
 DeclarativeDeclarativeViewExtension::DeclarativeDeclarativeViewExtension(QObject *parent)
   : DeclarativeWidgetExtension(parent)
@@ -33,9 +33,9 @@ DeclarativeDeclarativeViewExtension::~DeclarativeDeclarativeViewExtension()
 {
 }
 
-QQuickView *DeclarativeDeclarativeViewExtension::extendedDeclarativeView() const
+QQuickWidget *DeclarativeDeclarativeViewExtension::extendedDeclarativeView() const
 {
-  QQuickView *declarativeView = qobject_cast<QQuickView*>(extendedWidget());
+  QQuickWidget *declarativeView = qobject_cast<QQuickWidget*>(extendedWidget());
   Q_ASSERT(declarativeView);
 
   return declarativeView;
@@ -51,7 +51,7 @@ void DeclarativeDeclarativeViewExtension::setDeclarativeRootContext(QObject *con
   }
 
   if (!declarativeContext) {
-    qmlInfo(extendedDeclarativeView()) << "Cannot set object of type " << context->metaObject()->className()
+    qWarning() << Q_FUNC_INFO << "Cannot set object of type " << context->metaObject()->className()
                                        << " as root context";
     return;
   }

@@ -26,7 +26,7 @@
 #include <QPointer>
 
 class DeclarativeContext;
-class QQuickView;
+class QQuickWidget;
 
 class DeclarativeDeclarativeViewExtension : public DeclarativeWidgetExtension
 {
@@ -44,7 +44,7 @@ class DeclarativeDeclarativeViewExtension : public DeclarativeWidgetExtension
     explicit DeclarativeDeclarativeViewExtension(QObject *parent = 0);
     ~DeclarativeDeclarativeViewExtension();
 
-    QQuickView *extendedDeclarativeView() const;
+    QQuickWidget *extendedDeclarativeView() const;
 
     void setDeclarativeRootContext(QObject *context);
     QObject *declarativeRootContext() const;

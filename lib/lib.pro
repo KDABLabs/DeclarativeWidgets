@@ -2,7 +2,7 @@ TEMPLATE = lib
 
 TARGET = declarativewidgets
 
-QT += core-private qml widgets webenginewidgets
+QT += core-private qml widgets webenginewidgets quickwidgets
 
 mac {
     QMAKE_SONAME_PREFIX = @executable_path/../Frameworks

@@ -20,7 +20,7 @@
 
 #include "declarativedeclarativecontext_p.h"
 
-#include <QQuickView>
+#include <QQuickWidget>
 
 DeclarativeDeclarativeContext::DeclarativeDeclarativeContext(QObject *parent)
   : DeclarativeObjectProxy<DeclarativeContext>(parent)
@@ -39,7 +39,7 @@ void DeclarativeDeclarativeContext::createProxiedObject() const
       return;
     }
   } else {
-    QQuickView *view = qobject_cast<QQuickView*>(parent());
+    QQuickWidget *view = qobject_cast<QQuickWidget*>(parent());
     if (view) {
       DeclarativeContext *context = DeclarativeContext::createWrapper(view->rootContext());
       m_proxiedObject = QPointer<DeclarativeContext>(context);
