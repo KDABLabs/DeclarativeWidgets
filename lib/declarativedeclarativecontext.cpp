@@ -41,7 +41,7 @@ void DeclarativeDeclarativeContext::createProxiedObject() const
   } else {
     QQuickWidget *view = qobject_cast<QQuickWidget*>(parent());
     if (view) {
-      DeclarativeContext *context = DeclarativeContext::createWrapper(view->rootContext());
+      DeclarativeContext *context = DeclarativeContext::createWrapper(view->rootContext(), view);
       m_proxiedObject = QPointer<DeclarativeContext>(context);
       connectAllSignals(m_proxiedObject, this);
       return;
