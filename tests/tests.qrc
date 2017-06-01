@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>rectangle.qml</file>
+        <file>rectangle-context.qml</file>
     </qresource>
 </RCC>

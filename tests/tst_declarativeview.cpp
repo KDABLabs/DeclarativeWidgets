@@ -92,7 +92,7 @@ void tst_DeclarativeView::instantiateQQuickWidgetWithContextProperty()
     QQmlComponent component(&engine);
     component.setData("import Qt.Widgets 1.0;\n"
                       "DeclarativeView { \n"
-                      "    source: \"qrc:///rectangle.qml\"\n"
+                      "    source: \"qrc:///rectangle-context.qml\"\n"
                       "    rootContext: DeclarativeContext {\n"
                       "        DeclarativeContextProperty {\n"
                       "            name: \"_colour\"\n"
