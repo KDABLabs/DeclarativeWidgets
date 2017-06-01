@@ -63,7 +63,7 @@
 #include <QComboBox>
 #include <QCommandLinkButton>
 #include <QDateTimeEdit>
-#include <QQuickView>
+#include <QQuickWidget>
 #include <QDial>
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
@@ -130,7 +130,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QComboBox, DeclarativeComboBoxExtension>(uri, 1, 0, "ComboBox");
   qmlRegisterExtendedType<QDateEdit, DeclarativeWidgetExtension>(uri, 1, 0, "DateEdit");
   qmlRegisterExtendedType<QDateTimeEdit, DeclarativeWidgetExtension>(uri, 1, 0, "DateTimeEdit");
-  qmlRegisterExtendedType<QQuickView, DeclarativeDeclarativeViewExtension>(uri, 1, 0, "DeclarativeView");
+  qmlRegisterExtendedType<QQuickWidget, DeclarativeDeclarativeViewExtension>(uri, 1, 0, "DeclarativeView");
   qmlRegisterExtendedType<QDial, DeclarativeWidgetExtension>(uri, 1, 0, "Dial");
   qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>(uri, 1, 0, "Dialog");
   qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>(uri, 1, 0, "DialogButtonBox");

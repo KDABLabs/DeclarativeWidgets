@@ -71,7 +71,7 @@
 #include <QCoreApplication>
 #include <QDateTimeEdit>
 #include <QDebug>
-#include <QQuickView>
+#include <QQuickWidget>
 #include <QDial>
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
@@ -158,7 +158,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QComboBox, DeclarativeComboBoxExtension>("QtWidgets", 1, 0, "ComboBox");
   qmlRegisterExtendedType<QDateEdit, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "DateEdit");
   qmlRegisterExtendedType<QDateTimeEdit, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "DateTimeEdit");
-  qmlRegisterExtendedType<QQuickView, DeclarativeDeclarativeViewExtension>("QtWidgets", 1, 0, "DeclarativeView");
+  qmlRegisterExtendedType<QQuickWidget, DeclarativeDeclarativeViewExtension>("QtWidgets", 1, 0, "DeclarativeView");
   qmlRegisterExtendedType<QDial, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "Dial");
   qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "Dialog");
   qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "DialogButtonBox");
