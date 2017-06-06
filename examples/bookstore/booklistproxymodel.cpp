@@ -77,7 +77,7 @@ QModelIndex BookListProxyModel::index(int row, int column, const QModelIndex &pa
   if (parent.isValid())
     return QModelIndex();
 
-  return createIndex(row, 0);
+  return createIndex(row, 0, (quintptr) 0);
 }
 
 QModelIndex BookListProxyModel::parent(const QModelIndex &child) const
