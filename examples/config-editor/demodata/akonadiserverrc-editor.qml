@@ -1,6 +1,6 @@
 import QtCore 1.0
 import QtWidgets 1.0
-import QtQuick 2.0 // for Component.onCompleted
+import QtQml 2.0 // for Component.onCompleted
 
 Widget {
     VBoxLayout {
