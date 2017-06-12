@@ -18,22 +18,22 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "declarativedeclarativeviewextension_p.h"
+#include "declarativequickwidgetextension_p.h"
 
-#include "declarativedeclarativecontext_p.h"
+#include "declarativeqmlcontext_p.h"
 
 #include <QQuickWidget>
 
-DeclarativeDeclarativeViewExtension::DeclarativeDeclarativeViewExtension(QObject *parent)
+DeclarativeQuickWidgetExtension::DeclarativeQuickWidgetExtension(QObject *parent)
   : DeclarativeWidgetExtension(parent)
 {
 }
 
-DeclarativeDeclarativeViewExtension::~DeclarativeDeclarativeViewExtension()
+DeclarativeQuickWidgetExtension::~DeclarativeQuickWidgetExtension()
 {
 }
 
-QQuickWidget *DeclarativeDeclarativeViewExtension::extendedDeclarativeView() const
+QQuickWidget *DeclarativeQuickWidgetExtension::extendedDeclarativeView() const
 {
   QQuickWidget *declarativeView = qobject_cast<QQuickWidget*>(extendedWidget());
   Q_ASSERT(declarativeView);
@@ -41,7 +41,7 @@ QQuickWidget *DeclarativeDeclarativeViewExtension::extendedDeclarativeView() con
   return declarativeView;
 }
 
-void DeclarativeDeclarativeViewExtension::setDeclarativeRootContext(QObject *context)
+void DeclarativeQuickWidgetExtension::setDeclarativeRootContext(QObject *context)
 {
   DeclarativeContext *declarativeContext = dynamic_cast<DeclarativeContext*>(context);
   if (!declarativeContext) {
@@ -66,7 +66,7 @@ void DeclarativeDeclarativeViewExtension::setDeclarativeRootContext(QObject *con
   emit declarativeRootContextChanged();
 }
 
-QObject *DeclarativeDeclarativeViewExtension::declarativeRootContext() const
+QObject *DeclarativeQuickWidgetExtension::declarativeRootContext() const
 {
   return m_rootContext;
 }

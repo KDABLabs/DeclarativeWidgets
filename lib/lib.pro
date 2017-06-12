@@ -17,8 +17,6 @@ HEADERS = \
   declarativecolordialog_p.h \
   declarativecomboboxextension_p.h \
   declarativecontainerwidgetextension_p.h \
-  declarativedeclarativecontext_p.h \
-  declarativedeclarativeviewextension_p.h \
   declarativefiledialog_p.h \
   declarativefilesystemmodelextension_p.h \
   declarativefontdialog_p.h \
@@ -33,6 +31,8 @@ HEADERS = \
   declarativeobjectextension.h \
   declarativeobjectproxy_p.h \
   declarativepixmap_p.h \
+  declarativeqmlcontext_p.h \
+  declarativequickwidgetextension_p.h \
   declarativeseparator_p.h \
   declarativestackedlayout_p.h \
   declarativestatusbar_p.h \
@@ -71,8 +71,6 @@ SOURCES = \
   declarativebuttongroupextension.cpp \
   declarativecolordialog.cpp \
   declarativecomboboxextension.cpp \
-  declarativedeclarativecontext.cpp \
-  declarativedeclarativeviewextension.cpp \
   declarativefiledialog.cpp \
   declarativefilesystemmodelextension.cpp \
   declarativefontdialog.cpp \
@@ -86,6 +84,8 @@ SOURCES = \
   declarativemessagebox.cpp \
   declarativeobjectextension.cpp \
   declarativepixmap.cpp \
+  declarativeqmlcontext.cpp \
+  declarativequickwidgetextension.cpp \
   declarativeseparator.cpp \
   declarativestackedlayout.cpp \
   declarativestatusbar.cpp \

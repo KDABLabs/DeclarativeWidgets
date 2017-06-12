@@ -27,8 +27,6 @@
 #include "declarativecolordialog_p.h"
 #include "declarativecomboboxextension_p.h"
 #include "declarativecontainerwidgetextension_p.h"
-#include "declarativedeclarativecontext_p.h"
-#include "declarativedeclarativeviewextension_p.h"
 #include "declarativefiledialog_p.h"
 #include "declarativefilesystemmodelextension_p.h"
 #include "declarativefontdialog_p.h"
@@ -43,6 +41,8 @@
 #include "declarativeloaderwidget_p.h"
 #include "declarativemessagebox_p.h"
 #include "declarativepixmap_p.h"
+#include "declarativeqmlcontext_p.h"
+#include "declarativequickwidgetextension_p.h"
 #include "declarativeseparator_p.h"
 #include "declarativespaceritem_p.h"
 #include "declarativestackedlayout_p.h"
@@ -129,7 +129,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<DeclarativeActionItem, DeclarativeObjectExtension>("QtWidgets", 1, 0, "ActionItem");
   qmlRegisterExtendedType<QButtonGroup, DeclarativeButtonGroupExtension>("QtWidgets", 1, 0, "ButtonGroup");
   qmlRegisterType<DeclarativeContextProperty>("QtWidgets", 1, 0, "DeclarativeContextProperty");
-  qmlRegisterType<DeclarativeDeclarativeContext>("QtWidgets", 1, 0, "DeclarativeContext");
+  qmlRegisterType<DeclarativeQmlContext>("QtWidgets", 1, 0, "DeclarativeContext");
   qmlRegisterExtendedType<QFileSystemModel, DeclarativeFileSystemModelExtension>("QtWidgets", 1, 0, "FileSystemModel");
   qmlRegisterType<DeclarativeIcon>("QtWidgets", 1, 0, "Icon");
   qmlRegisterType<QItemSelectionModel>();
@@ -158,7 +158,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<QComboBox, DeclarativeComboBoxExtension>("QtWidgets", 1, 0, "ComboBox");
   qmlRegisterExtendedType<QDateEdit, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "DateEdit");
   qmlRegisterExtendedType<QDateTimeEdit, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "DateTimeEdit");
-  qmlRegisterExtendedType<QQuickWidget, DeclarativeDeclarativeViewExtension>("QtWidgets", 1, 0, "DeclarativeView");
+  qmlRegisterExtendedType<QQuickWidget, DeclarativeQuickWidgetExtension>("QtWidgets", 1, 0, "DeclarativeView");
   qmlRegisterExtendedType<QDial, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "Dial");
   qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "Dialog");
   qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>("QtWidgets", 1, 0, "DialogButtonBox");
