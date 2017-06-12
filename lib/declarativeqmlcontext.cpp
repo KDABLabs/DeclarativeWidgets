@@ -18,16 +18,16 @@
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include "declarativedeclarativecontext_p.h"
+#include "declarativeqmlcontext_p.h"
 
 #include <QQuickWidget>
 
-DeclarativeDeclarativeContext::DeclarativeDeclarativeContext(QObject *parent)
+DeclarativeQmlContext::DeclarativeQmlContext(QObject *parent)
   : DeclarativeObjectProxy<DeclarativeContext>(parent)
 {
 }
 
-void DeclarativeDeclarativeContext::createProxiedObject() const
+void DeclarativeQmlContext::createProxiedObject() const
 {
   AbstractDeclarativeObject *declarativeParent = dynamic_cast<AbstractDeclarativeObject*>(parent());
   if (declarativeParent) {
@@ -51,7 +51,7 @@ void DeclarativeDeclarativeContext::createProxiedObject() const
   qmlInfo(this) << "Cannot create DeclarativeContext, parent is neither DeclarativeView nor DeclarativeContext";
 }
 
-void DeclarativeDeclarativeContext::dataAppend(QObject *object)
+void DeclarativeQmlContext::dataAppend(QObject *object)
 {
   DeclarativeContextProperty *contextProperty = qobject_cast<DeclarativeContextProperty*>(object);
   if (contextProperty) {
@@ -64,4 +64,4 @@ void DeclarativeDeclarativeContext::dataAppend(QObject *object)
   DeclarativeObjectProxy<DeclarativeContext>::dataAppend(object);
 }
 
-CUSTOM_METAOBJECT(DeclarativeDeclarativeContext, DeclarativeContext)
+CUSTOM_METAOBJECT(DeclarativeQmlContext, DeclarativeContext)

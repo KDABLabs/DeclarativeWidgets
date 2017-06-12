@@ -25,12 +25,12 @@
 
 #include "objectadaptors_p.h"
 
-class DeclarativeDeclarativeContext : public DeclarativeObjectProxy<DeclarativeContext>
+class DeclarativeQmlContext : public DeclarativeObjectProxy<DeclarativeContext>
 {
   DECLARATIVE_OBJECT
 
   public:
-    explicit DeclarativeDeclarativeContext(QObject *parent = 0);
+    explicit DeclarativeQmlContext(QObject *parent = 0);
 
   protected:
     void createProxiedObject() const;

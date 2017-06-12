@@ -28,7 +28,7 @@
 class DeclarativeContext;
 class QQuickWidget;
 
-class DeclarativeDeclarativeViewExtension : public DeclarativeWidgetExtension
+class DeclarativeQuickWidgetExtension : public DeclarativeWidgetExtension
 {
   Q_OBJECT
 
@@ -41,8 +41,8 @@ class DeclarativeDeclarativeViewExtension : public DeclarativeWidgetExtension
   Q_CLASSINFO("DefaultProperty", "data")
 
   public:
-    explicit DeclarativeDeclarativeViewExtension(QObject *parent = 0);
-    ~DeclarativeDeclarativeViewExtension();
+    explicit DeclarativeQuickWidgetExtension(QObject *parent = 0);
+    ~DeclarativeQuickWidgetExtension();
 
     QQuickWidget *extendedDeclarativeView() const;
 

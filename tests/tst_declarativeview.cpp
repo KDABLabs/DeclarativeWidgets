@@ -24,8 +24,8 @@
 #include <QQuickItem>
 #include <QQuickWidget>
 
-#include "declarativedeclarativecontext_p.h"
-#include "declarativedeclarativeviewextension_p.h"
+#include "declarativeqmlcontext_p.h"
+#include "declarativequickwidgetextension_p.h"
 
 class tst_DeclarativeView : public QObject
 {
@@ -42,9 +42,9 @@ private slots:
 tst_DeclarativeView::tst_DeclarativeView()
 {
     qmlRegisterType<DeclarativeContextProperty>("Qt.Widgets", 1, 0, "DeclarativeContextProperty");
-    qmlRegisterType<DeclarativeDeclarativeContext>("Qt.Widgets", 1, 0, "DeclarativeContext");
+    qmlRegisterType<DeclarativeQmlContext>("Qt.Widgets", 1, 0, "DeclarativeContext");
 
-    qmlRegisterExtendedType<QQuickWidget, DeclarativeDeclarativeViewExtension>("Qt.Widgets", 1, 0, "DeclarativeView");
+    qmlRegisterExtendedType<QQuickWidget, DeclarativeQuickWidgetExtension>("Qt.Widgets", 1, 0, "DeclarativeView");
 }
 
 void tst_DeclarativeView::instantiateQQuickWidget()
