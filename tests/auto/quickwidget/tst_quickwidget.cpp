@@ -27,11 +27,11 @@
 #include "declarativeqmlcontext_p.h"
 #include "declarativequickwidgetextension_p.h"
 
-class tst_DeclarativeView : public QObject
+class tst_QuickWidget : public QObject
 {
     Q_OBJECT
 public:
-    tst_DeclarativeView();
+    tst_QuickWidget();
 
 private slots:
     void instantiateQQuickWidget();
@@ -39,7 +39,7 @@ private slots:
     void instantiateQQuickWidgetWithContextProperty();
 };
 
-tst_DeclarativeView::tst_DeclarativeView()
+tst_QuickWidget::tst_QuickWidget()
 {
     qmlRegisterType<DeclarativeQmlContextProperty>("Qt.Widgets", 1, 0, "QmlContextProperty");
     qmlRegisterType<DeclarativeQmlContext>("Qt.Widgets", 1, 0, "QmlContext");
@@ -47,7 +47,7 @@ tst_DeclarativeView::tst_DeclarativeView()
     qmlRegisterExtendedType<QQuickWidget, DeclarativeQuickWidgetExtension>("Qt.Widgets", 1, 0, "QuickWidget");
 }
 
-void tst_DeclarativeView::instantiateQQuickWidget()
+void tst_QuickWidget::instantiateQQuickWidget()
 {
     QQmlEngine engine;
     QQmlComponent component(&engine);
@@ -65,7 +65,7 @@ void tst_DeclarativeView::instantiateQQuickWidget()
     QVERIFY(rootItem != nullptr);
 }
 
-void tst_DeclarativeView::instantiateQQuickWidgetWithContext()
+void tst_QuickWidget::instantiateQQuickWidgetWithContext()
 {
     QQmlEngine engine;
     QQmlComponent component(&engine);
@@ -86,7 +86,7 @@ void tst_DeclarativeView::instantiateQQuickWidgetWithContext()
     QVERIFY(engine.rootContext() != nullptr);
 }
 
-void tst_DeclarativeView::instantiateQQuickWidgetWithContextProperty()
+void tst_QuickWidget::instantiateQQuickWidgetWithContextProperty()
 {
     QQmlEngine engine;
     QQmlComponent component(&engine);
@@ -116,6 +116,6 @@ void tst_DeclarativeView::instantiateQQuickWidgetWithContextProperty()
     QVERIFY(!contextProperty.isNull() && contextProperty.isValid());
 }
 
-QTEST_MAIN(tst_DeclarativeView)
+QTEST_MAIN(tst_QuickWidget)
 
-#include "tst_declarativeview.moc"
+#include "tst_quickwidget.moc"
