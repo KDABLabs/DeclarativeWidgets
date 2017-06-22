@@ -41,7 +41,7 @@ private slots:
 
 tst_DeclarativeView::tst_DeclarativeView()
 {
-    qmlRegisterType<DeclarativeContextProperty>("Qt.Widgets", 1, 0, "DeclarativeContextProperty");
+    qmlRegisterType<DeclarativeQmlContextProperty>("Qt.Widgets", 1, 0, "QmlContextProperty");
     qmlRegisterType<DeclarativeQmlContext>("Qt.Widgets", 1, 0, "QmlContext");
 
     qmlRegisterExtendedType<QQuickWidget, DeclarativeQuickWidgetExtension>("Qt.Widgets", 1, 0, "QuickWidget");
@@ -94,7 +94,7 @@ void tst_DeclarativeView::instantiateQQuickWidgetWithContextProperty()
                       "QuickWidget { \n"
                       "    source: \"qrc:///rectangle-context.qml\"\n"
                       "    rootContext: QmlContext {\n"
-                      "        DeclarativeContextProperty {\n"
+                      "        QmlContextProperty {\n"
                       "            name: \"_colour\"\n"
                       "            value: \"lightblue\"\n"
                       "        }\n"

@@ -56,14 +56,14 @@ class DeclarativeContext : public QObject
 
 Q_DECLARE_METATYPE(DeclarativeContext*)
 
-class DeclarativeContextProperty : public QObject
+class DeclarativeQmlContextProperty : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
   Q_PROPERTY(QVariant value READ value WRITE setValue NOTIFY valueChanged)
 
   public:
-    explicit DeclarativeContextProperty(QObject *parent = 0);
+    explicit DeclarativeQmlContextProperty(QObject *parent = 0);
 
     void setName(const QString &name);
     QString name() const;

@@ -93,13 +93,13 @@ DeclarativeContext::DeclarativeContext(QObject *parent)
 {
 }
 
-// DeclarativeContextProperty
-DeclarativeContextProperty::DeclarativeContextProperty(QObject *parent)
+// DeclarativeQmlContextProperty
+DeclarativeQmlContextProperty::DeclarativeQmlContextProperty(QObject *parent)
   : QObject(parent)
 {
 }
 
-void DeclarativeContextProperty::setName(const QString &name)
+void DeclarativeQmlContextProperty::setName(const QString &name)
 {
   if (name == m_name)
     return;
@@ -110,12 +110,12 @@ void DeclarativeContextProperty::setName(const QString &name)
   setOnContext();
 }
 
-QString DeclarativeContextProperty::name() const
+QString DeclarativeQmlContextProperty::name() const
 {
   return m_name;
 }
 
-void DeclarativeContextProperty::setValue(const QVariant &value)
+void DeclarativeQmlContextProperty::setValue(const QVariant &value)
 {
   if (value == m_value)
     return;
@@ -126,23 +126,23 @@ void DeclarativeContextProperty::setValue(const QVariant &value)
   setOnContext();
 }
 
-QVariant DeclarativeContextProperty::value() const
+QVariant DeclarativeQmlContextProperty::value() const
 {
   return m_value;
 }
 
-bool DeclarativeContextProperty::isValid() const
+bool DeclarativeQmlContextProperty::isValid() const
 {
   return !m_name.isEmpty() && m_value.isValid() && !m_value.isNull();
 }
 
-void DeclarativeContextProperty::setContext(DeclarativeContext *context)
+void DeclarativeQmlContextProperty::setContext(DeclarativeContext *context)
 {
   m_context = QPointer<DeclarativeContext>(context);
   setOnContext();
 }
 
-void DeclarativeContextProperty::setOnContext()
+void DeclarativeQmlContextProperty::setOnContext()
 {
   if (!isValid() || !m_context)
     return;

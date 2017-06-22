@@ -60,7 +60,7 @@ Widget {
       VBoxLayout.stretch: 1
 
       rootContext: QmlContext {
-        DeclarativeContextProperty {
+        QmlContextProperty {
           name: "_textInput"
           value: textInput
         }
