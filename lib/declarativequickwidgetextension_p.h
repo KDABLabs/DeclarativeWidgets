@@ -44,7 +44,7 @@ class DeclarativeQuickWidgetExtension : public DeclarativeWidgetExtension
     explicit DeclarativeQuickWidgetExtension(QObject *parent = 0);
     ~DeclarativeQuickWidgetExtension();
 
-    QQuickWidget *extendedDeclarativeView() const;
+    QQuickWidget *extendedQuickWidget() const;
 
     void setDeclarativeRootContext(QObject *context);
     QObject *declarativeRootContext() const;

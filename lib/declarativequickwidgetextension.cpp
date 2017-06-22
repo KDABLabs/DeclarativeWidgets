@@ -33,7 +33,7 @@ DeclarativeQuickWidgetExtension::~DeclarativeQuickWidgetExtension()
 {
 }
 
-QQuickWidget *DeclarativeQuickWidgetExtension::extendedDeclarativeView() const
+QQuickWidget *DeclarativeQuickWidgetExtension::extendedQuickWidget() const
 {
   QQuickWidget *declarativeView = qobject_cast<QQuickWidget*>(extendedWidget());
   Q_ASSERT(declarativeView);
