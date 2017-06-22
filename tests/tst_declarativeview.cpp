@@ -42,9 +42,9 @@ private slots:
 tst_DeclarativeView::tst_DeclarativeView()
 {
     qmlRegisterType<DeclarativeContextProperty>("Qt.Widgets", 1, 0, "DeclarativeContextProperty");
-    qmlRegisterType<DeclarativeQmlContext>("Qt.Widgets", 1, 0, "DeclarativeContext");
+    qmlRegisterType<DeclarativeQmlContext>("Qt.Widgets", 1, 0, "QmlContext");
 
-    qmlRegisterExtendedType<QQuickWidget, DeclarativeQuickWidgetExtension>("Qt.Widgets", 1, 0, "DeclarativeView");
+    qmlRegisterExtendedType<QQuickWidget, DeclarativeQuickWidgetExtension>("Qt.Widgets", 1, 0, "QuickWidget");
 }
 
 void tst_DeclarativeView::instantiateQQuickWidget()
@@ -52,7 +52,7 @@ void tst_DeclarativeView::instantiateQQuickWidget()
     QQmlEngine engine;
     QQmlComponent component(&engine);
     component.setData("import Qt.Widgets 1.0;\n"
-                      "DeclarativeView { \n"
+                      "QuickWidget { \n"
                       "    source: \"qrc:///rectangle.qml\"\n"
                       "}", QUrl());
     QScopedPointer<QObject> object(component.create());
@@ -70,9 +70,9 @@ void tst_DeclarativeView::instantiateQQuickWidgetWithContext()
     QQmlEngine engine;
     QQmlComponent component(&engine);
     component.setData("import Qt.Widgets 1.0;\n"
-                      "DeclarativeView { \n"
+                      "QuickWidget { \n"
                       "    source: \"qrc:///rectangle.qml\"\n"
-                      "    rootContext: DeclarativeContext { }"
+                      "    rootContext: QmlContext { }"
                       "}", QUrl());
     {
         QScopedPointer<QObject> object(component.create());
@@ -91,9 +91,9 @@ void tst_DeclarativeView::instantiateQQuickWidgetWithContextProperty()
     QQmlEngine engine;
     QQmlComponent component(&engine);
     component.setData("import Qt.Widgets 1.0;\n"
-                      "DeclarativeView { \n"
+                      "QuickWidget { \n"
                       "    source: \"qrc:///rectangle-context.qml\"\n"
-                      "    rootContext: DeclarativeContext {\n"
+                      "    rootContext: QmlContext {\n"
                       "        DeclarativeContextProperty {\n"
                       "            name: \"_colour\"\n"
                       "            value: \"lightblue\"\n"
