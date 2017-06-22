@@ -48,7 +48,7 @@ void DeclarativeQmlContext::createProxiedObject() const
     }
   }
 
-  qmlInfo(this) << "Cannot create DeclarativeContext, parent is neither DeclarativeView nor DeclarativeContext";
+  qmlInfo(this) << "Cannot create DeclarativeContext, parent is neither QuickWidget nor DeclarativeContext";
 }
 
 void DeclarativeQmlContext::dataAppend(QObject *object)
