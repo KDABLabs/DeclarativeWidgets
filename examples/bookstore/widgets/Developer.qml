@@ -166,10 +166,10 @@ MainWindow {
         windowTitle: qsTr("Shop")
 
         VBoxLayout {
-            DeclarativeView {
+            QuickWidget {
                 source: "qrc:///qtquick/Shop.qml"
 
-                rootContext: DeclarativeContext {
+                rootContext: QmlContext {
                     DeclarativeContextProperty {
                         name: "_store"
                         value: _store

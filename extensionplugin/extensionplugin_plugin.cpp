@@ -104,7 +104,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<DeclarativeActionItem, DeclarativeObjectExtension>(uri, 1, 0, "ActionItem");
   qmlRegisterExtendedType<QButtonGroup, DeclarativeButtonGroupExtension>(uri, 1, 0, "ButtonGroup");
   qmlRegisterType<DeclarativeContextProperty>(uri, 1, 0, "DeclarativeContextProperty");
-  qmlRegisterType<DeclarativeQmlContext>(uri, 1, 0, "DeclarativeContext");
+  qmlRegisterType<DeclarativeQmlContext>(uri, 1, 0, "QmlContext");
   qmlRegisterExtendedType<QFileSystemModel, DeclarativeFileSystemModelExtension>(uri, 1, 0, "FileSystemModel");
   qmlRegisterType<DeclarativeIcon>(uri, 1, 0, "Icon");
   qmlRegisterType<QItemSelectionModel>();
@@ -130,7 +130,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QComboBox, DeclarativeComboBoxExtension>(uri, 1, 0, "ComboBox");
   qmlRegisterExtendedType<QDateEdit, DeclarativeWidgetExtension>(uri, 1, 0, "DateEdit");
   qmlRegisterExtendedType<QDateTimeEdit, DeclarativeWidgetExtension>(uri, 1, 0, "DateTimeEdit");
-  qmlRegisterExtendedType<QQuickWidget, DeclarativeQuickWidgetExtension>(uri, 1, 0, "DeclarativeView");
+  qmlRegisterExtendedType<QQuickWidget, DeclarativeQuickWidgetExtension>(uri, 1, 0, "QuickWidget");
   qmlRegisterExtendedType<QDial, DeclarativeWidgetExtension>(uri, 1, 0, "Dial");
   qmlRegisterExtendedType<Dialog, DeclarativeWidgetExtension>(uri, 1, 0, "Dialog");
   qmlRegisterExtendedType<QDialogButtonBox, DeclarativeWidgetExtension>(uri, 1, 0, "DialogButtonBox");

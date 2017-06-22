@@ -54,12 +54,12 @@ Widget {
       }
     }
 
-    DeclarativeView {
+    QuickWidget {
       id: declarativeView
 
       VBoxLayout.stretch: 1
 
-      rootContext: DeclarativeContext {
+      rootContext: QmlContext {
         DeclarativeContextProperty {
           name: "_textInput"
           value: textInput
