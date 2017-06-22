@@ -128,7 +128,7 @@ DeclarativeWidgetsDocument::DeclarativeWidgetsDocument(const QUrl &url, QObject 
   qmlRegisterExtendedType<DeclarativeAction, DeclarativeObjectExtension>("QtWidgets", 1, 0, "Action");
   qmlRegisterExtendedType<DeclarativeActionItem, DeclarativeObjectExtension>("QtWidgets", 1, 0, "ActionItem");
   qmlRegisterExtendedType<QButtonGroup, DeclarativeButtonGroupExtension>("QtWidgets", 1, 0, "ButtonGroup");
-  qmlRegisterType<DeclarativeContextProperty>("QtWidgets", 1, 0, "DeclarativeContextProperty");
+  qmlRegisterType<DeclarativeQmlContextProperty>("QtWidgets", 1, 0, "QmlContextProperty");
   qmlRegisterType<DeclarativeQmlContext>("QtWidgets", 1, 0, "QmlContext");
   qmlRegisterExtendedType<QFileSystemModel, DeclarativeFileSystemModelExtension>("QtWidgets", 1, 0, "FileSystemModel");
   qmlRegisterType<DeclarativeIcon>("QtWidgets", 1, 0, "Icon");

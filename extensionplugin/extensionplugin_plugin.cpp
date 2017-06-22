@@ -103,7 +103,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<DeclarativeAction, DeclarativeObjectExtension>(uri, 1, 0, "Action");
   qmlRegisterExtendedType<DeclarativeActionItem, DeclarativeObjectExtension>(uri, 1, 0, "ActionItem");
   qmlRegisterExtendedType<QButtonGroup, DeclarativeButtonGroupExtension>(uri, 1, 0, "ButtonGroup");
-  qmlRegisterType<DeclarativeContextProperty>(uri, 1, 0, "DeclarativeContextProperty");
+  qmlRegisterType<DeclarativeQmlContextProperty>(uri, 1, 0, "QmlContextProperty");
   qmlRegisterType<DeclarativeQmlContext>(uri, 1, 0, "QmlContext");
   qmlRegisterExtendedType<QFileSystemModel, DeclarativeFileSystemModelExtension>(uri, 1, 0, "FileSystemModel");
   qmlRegisterType<DeclarativeIcon>(uri, 1, 0, "Icon");

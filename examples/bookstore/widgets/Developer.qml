@@ -170,7 +170,7 @@ MainWindow {
                 source: "qrc:///qtquick/Shop.qml"
 
                 rootContext: QmlContext {
-                    DeclarativeContextProperty {
+                    QmlContextProperty {
                         name: "_store"
                         value: _store
                     }

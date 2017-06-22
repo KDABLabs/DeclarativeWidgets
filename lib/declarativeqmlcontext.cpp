@@ -53,7 +53,7 @@ void DeclarativeQmlContext::createProxiedObject() const
 
 void DeclarativeQmlContext::dataAppend(QObject *object)
 {
-  DeclarativeContextProperty *contextProperty = qobject_cast<DeclarativeContextProperty*>(object);
+  DeclarativeQmlContextProperty *contextProperty = qobject_cast<DeclarativeQmlContextProperty*>(object);
   if (contextProperty) {
     if (!m_proxiedObject)
       createProxiedObject();
