@@ -99,8 +99,21 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
 {
   Q_ASSERT(uri == QLatin1String("QtWidgets"));
 
-  // objects
+  // uncreatable core
   qmlRegisterType<QAbstractItemModel>();
+  qmlRegisterType<QItemSelectionModel>();
+
+  // ucreatable gui
+  qmlRegisterType<QTextDocument>();
+
+  // uncreatable widgets
+  qmlRegisterUncreatableType<QHeaderView>(uri, 1, 0, "HeaderView", "");
+
+  // core
+  qmlRegisterType<QTimer>(uri, 1, 0, "Timer");
+  qmlRegisterExtendedType<QStringListModel, DeclarativeStringListModelExtension>(uri, 1, 0, "StringListModel");
+
+  // objects
   qmlRegisterType<QAction>();
   qmlRegisterExtendedType<DeclarativeAction, DeclarativeObjectExtension>(uri, 1, 0, "Action");
   qmlRegisterExtendedType<DeclarativeActionItem, DeclarativeObjectExtension>(uri, 1, 0, "ActionItem");
@@ -109,12 +122,8 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterType<DeclarativeQmlContext>(uri, 1, 0, "QmlContext");
   qmlRegisterExtendedType<QFileSystemModel, DeclarativeFileSystemModelExtension>(uri, 1, 0, "FileSystemModel");
   qmlRegisterType<DeclarativeIcon>(uri, 1, 0, "Icon");
-  qmlRegisterType<QItemSelectionModel>();
   qmlRegisterExtendedType<DeclarativeSeparator, DeclarativeObjectExtension>(uri, 1, 0, "Separator");
-  qmlRegisterExtendedType<QStringListModel, DeclarativeStringListModelExtension>("QtCore", 1, 0, "StringListModel");
   qmlRegisterType<DeclarativeTabStops>("QtWidgets", 1, 0, "TabStops");
-  qmlRegisterType<QTextDocument>();
-  qmlRegisterType<QTimer>("QtCore", 1, 0, "Timer");
 
   // layouts
   qmlRegisterExtendedType<DeclarativeFormLayout, DeclarativeFormLayoutExtension>(uri, 1, 0, "FormLayout");
@@ -142,7 +151,6 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<DeclarativeFontDialog, DeclarativeWidgetExtension>(uri, 1, 0, "FontDialog");
   qmlRegisterExtendedType<QGroupBox, DeclarativeWidgetExtension>(uri, 1, 0, "GroupBox");
   qmlRegisterExtendedType<DeclarativeInputDialog, DeclarativeWidgetExtension>(uri, 1, 0, "InputDialog");
-  qmlRegisterUncreatableType<QHeaderView>(uri, 1, 0, "HeaderView", "");
   qmlRegisterExtendedType<QLabel, DeclarativeWidgetExtension>(uri, 1, 0, "Label");
   qmlRegisterExtendedType<QLineEdit, DeclarativeWidgetExtension>(uri, 1, 0, "LineEdit");
   qmlRegisterExtendedType<QLCDNumber, DeclarativeWidgetExtension>(uri, 1, 0, "LCDNumber");
