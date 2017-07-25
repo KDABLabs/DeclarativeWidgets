@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HBoxLayoutWidget</class>
+ <widget class="QWidget" name="HBoxLayoutWidget">
+  <layout class="QHBoxLayout">
+   <item>
+    <widget class="QPushButton" name="pushButton1">
+     <property name="text">
+      <string>1</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton2">
+     <property name="text">
+      <string>2</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton3">
+     <property name="text">
+      <string>3</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
