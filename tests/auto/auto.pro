@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS = \
     quickwidget \
-    instantiatetypes
+    instantiatetypes \
+    layouts
