@@ -56,6 +56,10 @@ void tst_Layouts::hBoxLayout()
 
     QVERIFY2(declarativeWidget != nullptr, "Failed to create widget from document");
 
+    // Show the widgets to trigger geometry updates
+    uiWidget->show();
+    declarativeWidget->show();
+
     // Compare the widgets
     compareWidgets(uiWidget, declarativeWidget);
 }
@@ -76,11 +80,15 @@ void tst_Layouts::compareLayouts(QLayout *a, QLayout *b)
     // Expects b to be the declarative layout
     // Expects declarative layouts to derive from the non-declarative type
     QVERIFY2(b->metaObject()->inherits(a->metaObject())
-             , qPrintable(QStringLiteral("Expected layouts to derive from the same type (%2 from %1)").arg(a->metaObject()->className()).arg(b->metaObject()->className())));
+             , qPrintable(QStringLiteral("Expected layouts to derive from the same type (%2 from %1)")
+                          .arg(a->metaObject()->className())
+                          .arg(b->metaObject()->className())));
 
     // Verify that the layouts have a matching number of children
     QVERIFY2(a->count() == b->count()
-             , qPrintable(QStringLiteral("Widgets do not have the same number of children (%1 != %2)").arg(a->count()).arg(b->count())));
+             , qPrintable(QStringLiteral("Widgets do not have the same number of children (%1 != %2)")
+                          .arg(a->count())
+                          .arg(b->count())));
 
     // Verify the layout items
     for (int i = 0; i < a->count() && !QTest::currentTestFailed(); ++i)
@@ -105,8 +113,17 @@ void tst_Layouts::compareLayoutItems(QLayoutItem *a, QLayoutItem *b)
 
     QVERIFY2(!b->isEmpty(), "Expected b QLayoutItem not to be empty");
 
-    QVERIFY2(a->alignment() == b->alignment(), qPrintable(QStringLiteral("Expected QLayoutItems to have matching alignment (%1 != %2)").arg(a->alignment()).arg(b->alignment())));
+    // Verify that the layout items have matching generic properties
+    QVERIFY2(a->alignment() == b->alignment()
+             , qPrintable(QStringLiteral("Expected QLayoutItems to have matching alignment (%1 != %2)")
+                          .arg(a->alignment())
+                          .arg(b->alignment())));
+    QVERIFY2(a->expandingDirections() == b->expandingDirections()
+             , qPrintable(QStringLiteral("Expected matching expanding directions (%1 != %2)")
+                          .arg(a->expandingDirections())
+                          .arg(b->expandingDirections())));
 
+    // Verify that the layout item contents match
     if (a->widget() != nullptr) {
         QVERIFY2(b->widget() != nullptr, "Expected b QLayoutItem to manage a QWidget");
         compareWidgets(a->widget(), b->widget());
@@ -115,8 +132,7 @@ void tst_Layouts::compareLayoutItems(QLayoutItem *a, QLayoutItem *b)
         compareLayouts(a->layout(), b->layout());
     } else if (a->spacerItem() != nullptr) {
         QVERIFY2(b->spacerItem() != nullptr, "Expected b QLayoutItem to manage a QSpacerItem");
-        // compare QSpacerItem
-        compareGeometry(a->geometry(), b->geometry());
+        compareGeometry(a->spacerItem()->geometry(), b->spacerItem()->geometry());
     } else {
         QVERIFY2(false, "a QLayoutItem manages unhandled type");
     }
@@ -139,10 +155,22 @@ void tst_Layouts::compareGeometry(const QRect &a, const QRect &b)
     if (QTest::currentTestFailed())
         return;
 
-    QVERIFY2(a.x() == b.x(), qPrintable(QStringLiteral("Geometries do not have the same x coordinate (%1 != %2)").arg(a.x()).arg(b.x())));
-    QVERIFY2(a.y() == b.y(), qPrintable(QStringLiteral("Geometries do not have the same y coordinate (%1 != %2)").arg(a.y()).arg(b.y())));
-    QVERIFY2(a.width() == b.width(), qPrintable(QStringLiteral("Geometries do not have the same width (%1 != %2)").arg(a.width()).arg(b.width())));
-    QVERIFY2(a.height() == b.height(), qPrintable(QStringLiteral("Geometries do not have the same height (%1 != %2)").arg(a.height()).arg(b.height())));
+    QVERIFY2(a.x() == b.x()
+             , qPrintable(QStringLiteral("Geometries do not have the same x coordinate (%1 != %2)")
+                          .arg(a.x())
+                          .arg(b.x())));
+    QVERIFY2(a.y() == b.y()
+             , qPrintable(QStringLiteral("Geometries do not have the same y coordinate (%1 != %2)")
+                          .arg(a.y())
+                          .arg(b.y())));
+    QVERIFY2(a.width() == b.width()
+             , qPrintable(QStringLiteral("Geometries do not have the same width (%1 != %2)")
+                          .arg(a.width())
+                          .arg(b.width())));
+    QVERIFY2(a.height() == b.height()
+             , qPrintable(QStringLiteral("Geometries do not have the same height (%1 != %2)")
+                          .arg(a.height())
+                          .arg(b.height())));
 }
 
 QTEST_MAIN(tst_Layouts)
