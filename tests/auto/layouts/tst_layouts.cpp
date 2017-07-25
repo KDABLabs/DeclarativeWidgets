@@ -20,6 +20,7 @@
 #include <QtTest>
 
 #include "hboxlayoutwidget.h"
+#include "vboxlayoutwidget.h"
 
 #include "declarativewidgetsdocument.h"
 
@@ -33,6 +34,7 @@ public:
 
 private slots:
     void hBoxLayout();
+    void vBoxLayout();
 
 private:
     void compareLayouts(QLayout *a, QLayout *b);
@@ -52,6 +54,23 @@ void tst_Layouts::hBoxLayout()
     HBoxLayoutWidget* uiWidget = new HBoxLayoutWidget();
 
     DeclarativeWidgetsDocument* document = new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/HBoxLayoutTest.qml"), this);
+    QWidget* declarativeWidget = document->create<QWidget>();
+
+    QVERIFY2(declarativeWidget != nullptr, "Failed to create widget from document");
+
+    // Show the widgets to trigger geometry updates
+    uiWidget->show();
+    declarativeWidget->show();
+
+    // Compare the widgets
+    compareWidgets(uiWidget, declarativeWidget);
+}
+
+void tst_Layouts::vBoxLayout()
+{
+    VBoxLayoutWidget* uiWidget = new VBoxLayoutWidget();
+
+    DeclarativeWidgetsDocument* document = new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/VBoxLayoutTest.qml"), this);
     QWidget* declarativeWidget = document->create<QWidget>();
 
     QVERIFY2(declarativeWidget != nullptr, "Failed to create widget from document");

@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/HBoxLayoutTest.qml</file>
+        <file>qml/VBoxLayoutTest.qml</file>
     </qresource>
 </RCC>
