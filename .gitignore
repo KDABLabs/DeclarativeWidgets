@@ -3,6 +3,7 @@ Makefile*
 moc_*
 *.o
 *.pro.user
+*.qmlc
 .qmake.stash
 qrc_*.cpp
 /lib/libdeclarativewidgets.so*
