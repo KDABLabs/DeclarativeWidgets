@@ -36,8 +36,13 @@
 int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
+
+  QQmlEngine engine;
+#ifdef Q_OS_MACOS
+  engine.addImportPath(QStringLiteral("%1/../PlugIns").arg(QCoreApplication::applicationDirPath()));
+#endif
   
-  DeclarativeWidgetsDocument document(QUrl("qrc:///main.qml"));
+  DeclarativeWidgetsDocument document(QUrl("qrc:///main.qml"), &engine);
   QObject::connect(document.engine(), SIGNAL(quit()), &app, SLOT(quit()));
 
   ConfigEditor editor;

@@ -43,10 +43,15 @@
 #include "declarativeicon_p.h"
 #include "declarativeinputdialog_p.h"
 #include "declarativeitemviewextension_p.h"
+#include "declarativelabelextension_p.h"
+#include "declarativelayoutextension.h"
+#include "declarativeline_p.h"
+#include "declarativeloaderwidget_p.h"
 #include "declarativemessagebox_p.h"
 #include "declarativeqmlcontext_p.h"
 #include "declarativequickwidgetextension_p.h"
 #include "declarativeseparator_p.h"
+#include "declarativespaceritem_p.h"
 #include "declarativestackedlayout_p.h"
 #include "declarativestatusbar_p.h"
 #include "declarativestringlistmodelextension_p.h"
@@ -114,7 +119,9 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterType<QTextDocument>();
 
   // uncreatable widgets
+  qmlRegisterUncreatableType<DeclarativeLayoutContentsMargins>(uri, 1, 0, "LayoutContentMargins", "Grouped Property");
   qmlRegisterUncreatableType<QHeaderView>(uri, 1, 0, "HeaderView", "");
+  qmlRegisterUncreatableType<QLayout>(uri, 1, 0, "Layout", "For access of SizeConstraint enum");
 
   // core
   qmlRegisterType<QTimer>(uri, 1, 0, "Timer");
@@ -158,10 +165,12 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<DeclarativeFontDialog, DeclarativeWidgetExtension>(uri, 1, 0, "FontDialog");
   qmlRegisterExtendedType<QGroupBox, DeclarativeWidgetExtension>(uri, 1, 0, "GroupBox");
   qmlRegisterExtendedType<DeclarativeInputDialog, DeclarativeWidgetExtension>(uri, 1, 0, "InputDialog");
-  qmlRegisterExtendedType<QLabel, DeclarativeWidgetExtension>(uri, 1, 0, "Label");
-  qmlRegisterExtendedType<QLineEdit, DeclarativeWidgetExtension>(uri, 1, 0, "LineEdit");
+  qmlRegisterExtendedType<QLabel, DeclarativeLabelExtension>(uri, 1, 0, "Label");
   qmlRegisterExtendedType<QLCDNumber, DeclarativeWidgetExtension>(uri, 1, 0, "LCDNumber");
+  qmlRegisterExtendedType<QLineEdit, DeclarativeWidgetExtension>(uri, 1, 0, "LineEdit");
   qmlRegisterExtendedType<QListView, DeclarativeItemViewExtension>(uri, 1, 0, "ListView");
+  qmlRegisterExtendedType<DeclarativeLine, DeclarativeWidgetExtension>(uri, 1, 0, "Line");
+  qmlRegisterExtendedType<DeclarativeLoaderWidget, DeclarativeWidgetExtension>(uri, 1, 0, "LoaderWidget");
   qmlRegisterExtendedType<QMainWindow, DeclarativeContainerWidgetExtension<MainWindowWidgetContainer> >(uri, 1, 0, "MainWindow");
   qmlRegisterExtendedType<Menu, DeclarativeContainerWidgetExtension<MenuWidgetContainer> >(uri, 1, 0, "Menu");
   qmlRegisterExtendedType<QMenuBar, DeclarativeContainerWidgetExtension<MenuBarWidgetContainer> >(uri, 1, 0, "MenuBar");
@@ -173,8 +182,9 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QScrollArea, DeclarativeContainerWidgetExtension<ScrollAreaWidgetContainer> >(uri, 1, 0, "ScrollArea");
   qmlRegisterExtendedType<QScrollBar, DeclarativeWidgetExtension>(uri, 1, 0, "ScrollBar");
   qmlRegisterExtendedType<QSlider, DeclarativeWidgetExtension>(uri, 1, 0, "Slider");
-  qmlRegisterExtendedType<QStackedWidget, DeclarativeContainerWidgetExtension<StackedWidgetWidgetContainer> >(uri, 1, 0, "StackedWidget");
+  qmlRegisterType<DeclarativeSpacerItem>(uri, 1, 0, "Spacer");
   qmlRegisterExtendedType<QSpinBox, DeclarativeWidgetExtension>(uri, 1, 0, "SpinBox");
+  qmlRegisterExtendedType<QStackedWidget, DeclarativeContainerWidgetExtension<StackedWidgetWidgetContainer> >(uri, 1, 0, "StackedWidget");
   qmlRegisterExtendedType<DeclarativeStatusBar, DeclarativeContainerWidgetExtension<StatusBarWidgetContainer> >(uri, 1, 0, "StatusBar");
   qmlRegisterExtendedType<QTableView, DeclarativeTableViewExtension>(uri, 1, 0, "TableView");
   qmlRegisterExtendedType<DeclarativeTabWidget, DeclarativeContainerWidgetExtension<TabWidgetWidgetContainer> >(uri, 1, 0, "TabWidget");

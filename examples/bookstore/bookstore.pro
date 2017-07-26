@@ -30,4 +30,8 @@ mac {
     APP_LIBS.files += $${LIB_DESTDIR}/libdeclarativewidgets.dylib
     APP_LIBS.path = Contents/Frameworks
     QMAKE_BUNDLE_DATA += APP_LIBS
+
+    DECLARATIVE_WIDGETS.files = $${OUT_PWD}/../../qml/QtWidgets
+    DECLARATIVE_WIDGETS.path = Contents/PlugIns
+    QMAKE_BUNDLE_DATA += DECLARATIVE_WIDGETS
 }

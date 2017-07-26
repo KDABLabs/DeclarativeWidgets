@@ -48,7 +48,10 @@ int main(int argc, char **argv)
   const QFileInfo qmlFile(QDir::current(), arguments[1]);
   const QUrl documentUrl = QUrl::fromLocalFile(qmlFile.absoluteFilePath());
 
-  DeclarativeWidgetsDocument document(documentUrl);
+  QQmlEngine engine;
+  engine.addImportPath(QStringLiteral("%1/qml").arg(QCoreApplication::applicationDirPath()));
+
+  DeclarativeWidgetsDocument document(documentUrl, &engine);
   QObject::connect(document.engine(), SIGNAL(quit()), &app, SLOT(quit()));
 
   QWidget *widget = document.create<QWidget>();
