@@ -3,5 +3,6 @@
         <file>qml/HBoxLayoutTest.qml</file>
         <file>qml/VBoxLayoutTest.qml</file>
         <file>qml/FormLayoutTest.qml</file>
+        <file>qml/GridLayoutTest.qml</file>
     </qresource>
 </RCC>

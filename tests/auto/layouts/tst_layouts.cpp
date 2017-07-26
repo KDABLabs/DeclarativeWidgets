@@ -22,6 +22,7 @@
 #include "hboxlayoutwidget.h"
 #include "vboxlayoutwidget.h"
 #include "formlayoutwidget.h"
+#include "gridlayoutwidget.h"
 
 #include "declarativewidgetsdocument.h"
 
@@ -40,6 +41,7 @@ private slots:
     void hBoxLayout();
     void vBoxLayout();
     void formLayout();
+    void gridLayout();
 
 private:
     void testLayouts(QWidgetPtr uiWidget, DeclarativeWidgetsDocumentPtr declarativeDocument);
@@ -71,6 +73,12 @@ void tst_Layouts::formLayout()
 {
     testLayouts( QWidgetPtr(new FormLayoutWidget())
                  , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/FormLayoutTest.qml"))));
+}
+
+void tst_Layouts::gridLayout()
+{
+    testLayouts( QWidgetPtr(new GridLayoutWidget())
+                 , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/GridLayoutTest.qml"))));
 }
 
 void tst_Layouts::testLayouts(QWidgetPtr uiWidget, DeclarativeWidgetsDocumentPtr declarativeDocument)
