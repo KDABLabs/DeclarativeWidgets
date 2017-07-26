@@ -4,7 +4,8 @@ SOURCES +=  tst_layouts.cpp \
     hboxlayoutwidget.cpp \
     vboxlayoutwidget.cpp \
     formlayoutwidget.cpp \
-    gridlayoutwidget.cpp
+    gridlayoutwidget.cpp \
+    stackedlayoutwidget.cpp
 
 RESOURCES += \
     qml.qrc
@@ -19,4 +20,5 @@ HEADERS += \
     hboxlayoutwidget.h \
     vboxlayoutwidget.h \
     formlayoutwidget.h \
-    gridlayoutwidget.h
+    gridlayoutwidget.h \
+    stackedlayoutwidget.h

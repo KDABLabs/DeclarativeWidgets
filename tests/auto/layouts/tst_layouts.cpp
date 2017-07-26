@@ -23,6 +23,7 @@
 #include "vboxlayoutwidget.h"
 #include "formlayoutwidget.h"
 #include "gridlayoutwidget.h"
+#include "stackedlayoutwidget.h"
 
 #include "declarativewidgetsdocument.h"
 
@@ -42,6 +43,7 @@ private slots:
     void vBoxLayout();
     void formLayout();
     void gridLayout();
+    void stackedLayout();
 
 private:
     void testLayouts(QWidgetPtr uiWidget, DeclarativeWidgetsDocumentPtr declarativeDocument);
@@ -79,6 +81,12 @@ void tst_Layouts::gridLayout()
 {
     testLayouts( QWidgetPtr(new GridLayoutWidget())
                  , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/GridLayoutTest.qml"))));
+}
+
+void tst_Layouts::stackedLayout()
+{
+    testLayouts( QWidgetPtr(new StackedLayoutWidget())
+                 , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/StackedLayoutTest.qml"))));
 }
 
 void tst_Layouts::testLayouts(QWidgetPtr uiWidget, DeclarativeWidgetsDocumentPtr declarativeDocument)
