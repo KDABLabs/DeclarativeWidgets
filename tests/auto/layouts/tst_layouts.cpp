@@ -24,6 +24,7 @@
 #include "formlayoutwidget.h"
 #include "gridlayoutwidget.h"
 #include "stackedlayoutwidget.h"
+#include "stackedwidget.h"
 
 #include "declarativewidgetsdocument.h"
 
@@ -44,6 +45,7 @@ private slots:
     void formLayout();
     void gridLayout();
     void stackedLayout();
+    void stackedWidget();
 
 private:
     void testLayouts(QWidgetPtr uiWidget, DeclarativeWidgetsDocumentPtr declarativeDocument);
@@ -87,6 +89,12 @@ void tst_Layouts::stackedLayout()
 {
     testLayouts( QWidgetPtr(new StackedLayoutWidget())
                  , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/StackedLayoutTest.qml"))));
+}
+
+void tst_Layouts::stackedWidget()
+{
+    testLayouts( QWidgetPtr(new StackedWidget())
+                 , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/StackedWidgetTest.qml"))));
 }
 
 void tst_Layouts::testLayouts(QWidgetPtr uiWidget, DeclarativeWidgetsDocumentPtr declarativeDocument)
