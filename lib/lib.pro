@@ -8,6 +8,8 @@ mac {
     QMAKE_SONAME_PREFIX = @executable_path/../Frameworks
 }
 
+CONFIG += c++11
+
 HEADERS = \
   abstractdeclarativeobject_p.h \
   declarativeactionitem_p.h \
