@@ -21,10 +21,14 @@
 
 #include "hboxlayoutwidget.h"
 #include "vboxlayoutwidget.h"
+#include "formlayoutwidget.h"
 
 #include "declarativewidgetsdocument.h"
 
 #include <QLayout>
+
+typedef std::shared_ptr<QWidget> QWidgetPtr;
+typedef std::shared_ptr<DeclarativeWidgetsDocument> DeclarativeWidgetsDocumentPtr;
 
 class tst_Layouts : public QObject
 {
@@ -35,8 +39,10 @@ public:
 private slots:
     void hBoxLayout();
     void vBoxLayout();
+    void formLayout();
 
 private:
+    void testLayouts(QWidgetPtr uiWidget, DeclarativeWidgetsDocumentPtr declarativeDocument);
     void compareLayouts(QLayout *a, QLayout *b);
     void compareLayoutItems(QLayoutItem* a, QLayoutItem* b);
     void compareWidgets(QWidget* a, QWidget* b);
@@ -51,27 +57,28 @@ tst_Layouts::tst_Layouts()
 
 void tst_Layouts::hBoxLayout()
 {
-    HBoxLayoutWidget* uiWidget = new HBoxLayoutWidget();
-
-    DeclarativeWidgetsDocument* document = new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/HBoxLayoutTest.qml"), this);
-    QWidget* declarativeWidget = document->create<QWidget>();
-
-    QVERIFY2(declarativeWidget != nullptr, "Failed to create widget from document");
-
-    // Show the widgets to trigger geometry updates
-    uiWidget->show();
-    declarativeWidget->show();
-
-    // Compare the widgets
-    compareWidgets(uiWidget, declarativeWidget);
+    testLayouts( QWidgetPtr(new HBoxLayoutWidget())
+                 , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/HBoxLayoutTest.qml"))));
 }
 
 void tst_Layouts::vBoxLayout()
 {
-    VBoxLayoutWidget* uiWidget = new VBoxLayoutWidget();
+    testLayouts( QWidgetPtr(new VBoxLayoutWidget())
+                 , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/VBoxLayoutTest.qml"))));
+}
 
-    DeclarativeWidgetsDocument* document = new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/VBoxLayoutTest.qml"), this);
-    QWidget* declarativeWidget = document->create<QWidget>();
+void tst_Layouts::formLayout()
+{
+    testLayouts( QWidgetPtr(new FormLayoutWidget())
+                 , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/FormLayoutTest.qml"))));
+}
+
+void tst_Layouts::testLayouts(QWidgetPtr uiWidget, DeclarativeWidgetsDocumentPtr declarativeDocument)
+{
+    QVERIFY(uiWidget != nullptr);
+    QVERIFY(declarativeDocument != nullptr);
+
+    QWidgetPtr declarativeWidget(declarativeDocument->create<QWidget>());
 
     QVERIFY2(declarativeWidget != nullptr, "Failed to create widget from document");
 
@@ -80,7 +87,7 @@ void tst_Layouts::vBoxLayout()
     declarativeWidget->show();
 
     // Compare the widgets
-    compareWidgets(uiWidget, declarativeWidget);
+    compareWidgets(uiWidget.get(), declarativeWidget.get());
 }
 
 void tst_Layouts::compareLayouts(QLayout *a, QLayout *b)
