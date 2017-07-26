@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>qml/HBoxLayoutTest.qml</file>
         <file>qml/VBoxLayoutTest.qml</file>
+        <file>qml/FormLayoutTest.qml</file>
     </qresource>
 </RCC>

@@ -2,15 +2,18 @@ include("$$PWD/../auto.pri")
 
 SOURCES +=  tst_layouts.cpp \
     hboxlayoutwidget.cpp \
-    vboxlayoutwidget.cpp
+    vboxlayoutwidget.cpp \
+    formlayoutwidget.cpp
 
 RESOURCES += \
     qml.qrc
 
 FORMS += \
     hboxlayout.ui \
-    vboxlayout.ui
+    vboxlayout.ui \
+    formlayout.ui
 
 HEADERS += \
     hboxlayoutwidget.h \
-    vboxlayoutwidget.h
+    vboxlayoutwidget.h \
+    formlayoutwidget.h
