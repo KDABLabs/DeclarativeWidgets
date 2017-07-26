@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>StackedWidget</class>
+ <widget class="QStackedWidget" name="StackedWidget">
+  <widget class="QLabel" name="label">
+   <property name="text">
+    <string>Page 1</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="text">
+    <string>Page 2</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="text">
+    <string>Page 3</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
