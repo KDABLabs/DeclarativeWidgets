@@ -41,7 +41,12 @@ static QWidget *createDeclarativeWidgetsUi(BookStore *bookStore, const QString &
 {
   const QUrl documentUrl = QUrl(QString("qrc:///widgets/%1").arg(fileName));
 
-  DeclarativeWidgetsDocument *document = new DeclarativeWidgetsDocument(documentUrl, bookStore);
+  QQmlEngine engine;
+#ifdef Q_OS_MACOS
+  engine.addImportPath(QStringLiteral("%1/../PlugIns").arg(QCoreApplication::applicationDirPath()));
+#endif
+
+  DeclarativeWidgetsDocument *document = new DeclarativeWidgetsDocument(documentUrl, &engine, bookStore);
   QObject::connect(document->engine(), SIGNAL(quit()), QCoreApplication::instance(), SLOT(quit()));
 
   document->setContextProperty("_store", bookStore);

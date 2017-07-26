@@ -40,7 +40,12 @@ int main(int argc, char **argv)
 
   const QUrl documentUrl = QUrl("qrc:///main.qml");
 
-  DeclarativeWidgetsDocument document(documentUrl);
+  QQmlEngine engine;
+#ifdef Q_OS_MACOS
+  engine.addImportPath(QStringLiteral("%1/../PlugIns").arg(QCoreApplication::applicationDirPath()));
+#endif
+
+  DeclarativeWidgetsDocument document(documentUrl, &engine);
   QObject::connect(document.engine(), SIGNAL(quit()), &app, SLOT(quit()));
 
   Editor editor;

@@ -43,7 +43,8 @@ class DECLARATIVEWIDGETS_EXPORT DeclarativeWidgetsDocument : public QObject
   Q_OBJECT
 
   public:
-    explicit DeclarativeWidgetsDocument(const QUrl &url, QObject *parent = 0);
+    explicit DeclarativeWidgetsDocument(const QUrl &url, QObject *parent = nullptr);
+    explicit DeclarativeWidgetsDocument(const QUrl &url, QQmlEngine* engine, QObject *parent = nullptr);
     ~DeclarativeWidgetsDocument();
 
     void setContextProperty(const QString &name, const QVariant &value);
