@@ -180,6 +180,8 @@ void tst_Layouts::compareWidgets(QWidget *a, QWidget *b)
     QVERIFY2(a != nullptr, "a QWidget is null");
     QVERIFY2(b != nullptr, "b QWidget is null");
 
+    QVERIFY2(a->sizePolicy() == b->sizePolicy(), "Expected size policy to match");
+
     compareLayouts(a->layout(), b->layout());
     compareGeometry(a->geometry(), b->geometry());
 }
