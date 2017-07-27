@@ -9,3 +9,8 @@ qrc_*.cpp
 /tests/target_wrapper.sh
 /tests/tst_declarativeview.moc
 /ui2dw/ui2dw
+/examples/bookstore/bookstore
+/examples/config-editor/config-editor
+/examples/text-editor/text-editor
+/extensionplugin/libdeclarativewidgetsplugin.so
+/tests/tests
