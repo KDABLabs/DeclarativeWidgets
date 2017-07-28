@@ -88,8 +88,10 @@
 #include <QToolBar>
 #include <QToolButton>
 #include <QTreeView>
-#include <QWebEngineView>
 
+#ifdef QT_WEBENGINEWIDGETS_LIB
+# include <QWebEngineView>
+#endif
 #include <qqml.h>
 
 // @uri QtWidgets
@@ -167,6 +169,8 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QToolBar, DeclarativeContainerWidgetExtension<ToolBarWidgetContainer> >(uri, 1, 0, "ToolBar");
   qmlRegisterExtendedType<QToolButton, DeclarativeWidgetExtension>(uri, 1, 0, "ToolButton");
   qmlRegisterExtendedType<QTreeView, DeclarativeTreeViewExtension>(uri, 1, 0, "TreeView");
+#ifdef QT_WEBENGINEWIDGETS_LIB
   qmlRegisterExtendedType<QWebEngineView, DeclarativeWidgetExtension>(uri, 1, 0, "WebEngineView");
+#endif
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>(uri, 1, 0, "Widget");
 }

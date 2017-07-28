@@ -2,7 +2,11 @@ TEMPLATE = lib
 
 TARGET = declarativewidgets
 
-QT += core-private qml widgets webenginewidgets quickwidgets
+QT += core-private qml widgets quickwidgets
+
+qtHaveModule(webenginewidgets) {
+    QT += webenginewidgets
+}
 
 mac {
     QMAKE_SONAME_PREFIX = @executable_path/../Frameworks
