@@ -21,9 +21,10 @@
 #ifndef DECLARATIVESEPARATOR_P_H
 #define DECLARATIVESEPARATOR_P_H
 
+#include "declarativewidgets_export.h"
 #include <QAction>
 
-class DeclarativeSeparator : public QAction
+class DECLARATIVEWIDGETS_EXPORT DeclarativeSeparator : public QAction
 {
   Q_OBJECT
 

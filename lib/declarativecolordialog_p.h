@@ -21,12 +21,13 @@
 #ifndef DECLARATIVECOLORDIALOG_P_H
 #define DECLARATIVECOLORDIALOG_P_H
 
+#include "declarativewidgets_export.h"
 #include "staticdialogmethodattached_p.h"
 
 #include <QColorDialog>
 #include <qqml.h>
 
-class DeclarativeColorDialogAttached : public StaticDialogMethodAttached
+class DECLARATIVEWIDGETS_EXPORT DeclarativeColorDialogAttached : public StaticDialogMethodAttached
 {
   Q_OBJECT
   Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
@@ -54,7 +55,7 @@ class DeclarativeColorDialogAttached : public StaticDialogMethodAttached
     Private *const d;
 };
 
-class DeclarativeColorDialog : public QColorDialog
+class DECLARATIVEWIDGETS_EXPORT DeclarativeColorDialog : public QColorDialog
 {
   Q_OBJECT
 

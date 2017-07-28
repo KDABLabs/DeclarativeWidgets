@@ -21,12 +21,14 @@
 #ifndef DECLARATIVEACTIONITEM_P_H
 #define DECLARATIVEACTIONITEM_P_H
 
+#include "declarativewidgets_export.h"
+
 #include <QObject>
 #include <QVariant>
 
 class QAction;
 
-class DeclarativeActionItem : public QObject
+class DECLARATIVEWIDGETS_EXPORT DeclarativeActionItem : public QObject
 {
   Q_OBJECT
 

@@ -22,8 +22,9 @@
 #define DEFAULTWIDGETCONTAINER_H
 
 #include "widgetcontainerinterface_p.h"
+#include "declarativewidgets_export.h"
 
-class DefaultWidgetContainer : public WidgetContainerInterface
+class DECLARATIVEWIDGETS_EXPORT DefaultWidgetContainer : public WidgetContainerInterface
 {
   public:
     explicit DefaultWidgetContainer(QWidget *widget);

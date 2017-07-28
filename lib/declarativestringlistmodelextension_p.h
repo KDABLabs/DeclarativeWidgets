@@ -21,13 +21,14 @@
 #ifndef DECLARATIVESTRINGLISTMODELEXTENSION_H
 #define DECLARATIVESTRINGLISTMODELEXTENSION_H
 
+#include "declarativewidgets_export.h"
 #include "declarativeobjectextension.h"
 
 #include <QStringList>
 
 class QStringListModel;
 
-class DeclarativeStringListModelExtension : public DeclarativeObjectExtension
+class DECLARATIVEWIDGETS_EXPORT DeclarativeStringListModelExtension : public DeclarativeObjectExtension
 {
   Q_OBJECT
 

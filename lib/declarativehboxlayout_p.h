@@ -21,13 +21,14 @@
 #ifndef DECLARATIVEHBOXLAYOUT_P_H
 #define DECLARATIVEHBOXLAYOUT_P_H
 
+#include "declarativewidgets_export.h"
 #include "declarativeboxlayout_p.h"
 #include "declarativelayoutextension.h"
 
 #include <QHBoxLayout>
 #include <qqml.h>
 
-class DeclarativeHBoxLayout : public QHBoxLayout
+class DECLARATIVEWIDGETS_EXPORT DeclarativeHBoxLayout : public QHBoxLayout
 {
   Q_OBJECT
 
@@ -39,7 +40,7 @@ class DeclarativeHBoxLayout : public QHBoxLayout
 
 QML_DECLARE_TYPEINFO(DeclarativeHBoxLayout, QML_HAS_ATTACHED_PROPERTIES)
 
-class DeclarativeHBoxLayoutExtension : public DeclarativeLayoutExtension
+class DECLARATIVEWIDGETS_EXPORT DeclarativeHBoxLayoutExtension : public DeclarativeLayoutExtension
 {
   Q_OBJECT
 

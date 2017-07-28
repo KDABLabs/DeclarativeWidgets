@@ -21,9 +21,11 @@
 #ifndef DECLARATIVEACTION_P_H
 #define DECLARATIVEACTION_P_H
 
+#include "declarativewidgets_export.h"
+
 #include <QAction>
 
-class DeclarativeAction : public QAction
+class DECLARATIVEWIDGETS_EXPORT DeclarativeAction : public QAction
 {
   Q_OBJECT
 

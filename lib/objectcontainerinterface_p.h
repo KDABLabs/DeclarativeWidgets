@@ -21,9 +21,10 @@
 #ifndef OBJECTCONTAINERINTERFACE_H
 #define OBJECTCONTAINERINTERFACE_H
 
+#include "declarativewidgets_export.h"
 class QObject;
 
-class ObjectContainerInterface
+class DECLARATIVEWIDGETS_EXPORT ObjectContainerInterface
 {
   public:
     virtual ~ObjectContainerInterface() {}

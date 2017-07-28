@@ -21,13 +21,14 @@
 #ifndef DECLARATIVEBUTTONGROUPEXTENSION_P_H
 #define DECLARATIVEBUTTONGROUPEXTENSION_P_H
 
+#include "declarativewidgets_export.h"
 #include "declarativeobjectextension.h"
 
 #include <QVariantList>
 
 class QButtonGroup;
 
-class DeclarativeButtonGroupExtension : public DeclarativeObjectExtension
+class DECLARATIVEWIDGETS_EXPORT DeclarativeButtonGroupExtension : public DeclarativeObjectExtension
 {
   Q_OBJECT
 

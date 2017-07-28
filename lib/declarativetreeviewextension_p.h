@@ -21,12 +21,13 @@
 #ifndef DECLARATIVETREEVIEWEXTENSION_P_H
 #define DECLARATIVETREEVIEWEXTENSION_P_H
 
+#include "declarativewidgets_export.h"
 #include "declarativeitemviewextension_p.h"
 
 class QHeaderView;
 class QTreeView;
 
-class DeclarativeTreeViewExtension : public DeclarativeItemViewExtension
+class DECLARATIVEWIDGETS_EXPORT DeclarativeTreeViewExtension : public DeclarativeItemViewExtension
 {
   Q_OBJECT
 

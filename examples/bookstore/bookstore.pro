@@ -1,10 +1,6 @@
-TEMPLATE = app
+include("$$PWD/../examples.pri")
 
-INCLUDEPATH += . ../../lib
-
-LIBS += -L ../../lib -ldeclarativewidgets
-
-QT += qml widgets sql quickwidgets
+QT += sql quickwidgets
 
 SOURCES += \
     main.cpp \

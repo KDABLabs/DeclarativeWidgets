@@ -21,12 +21,13 @@
 #ifndef DECLARATIVECOMBOBOXEXTENSION_P_H
 #define DECLARATIVECOMBOBOXEXTENSION_P_H
 
+#include "declarativewidgets_export.h"
 #include "declarativewidgetextension.h"
 
 class QComboBox;
 class QAbstractItemModel;
 
-class DeclarativeComboBoxExtension : public DeclarativeWidgetExtension
+class DECLARATIVEWIDGETS_EXPORT DeclarativeComboBoxExtension : public DeclarativeWidgetExtension
 {
   Q_OBJECT
 

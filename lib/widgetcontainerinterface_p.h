@@ -21,11 +21,13 @@
 #ifndef WIDGETCONTAINERINTERFACE_P_H
 #define WIDGETCONTAINERINTERFACE_P_H
 
+#include "declarativewidgets_export.h"
+
 class QAction;
 class QLayout;
 class QWidget;
 
-class WidgetContainerInterface
+class DECLARATIVEWIDGETS_EXPORT WidgetContainerInterface
 {
   public:
     virtual ~WidgetContainerInterface() {}

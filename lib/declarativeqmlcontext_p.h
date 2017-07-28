@@ -21,11 +21,12 @@
 #ifndef DECLARATIVECONTEXT_P_H
 #define DECLARATIVECONTEXT_P_H
 
+#include "declarativewidgets_export.h"
 #include "declarativeobjectproxy_p.h"
 
 #include "objectadaptors_p.h"
 
-class DeclarativeQmlContext : public DeclarativeObjectProxy<DeclarativeContext>
+class DECLARATIVEWIDGETS_EXPORT DeclarativeQmlContext : public DeclarativeObjectProxy<DeclarativeContext>
 {
   DECLARATIVE_OBJECT
 

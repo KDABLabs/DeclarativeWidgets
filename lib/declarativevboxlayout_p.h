@@ -21,13 +21,15 @@
 #ifndef DECLARATIVEVBOXLAYOUT_P_H
 #define DECLARATIVEVBOXLAYOUT_P_H
 
+#include "declarativewidgets_export.h"
+
 #include "declarativeboxlayout_p.h"
 #include "declarativelayoutextension.h"
 
 #include <qqml.h>
 #include <QVBoxLayout>
 
-class DeclarativeVBoxLayout : public QVBoxLayout
+class DECLARATIVEWIDGETS_EXPORT DeclarativeVBoxLayout : public QVBoxLayout
 {
   Q_OBJECT
 
@@ -39,7 +41,7 @@ class DeclarativeVBoxLayout : public QVBoxLayout
 
 QML_DECLARE_TYPEINFO(DeclarativeVBoxLayout, QML_HAS_ATTACHED_PROPERTIES)
 
-class DeclarativeVBoxLayoutExtension : public DeclarativeLayoutExtension
+class DECLARATIVEWIDGETS_EXPORT DeclarativeVBoxLayoutExtension : public DeclarativeLayoutExtension
 {
   Q_OBJECT
 

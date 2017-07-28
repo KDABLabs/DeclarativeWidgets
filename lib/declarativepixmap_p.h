@@ -21,12 +21,14 @@
 #ifndef DECLARATIVEPIXMAP_P_H
 #define DECLARATIVEPIXMAP_P_H
 
+#include "declarativewidgets_export.h"
+
 #include <QObject>
 #include <QPixmap>
 #include <qqml.h>
 #include <QStringList>
 
-class DeclarativePixmapAttached : public QObject
+class DECLARATIVEWIDGETS_EXPORT DeclarativePixmapAttached : public QObject
 {
   Q_OBJECT
 
@@ -36,7 +38,7 @@ class DeclarativePixmapAttached : public QObject
     Q_INVOKABLE QPixmap fromFileName(const QString &fileName);
 };
 
-class DeclarativePixmap : public QObject
+class DECLARATIVEWIDGETS_EXPORT DeclarativePixmap : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(QPixmap Pixmap READ pixmap WRITE setPixmap NOTIFY pixmapChanged)

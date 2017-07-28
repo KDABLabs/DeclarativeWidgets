@@ -21,12 +21,13 @@
 #ifndef DECLARATIVESTATUSBAR_P_H
 #define DECLARATIVESTATUSBAR_P_H
 
+#include "declarativewidgets_export.h"
 #include "defaultwidgetcontainer.h"
 
 #include <qqml.h>
 #include <QStatusBar>
 
-class DeclarativeStatusBarAttached : public QObject
+class DECLARATIVEWIDGETS_EXPORT DeclarativeStatusBarAttached : public QObject
 {
   Q_OBJECT
 
@@ -47,7 +48,7 @@ class DeclarativeStatusBarAttached : public QObject
     Private *const d;
 };
 
-class DeclarativeStatusBar : public QStatusBar
+class DECLARATIVEWIDGETS_EXPORT DeclarativeStatusBar : public QStatusBar
 {
   Q_OBJECT
 

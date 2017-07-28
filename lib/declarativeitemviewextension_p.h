@@ -21,13 +21,14 @@
 #ifndef DECLARATIVEITEMVIEWEXTENSION_P_H
 #define DECLARATIVEITEMVIEWEXTENSION_P_H
 
+#include "declarativewidgets_export.h"
 #include "declarativewidgetextension.h"
 
 class QAbstractItemModel;
 class QAbstractItemView;
 class QItemSelectionModel;
 
-class DeclarativeItemViewPropertySignals
+class DECLARATIVEWIDGETS_EXPORT DeclarativeItemViewPropertySignals
 {
   protected:
     virtual ~DeclarativeItemViewPropertySignals() {}
@@ -37,7 +38,7 @@ class DeclarativeItemViewPropertySignals
     virtual void selectionModelChanged(QItemSelectionModel *selectionModel) = 0;
 };
 
-class DeclarativeItemViewExtension : public DeclarativeWidgetExtension, protected DeclarativeItemViewPropertySignals
+class DECLARATIVEWIDGETS_EXPORT DeclarativeItemViewExtension : public DeclarativeWidgetExtension, protected DeclarativeItemViewPropertySignals
 {
   Q_OBJECT
 

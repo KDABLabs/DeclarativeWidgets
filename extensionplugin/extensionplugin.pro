@@ -15,8 +15,17 @@ HEADERS += \
 
 INCLUDEPATH += . ../lib/
 
-LIBS += -L../lib -ldeclarativewidgets
+LIBS += -ldeclarativewidgets
 
+windows { # Hack while we don't have a proper build system
+    release {
+        LIBS +=-L$$PWD/../lib/Release
+    } else {
+        LIBS +=-L$$PWD/../lib/Debug
+    }
+} else {
+    LIBS +=-L$$PWD/../lib
+}
 OTHER_FILES = qmldir
 
 !equals(_PRO_FILE_PWD_, $$OUT_PWD) {

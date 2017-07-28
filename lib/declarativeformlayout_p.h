@@ -21,12 +21,13 @@
 #ifndef DECLARATIVEFORMLAYOUT_P_H
 #define DECLARATIVEFORMLAYOUT_P_H
 
+#include "declarativewidgets_export.h"
 #include "declarativelayoutextension.h"
 
 #include <QFormLayout>
 #include <qqml.h>
 
-class DeclarativeFormLayoutAttached : public QObject
+class DECLARATIVEWIDGETS_EXPORT DeclarativeFormLayoutAttached : public QObject
 {
   Q_OBJECT
 
@@ -50,7 +51,7 @@ class DeclarativeFormLayoutAttached : public QObject
     Private *const d;
 };
 
-class DeclarativeFormLayout : public QFormLayout
+class DECLARATIVEWIDGETS_EXPORT DeclarativeFormLayout : public QFormLayout
 {
   Q_OBJECT
 
@@ -62,7 +63,7 @@ class DeclarativeFormLayout : public QFormLayout
 
 QML_DECLARE_TYPEINFO(DeclarativeFormLayout, QML_HAS_ATTACHED_PROPERTIES)
 
-class DeclarativeFormLayoutExtension : public DeclarativeLayoutExtension
+class DECLARATIVEWIDGETS_EXPORT DeclarativeFormLayoutExtension : public DeclarativeLayoutExtension
 {
   Q_OBJECT
 

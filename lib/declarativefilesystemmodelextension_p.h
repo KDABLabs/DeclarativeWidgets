@@ -21,11 +21,12 @@
 #ifndef DECLARATIVEFILESYSTEMMODELEXTENSION_H
 #define DECLARATIVEFILESYSTEMMODELEXTENSION_H
 
+#include "declarativewidgets_export.h"
 #include "declarativeobjectextension.h"
 
 class QFileSystemModel;
 
-class DeclarativeFileSystemModelExtension : public DeclarativeObjectExtension
+class DECLARATIVEWIDGETS_EXPORT DeclarativeFileSystemModelExtension : public DeclarativeObjectExtension
 {
   Q_OBJECT
 

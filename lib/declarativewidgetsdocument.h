@@ -21,12 +21,14 @@
 #ifndef DECLARATIVEWIDGETSDOCUMENT_H
 #define DECLARATIVEWIDGETSDOCUMENT_H
 
+#include "declarativewidgets_export.h"
+
 #include <QObject>
 #include <QUrl>
 
 class QQmlEngine;
 
-class DeclarativeWidgetsDocument : public QObject
+class DECLARATIVEWIDGETS_EXPORT DeclarativeWidgetsDocument : public QObject
 {
   Q_OBJECT
 

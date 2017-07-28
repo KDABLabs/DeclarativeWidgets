@@ -21,12 +21,13 @@
 #ifndef DECLARATIVETABLEVIEWEXTENSION_P_H
 #define DECLARATIVETABLEVIEWEXTENSION_P_H
 
+#include "declarativewidgets_export.h"
 #include "declarativeitemviewextension_p.h"
 
 class QHeaderView;
 class QTableView;
 
-class DeclarativeTableViewExtension : public DeclarativeItemViewExtension
+class DECLARATIVEWIDGETS_EXPORT DeclarativeTableViewExtension : public DeclarativeItemViewExtension
 {
   Q_OBJECT
 

@@ -21,12 +21,13 @@
 #ifndef SCROLLAREAWIDGETCONTAINER_P_H
 #define SCROLLAREAWIDGETCONTAINER_P_H
 
+#include "declarativewidgets_export.h"
 #include "defaultwidgetcontainer.h"
 
 class QObject;
 class QScrollArea;
 
-class ScrollAreaWidgetContainer : public DefaultWidgetContainer
+class DECLARATIVEWIDGETS_EXPORT ScrollAreaWidgetContainer : public DefaultWidgetContainer
 {
   public:
     explicit ScrollAreaWidgetContainer(QObject *parent = 0);

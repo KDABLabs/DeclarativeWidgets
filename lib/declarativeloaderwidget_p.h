@@ -21,10 +21,12 @@
 #ifndef DECLARATIVELOADERWIDGET_P_H
 #define DECLARATIVELOADERWIDGET_P_H
 
+#include "declarativewidgets_export.h"
+
 #include <QUrl>
 #include <QWidget>
 
-class DeclarativeLoaderWidget : public QWidget
+class DECLARATIVEWIDGETS_EXPORT DeclarativeLoaderWidget : public QWidget
 {
   Q_OBJECT
   Q_PROPERTY(QUrl source READ source WRITE setSource NOTIFY sourceChanged)

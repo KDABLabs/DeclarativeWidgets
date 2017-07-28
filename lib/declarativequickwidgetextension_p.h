@@ -21,6 +21,7 @@
 #ifndef DECLARATIVEDECLARATIVEVIEWEXTENSION_P_H
 #define DECLARATIVEDECLARATIVEVIEWEXTENSION_P_H
 
+#include "declarativewidgets_export.h"
 #include "declarativewidgetextension.h"
 
 #include <QPointer>
@@ -28,7 +29,7 @@
 class DeclarativeContext;
 class QQuickWidget;
 
-class DeclarativeQuickWidgetExtension : public DeclarativeWidgetExtension
+class DECLARATIVEWIDGETS_EXPORT DeclarativeQuickWidgetExtension : public DeclarativeWidgetExtension
 {
   Q_OBJECT
 

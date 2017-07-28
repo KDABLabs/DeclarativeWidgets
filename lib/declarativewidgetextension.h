@@ -21,6 +21,7 @@
 #ifndef DECLARATIVEWIDGETEXTENSION_H
 #define DECLARATIVEWIDGETEXTENSION_H
 
+#include "declarativewidgets_export.h"
 #include "declarativeobjectextension.h"
 
 #include <QRect>
@@ -31,7 +32,7 @@ class QAction;
 class QLayout;
 class QWidget;
 
-class DeclarativeWidgetExtension : public DeclarativeObjectExtension
+class DECLARATIVEWIDGETS_EXPORT DeclarativeWidgetExtension : public DeclarativeObjectExtension
 {
   Q_OBJECT
 

@@ -21,12 +21,13 @@
 #ifndef DECLARATIVETABWIDGET_P_H
 #define DECLARATIVETABWIDGET_P_H
 
+#include "declarativewidgets_export.h"
 #include "defaultwidgetcontainer.h"
 
 #include <qqml.h>
 #include <QTabWidget>
 
-class DeclarativeTabWidgetAttached : public QObject
+class DECLARATIVEWIDGETS_EXPORT DeclarativeTabWidgetAttached : public QObject
 {
   Q_OBJECT
 
@@ -54,7 +55,7 @@ class DeclarativeTabWidgetAttached : public QObject
     Private *const d;
 };
 
-class DeclarativeTabWidget : public QTabWidget
+class DECLARATIVEWIDGETS_EXPORT DeclarativeTabWidget : public QTabWidget
 {
   Q_OBJECT
 
@@ -66,7 +67,7 @@ class DeclarativeTabWidget : public QTabWidget
 
 QML_DECLARE_TYPEINFO(DeclarativeTabWidget, QML_HAS_ATTACHED_PROPERTIES)
 
-class TabWidgetWidgetContainer : public DefaultWidgetContainer
+class DECLARATIVEWIDGETS_EXPORT TabWidgetWidgetContainer : public DefaultWidgetContainer
 {
   public:
     explicit TabWidgetWidgetContainer(QObject *parent = 0);

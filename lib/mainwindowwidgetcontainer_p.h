@@ -21,12 +21,13 @@
 #ifndef MAINWINDOWWIDGETCONTAINER_P_H
 #define MAINWINDOWWIDGETCONTAINER_P_H
 
+#include "declarativewidgets_export.h"
 #include "defaultwidgetcontainer.h"
 
 class QMainWindow;
 class QObject;
 
-class MainWindowWidgetContainer : public DefaultWidgetContainer
+class DECLARATIVEWIDGETS_EXPORT MainWindowWidgetContainer : public DefaultWidgetContainer
 {
   public:
     explicit MainWindowWidgetContainer(QObject *parent = 0);

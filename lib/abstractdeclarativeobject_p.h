@@ -21,11 +21,13 @@
 #ifndef ABSTRACTDECLARATIVEOBJECT_P_H
 #define ABSTRACTDECLARATIVEOBJECT_P_H
 
+#include "declarativewidgets_export.h"
+
 #include <QObject>
 #include <QQmlListProperty>
 #include <QSet>
 
-class AbstractDeclarativeObject : public QObject
+class DECLARATIVEWIDGETS_EXPORT AbstractDeclarativeObject : public QObject
 {
   Q_OBJECT
 

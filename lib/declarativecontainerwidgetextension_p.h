@@ -21,10 +21,11 @@
 #ifndef DECLARATIVECONTAINERWIDGETEXTENSION_P_H
 #define DECLARATIVECONTAINERWIDGETEXTENSION_P_H
 
+#include "declarativewidgets_export.h"
 #include "declarativewidgetextension.h"
 
 template <class T>
-class DeclarativeContainerWidgetExtension : public DeclarativeWidgetExtension
+class DECLARATIVEWIDGETS_EXPORT DeclarativeContainerWidgetExtension : public DeclarativeWidgetExtension
 {
   public:
     explicit DeclarativeContainerWidgetExtension(QObject *parent = 0)

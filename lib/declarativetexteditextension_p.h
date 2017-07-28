@@ -21,12 +21,13 @@
 #ifndef DECLARATIVETEXTEDITEXTENSION_P_H
 #define DECLARATIVETEXTEDITEXTENSION_P_H
 
+#include "declarativewidgets_export.h"
 #include "declarativewidgetextension.h"
 
 class QTextDocument;
 class QTextEdit;
 
-class DeclarativeTextEditExtension : public DeclarativeWidgetExtension
+class DECLARATIVEWIDGETS_EXPORT DeclarativeTextEditExtension : public DeclarativeWidgetExtension
 {
   Q_OBJECT
 

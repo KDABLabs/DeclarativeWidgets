@@ -21,12 +21,13 @@
 #ifndef STACKEDWIDGETWIDGETCONTAINER_P_H
 #define STACKEDWIDGETWIDGETCONTAINER_P_H
 
+#include "declarativewidgets_export.h"
 #include "defaultwidgetcontainer.h"
 
 class QObject;
 class QStackedWidget;
 
-class StackedWidgetWidgetContainer : public DefaultWidgetContainer
+class DECLARATIVEWIDGETS_EXPORT StackedWidgetWidgetContainer : public DefaultWidgetContainer
 {
   public:
     explicit StackedWidgetWidgetContainer(QObject *parent = 0);

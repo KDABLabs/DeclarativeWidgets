@@ -21,12 +21,13 @@
 #ifndef TOOLBARWIDGETCONTAINER_P_H
 #define TOOLBARWIDGETCONTAINER_P_H
 
+#include "declarativewidgets_export.h"
 #include "defaultwidgetcontainer.h"
 
 class QObject;
 class QToolBar;
 
-class ToolBarWidgetContainer : public DefaultWidgetContainer
+class DECLARATIVEWIDGETS_EXPORT ToolBarWidgetContainer : public DefaultWidgetContainer
 {
   public:
     explicit ToolBarWidgetContainer(QObject *parent = 0);

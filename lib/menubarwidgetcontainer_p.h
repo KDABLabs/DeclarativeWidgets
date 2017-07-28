@@ -21,12 +21,13 @@
 #ifndef MENUBARWIDGETCONTAINER_P_H
 #define MENUBARWIDGETCONTAINER_P_H
 
+#include "declarativewidgets_export.h"
 #include "defaultwidgetcontainer.h"
 
 class QMenuBar;
 class QObject;
 
-class MenuBarWidgetContainer : public DefaultWidgetContainer
+class DECLARATIVEWIDGETS_EXPORT MenuBarWidgetContainer : public DefaultWidgetContainer
 {
   public:
     explicit MenuBarWidgetContainer(QObject *parent = 0);

@@ -1,10 +1,4 @@
-TEMPLATE = app
-
-INCLUDEPATH += . ../../lib
-
-LIBS += -L ../../lib -ldeclarativewidgets
-
-QT += qml widgets
+include("$$PWD/../examples.pri")
 
 TARGET = config-editor
 

@@ -20,10 +20,12 @@
 #ifndef DECLARATIVETABSTOPS_P_H
 #define DECLARATIVETABSTOPS_P_H
 
+#include "declarativewidgets_export.h"
+
 #include <QObject>
 #include <QVariant>
 
-class DeclarativeTabStops : public QObject
+class DECLARATIVEWIDGETS_EXPORT DeclarativeTabStops : public QObject
 {
     Q_OBJECT
 

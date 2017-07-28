@@ -21,9 +21,11 @@
 #ifndef STATICDIALOGMETHODATTACHED_P_H
 #define STATICDIALOGMETHODATTACHED_P_H
 
+#include "declarativewidgets_export.h"
+
 #include <QObject>
 
-class StaticDialogMethodAttached : public QObject
+class DECLARATIVEWIDGETS_EXPORT StaticDialogMethodAttached : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(QObject* parent READ dialogParent WRITE setDialogParent NOTIFY dialogParentChanged)

@@ -1,11 +1,4 @@
-TEMPLATE = app
-
-DEPENDPATH += .
-INCLUDEPATH += . ../../lib
-
-LIBS += -L ../../lib -ldeclarativewidgets
-
-QT += qml widgets
+include("$$PWD/../examples.pri")
 
 # Input
 SOURCES += \

@@ -21,11 +21,13 @@
 #ifndef LAYOUTCONTAINERINTERFACE_P_H
 #define LAYOUTCONTAINERINTERFACE_P_H
 
+#include "declarativewidgets_export.h"
+
 class DeclarativeSpacerItem;
 class QLayout;
 class QWidget;
 
-class LayoutContainerInterface
+class DECLARATIVEWIDGETS_EXPORT LayoutContainerInterface
 {
   public:
     virtual ~LayoutContainerInterface() {}

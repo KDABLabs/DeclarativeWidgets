@@ -21,13 +21,15 @@
 #ifndef DECLARATIVESPACERITEM_P_H
 #define DECLARATIVESPACERITEM_P_H
 
+#include "declarativewidgets_export.h"
+
 #include <QObject>
 #include <QSize>
 #include <QSizePolicy>
 
 class QSpacerItem;
 
-class DeclarativeSpacerItem : public QObject
+class DECLARATIVEWIDGETS_EXPORT DeclarativeSpacerItem : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(int width READ width NOTIFY widthChanged)

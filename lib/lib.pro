@@ -8,6 +8,7 @@ mac {
     QMAKE_SONAME_PREFIX = @executable_path/../Frameworks
 }
 
+DEFINES += BUILDING_DECLARATIVEWIDGETS
 CONFIG += c++11
 
 HEADERS = \
