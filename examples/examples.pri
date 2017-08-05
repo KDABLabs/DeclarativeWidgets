@@ -10,6 +10,8 @@ windows {
     } else {
         LIBS +=-L$$PWD/../lib/Debug
     }
+} else:mac {
+    LIBS +=-L../../lib
 } else {
     LIBS +=-L$$PWD/../lib
 }
