@@ -28,6 +28,8 @@ windows { # Hack while we don't have a proper build system
     } else {
         LIBS +=-L$$PWD/../lib/Debug
     }
+} else:mac {
+    LIBS +=-L../lib
 } else {
     LIBS +=-L$$PWD/../lib
 }
