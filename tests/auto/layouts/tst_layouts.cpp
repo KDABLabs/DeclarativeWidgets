@@ -26,12 +26,12 @@
 #include "stackedlayoutwidget.h"
 #include "stackedwidget.h"
 
-#include "declarativewidgetsdocument.h"
-
 #include <QLayout>
+#include <QQmlComponent>
+#include <QQmlEngine>
 
-typedef std::shared_ptr<QWidget> QWidgetPtr;
-typedef std::shared_ptr<DeclarativeWidgetsDocument> DeclarativeWidgetsDocumentPtr;
+typedef QSharedPointer<QWidget> QWidgetPtr;
+Q_DECLARE_METATYPE(QWidgetPtr)
 
 class tst_Layouts : public QObject
 {
@@ -40,15 +40,24 @@ public:
     tst_Layouts();
 
 private slots:
+    void initTestCase();
+    void hBoxLayout_data();
     void hBoxLayout();
+    void vBoxLayout_data();
     void vBoxLayout();
+    void formLayout_data();
     void formLayout();
+    void gridLayout_data();
     void gridLayout();
+    void stackedLayout_data();
     void stackedLayout();
+    void stackedWidget_data();
     void stackedWidget();
 
 private:
-    void testLayouts(QWidgetPtr uiWidget, DeclarativeWidgetsDocumentPtr declarativeDocument);
+    QQmlEngine* m_qmlEngine;
+
+    void testLayouts(QWidgetPtr uiWidget, QWidgetPtr declarativeWidget);
     void compareLayouts(QLayout *a, QLayout *b);
     void compareLayoutItems(QLayoutItem* a, QLayoutItem* b);
     void compareWidgets(QWidget* a, QWidget* b);
@@ -57,67 +66,149 @@ private:
 
 tst_Layouts::tst_Layouts()
     : QObject()
+    , m_qmlEngine(new QQmlEngine(this))
 {
 
+}
+
+void tst_Layouts::initTestCase()
+{
+    // Add extensionplugin import path
+    m_qmlEngine->addImportPath(QStringLiteral("%1/../../../qml")
+                               .arg(QCoreApplication::applicationDirPath()));
+}
+
+void tst_Layouts::hBoxLayout_data()
+{
+    QQmlComponent component(m_qmlEngine, QUrl(QStringLiteral("qrc:/qml/HBoxLayoutTest.qml")));
+    QWidgetPtr declarativeWidget( qobject_cast<QWidget *>(component.create()));
+    QVERIFY(declarativeWidget != nullptr);
+
+    QTest::addColumn<QWidgetPtr>("uiWidget");
+    QTest::addColumn<QWidgetPtr>("declarativeWidget");
+
+    QTest::newRow("hBoxLayout") << QWidgetPtr(new HBoxLayoutWidget()) << declarativeWidget;
 }
 
 void tst_Layouts::hBoxLayout()
 {
-    testLayouts( QWidgetPtr(new HBoxLayoutWidget()),
-                 DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(
-                                                 QStringLiteral("qrc:/qml/HBoxLayoutTest.qml"))));
+    QFETCH(QWidgetPtr, uiWidget);
+    QFETCH(QWidgetPtr, declarativeWidget);
+
+    testLayouts(uiWidget, declarativeWidget);
+}
+
+void tst_Layouts::vBoxLayout_data()
+{
+    QQmlComponent component(m_qmlEngine, QUrl(QStringLiteral("qrc:/qml/VBoxLayoutTest.qml")));
+    QWidgetPtr declarativeWidget( qobject_cast<QWidget *>(component.create()));
+    QVERIFY(declarativeWidget != nullptr);
+
+    QTest::addColumn<QWidgetPtr>("uiWidget");
+    QTest::addColumn<QWidgetPtr>("declarativeWidget");
+
+    QTest::newRow("vBoxLayout") << QWidgetPtr(new VBoxLayoutWidget()) << declarativeWidget;
 }
 
 void tst_Layouts::vBoxLayout()
 {
-    testLayouts( QWidgetPtr(new VBoxLayoutWidget()),
-                 DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(
-                                                 QStringLiteral("qrc:/qml/VBoxLayoutTest.qml"))));
+    QFETCH(QWidgetPtr, uiWidget);
+    QFETCH(QWidgetPtr, declarativeWidget);
+
+    testLayouts(uiWidget, declarativeWidget);
+}
+
+void tst_Layouts::formLayout_data()
+{
+    QQmlComponent component(m_qmlEngine, QUrl(QStringLiteral("qrc:/qml/FormLayoutTest.qml")));
+    QWidgetPtr declarativeWidget( qobject_cast<QWidget *>(component.create()));
+    QVERIFY(declarativeWidget != nullptr);
+
+    QTest::addColumn<QWidgetPtr>("uiWidget");
+    QTest::addColumn<QWidgetPtr>("declarativeWidget");
+
+    QTest::newRow("formLayout") << QWidgetPtr(new FormLayoutWidget()) << declarativeWidget;
 }
 
 void tst_Layouts::formLayout()
 {
-    testLayouts( QWidgetPtr(new FormLayoutWidget()),
-                 DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(
-                                                 QStringLiteral("qrc:/qml/FormLayoutTest.qml"))));
+    QFETCH(QWidgetPtr, uiWidget);
+    QFETCH(QWidgetPtr, declarativeWidget);
+
+    testLayouts(uiWidget, declarativeWidget);
+}
+
+void tst_Layouts::gridLayout_data()
+{
+    QQmlComponent component(m_qmlEngine, QUrl(QStringLiteral("qrc:/qml/GridLayoutTest.qml")));
+    QWidgetPtr declarativeWidget( qobject_cast<QWidget *>(component.create()));
+    QVERIFY(declarativeWidget != nullptr);
+
+    QTest::addColumn<QWidgetPtr>("uiWidget");
+    QTest::addColumn<QWidgetPtr>("declarativeWidget");
+
+    QTest::newRow("gridLayout") << QWidgetPtr(new GridLayoutWidget()) << declarativeWidget;
 }
 
 void tst_Layouts::gridLayout()
 {
-    testLayouts( QWidgetPtr(new GridLayoutWidget()),
-                 DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(
-                                                 QStringLiteral("qrc:/qml/GridLayoutTest.qml"))));
+    QFETCH(QWidgetPtr, uiWidget);
+    QFETCH(QWidgetPtr, declarativeWidget);
+
+    testLayouts(uiWidget, declarativeWidget);
+}
+
+void tst_Layouts::stackedLayout_data()
+{
+    QQmlComponent component(m_qmlEngine, QUrl(QStringLiteral("qrc:/qml/StackedLayoutTest.qml")));
+    QWidgetPtr declarativeWidget( qobject_cast<QWidget *>(component.create()));
+    QVERIFY(declarativeWidget != nullptr);
+
+    QTest::addColumn<QWidgetPtr>("uiWidget");
+    QTest::addColumn<QWidgetPtr>("declarativeWidget");
+
+    QTest::newRow("stackedLayout") << QWidgetPtr(new StackedLayoutWidget()) << declarativeWidget;
 }
 
 void tst_Layouts::stackedLayout()
 {
-    testLayouts( QWidgetPtr(new StackedLayoutWidget()),
-                 DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(
-                                                 QStringLiteral("qrc:/qml/StackedLayoutTest.qml"))));
+    QFETCH(QWidgetPtr, uiWidget);
+    QFETCH(QWidgetPtr, declarativeWidget);
+
+    testLayouts(uiWidget, declarativeWidget);
+}
+
+void tst_Layouts::stackedWidget_data()
+{
+    QQmlComponent component(m_qmlEngine, QUrl(QStringLiteral("qrc:/qml/StackedWidgetTest.qml")));
+    QWidgetPtr declarativeWidget( qobject_cast<QWidget *>(component.create()));
+    QVERIFY(declarativeWidget != nullptr);
+
+    QTest::addColumn<QWidgetPtr>("uiWidget");
+    QTest::addColumn<QWidgetPtr>("declarativeWidget");
+
+    QTest::newRow("stackedWidget") << QWidgetPtr(new StackedWidget()) << declarativeWidget;
 }
 
 void tst_Layouts::stackedWidget()
 {
-    testLayouts( QWidgetPtr(new StackedWidget()),
-                 DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(
-                                                 QStringLiteral("qrc:/qml/StackedWidgetTest.qml"))));
+    QFETCH(QWidgetPtr, uiWidget);
+    QFETCH(QWidgetPtr, declarativeWidget);
+
+    testLayouts(uiWidget, declarativeWidget);
 }
 
-void tst_Layouts::testLayouts(QWidgetPtr uiWidget, DeclarativeWidgetsDocumentPtr declarativeDocument)
+void tst_Layouts::testLayouts(QWidgetPtr uiWidget, QWidgetPtr declarativeWidget)
 {
     QVERIFY(uiWidget != nullptr);
-    QVERIFY(declarativeDocument != nullptr);
-
-    QWidgetPtr declarativeWidget(declarativeDocument->create<QWidget>());
-
-    QVERIFY2(declarativeWidget != nullptr, "Failed to create widget from document");
+    QVERIFY(declarativeWidget != nullptr);
 
     // Show the widgets to trigger geometry updates
     uiWidget->show();
     declarativeWidget->show();
 
     // Compare the widgets
-    compareWidgets(uiWidget.get(), declarativeWidget.get());
+    compareWidgets(uiWidget.data(), declarativeWidget.data());
 }
 
 void tst_Layouts::compareLayouts(QLayout *a, QLayout *b)
