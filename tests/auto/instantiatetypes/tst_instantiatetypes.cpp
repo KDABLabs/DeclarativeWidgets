@@ -63,16 +63,25 @@ void tst_InstantiateTypes::creatableTypes()
 
         QUrl url = QUrl::fromLocalFile(fileInfo.filePath());
 
-        QQmlComponent component(m_qmlEngine);
-        component.loadUrl(url);
-        if (component.isError()) {
-            for (auto error : component.errors())
-                QWARN(qPrintable(error.toString()));
-        }
+        auto printErrors = [](const QQmlComponent& component) {
+            if (component.isError()) {
+                for (auto error : component.errors())
+                    QWARN(qPrintable(error.toString()));
+            }
+        };
+
+        QQmlComponent component(m_qmlEngine, url);
+        printErrors(component);
         QVERIFY2(component.status() == QQmlComponent::Ready,
                  qPrintable(QString("Failed to load \"%1\" (%2)")
                             .arg(url.toString())
                             .arg(component.status())));
+
+        QSharedPointer<QObject> creatableWidget(component.create());
+        printErrors(component);
+        QVERIFY2(creatableWidget != nullptr,
+                 qPrintable(QString("Failed to create \"%1\"")
+                            .arg(url.toString())));
     }
 }
 
@@ -82,12 +91,17 @@ void tst_InstantiateTypes::uncreatableTypes()
     while (iterator.hasNext()) {
         QUrl url = QUrl::fromLocalFile(iterator.next());
 
-        QQmlComponent component(m_qmlEngine);
-        component.loadUrl(url);
+        QQmlComponent component(m_qmlEngine, url);
         QVERIFY2(component.status() == QQmlComponent::Error,
                  qPrintable(QString("Should not be able to instantiate \"%1\" (%2)")
-                 .arg(url.toString())
-                 .arg(component.status())));
+                            .arg(url.toString())
+                            .arg(component.status())));
+
+        QTest::ignoreMessage(QtWarningMsg, "QQmlComponent: Component is not ready");
+        QSharedPointer<QObject> uncreatableWidget(component.create());
+        QVERIFY2(uncreatableWidget == nullptr,
+                 qPrintable(QString("Should not be able to create \"%1\"")
+                            .arg(url.toString())));
     }
 }
 
