@@ -30,6 +30,7 @@ public:
     tst_InstantiateTypes();
 
 private slots:
+    void initTestCase();
     void creatableTypes();
     void uncreatableTypes();
 
@@ -42,15 +43,20 @@ tst_InstantiateTypes::tst_InstantiateTypes()
     : QObject()
     , m_qmlEngine(new QQmlEngine(this))
 {
+
+}
+
+void tst_InstantiateTypes::initTestCase()
+{
     // Add extensionplugin import path
-    m_qmlEngine->addImportPath(QStringLiteral("%1/../../../qml").arg(QCoreApplication::applicationDirPath()));
+    m_qmlEngine->addImportPath(QStringLiteral("%1/../../../qml")
+                               .arg(QCoreApplication::applicationDirPath()));
 }
 
 void tst_InstantiateTypes::creatableTypes()
 {
     QDirIterator iterator(QStringLiteral(":/qml/creatable/"), QDirIterator::Subdirectories);
-    while (iterator.hasNext())
-    {
+    while (iterator.hasNext()) {
         QFileInfo fileInfo(iterator.next());
         if (fileInfo.isDir())
             continue;
@@ -59,27 +65,29 @@ void tst_InstantiateTypes::creatableTypes()
 
         QQmlComponent component(m_qmlEngine);
         component.loadUrl(url);
-        if (component.isError())
-        {
+        if (component.isError()) {
             for (auto error : component.errors())
-            {
-                QWARN(error.toString().toLatin1().data());
-            }
+                QWARN(qPrintable(error.toString()));
         }
-        QVERIFY2(component.status() == QQmlComponent::Ready, QString("Failed to load \"%1\" (%2)").arg(url.toString()).arg(component.status()).toLatin1().data());
+        QVERIFY2(component.status() == QQmlComponent::Ready,
+                 qPrintable(QString("Failed to load \"%1\" (%2)")
+                            .arg(url.toString())
+                            .arg(component.status())));
     }
 }
 
 void tst_InstantiateTypes::uncreatableTypes()
 {
     QDirIterator iterator(QStringLiteral(":/qml/uncreatable/"));
-    while (iterator.hasNext())
-    {
+    while (iterator.hasNext()) {
         QUrl url = QUrl::fromLocalFile(iterator.next());
 
         QQmlComponent component(m_qmlEngine);
         component.loadUrl(url);
-        QVERIFY2(component.status() == QQmlComponent::Error, QString("Should not be able to instantiate \"%1\" (%2)").arg(url.toString()).arg(component.status()).toLatin1().data());
+        QVERIFY2(component.status() == QQmlComponent::Error,
+                 qPrintable(QString("Should not be able to instantiate \"%1\" (%2)")
+                 .arg(url.toString())
+                 .arg(component.status())));
     }
 }
 
