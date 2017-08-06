@@ -103,7 +103,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterType<QAbstractItemModel>();
   qmlRegisterType<QItemSelectionModel>();
 
-  // ucreatable gui
+  // uncreatable gui
   qmlRegisterType<QTextDocument>();
 
   // uncreatable widgets

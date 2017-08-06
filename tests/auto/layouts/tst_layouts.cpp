@@ -63,38 +63,44 @@ tst_Layouts::tst_Layouts()
 
 void tst_Layouts::hBoxLayout()
 {
-    testLayouts( QWidgetPtr(new HBoxLayoutWidget())
-                 , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/HBoxLayoutTest.qml"))));
+    testLayouts( QWidgetPtr(new HBoxLayoutWidget()),
+                 DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(
+                                                 QStringLiteral("qrc:/qml/HBoxLayoutTest.qml"))));
 }
 
 void tst_Layouts::vBoxLayout()
 {
-    testLayouts( QWidgetPtr(new VBoxLayoutWidget())
-                 , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/VBoxLayoutTest.qml"))));
+    testLayouts( QWidgetPtr(new VBoxLayoutWidget()),
+                 DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(
+                                                 QStringLiteral("qrc:/qml/VBoxLayoutTest.qml"))));
 }
 
 void tst_Layouts::formLayout()
 {
-    testLayouts( QWidgetPtr(new FormLayoutWidget())
-                 , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/FormLayoutTest.qml"))));
+    testLayouts( QWidgetPtr(new FormLayoutWidget()),
+                 DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(
+                                                 QStringLiteral("qrc:/qml/FormLayoutTest.qml"))));
 }
 
 void tst_Layouts::gridLayout()
 {
-    testLayouts( QWidgetPtr(new GridLayoutWidget())
-                 , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/GridLayoutTest.qml"))));
+    testLayouts( QWidgetPtr(new GridLayoutWidget()),
+                 DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(
+                                                 QStringLiteral("qrc:/qml/GridLayoutTest.qml"))));
 }
 
 void tst_Layouts::stackedLayout()
 {
-    testLayouts( QWidgetPtr(new StackedLayoutWidget())
-                 , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/StackedLayoutTest.qml"))));
+    testLayouts( QWidgetPtr(new StackedLayoutWidget()),
+                 DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(
+                                                 QStringLiteral("qrc:/qml/StackedLayoutTest.qml"))));
 }
 
 void tst_Layouts::stackedWidget()
 {
-    testLayouts( QWidgetPtr(new StackedWidget())
-                 , DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(QStringLiteral("qrc:/qml/StackedWidgetTest.qml"))));
+    testLayouts( QWidgetPtr(new StackedWidget()),
+                 DeclarativeWidgetsDocumentPtr(new DeclarativeWidgetsDocument(
+                                                 QStringLiteral("qrc:/qml/StackedWidgetTest.qml"))));
 }
 
 void tst_Layouts::testLayouts(QWidgetPtr uiWidget, DeclarativeWidgetsDocumentPtr declarativeDocument)
@@ -129,16 +135,16 @@ void tst_Layouts::compareLayouts(QLayout *a, QLayout *b)
     // Verify matching super-classes
     // Expects b to be the declarative layout
     // Expects declarative layouts to derive from the non-declarative type
-    QVERIFY2(b->metaObject()->inherits(a->metaObject())
-             , qPrintable(QStringLiteral("Expected layouts to derive from the same type (%2 from %1)")
-                          .arg(a->metaObject()->className())
-                          .arg(b->metaObject()->className())));
+    QVERIFY2(b->metaObject()->inherits(a->metaObject()),
+             qPrintable(QStringLiteral("Expected layouts to derive from the same type (%2 from %1)")
+                        .arg(a->metaObject()->className())
+                        .arg(b->metaObject()->className())));
 
     // Verify that the layouts have a matching number of children
-    QVERIFY2(a->count() == b->count()
-             , qPrintable(QStringLiteral("Widgets do not have the same number of children (%1 != %2)")
-                          .arg(a->count())
-                          .arg(b->count())));
+    QVERIFY2(a->count() == b->count(),
+             qPrintable(QStringLiteral("Widgets do not have the same number of children (%1 != %2)")
+                        .arg(a->count())
+                        .arg(b->count())));
 
     // Verify the layout items
     for (int i = 0; i < a->count() && !QTest::currentTestFailed(); ++i)
@@ -164,14 +170,14 @@ void tst_Layouts::compareLayoutItems(QLayoutItem *a, QLayoutItem *b)
     QVERIFY2(!b->isEmpty(), "Expected b QLayoutItem not to be empty");
 
     // Verify that the layout items have matching generic properties
-    QVERIFY2(a->alignment() == b->alignment()
-             , qPrintable(QStringLiteral("Expected QLayoutItems to have matching alignment (%1 != %2)")
-                          .arg(a->alignment())
-                          .arg(b->alignment())));
-    QVERIFY2(a->expandingDirections() == b->expandingDirections()
-             , qPrintable(QStringLiteral("Expected matching expanding directions (%1 != %2)")
-                          .arg(a->expandingDirections())
-                          .arg(b->expandingDirections())));
+    QVERIFY2(a->alignment() == b->alignment(),
+             qPrintable(QStringLiteral("Expected QLayoutItems to have matching alignment (%1 != %2)")
+                        .arg(a->alignment())
+                        .arg(b->alignment())));
+    QVERIFY2(a->expandingDirections() == b->expandingDirections(),
+             qPrintable(QStringLiteral("Expected matching expanding directions (%1 != %2)")
+                        .arg(a->expandingDirections())
+                        .arg(b->expandingDirections())));
 
     // Verify that the layout item contents match
     if (a->widget() != nullptr) {
@@ -207,22 +213,22 @@ void tst_Layouts::compareGeometry(const QRect &a, const QRect &b)
     if (QTest::currentTestFailed())
         return;
 
-    QVERIFY2(a.x() == b.x()
-             , qPrintable(QStringLiteral("Geometries do not have the same x coordinate (%1 != %2)")
-                          .arg(a.x())
-                          .arg(b.x())));
-    QVERIFY2(a.y() == b.y()
-             , qPrintable(QStringLiteral("Geometries do not have the same y coordinate (%1 != %2)")
-                          .arg(a.y())
-                          .arg(b.y())));
-    QVERIFY2(a.width() == b.width()
-             , qPrintable(QStringLiteral("Geometries do not have the same width (%1 != %2)")
-                          .arg(a.width())
-                          .arg(b.width())));
-    QVERIFY2(a.height() == b.height()
-             , qPrintable(QStringLiteral("Geometries do not have the same height (%1 != %2)")
-                          .arg(a.height())
-                          .arg(b.height())));
+    QVERIFY2(a.x() == b.x(),
+             qPrintable(QStringLiteral("Geometries do not have the same x coordinate (%1 != %2)")
+                        .arg(a.x())
+                        .arg(b.x())));
+    QVERIFY2(a.y() == b.y(),
+             qPrintable(QStringLiteral("Geometries do not have the same y coordinate (%1 != %2)")
+                        .arg(a.y())
+                        .arg(b.y())));
+    QVERIFY2(a.width() == b.width(),
+             qPrintable(QStringLiteral("Geometries do not have the same width (%1 != %2)")
+                        .arg(a.width())
+                        .arg(b.width())));
+    QVERIFY2(a.height() == b.height(),
+             qPrintable(QStringLiteral("Geometries do not have the same height (%1 != %2)")
+                        .arg(a.height())
+                        .arg(b.height())));
 }
 
 QTEST_MAIN(tst_Layouts)
