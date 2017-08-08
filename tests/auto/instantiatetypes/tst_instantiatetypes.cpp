@@ -49,8 +49,12 @@ tst_InstantiateTypes::tst_InstantiateTypes()
 void tst_InstantiateTypes::initTestCase()
 {
     // Add extensionplugin import path
-    m_qmlEngine->addImportPath(QStringLiteral("%1/../../../qml")
-                               .arg(QCoreApplication::applicationDirPath()));
+    const QString importPath = QStringLiteral("%1/../../../qml")
+            .arg(QCoreApplication::applicationDirPath());
+    QVERIFY2(QFileInfo::exists(importPath),
+             qPrintable(QStringLiteral("Extensionplugin import path does not exist: %1")
+                        .arg(importPath)));
+    m_qmlEngine->addImportPath(importPath);
 }
 
 void tst_InstantiateTypes::creatableTypes()
