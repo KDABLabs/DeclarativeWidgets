@@ -9,12 +9,10 @@ LIBS += -ldeclarativewidgets
 
 windows { # Hack while we don't have a proper build system
     release {
-        LIBS +=-L$$PWD/../../lib/Release
+        LIBS +=-L../../lib/Release
     } else {
-        LIBS +=-L$$PWD/../../lib/Debug
+        LIBS +=-L../../lib/Debug
     }
-} else:macos {
-    LIBS +=-L../../../lib
 } else {
-    LIBS +=-L$$PWD/../../lib
+    LIBS +=-L../../../lib
 }

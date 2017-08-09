@@ -6,12 +6,10 @@ LIBS += -ldeclarativewidgets
 
 windows {
     release {
-        LIBS +=-L$$PWD/../lib/Release
+        LIBS +=-L../../lib/Release
     } else {
-        LIBS +=-L$$PWD/../lib/Debug
+        LIBS +=-L../../lib/Debug
     }
-} else:mac {
-    LIBS +=-L../../lib
 } else {
-    LIBS +=-L$$PWD/../lib
+    LIBS +=-L../../lib
 }

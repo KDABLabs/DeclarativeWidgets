@@ -8,14 +8,12 @@ macx:CONFIG -= app_bundle
 LIBS += -ldeclarativewidgets
 windows { # Hack while we don't have a proper build system
     release {
-        LIBS +=-L$$PWD/lib/Release
+        LIBS +=-Llib/Release
     } else {
-        LIBS +=-L$$PWD/lib/Debug
+        LIBS +=-Llib/Debug
     }
-} else:mac {
-    LIBS +=-Llib
 } else {
-    LIBS +=-L$$PWD/lib
+    LIBS +=-Llib
 }
 
 QT += qml widgets
