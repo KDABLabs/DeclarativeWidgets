@@ -41,6 +41,7 @@ public:
 
 private slots:
     void initTestCase();
+    void creatableTypes_data();
     void creatableTypes();
     void uncreatableTypes();
 
@@ -66,9 +67,20 @@ void tst_InstantiateTypes::initTestCase()
     m_qmlEngine->addImportPath(importPath);
 }
 
+void tst_InstantiateTypes::creatableTypes_data()
+{
+    QTest::addColumn<QString>("subdirectory");
+    QTest::newRow("core") << "core";
+    QTest::newRow("layouts") << "layouts";
+    QTest::newRow("objects") << "objects";
+    QTest::newRow("widgets") << "widgets";
+    QTest::newRow("webenginewidgets") << "webenginewidgets";
+}
+
 void tst_InstantiateTypes::creatableTypes()
 {
-    QDirIterator iterator(QStringLiteral(":/qml/creatable/"), QDirIterator::Subdirectories);
+    QFETCH(QString, subdirectory);
+    QDirIterator iterator(QStringLiteral(":/qml/creatable/%1").arg(subdirectory));
     while (iterator.hasNext()) {
         QFileInfo fileInfo(iterator.next());
         if (fileInfo.isDir())
@@ -86,6 +98,11 @@ void tst_InstantiateTypes::creatableTypes()
 
         QQmlComponent component(m_qmlEngine, url);
         printErrors(component);
+#ifndef QT_WEBENGINEWIDGETS_LIB
+        QEXPECT_FAIL("webenginewidgets",
+                     "Built without Qt module 'webenginewidgets'",
+                     Continue);
+#endif
         QVERIFY2(component.status() == QQmlComponent::Ready,
                  qPrintable(QString("Failed to load \"%1\" (%2)").
                             arg(url.toString()).
@@ -93,6 +110,11 @@ void tst_InstantiateTypes::creatableTypes()
 
         QSharedPointer<QObject> creatableWidget(component.create());
         printErrors(component);
+#ifndef QT_WEBENGINEWIDGETS_LIB
+        QEXPECT_FAIL("webenginewidgets",
+                     "Built without Qt module 'webenginewidgets'",
+                     Continue);
+#endif
         QVERIFY2(creatableWidget != nullptr,
                  qPrintable(QString("Failed to create \"%1\"").arg(url.toString())));
     }
