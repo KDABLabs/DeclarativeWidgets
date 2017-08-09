@@ -53,7 +53,6 @@
         <file>qml/creatable/widgets/ToolBar.qml</file>
         <file>qml/creatable/widgets/ToolButton.qml</file>
         <file>qml/creatable/widgets/TreeView.qml</file>
-        <file>qml/creatable/widgets/WebEngineView.qml</file>
         <file>qml/creatable/widgets/Widget.qml</file>
         <file>qml/creatable/layouts/FormLayout.qml</file>
         <file>qml/creatable/layouts/GridLayout.qml</file>
@@ -66,5 +65,6 @@
         <file>qml/uncreatable/HeaderView.qml</file>
         <file>qml/uncreatable/ItemSelectionModel.qml</file>
         <file>qml/uncreatable/TextDocument.qml</file>
+        <file>qml/creatable/webenginewidgets/WebEngineView.qml</file>
     </qresource>
 </RCC>
