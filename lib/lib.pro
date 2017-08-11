@@ -8,6 +8,8 @@ qtHaveModule(webenginewidgets) {
     QT += webenginewidgets
 }
 
+DESTDIR = $${LIB_DESTDIR}
+
 mac {
     QMAKE_SONAME_PREFIX = @executable_path/../Frameworks
 }

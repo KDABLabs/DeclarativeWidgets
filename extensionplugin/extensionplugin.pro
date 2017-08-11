@@ -22,15 +22,6 @@ INCLUDEPATH += . ../lib/
 
 LIBS += -ldeclarativewidgets
 
-windows { # Hack while we don't have a proper build system
-    release {
-        LIBS +=-L../../lib/Release
-    } else {
-        LIBS +=-L../../lib/Debug
-    }
-} else {
-    LIBS +=-L../lib
-}
 OTHER_FILES = qmldir
 
 # Deploy the plugin to a more accessible location
