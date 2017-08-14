@@ -44,7 +44,7 @@ class DeclarativeLayoutContentsMargins : public QObject
   Q_PROPERTY(int bottom READ bottomMargin WRITE setBottomMargin NOTIFY marginsChanged)
 
   public:
-    DeclarativeLayoutContentsMargins(LayoutContainerInterface *layoutContainer, QObject *parent = 0);
+    explicit DeclarativeLayoutContentsMargins(LayoutContainerInterface *layoutContainer, QObject *parent = 0);
 
     void setLeftMargin(int margin);
     int leftMargin() const;

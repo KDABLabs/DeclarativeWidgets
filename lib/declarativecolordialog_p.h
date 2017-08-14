@@ -68,7 +68,7 @@ class DECLARATIVEWIDGETS_EXPORT DeclarativeColorDialog : public QColorDialog
   Q_OBJECT
 
   public:
-    DeclarativeColorDialog(QWidget *parent = 0);
+    explicit DeclarativeColorDialog(QWidget *parent = 0);
 
     static DeclarativeColorDialogAttached *qmlAttachedProperties(QObject *parent);
 };
