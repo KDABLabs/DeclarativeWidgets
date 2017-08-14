@@ -30,10 +30,12 @@
 
 #include <QWidget>
 
+QT_BEGIN_NAMESPACE
 namespace Ui
 {
     class GridLayoutWidget;
 }
+QT_END_NAMESPACE
 
 class GridLayoutWidget : public QWidget
 {

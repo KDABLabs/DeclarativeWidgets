@@ -31,7 +31,9 @@
 #include <QObject>
 #include <QVariant>
 
+QT_BEGIN_NAMESPACE
 class QSettings;
+QT_END_NAMESPACE
 
 class SettingsAdaptor : public QObject
 {

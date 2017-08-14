@@ -32,8 +32,10 @@
 
 class LayoutContainerInterface;
 
+QT_BEGIN_NAMESPACE
 class QLayout;
 class QWidget;
+QT_END_NAMESPACE
 
 class DeclarativeLayoutContentsMargins : public QObject
 {

@@ -31,8 +31,10 @@
 #include "declarativewidgets_export.h"
 #include "declarativeitemviewextension_p.h"
 
+QT_BEGIN_NAMESPACE
 class QHeaderView;
 class QTableView;
+QT_END_NAMESPACE
 
 class DECLARATIVEWIDGETS_EXPORT DeclarativeTableViewExtension : public DeclarativeItemViewExtension
 {

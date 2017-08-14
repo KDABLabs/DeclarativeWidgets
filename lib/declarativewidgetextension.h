@@ -35,9 +35,11 @@
 
 class WidgetContainerInterface;
 
+QT_BEGIN_NAMESPACE
 class QAction;
 class QLayout;
 class QWidget;
+QT_END_NAMESPACE
 
 class DECLARATIVEWIDGETS_EXPORT DeclarativeWidgetExtension : public DeclarativeObjectExtension
 {

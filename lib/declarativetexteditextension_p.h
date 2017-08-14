@@ -31,8 +31,10 @@
 #include "declarativewidgets_export.h"
 #include "declarativewidgetextension.h"
 
+QT_BEGIN_NAMESPACE
 class QTextDocument;
 class QTextEdit;
+QT_END_NAMESPACE
 
 class DECLARATIVEWIDGETS_EXPORT DeclarativeTextEditExtension : public DeclarativeWidgetExtension
 {

@@ -29,7 +29,10 @@
 #define OBJECTCONTAINERINTERFACE_H
 
 #include "declarativewidgets_export.h"
+
+QT_BEGIN_NAMESPACE
 class QObject;
+QT_END_NAMESPACE
 
 class DECLARATIVEWIDGETS_EXPORT ObjectContainerInterface
 {

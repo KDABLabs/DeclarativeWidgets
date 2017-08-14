@@ -31,8 +31,10 @@
 #include "declarativewidgets_export.h"
 #include "defaultwidgetcontainer.h"
 
+QT_BEGIN_NAMESPACE
 class QMenu;
 class QObject;
+QT_END_NAMESPACE
 
 class DECLARATIVEWIDGETS_EXPORT MenuWidgetContainer : public DefaultWidgetContainer
 {

@@ -30,10 +30,12 @@
 
 #include <QWidget>
 
+QT_BEGIN_NAMESPACE
 namespace Ui
 {
     class HBoxLayoutWidget;
 }
+QT_END_NAMESPACE
 
 class HBoxLayoutWidget : public QWidget
 {

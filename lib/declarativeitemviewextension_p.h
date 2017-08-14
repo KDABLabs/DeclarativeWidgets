@@ -31,9 +31,11 @@
 #include "declarativewidgets_export.h"
 #include "declarativewidgetextension.h"
 
+QT_BEGIN_NAMESPACE
 class QAbstractItemModel;
 class QAbstractItemView;
 class QItemSelectionModel;
+QT_END_NAMESPACE
 
 class DECLARATIVEWIDGETS_EXPORT DeclarativeItemViewPropertySignals
 {

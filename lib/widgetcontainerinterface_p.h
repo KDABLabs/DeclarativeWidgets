@@ -30,9 +30,11 @@
 
 #include "declarativewidgets_export.h"
 
+QT_BEGIN_NAMESPACE
 class QAction;
 class QLayout;
 class QWidget;
+QT_END_NAMESPACE
 
 class DECLARATIVEWIDGETS_EXPORT WidgetContainerInterface
 {

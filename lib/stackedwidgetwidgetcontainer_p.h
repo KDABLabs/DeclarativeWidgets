@@ -31,8 +31,10 @@
 #include "declarativewidgets_export.h"
 #include "defaultwidgetcontainer.h"
 
+QT_BEGIN_NAMESPACE
 class QObject;
 class QStackedWidget;
+QT_END_NAMESPACE
 
 class DECLARATIVEWIDGETS_EXPORT StackedWidgetWidgetContainer : public DefaultWidgetContainer
 {

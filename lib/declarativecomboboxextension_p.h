@@ -32,8 +32,10 @@
 #include "declarativewidgets_export.h"
 #include "declarativewidgetextension.h"
 
+QT_BEGIN_NAMESPACE
 class QComboBox;
 class QAbstractItemModel;
+QT_END_NAMESPACE
 
 class DECLARATIVEWIDGETS_EXPORT DeclarativeComboBoxExtension : public DeclarativeWidgetExtension
 {

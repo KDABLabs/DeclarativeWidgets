@@ -34,7 +34,9 @@
 #include <QObject>
 #include <QUrl>
 
+QT_BEGIN_NAMESPACE
 class QQmlEngine;
+QT_END_NAMESPACE
 
 class DECLARATIVEWIDGETS_EXPORT DeclarativeWidgetsDocument : public QObject
 {

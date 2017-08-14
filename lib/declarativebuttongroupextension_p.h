@@ -33,7 +33,9 @@
 
 #include <QVariantList>
 
+QT_BEGIN_NAMESPACE
 class QButtonGroup;
+QT_END_NAMESPACE
 
 class DECLARATIVEWIDGETS_EXPORT DeclarativeButtonGroupExtension : public DeclarativeObjectExtension
 {

@@ -33,9 +33,11 @@
 class BookListProxyModel;
 class BooksOfAuthorModel;
 
+QT_BEGIN_NAMESPACE
 class QModelIndex;
 class QSqlError;
 class QSqlTableModel;
+QT_END_NAMESPACE
 
 class BookStore : public QObject
 {

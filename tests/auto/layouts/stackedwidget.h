@@ -30,10 +30,12 @@
 
 #include <QStackedWidget>
 
+QT_BEGIN_NAMESPACE
 namespace Ui
 {
     class StackedWidget;
 }
+QT_END_NAMESPACE
 
 class StackedWidget : public QStackedWidget
 {

@@ -31,7 +31,9 @@
 #include "declarativewidgets_export.h"
 #include "declarativeobjectextension.h"
 
+QT_BEGIN_NAMESPACE
 class QFileSystemModel;
+QT_END_NAMESPACE
 
 class DECLARATIVEWIDGETS_EXPORT DeclarativeFileSystemModelExtension : public DeclarativeObjectExtension
 {

@@ -32,8 +32,10 @@
 #include <QSharedPointer>
 #include <QScopedPointer>
 
+QT_BEGIN_NAMESPACE
 class QIODevice;
 class QXmlStreamReader;
+QT_END_NAMESPACE
 
 class UiNode;
 class UiTopNode;

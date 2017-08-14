@@ -31,8 +31,11 @@
 #include "declarativewidgets_export.h"
 
 class DeclarativeSpacerItem;
+
+QT_BEGIN_NAMESPACE
 class QLayout;
 class QWidget;
+QT_END_NAMESPACE
 
 class DECLARATIVEWIDGETS_EXPORT LayoutContainerInterface
 {

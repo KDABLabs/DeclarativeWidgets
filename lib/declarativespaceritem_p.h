@@ -34,7 +34,9 @@
 #include <QSize>
 #include <QSizePolicy>
 
+QT_BEGIN_NAMESPACE
 class QSpacerItem;
+QT_END_NAMESPACE
 
 class DECLARATIVEWIDGETS_EXPORT DeclarativeSpacerItem : public QObject
 {
