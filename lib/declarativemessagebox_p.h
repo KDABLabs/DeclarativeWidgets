@@ -31,7 +31,6 @@
 
 #include "declarativewidgets_export.h"
 #include "staticdialogmethodattached_p.h"
-#include "declarativewidgets_export.h"
 
 #include <QMessageBox>
 #include <qqml.h>
