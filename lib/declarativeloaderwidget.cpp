@@ -30,7 +30,6 @@
 #include "abstractdeclarativeobject_p.h"
 
 #include <QDebug>
-#include <qqml.h>
 #include <QQmlComponent>
 #include <QVBoxLayout>
 
@@ -73,7 +72,6 @@ QUrl DeclarativeLoaderWidget::source() const
 {
   return d->source;
 }
-
 
 void DeclarativeLoaderWidget::updateDelegate()
 {

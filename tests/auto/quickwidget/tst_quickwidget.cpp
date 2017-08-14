@@ -26,8 +26,9 @@
 */
 
 #include <QObject>
-#include <QtQml>
-#include <QtTest/QtTest>
+#include <QtTest>
+
+#include <QQmlEngine>
 
 #include <QQuickItem>
 #include <QQuickWidget>

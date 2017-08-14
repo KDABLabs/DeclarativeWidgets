@@ -100,7 +100,6 @@
 #ifdef QT_WEBENGINEWIDGETS_LIB
 # include <QWebEngineView>
 #endif
-#include <qqml.h>
 
 // @uri QtWidgets
 void ExtensionpluginPlugin::registerTypes(const char *uri)

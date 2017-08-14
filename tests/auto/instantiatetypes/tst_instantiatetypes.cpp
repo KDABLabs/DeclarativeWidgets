@@ -27,8 +27,10 @@
 
 #include <QtTest>
 
+#include <QQmlComponent>
+#include <QQmlEngine>
+
 #include <QDirIterator>
-#include <QtQml>
 
 class tst_InstantiateTypes : public QObject
 {
@@ -43,7 +45,7 @@ private slots:
     void uncreatableTypes();
 
 private:
-    QQmlEngine* m_qmlEngine;
+    QQmlEngine *m_qmlEngine;
 
 };
 
@@ -51,17 +53,16 @@ tst_InstantiateTypes::tst_InstantiateTypes()
     : QObject()
     , m_qmlEngine(new QQmlEngine(this))
 {
-
 }
 
 void tst_InstantiateTypes::initTestCase()
 {
     // Add extensionplugin import path
-    const QString importPath = QStringLiteral("%1/../../../qml")
-            .arg(QCoreApplication::applicationDirPath());
+    const QString importPath = QStringLiteral("%1/../../../qml").
+        arg(QCoreApplication::applicationDirPath());
     QVERIFY2(QFileInfo::exists(importPath),
-             qPrintable(QStringLiteral("Extensionplugin import path does not exist: %1")
-                        .arg(importPath)));
+             qPrintable(QStringLiteral("Extensionplugin import path does not exist: %1").
+                        arg(importPath)));
     m_qmlEngine->addImportPath(importPath);
 }
 
@@ -75,25 +76,25 @@ void tst_InstantiateTypes::creatableTypes()
 
         QUrl url = QUrl::fromLocalFile(fileInfo.filePath());
 
-        auto printErrors = [](const QQmlComponent& component) {
+        auto printErrors = [](const QQmlComponent &component) {
             if (component.isError()) {
-                for (auto error : component.errors())
+                for (auto error : component.errors()) {
                     QWARN(qPrintable(error.toString()));
+                }
             }
         };
 
         QQmlComponent component(m_qmlEngine, url);
         printErrors(component);
         QVERIFY2(component.status() == QQmlComponent::Ready,
-                 qPrintable(QString("Failed to load \"%1\" (%2)")
-                            .arg(url.toString())
-                            .arg(component.status())));
+                 qPrintable(QString("Failed to load \"%1\" (%2)").
+                            arg(url.toString()).
+                            arg(component.status())));
 
         QSharedPointer<QObject> creatableWidget(component.create());
         printErrors(component);
         QVERIFY2(creatableWidget != nullptr,
-                 qPrintable(QString("Failed to create \"%1\"")
-                            .arg(url.toString())));
+                 qPrintable(QString("Failed to create \"%1\"").arg(url.toString())));
     }
 }
 
@@ -105,15 +106,14 @@ void tst_InstantiateTypes::uncreatableTypes()
 
         QQmlComponent component(m_qmlEngine, url);
         QVERIFY2(component.status() == QQmlComponent::Error,
-                 qPrintable(QString("Should not be able to instantiate \"%1\" (%2)")
-                            .arg(url.toString())
-                            .arg(component.status())));
+                 qPrintable(QString("Should not be able to instantiate \"%1\" (%2)").
+                            arg(url.toString()).
+                            arg(component.status())));
 
         QTest::ignoreMessage(QtWarningMsg, "QQmlComponent: Component is not ready");
         QSharedPointer<QObject> uncreatableWidget(component.create());
         QVERIFY2(uncreatableWidget == nullptr,
-                 qPrintable(QString("Should not be able to create \"%1\"")
-                            .arg(url.toString())));
+                 qPrintable(QString("Should not be able to create \"%1\"").arg(url.toString())));
     }
 }
 
