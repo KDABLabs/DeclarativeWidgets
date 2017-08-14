@@ -25,8 +25,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef DECLARATIVECONTEXT_P_H
-#define DECLARATIVECONTEXT_P_H
+#ifndef DECLARATIVEQMLCONTEXT_P_H
+#define DECLARATIVEQMLCONTEXT_P_H
 
 #include "declarativewidgets_export.h"
 #include "declarativeobjectproxy_p.h"

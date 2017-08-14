@@ -25,8 +25,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef DECLARATIVEDECLARATIVEVIEWEXTENSION_P_H
-#define DECLARATIVEDECLARATIVEVIEWEXTENSION_P_H
+#ifndef DECLARATIVEQUICKWIDGETEXTENSION_P_H
+#define DECLARATIVEQUICKWIDGETEXTENSION_P_H
 
 #include "declarativewidgets_export.h"
 #include "declarativewidgetextension.h"
