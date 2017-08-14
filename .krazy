@@ -4,7 +4,7 @@ CHECKSETS qt5,c++,foss
 EXTRA kdabcopyright,kdabcommercial
 
 #additional checks
-EXTRA defines,null
+EXTRA defines,null,camelcase
 
 #exclude checks now being done by clazy
 EXCLUDE foreach
