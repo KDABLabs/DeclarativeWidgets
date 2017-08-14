@@ -56,7 +56,7 @@ int AbstractDeclarativeObject::dataCount() const
   return 0;
 }
 
-QObject* AbstractDeclarativeObject::dataAt(int) const
+QObject *AbstractDeclarativeObject::dataAt(int) const
 {
   return 0;
 }
@@ -73,7 +73,7 @@ void AbstractDeclarativeObject::connectAllSignals(const QObject *sender, const Q
       if (blacklist.contains(method.methodSignature()))
         continue;
 
-      const QByteArray signature = "2" + QByteArray(method.methodSignature());
+      const QByteArray signature = '2' + QByteArray(method.methodSignature());
       QObject::connect(sender, signature.data(), receiver, signature.data());
     }
   }
@@ -85,29 +85,30 @@ void AbstractDeclarativeObject::data_append(QQmlListProperty<QObject> *property,
     return;
 
   AbstractDeclarativeObject *that = dynamic_cast<AbstractDeclarativeObject*>(property->object);
-  if (that)
+  if (that) {
     that->dataAppend(object);
-  else
+  } else {
     qWarning("cast went wrong in data_append");
+  }
 }
 
 int AbstractDeclarativeObject::data_count(QQmlListProperty<QObject> *property)
 {
   AbstractDeclarativeObject *that = dynamic_cast<AbstractDeclarativeObject*>(property->object);
-  if (that)
+  if (that) {
     return that->dataCount();
-  else {
+  } else {
     qWarning("cast went wrong in data_count");
     return 0;
   }
 }
 
-QObject* AbstractDeclarativeObject::data_at(QQmlListProperty<QObject> *property, int index)
+QObject *AbstractDeclarativeObject::data_at(QQmlListProperty<QObject> *property, int index)
 {
   AbstractDeclarativeObject *that = dynamic_cast<AbstractDeclarativeObject*>(property->object);
-  if (that)
+  if (that) {
     return that->dataAt(index);
-  else {
+  } else {
     qWarning("cast went wrong in data_at");
     return 0;
   }
@@ -116,9 +117,9 @@ QObject* AbstractDeclarativeObject::data_at(QQmlListProperty<QObject> *property,
 void AbstractDeclarativeObject::data_clear(QQmlListProperty<QObject> *property)
 {
   AbstractDeclarativeObject *that = dynamic_cast<AbstractDeclarativeObject*>(property->object);
-  if (that)
+  if (that) {
     that->dataClear();
-  else
+  } else {
     qWarning("cast went wrong in data_clear");
+  }
 }
-
