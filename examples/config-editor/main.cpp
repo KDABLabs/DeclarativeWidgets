@@ -27,9 +27,9 @@
 
 #include "configeditor.h"
 
-#include "declarativewidgetsdocument.h"
-
 #include <QApplication>
+#include <QQmlComponent>
+#include <QQmlContext>
 #include <QQmlEngine>
 #include <QWidget>
 
@@ -41,14 +41,12 @@ int main(int argc, char *argv[])
 #ifdef Q_OS_MACOS
   engine.addImportPath(QStringLiteral("%1/../PlugIns").arg(QCoreApplication::applicationDirPath()));
 #endif
-  
-  DeclarativeWidgetsDocument document(QUrl("qrc:///main.qml"), &engine);
-  QObject::connect(document.engine(), SIGNAL(quit()), &app, SLOT(quit()));
-
   ConfigEditor editor;
-  document.setContextProperty("_editor", &editor);
+  engine.rootContext()->setContextProperty("_editor", &editor);
+  QObject::connect(&engine, &QQmlEngine::quit, QCoreApplication::instance(), &QCoreApplication::quit);
 
-  QWidget *widget = document.create<QWidget>();
+  QQmlComponent component(&engine, QStringLiteral("qrc:///main.qml"));
+  QWidget *widget = qobject_cast<QWidget*>(component.create());
   if (!widget)
     qFatal("Failed to create widget from document");
 

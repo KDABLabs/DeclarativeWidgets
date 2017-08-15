@@ -27,10 +27,10 @@
 
 #include "editor.h"
 
-#include "declarativewidgetsdocument.h"
-
 #include <QApplication>
 #include <QDebug>
+#include <QQmlComponent>
+#include <QQmlContext>
 #include <QQmlEngine>
 #include <QWidget>
 
@@ -44,14 +44,15 @@ int main(int argc, char **argv)
 #ifdef Q_OS_MACOS
   engine.addImportPath(QStringLiteral("%1/../PlugIns").arg(QCoreApplication::applicationDirPath()));
 #endif
-
-  DeclarativeWidgetsDocument document(documentUrl, &engine);
-  QObject::connect(document.engine(), SIGNAL(quit()), &app, SLOT(quit()));
-
   Editor editor;
-  document.setContextProperty("_editor", &editor);
+  engine.rootContext()->setContextProperty("_editor", &editor);
+  QObject::connect(&engine, &QQmlEngine::quit, QCoreApplication::instance(), &QCoreApplication::quit);
 
-  QWidget *widget = document.create<QWidget>();
+  QQmlComponent component(&engine, documentUrl);
+  QWidget *widget = qobject_cast<QWidget*>(component.create());
+  for (auto error : component.errors())
+      qWarning() << error;
+  qWarning() << component.errorString();
   if (!widget)
     qFatal("Failed to create widget from document");
     

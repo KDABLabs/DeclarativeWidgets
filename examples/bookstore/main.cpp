@@ -28,10 +28,9 @@
 
 #include "bookstore.h"
 
-#include "declarativewidgetsdocument.h"
-
 #include <QApplication>
 #include <QDebug>
+#include <QQmlComponent>
 #include <QQmlContext>
 #include <QQmlEngine>
 #include <QQuickWidget>
@@ -45,13 +44,11 @@ static QWidget *createDeclarativeWidgetsUi(BookStore *bookStore, const QString &
 #ifdef Q_OS_MACOS
   engine.addImportPath(QStringLiteral("%1/../PlugIns").arg(QCoreApplication::applicationDirPath()));
 #endif
+  engine.rootContext()->setContextProperty("_store", bookStore);
+  QObject::connect(&engine, &QQmlEngine::quit, QCoreApplication::instance(), &QCoreApplication::quit);
 
-  DeclarativeWidgetsDocument *document = new DeclarativeWidgetsDocument(documentUrl, &engine, bookStore);
-  QObject::connect(document->engine(), SIGNAL(quit()), QCoreApplication::instance(), SLOT(quit()));
-
-  document->setContextProperty("_store", bookStore);
-
-  QWidget *widget = document->create<QWidget>();
+  QQmlComponent component(&engine, fileName, bookStore);
+  QWidget *widget = qobject_cast<QWidget*>(component.create());
   if (!widget)
     qFatal("Failed to create widget from document");
 
