@@ -26,12 +26,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "declarativewidgetsdocument.h"
-
 #include <QApplication>
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
+#include <QQmlComponent>
 #include <QQmlEngine>
 #include <QWidget>
 
@@ -50,11 +49,10 @@ int main(int argc, char **argv)
 
   QQmlEngine engine;
   engine.addImportPath(QStringLiteral("%1/qml").arg(QCoreApplication::applicationDirPath()));
+  QObject::connect(&engine, &QQmlEngine::quit, QCoreApplication::instance(), &QCoreApplication::quit);
 
-  DeclarativeWidgetsDocument document(documentUrl, &engine);
-  QObject::connect(document.engine(), SIGNAL(quit()), &app, SLOT(quit()));
-
-  QWidget *widget = document.create<QWidget>();
+  QQmlComponent component(&engine, documentUrl);
+  QWidget *widget = qobject_cast<QWidget*>(component.create());
   if (widget) {
     widget->show();
     return app.exec();

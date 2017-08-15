@@ -52,7 +52,6 @@ HEADERS = \
   declarativetreeviewextension_p.h \
   declarativevboxlayout_p.h \
   declarativewidgetextension.h \
-  declarativewidgetsdocument.h \
   defaultobjectcontainer_p.h \
   defaultwidgetcontainer.h \
   layoutcontainerinterface_p.h \
@@ -105,7 +104,6 @@ SOURCES = \
   declarativetreeviewextension.cpp \
   declarativevboxlayout.cpp \
   declarativewidgetextension.cpp \
-  declarativewidgetsdocument.cpp \
   defaultobjectcontainer.cpp \
   defaultwidgetcontainer.cpp \
   mainwindowwidgetcontainer.cpp \
