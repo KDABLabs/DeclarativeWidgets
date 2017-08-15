@@ -1,0 +1,24 @@
+The DeclarativeWidgets software uses Qt's qmake buildsystem.
+
+To build this library you will need:
+ - A C++11 compliant compiler
+ - Qt5
+
+Building on Unix with gcc:
+% mkdir build
+% cd build
+% qmake -r ../declarativewidgets.pro
+% make
+% make install
+
+Building on Windows with Microsoft Visual Studio:
+% mkdir build
+% cd build
+% qmake -r ..\declarativewidgets.pro
+% nmake (or jom)
+% nmake install
+
+
+The installation will be made into your Qt5 which means
+you might need administrative powers (or sudo).
+Choose the qmake associated with the Qt5 you want to install to.
