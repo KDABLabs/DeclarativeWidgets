@@ -29,12 +29,10 @@
 #include <QtTest>
 
 #include <QQmlEngine>
+#include <QQmlContext>
 
 #include <QQuickItem>
 #include <QQuickWidget>
-
-#include "declarativeqmlcontext_p.h"
-#include "declarativequickwidgetextension_p.h"
 
 class tst_QuickWidget : public QObject
 {
@@ -43,24 +41,37 @@ public:
     tst_QuickWidget();
 
 private slots:
+    void initTestCase();
     void instantiateQQuickWidget();
     void instantiateQQuickWidgetWithContext();
     void instantiateQQuickWidgetWithContextProperty();
+
+private:
+    QString m_importPath;
 };
 
 tst_QuickWidget::tst_QuickWidget()
+    : QObject()
+    , m_importPath()
 {
-    qmlRegisterType<DeclarativeQmlContextProperty>("Qt.Widgets", 1, 0, "QmlContextProperty");
-    qmlRegisterType<DeclarativeQmlContext>("Qt.Widgets", 1, 0, "QmlContext");
 
-    qmlRegisterExtendedType<QQuickWidget, DeclarativeQuickWidgetExtension>("Qt.Widgets", 1, 0, "QuickWidget");
+}
+
+void tst_QuickWidget::initTestCase()
+{
+    // Add QtWidgets QML plugin import path
+    m_importPath = QString(PLUGIN_IMPORT_PATH);
+    QVERIFY2(QFileInfo::exists(m_importPath),
+             qPrintable(QStringLiteral("QtWidgets QML plugin import path does not exist: %1").
+                        arg(m_importPath)));
 }
 
 void tst_QuickWidget::instantiateQQuickWidget()
 {
     QQmlEngine engine;
+    engine.addImportPath(m_importPath);
     QQmlComponent component(&engine);
-    component.setData("import Qt.Widgets 1.0;\n"
+    component.setData("import QtWidgets 1.0;\n"
                       "QuickWidget { \n"
                       "    source: \"qrc:///rectangle.qml\"\n"
                       "}", QUrl());
@@ -77,8 +88,9 @@ void tst_QuickWidget::instantiateQQuickWidget()
 void tst_QuickWidget::instantiateQQuickWidgetWithContext()
 {
     QQmlEngine engine;
+    engine.addImportPath(m_importPath);
     QQmlComponent component(&engine);
-    component.setData("import Qt.Widgets 1.0;\n"
+    component.setData("import QtWidgets 1.0;\n"
                       "QuickWidget { \n"
                       "    source: \"qrc:///rectangle.qml\"\n"
                       "    rootContext: QmlContext { }"
@@ -98,8 +110,9 @@ void tst_QuickWidget::instantiateQQuickWidgetWithContext()
 void tst_QuickWidget::instantiateQQuickWidgetWithContextProperty()
 {
     QQmlEngine engine;
+    engine.addImportPath(m_importPath);
     QQmlComponent component(&engine);
-    component.setData("import Qt.Widgets 1.0;\n"
+    component.setData("import QtWidgets 1.0;\n"
                       "QuickWidget { \n"
                       "    source: \"qrc:///rectangle-context.qml\"\n"
                       "    rootContext: QmlContext {\n"

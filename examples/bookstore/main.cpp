@@ -43,6 +43,8 @@ static QWidget *createDeclarativeWidgetsUi(BookStore *bookStore, const QString &
   QQmlEngine engine;
 #ifdef Q_OS_MACOS
   engine.addImportPath(QStringLiteral("%1/../PlugIns").arg(QCoreApplication::applicationDirPath()));
+#else
+  engine.addImportPath(PLUGIN_IMPORT_PATH);
 #endif
   engine.rootContext()->setContextProperty("_store", bookStore);
   QObject::connect(&engine, &QQmlEngine::quit, QCoreApplication::instance(), &QCoreApplication::quit);

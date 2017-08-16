@@ -1,11 +1,10 @@
 /*
-  extensionplugin_plugin.h
+  declarativecontainerwidgetextension_p.h
 
   This file is part of DeclarativeWidgets, library and tools for creating QtWidget UIs with QML.
 
   Copyright (C) 2013-2017 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer <kevin.krammer@kdab.com>
-  Author: Nathan Collins <nathan.collins@kdab.com>
 
   Licensees holding valid commercial KDAB DeclarativeWidgets licenses may use this file in
   accordance with DeclarativeWidgets Commercial License Agreement provided with the Software.
@@ -26,19 +25,19 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef EXTENSIONPLUGIN_PLUGIN_H
-#define EXTENSIONPLUGIN_PLUGIN_H
+#ifndef DECLARATIVECONTAINERWIDGETEXTENSION_P_H
+#define DECLARATIVECONTAINERWIDGETEXTENSION_P_H
 
-#include <QQmlExtensionPlugin>
+//#include "declarativewidgets_export.h"
+#include "declarativewidgetextension.h"
 
-class ExtensionpluginPlugin : public QQmlExtensionPlugin
+template <class T>
+class DeclarativeContainerWidgetExtension : public DeclarativeWidgetExtension
 {
-  Q_OBJECT
-  Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
-
   public:
-    void registerTypes(const char *uri);
+    explicit DeclarativeContainerWidgetExtension(QObject *parent = 0)
+      : DeclarativeWidgetExtension(new T(parent), parent)
+    {}
 };
 
-#endif // EXTENSIONPLUGIN_PLUGIN_H
-
+#endif // DECLARATIVECONTAINERWIDGETEXTENSION_P_H

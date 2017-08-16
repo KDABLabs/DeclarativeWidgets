@@ -1,11 +1,9 @@
 TEMPLATE = app
 TARGET = declarativewidgets
 DEPENDPATH += .
-INCLUDEPATH += . lib/
+INCLUDEPATH += .
 
 macx:CONFIG -= app_bundle
-
-LIBS += -ldeclarativewidgets
 
 QT += qml widgets
 

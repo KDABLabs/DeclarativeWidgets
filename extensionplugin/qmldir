@@ -1,3 +1,0 @@
-module QtWidgets
-plugin declarativewidgetsplugin
-typeinfo declarativewidgets.typeinfo

@@ -48,7 +48,7 @@ int main(int argc, char **argv)
   const QUrl documentUrl = QUrl::fromLocalFile(qmlFile.absoluteFilePath());
 
   QQmlEngine engine;
-  engine.addImportPath(QStringLiteral("%1/qml").arg(QCoreApplication::applicationDirPath()));
+  engine.addImportPath(PLUGIN_IMPORT_PATH);
   QObject::connect(&engine, &QQmlEngine::quit, QCoreApplication::instance(), &QCoreApplication::quit);
 
   QQmlComponent component(&engine, documentUrl);

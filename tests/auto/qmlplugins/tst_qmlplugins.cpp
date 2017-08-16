@@ -33,6 +33,7 @@ public:
     tst_QmlPlugins();
 
 private slots:
+    void initTestCase();
     void qtWidgetsPlugin();
 
 private:
@@ -45,14 +46,28 @@ tst_QmlPlugins::tst_QmlPlugins()
     , m_qmlEngine(new QQmlEngine(this))
 {
     // Add extensionplugin import path
-    m_qmlEngine->addImportPath(QStringLiteral("%1/../../../qml").arg(QCoreApplication::applicationDirPath()));
+}
+
+void tst_QmlPlugins::initTestCase()
+{
+    // Add QtWidgets QML plugin import path
+    const QString importPath(PLUGIN_IMPORT_PATH);
+    QVERIFY2(QFileInfo::exists(importPath),
+             qPrintable(QStringLiteral("QtWidgets QML plugin import path does not exist: %1").
+                        arg(importPath)));
+    m_qmlEngine->addImportPath(importPath);
 }
 
 void tst_QmlPlugins::qtWidgetsPlugin()
 {
     QQmlComponent component(m_qmlEngine);
     component.setData(QStringLiteral("import QtWidgets 1.0; MainWindow { width: 100; height: 100; Label { text:\"QtWidgets\" } }").toUtf8(), QUrl());
-
+    if (component.isError()) {
+        for (auto error : component.errors()) {
+            QWARN(qPrintable(error.toString()));
+        }
+    }
+    QVERIFY(component.isReady());
     QScopedPointer<QMainWindow> window(qobject_cast<QMainWindow*>(component.create()));
     QVERIFY(window);
 

@@ -2,7 +2,8 @@ TEMPLATE = subdirs
 
 CONFIG += ordered
 
-SUBDIRS = lib runner.pro examples \
-    extensionplugin \
+SUBDIRS = declarativewidgets \
+    runner.pro \
+    examples \
     tests \
     ui2dw
