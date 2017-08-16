@@ -2,7 +2,7 @@ TEMPLATE = subdirs
 
 CONFIG += ordered
 
-SUBDIRS = declarativewidgets \
+SUBDIRS = src \
     runner.pro \
     examples \
     tests \
