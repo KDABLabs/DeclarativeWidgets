@@ -2,7 +2,8 @@ The DeclarativeWidgets software uses Qt's qmake buildsystem.
 
 To build this library you will need:
  - A C++11 compliant compiler
- - Qt5
+ - Qt5 built from the dev branch with this patch applied to qtdeclarative:
+   https://codereview.qt-project.org/#/c/73592/
 
 Building on Unix with gcc:
 % mkdir build
