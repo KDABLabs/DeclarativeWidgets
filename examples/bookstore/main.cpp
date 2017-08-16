@@ -47,10 +47,10 @@ static QWidget *createDeclarativeWidgetsUi(BookStore *bookStore, const QString &
   engine.rootContext()->setContextProperty("_store", bookStore);
   QObject::connect(&engine, &QQmlEngine::quit, QCoreApplication::instance(), &QCoreApplication::quit);
 
-  QQmlComponent component(&engine, fileName, bookStore);
+  QQmlComponent component(&engine, documentUrl, bookStore);
   QWidget *widget = qobject_cast<QWidget*>(component.create());
   if (!widget)
-    qFatal("Failed to create widget from document");
+    qFatal("Failed to create widget from QML");
 
   return widget;
 }
