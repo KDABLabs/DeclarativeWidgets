@@ -40,6 +40,8 @@ int main(int argc, char *argv[])
   QQmlEngine engine;
 #ifdef Q_OS_MACOS
   engine.addImportPath(QStringLiteral("%1/../PlugIns").arg(QCoreApplication::applicationDirPath()));
+#else
+  engine.addImportPath(PLUGIN_IMPORT_PATH);
 #endif
   ConfigEditor editor;
   engine.rootContext()->setContextProperty("_editor", &editor);

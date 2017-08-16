@@ -1,5 +1,4 @@
 TEMPLATE = app
 DEPENDPATH += .
-INCLUDEPATH += . $$PWD/../lib
+INCLUDEPATH += .
 QT += qml widgets
-LIBS += -ldeclarativewidgets

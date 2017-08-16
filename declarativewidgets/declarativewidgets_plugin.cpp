@@ -1,5 +1,5 @@
 /*
-  extensionplugin_plugin.cpp
+  declarativewidgets_plugin.cpp
 
   This file is part of DeclarativeWidgets, library and tools for creating QtWidget UIs with QML.
 
@@ -26,7 +26,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "extensionplugin_plugin.h"
+#include "declarativewidgets_plugin.h"
 
 #include "declarativeactionitem_p.h"
 #include "declarativeaction_p.h"
@@ -110,6 +110,7 @@
 void ExtensionpluginPlugin::registerTypes(const char *uri)
 {
   Q_ASSERT(uri == QLatin1String("QtWidgets"));
+
 
   // uncreatable core
   qmlRegisterType<QAbstractItemModel>();

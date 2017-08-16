@@ -58,11 +58,10 @@ tst_InstantiateTypes::tst_InstantiateTypes()
 
 void tst_InstantiateTypes::initTestCase()
 {
-    // Add extensionplugin import path
-    const QString importPath = QStringLiteral("%1/../../../qml").
-        arg(QCoreApplication::applicationDirPath());
+    // Add QtWidgets QML plugin import path
+    const QString importPath(PLUGIN_IMPORT_PATH);
     QVERIFY2(QFileInfo::exists(importPath),
-             qPrintable(QStringLiteral("Extensionplugin import path does not exist: %1").
+             qPrintable(QStringLiteral("QtWidgets QML plugin import path does not exist: %1").
                         arg(importPath)));
     m_qmlEngine->addImportPath(importPath);
 }
@@ -79,6 +78,14 @@ void tst_InstantiateTypes::creatableTypes_data()
 
 void tst_InstantiateTypes::creatableTypes()
 {
+    auto printErrors = [](const QQmlComponent &component) {
+        if (component.isError()) {
+            for (auto error : component.errors()) {
+                QWARN(qPrintable(error.toString()));
+            }
+        }
+    };
+
     QFETCH(QString, subdirectory);
     QDirIterator iterator(QStringLiteral(":/qml/creatable/%1").arg(subdirectory));
     while (iterator.hasNext()) {
@@ -87,15 +94,6 @@ void tst_InstantiateTypes::creatableTypes()
             continue;
 
         QUrl url = QUrl::fromLocalFile(fileInfo.filePath());
-
-        auto printErrors = [](const QQmlComponent &component) {
-            if (component.isError()) {
-                for (auto error : component.errors()) {
-                    QWARN(qPrintable(error.toString()));
-                }
-            }
-        };
-
         QQmlComponent component(m_qmlEngine, url);
         printErrors(component);
 #ifndef QT_WEBENGINEWIDGETS_LIB
