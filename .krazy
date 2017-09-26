@@ -5,6 +5,3 @@ EXTRA kdabcopyright,kdabcommercial
 
 #additional checks
 EXTRA defines,null,camelcase
-
-#exclude checks now being done by clazy
-EXCLUDE foreach
