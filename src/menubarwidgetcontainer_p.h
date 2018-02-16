@@ -28,7 +28,7 @@
 #ifndef MENUBARWIDGETCONTAINER_P_H
 #define MENUBARWIDGETCONTAINER_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "defaultwidgetcontainer.h"
 
 QT_BEGIN_NAMESPACE
@@ -36,7 +36,7 @@ class QMenuBar;
 class QObject;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT MenuBarWidgetContainer : public DefaultWidgetContainer
+class MenuBarWidgetContainer : public DefaultWidgetContainer
 {
   public:
     explicit MenuBarWidgetContainer(QObject *parent = 0);

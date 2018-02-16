@@ -28,7 +28,7 @@
 #ifndef DECLARATIVESTRINGLISTMODELEXTENSION_H
 #define DECLARATIVESTRINGLISTMODELEXTENSION_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "declarativeobjectextension.h"
 
 #include <QStringList>
@@ -37,7 +37,7 @@ QT_BEGIN_NAMESPACE
 class QStringListModel;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeStringListModelExtension : public DeclarativeObjectExtension
+class DeclarativeStringListModelExtension : public DeclarativeObjectExtension
 {
   Q_OBJECT
 

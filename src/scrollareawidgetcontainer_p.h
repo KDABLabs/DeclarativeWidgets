@@ -28,7 +28,7 @@
 #ifndef SCROLLAREAWIDGETCONTAINER_P_H
 #define SCROLLAREAWIDGETCONTAINER_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "defaultwidgetcontainer.h"
 
 QT_BEGIN_NAMESPACE
@@ -36,7 +36,7 @@ class QObject;
 class QScrollArea;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT ScrollAreaWidgetContainer : public DefaultWidgetContainer
+class ScrollAreaWidgetContainer : public DefaultWidgetContainer
 {
   public:
     explicit ScrollAreaWidgetContainer(QObject *parent = 0);

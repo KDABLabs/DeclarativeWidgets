@@ -29,13 +29,13 @@
 #ifndef DECLARATIVEFONTDIALOG_P_H
 #define DECLARATIVEFONTDIALOG_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "staticdialogmethodattached_p.h"
 
 #include <QFontDialog>
 #include <qqml.h>
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeFontDialogAttached : public StaticDialogMethodAttached
+class DeclarativeFontDialogAttached : public StaticDialogMethodAttached
 {
   Q_OBJECT
   Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
@@ -69,7 +69,7 @@ class DECLARATIVEWIDGETS_EXPORT DeclarativeFontDialogAttached : public StaticDia
     Private *const d;
 };
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeFontDialog : public QFontDialog
+class DeclarativeFontDialog : public QFontDialog
 {
   Q_OBJECT
 

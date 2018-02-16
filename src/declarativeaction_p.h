@@ -29,11 +29,11 @@
 #ifndef DECLARATIVEACTION_P_H
 #define DECLARATIVEACTION_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 
 #include <QAction>
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeAction : public QAction
+class DeclarativeAction : public QAction
 {
   Q_OBJECT
 

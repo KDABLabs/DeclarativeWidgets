@@ -28,14 +28,14 @@
 #ifndef DECLARATIVEICON_P_H
 #define DECLARATIVEICON_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 
 #include <QIcon>
 #include <QObject>
 #include <qqml.h>
 #include <QStringList>
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeIconAttached : public QObject
+class DeclarativeIconAttached : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(QString themeName READ themeName WRITE setThemeName NOTIFY themeNameChanged)
@@ -58,7 +58,7 @@ class DECLARATIVEWIDGETS_EXPORT DeclarativeIconAttached : public QObject
     void themeSearchPathsChanged(const QStringList &themeSearchPaths);
 };
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeIcon : public QObject
+class DeclarativeIcon : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(QIcon icon READ icon WRITE setIcon NOTIFY iconChanged)

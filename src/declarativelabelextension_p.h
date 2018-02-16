@@ -28,10 +28,10 @@
 #ifndef DECLARATIVELABELEXTENSION_P_H
 #define DECLARATIVELABELEXTENSION_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "declarativewidgetextension.h"
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeLabelExtension : public DeclarativeWidgetExtension
+class DeclarativeLabelExtension : public DeclarativeWidgetExtension
 {
   Q_OBJECT
   Q_PROPERTY(QWidget* buddy READ buddy WRITE setBuddy NOTIFY buddyChanged)

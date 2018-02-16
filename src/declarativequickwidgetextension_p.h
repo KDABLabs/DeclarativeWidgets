@@ -28,7 +28,7 @@
 #ifndef DECLARATIVEQUICKWIDGETEXTENSION_P_H
 #define DECLARATIVEQUICKWIDGETEXTENSION_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "declarativewidgetextension.h"
 
 #include <QPointer>
@@ -39,7 +39,7 @@ QT_BEGIN_NAMESPACE
 class QQuickWidget;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeQuickWidgetExtension : public DeclarativeWidgetExtension
+class DeclarativeQuickWidgetExtension : public DeclarativeWidgetExtension
 {
   Q_OBJECT
 

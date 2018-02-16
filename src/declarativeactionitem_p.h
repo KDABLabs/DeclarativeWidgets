@@ -29,7 +29,7 @@
 #ifndef DECLARATIVEACTIONITEM_P_H
 #define DECLARATIVEACTIONITEM_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 
 #include <QObject>
 #include <QVariant>
@@ -38,7 +38,7 @@ QT_BEGIN_NAMESPACE
 class QAction;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeActionItem : public QObject
+class DeclarativeActionItem : public QObject
 {
   Q_OBJECT
 

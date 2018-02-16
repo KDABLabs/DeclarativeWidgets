@@ -30,14 +30,14 @@
 #ifndef OBJECTADAPTORS_P_H
 #define OBJECTADAPTORS_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 
 #include <QDialog>
 #include <QMenu>
 #include <QPointer>
 #include <QQmlContext>
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeContext : public QObject
+class DeclarativeContext : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(QUrl baseUrl READ baseUrl WRITE setBaseUrl NOTIFY baseUrlChanged)
@@ -67,7 +67,7 @@ class DECLARATIVEWIDGETS_EXPORT DeclarativeContext : public QObject
 
 Q_DECLARE_METATYPE(DeclarativeContext*)
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeQmlContextProperty : public QObject
+class DeclarativeQmlContextProperty : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
@@ -99,7 +99,7 @@ class DECLARATIVEWIDGETS_EXPORT DeclarativeQmlContextProperty : public QObject
 };
 
 
-class DECLARATIVEWIDGETS_EXPORT Dialog : public QDialog
+class Dialog : public QDialog
 {
   Q_OBJECT
 
@@ -112,7 +112,7 @@ public:
 
 Q_DECLARE_METATYPE(Qt::WindowFlags)
 
-class  DECLARATIVEWIDGETS_EXPORT Menu : public QMenu
+class  Menu : public QMenu
 {
   Q_OBJECT
 

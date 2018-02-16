@@ -28,7 +28,7 @@
 #ifndef DECLARATIVETABLEVIEWEXTENSION_P_H
 #define DECLARATIVETABLEVIEWEXTENSION_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "declarativeitemviewextension_p.h"
 
 QT_BEGIN_NAMESPACE
@@ -36,7 +36,7 @@ class QHeaderView;
 class QTableView;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeTableViewExtension : public DeclarativeItemViewExtension
+class DeclarativeTableViewExtension : public DeclarativeItemViewExtension
 {
   Q_OBJECT
 

@@ -29,13 +29,13 @@
 #ifndef DECLARATIVEFILEDIALOG_P_H
 #define DECLARATIVEFILEDIALOG_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "staticdialogmethodattached_p.h"
 
 #include <QFileDialog>
 #include <qqml.h>
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeFileDialogAttached : public StaticDialogMethodAttached
+class DeclarativeFileDialogAttached : public StaticDialogMethodAttached
 {
   Q_OBJECT
   Q_PROPERTY(QString caption READ caption WRITE setCaption NOTIFY captionChanged)
@@ -84,7 +84,7 @@ class DECLARATIVEWIDGETS_EXPORT DeclarativeFileDialogAttached : public StaticDia
     Private *const d;
 };
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeFileDialog : public QFileDialog
+class DeclarativeFileDialog : public QFileDialog
 {
   Q_OBJECT
 

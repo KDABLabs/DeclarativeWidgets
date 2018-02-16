@@ -29,10 +29,10 @@
 #ifndef DECLARATIVESEPARATOR_P_H
 #define DECLARATIVESEPARATOR_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include <QAction>
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeSeparator : public QAction
+class DeclarativeSeparator : public QAction
 {
   Q_OBJECT
 

@@ -29,7 +29,7 @@
 #ifndef DECLARATIVECOMBOBOXEXTENSION_P_H
 #define DECLARATIVECOMBOBOXEXTENSION_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "declarativewidgetextension.h"
 
 QT_BEGIN_NAMESPACE
@@ -37,7 +37,7 @@ class QComboBox;
 class QAbstractItemModel;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeComboBoxExtension : public DeclarativeWidgetExtension
+class DeclarativeComboBoxExtension : public DeclarativeWidgetExtension
 {
   Q_OBJECT
 

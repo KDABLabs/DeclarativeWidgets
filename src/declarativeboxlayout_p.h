@@ -29,13 +29,13 @@
 #ifndef DECLARATIVEBOXLAYOUT_P_H
 #define DECLARATIVEBOXLAYOUT_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 
 #include <QBoxLayout>
 
 class DeclarativeSpacerItem;
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeBoxLayoutAttached : public QObject
+class DeclarativeBoxLayoutAttached : public QObject
 {
   Q_OBJECT
 

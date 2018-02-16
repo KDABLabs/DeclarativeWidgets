@@ -28,13 +28,13 @@
 #ifndef OBJECTCONTAINERINTERFACE_H
 #define OBJECTCONTAINERINTERFACE_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE
 class QObject;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT ObjectContainerInterface
+class ObjectContainerInterface
 {
   public:
     virtual ~ObjectContainerInterface() {}

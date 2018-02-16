@@ -29,13 +29,13 @@
 #ifndef DECLARATIVEINPUTDIALOG_P_H
 #define DECLARATIVEINPUTDIALOG_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "staticdialogmethodattached_p.h"
 
 #include <QInputDialog>
 #include <qqml.h>
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeInputDialogAttached : public StaticDialogMethodAttached
+class DeclarativeInputDialogAttached : public StaticDialogMethodAttached
 {
   Q_OBJECT
   Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
@@ -125,7 +125,7 @@ class DECLARATIVEWIDGETS_EXPORT DeclarativeInputDialogAttached : public StaticDi
     Private *const d;
 };
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeInputDialog : public QInputDialog
+class DeclarativeInputDialog : public QInputDialog
 {
   Q_OBJECT
 

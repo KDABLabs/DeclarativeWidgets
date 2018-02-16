@@ -29,7 +29,7 @@
 #ifndef DECLARATIVEOBJECTPROXY_P_H
 #define DECLARATIVEOBJECTPROXY_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "abstractdeclarativeobject_p.h"
 
 #include <QPointer>
@@ -50,7 +50,7 @@
   private: \
 
 template <class T>
-class DECLARATIVEWIDGETS_EXPORT DeclarativeObjectProxy : public AbstractDeclarativeObject
+class DeclarativeObjectProxy : public AbstractDeclarativeObject
 {
   public:
     explicit DeclarativeObjectProxy(QObject *parent = 0) : AbstractDeclarativeObject(parent), m_proxiedObject(0) {}

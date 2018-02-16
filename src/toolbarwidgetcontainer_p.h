@@ -28,7 +28,7 @@
 #ifndef TOOLBARWIDGETCONTAINER_P_H
 #define TOOLBARWIDGETCONTAINER_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "defaultwidgetcontainer.h"
 
 QT_BEGIN_NAMESPACE
@@ -36,7 +36,7 @@ class QObject;
 class QToolBar;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT ToolBarWidgetContainer : public DefaultWidgetContainer
+class ToolBarWidgetContainer : public DefaultWidgetContainer
 {
   public:
     explicit ToolBarWidgetContainer(QObject *parent = 0);

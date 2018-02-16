@@ -29,13 +29,13 @@
 #ifndef DECLARATIVESTACKEDLAYOUT_P_H
 #define DECLARATIVESTACKEDLAYOUT_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "declarativelayoutextension.h"
 
 #include <qqml.h>
 #include <QStackedLayout>
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeStackedLayout : public QStackedLayout
+class DeclarativeStackedLayout : public QStackedLayout
 {
   Q_OBJECT
 
@@ -43,7 +43,7 @@ class DECLARATIVEWIDGETS_EXPORT DeclarativeStackedLayout : public QStackedLayout
     explicit DeclarativeStackedLayout(QObject *parent = 0);
 };
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeStackedLayoutExtension : public DeclarativeLayoutExtension
+class DeclarativeStackedLayoutExtension : public DeclarativeLayoutExtension
 {
   Q_OBJECT
 

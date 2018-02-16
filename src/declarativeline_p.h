@@ -28,10 +28,10 @@
 #ifndef DECLARATIVELINE_P_H
 #define DECLARATIVELINE_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include <QFrame>
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeLine : public QFrame
+class DeclarativeLine : public QFrame
 {
   Q_OBJECT
     Q_PROPERTY(Qt::Orientation orientation READ orientation WRITE setOrientation NOTIFY orientationChanged)
