@@ -45,7 +45,7 @@ tst_QmlPlugins::tst_QmlPlugins()
     : QObject()
     , m_qmlEngine(new QQmlEngine(this))
 {
-    // Add extensionplugin import path
+
 }
 
 void tst_QmlPlugins::initTestCase()
