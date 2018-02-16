@@ -28,7 +28,7 @@
 #ifndef DECLARATIVETEXTEDITEXTENSION_P_H
 #define DECLARATIVETEXTEDITEXTENSION_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "declarativewidgetextension.h"
 
 QT_BEGIN_NAMESPACE
@@ -36,7 +36,7 @@ class QTextDocument;
 class QTextEdit;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeTextEditExtension : public DeclarativeWidgetExtension
+class DeclarativeTextEditExtension : public DeclarativeWidgetExtension
 {
   Q_OBJECT
 

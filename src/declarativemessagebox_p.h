@@ -29,13 +29,13 @@
 #ifndef DECLARATIVEMESSAGEBOX_P_H
 #define DECLARATIVEMESSAGEBOX_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "staticdialogmethodattached_p.h"
 
 #include <QMessageBox>
 #include <qqml.h>
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeMessageBoxAttached : public StaticDialogMethodAttached
+class DeclarativeMessageBoxAttached : public StaticDialogMethodAttached
 {
   Q_OBJECT
   Q_PROPERTY(int buttons READ buttons WRITE setButtons NOTIFY buttonsChanged)
@@ -68,7 +68,7 @@ class DECLARATIVEWIDGETS_EXPORT DeclarativeMessageBoxAttached : public StaticDia
     Private *const d;
 };
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeMessageBox : public QMessageBox
+class DeclarativeMessageBox : public QMessageBox
 {
   Q_OBJECT
 

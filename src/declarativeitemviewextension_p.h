@@ -28,7 +28,7 @@
 #ifndef DECLARATIVEITEMVIEWEXTENSION_P_H
 #define DECLARATIVEITEMVIEWEXTENSION_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "declarativewidgetextension.h"
 
 QT_BEGIN_NAMESPACE
@@ -37,7 +37,7 @@ class QAbstractItemView;
 class QItemSelectionModel;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeItemViewPropertySignals
+class DeclarativeItemViewPropertySignals
 {
   protected:
     virtual ~DeclarativeItemViewPropertySignals() {}
@@ -47,7 +47,7 @@ class DECLARATIVEWIDGETS_EXPORT DeclarativeItemViewPropertySignals
     virtual void selectionModelChanged(QItemSelectionModel *selectionModel) = 0;
 };
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeItemViewExtension : public DeclarativeWidgetExtension, protected DeclarativeItemViewPropertySignals
+class DeclarativeItemViewExtension : public DeclarativeWidgetExtension, protected DeclarativeItemViewPropertySignals
 {
   Q_OBJECT
 

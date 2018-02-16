@@ -28,7 +28,7 @@
 #ifndef DECLARATIVESPACERITEM_P_H
 #define DECLARATIVESPACERITEM_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 
 #include <QObject>
 #include <QSize>
@@ -38,7 +38,7 @@ QT_BEGIN_NAMESPACE
 class QSpacerItem;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeSpacerItem : public QObject
+class DeclarativeSpacerItem : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(int width READ width NOTIFY widthChanged)

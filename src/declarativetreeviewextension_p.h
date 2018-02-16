@@ -28,7 +28,7 @@
 #ifndef DECLARATIVETREEVIEWEXTENSION_P_H
 #define DECLARATIVETREEVIEWEXTENSION_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "declarativeitemviewextension_p.h"
 
 QT_BEGIN_NAMESPACE
@@ -36,7 +36,7 @@ class QHeaderView;
 class QTreeView;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeTreeViewExtension : public DeclarativeItemViewExtension
+class DeclarativeTreeViewExtension : public DeclarativeItemViewExtension
 {
   Q_OBJECT
 

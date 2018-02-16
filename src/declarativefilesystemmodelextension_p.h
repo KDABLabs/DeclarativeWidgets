@@ -28,14 +28,14 @@
 #ifndef DECLARATIVEFILESYSTEMMODELEXTENSION_H
 #define DECLARATIVEFILESYSTEMMODELEXTENSION_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "declarativeobjectextension.h"
 
 QT_BEGIN_NAMESPACE
 class QFileSystemModel;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeFileSystemModelExtension : public DeclarativeObjectExtension
+class DeclarativeFileSystemModelExtension : public DeclarativeObjectExtension
 {
   Q_OBJECT
 

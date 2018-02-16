@@ -28,7 +28,7 @@
 #ifndef WIDGETCONTAINERINTERFACE_P_H
 #define WIDGETCONTAINERINTERFACE_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -36,7 +36,7 @@ class QLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT WidgetContainerInterface
+class WidgetContainerInterface
 {
   public:
     virtual ~WidgetContainerInterface() {}

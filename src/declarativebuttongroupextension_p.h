@@ -28,7 +28,7 @@
 #ifndef DECLARATIVEBUTTONGROUPEXTENSION_P_H
 #define DECLARATIVEBUTTONGROUPEXTENSION_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "declarativeobjectextension.h"
 
 #include <QVariantList>
@@ -37,7 +37,7 @@ QT_BEGIN_NAMESPACE
 class QButtonGroup;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeButtonGroupExtension : public DeclarativeObjectExtension
+class DeclarativeButtonGroupExtension : public DeclarativeObjectExtension
 {
   Q_OBJECT
 

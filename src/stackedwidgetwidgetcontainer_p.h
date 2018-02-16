@@ -28,7 +28,7 @@
 #ifndef STACKEDWIDGETWIDGETCONTAINER_P_H
 #define STACKEDWIDGETWIDGETCONTAINER_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "defaultwidgetcontainer.h"
 
 QT_BEGIN_NAMESPACE
@@ -36,7 +36,7 @@ class QObject;
 class QStackedWidget;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT StackedWidgetWidgetContainer : public DefaultWidgetContainer
+class StackedWidgetWidgetContainer : public DefaultWidgetContainer
 {
   public:
     explicit StackedWidgetWidgetContainer(QObject *parent = 0);

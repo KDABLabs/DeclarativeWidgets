@@ -29,7 +29,7 @@
 #ifndef DECLARATIVEGRIDLAYOUT_P_H
 #define DECLARATIVEGRIDLAYOUT_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "declarativelayoutextension.h"
 
 #include <QGridLayout>
@@ -37,7 +37,7 @@
 
 class DeclarativeSpacerItem;
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeGridLayoutAttached : public QObject
+class DeclarativeGridLayoutAttached : public QObject
 {
   Q_OBJECT
 
@@ -82,7 +82,7 @@ class DECLARATIVEWIDGETS_EXPORT DeclarativeGridLayoutAttached : public QObject
     Private *const d;
 };
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeGridLayout : public QGridLayout
+class DeclarativeGridLayout : public QGridLayout
 {
   Q_OBJECT
 
@@ -94,7 +94,7 @@ class DECLARATIVEWIDGETS_EXPORT DeclarativeGridLayout : public QGridLayout
 
 QML_DECLARE_TYPEINFO(DeclarativeGridLayout, QML_HAS_ATTACHED_PROPERTIES)
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeGridLayoutExtension : public DeclarativeLayoutExtension
+class DeclarativeGridLayoutExtension : public DeclarativeLayoutExtension
 {
   Q_OBJECT
 

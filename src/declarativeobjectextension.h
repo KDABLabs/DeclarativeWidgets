@@ -28,14 +28,14 @@
 #ifndef DECLARATIVEOBJECTEXTENSION_H
 #define DECLARATIVEOBJECTEXTENSION_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 
 #include <QObject>
 #include <QQmlListProperty>
 
 class ObjectContainerInterface;
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeObjectExtension : public QObject
+class DeclarativeObjectExtension : public QObject
 {
   Q_OBJECT
 

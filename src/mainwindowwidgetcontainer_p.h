@@ -28,7 +28,7 @@
 #ifndef MAINWINDOWWIDGETCONTAINER_P_H
 #define MAINWINDOWWIDGETCONTAINER_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "defaultwidgetcontainer.h"
 
 QT_BEGIN_NAMESPACE
@@ -36,7 +36,7 @@ class QMainWindow;
 class QObject;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT MainWindowWidgetContainer : public DefaultWidgetContainer
+class MainWindowWidgetContainer : public DefaultWidgetContainer
 {
   public:
     explicit MainWindowWidgetContainer(QObject *parent = 0);

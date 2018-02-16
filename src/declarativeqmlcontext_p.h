@@ -28,12 +28,12 @@
 #ifndef DECLARATIVEQMLCONTEXT_P_H
 #define DECLARATIVEQMLCONTEXT_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "declarativeobjectproxy_p.h"
 
 #include "objectadaptors_p.h"
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeQmlContext : public DeclarativeObjectProxy<DeclarativeContext>
+class DeclarativeQmlContext : public DeclarativeObjectProxy<DeclarativeContext>
 {
   DECLARATIVE_OBJECT
 

@@ -28,7 +28,7 @@
 #ifndef DECLARATIVEWIDGETEXTENSION_H
 #define DECLARATIVEWIDGETEXTENSION_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "declarativeobjectextension.h"
 
 #include <QRect>
@@ -41,7 +41,7 @@ class QLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT DeclarativeWidgetExtension : public DeclarativeObjectExtension
+class DeclarativeWidgetExtension : public DeclarativeObjectExtension
 {
   Q_OBJECT
 

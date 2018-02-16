@@ -28,7 +28,7 @@
 #ifndef LAYOUTCONTAINERINTERFACE_P_H
 #define LAYOUTCONTAINERINTERFACE_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 
 class DeclarativeSpacerItem;
 
@@ -37,7 +37,7 @@ class QLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-class DECLARATIVEWIDGETS_EXPORT LayoutContainerInterface
+class LayoutContainerInterface
 {
   public:
     virtual ~LayoutContainerInterface() {}

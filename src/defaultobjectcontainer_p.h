@@ -28,12 +28,12 @@
 #ifndef DEFAULTOBJECTCONTAINER_P_H
 #define DEFAULTOBJECTCONTAINER_P_H
 
-#include "declarativewidgets_export.h"
+#include <QtGlobal>
 #include "objectcontainerinterface_p.h"
 
 #include <QObject>
 
-class DECLARATIVEWIDGETS_EXPORT DefaultObjectContainer : public ObjectContainerInterface
+class DefaultObjectContainer : public ObjectContainerInterface
 {
   public:
     DefaultObjectContainer();
