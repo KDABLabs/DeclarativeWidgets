@@ -114,7 +114,7 @@ void DeclarativeLoaderWidget::onStatusChanged()
     return;
   }
 
-  QObject *object = d->component->create();
+  QObject *object = d->component->create(qmlContext(this));
   if (!object) {
     qWarning() << "Unable to create component from" << d->source;
     return;
