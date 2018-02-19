@@ -1,5 +1,5 @@
 /*
-  declarativeloaderwidget_p.h
+  declarativepushbutton_p.h
 
   This file is part of DeclarativeWidgets, library and tools for creating QtWidget UIs with QML.
 
