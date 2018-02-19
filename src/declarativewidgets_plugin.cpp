@@ -70,6 +70,8 @@
 #include "scrollareawidgetcontainer_p.h"
 #include "stackedwidgetwidgetcontainer_p.h"
 #include "toolbarwidgetcontainer_p.h"
+#include "splitterwidgetcontainer_p.h"
+#include "declarativesplitter_p.h"
 
 #include <QAbstractItemDelegate>
 #include <QButtonGroup>
@@ -206,4 +208,5 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QWebEngineView, DeclarativeWidgetExtension>(uri, 1, 0, "WebEngineView");
 #endif
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>(uri, 1, 0, "Widget");
+  qmlRegisterExtendedType<DeclarativeSplitter, DeclarativeContainerWidgetExtension<SplitterWidgetContainer>>(uri, 1, 0, "Splitter");
 }
