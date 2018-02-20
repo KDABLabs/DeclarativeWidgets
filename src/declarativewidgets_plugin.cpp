@@ -101,6 +101,7 @@
 #include <QToolBar>
 #include <QToolButton>
 #include <QTreeView>
+#include <QAbstractItemDelegate>
 
 #ifdef QT_WEBENGINEWIDGETS_LIB
 # include <QWebEngineView>
@@ -115,6 +116,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   // uncreatable core
   qmlRegisterType<QAbstractItemModel>();
   qmlRegisterType<QItemSelectionModel>();
+  qmlRegisterType<QAbstractItemDelegate>();
 
   // uncreatable gui
   qmlRegisterType<QTextDocument>();

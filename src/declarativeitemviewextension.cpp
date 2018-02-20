@@ -73,3 +73,18 @@ QItemSelectionModel *DeclarativeItemViewExtension::selectionModel() const
   return extendedItemView()->selectionModel();
 }
 
+QAbstractItemDelegate *DeclarativeItemViewExtension::itemDelegate() const
+{
+  return extendedItemView()->itemDelegate();
+}
+
+void DeclarativeItemViewExtension::setItemDelegate(QAbstractItemDelegate *itemDelegate)
+{
+  if (extendedItemView()->itemDelegate() == itemDelegate)
+    return;
+
+  extendedItemView()->setItemDelegate(itemDelegate);
+
+  emit itemDelegateChanged(itemDelegate);
+}
+

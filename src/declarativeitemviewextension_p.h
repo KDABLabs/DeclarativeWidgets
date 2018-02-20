@@ -35,6 +35,7 @@ QT_BEGIN_NAMESPACE
 class QAbstractItemModel;
 class QAbstractItemView;
 class QItemSelectionModel;
+class QAbstractItemDelegate;
 QT_END_NAMESPACE
 
 class DeclarativeItemViewPropertySignals
@@ -45,6 +46,7 @@ class DeclarativeItemViewPropertySignals
     // signal signatures
     virtual void modelChanged(QAbstractItemModel *model) = 0;
     virtual void selectionModelChanged(QItemSelectionModel *selectionModel) = 0;
+    virtual void itemDelegateChanged(QAbstractItemDelegate *itemDelegate) = 0;
 };
 
 class DeclarativeItemViewExtension : public DeclarativeWidgetExtension, protected DeclarativeItemViewPropertySignals
@@ -53,6 +55,7 @@ class DeclarativeItemViewExtension : public DeclarativeWidgetExtension, protecte
 
   Q_PROPERTY(QAbstractItemModel* model READ model WRITE setModel NOTIFY modelChanged)
   Q_PROPERTY(QItemSelectionModel* selectionModel READ selectionModel WRITE setSelectionModel NOTIFY selectionModelChanged)
+  Q_PROPERTY(QAbstractItemDelegate* itemDelegate READ itemDelegate WRITE setItemDelegate NOTIFY itemDelegateChanged)
 
   // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
   Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false)
@@ -70,9 +73,13 @@ class DeclarativeItemViewExtension : public DeclarativeWidgetExtension, protecte
     void setSelectionModel(QItemSelectionModel *selectionModel);
     QItemSelectionModel *selectionModel() const;
 
+    QAbstractItemDelegate *itemDelegate() const;
+    void setItemDelegate(QAbstractItemDelegate *itemDelegate);
+
   Q_SIGNALS:
     void modelChanged(QAbstractItemModel *model);
     void selectionModelChanged(QItemSelectionModel *selectionModel);
+    void itemDelegateChanged(QAbstractItemDelegate *itemDelegate) Q_DECL_OVERRIDE;
 };
 
 #endif
