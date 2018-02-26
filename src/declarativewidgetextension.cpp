@@ -28,6 +28,7 @@
 #include "declarativewidgetextension.h"
 
 #include "declarativeactionitem_p.h"
+#include "declarativesizepolicy_p.h"
 #include "defaultobjectcontainer_p.h"
 #include "defaultwidgetcontainer.h"
 #include "objectadaptors_p.h"
@@ -94,6 +95,7 @@ class WidgetContainerDelegate : public DefaultObjectContainer
 
 DeclarativeWidgetExtension::DeclarativeWidgetExtension(QObject *parent)
   : DeclarativeObjectExtension(new WidgetContainerDelegate(new DefaultWidgetContainer(qobject_cast<QWidget*>(parent))), parent)
+  , m_sizePolicy(nullptr)
 {
   parent->installEventFilter(this);
 }
@@ -227,6 +229,15 @@ bool DeclarativeWidgetExtension::eventFilter(QObject *watched, QEvent *event)
   }
 
   return false;
+}
+
+DeclarativeSizePolicy *DeclarativeWidgetExtension::sizePolicy()
+{
+  if (!m_sizePolicy) {
+    m_sizePolicy = new DeclarativeSizePolicy(extendedWidget(), this);
+  }
+
+  return m_sizePolicy;
 }
 
 DeclarativeWidgetExtension::DeclarativeWidgetExtension(WidgetContainerInterface *widgetContainer, QObject *parent)
