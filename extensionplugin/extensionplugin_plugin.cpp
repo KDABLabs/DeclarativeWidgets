@@ -63,6 +63,7 @@
 #include "scrollareawidgetcontainer_p.h"
 #include "stackedwidgetwidgetcontainer_p.h"
 #include "toolbarwidgetcontainer_p.h"
+#include "declarativelistitem_p.h"
 
 #include <QButtonGroup>
 #include <QCalendarWidget>
@@ -188,4 +189,5 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QWebEngineView, DeclarativeWidgetExtension>(uri, 1, 0, "WebEngineView");
 #endif
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>(uri, 1, 0, "Widget");
+  qmlRegisterExtendedType<DeclarativeListItem, DeclarativeWidgetExtension>(uri, 1, 0, "ListItem");
 }
