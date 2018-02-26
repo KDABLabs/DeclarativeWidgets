@@ -68,6 +68,7 @@
 #include "scrollareawidgetcontainer_p.h"
 #include "stackedwidgetwidgetcontainer_p.h"
 #include "toolbarwidgetcontainer_p.h"
+#include "declarativepixmap_p.h"
 
 #include <QButtonGroup>
 #include <QCalendarWidget>
@@ -139,6 +140,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterType<DeclarativeIcon>(uri, 1, 0, "Icon");
   qmlRegisterExtendedType<DeclarativeSeparator, DeclarativeObjectExtension>(uri, 1, 0, "Separator");
   qmlRegisterType<DeclarativeTabStops>("QtWidgets", 1, 0, "TabStops");
+  qmlRegisterType<DeclarativePixmap>(uri, 1, 0, "Pixmap");
 
   // layouts
   qmlRegisterExtendedType<DeclarativeFormLayout, DeclarativeFormLayoutExtension>(uri, 1, 0, "FormLayout");
