@@ -66,11 +66,12 @@ HEADERS = \
   staticdialogmethodattached_p.h \
   toolbarwidgetcontainer_p.h \
   widgetcontainerinterface_p.h \
-    declarativeloaderwidget_p.h \
-    declarativespaceritem_p.h \
-    declarativeline_p.h \
-    declarativelabelextension_p.h \
-    declarativetabstops_p.h
+  declarativeloaderwidget_p.h \
+  declarativespaceritem_p.h \
+  declarativeline_p.h \
+  declarativelabelextension_p.h \
+  declarativetabstops_p.h \
+  declarativerepeater_p.h
 
 SOURCES = \
   abstractdeclarativeobject.cpp \
@@ -116,8 +117,9 @@ SOURCES = \
   stackedwidgetwidgetcontainer.cpp \
   staticdialogmethodattached.cpp \
   toolbarwidgetcontainer.cpp \
-    declarativeloaderwidget.cpp \
-    declarativespaceritem.cpp \
-    declarativeline.cpp \
-    declarativelabelextension.cpp \
-    declarativetabstops.cpp
+  declarativeloaderwidget.cpp \
+  declarativespaceritem.cpp \
+  declarativeline.cpp \
+  declarativelabelextension.cpp \
+  declarativetabstops.cpp \
+  declarativerepeater.cpp
