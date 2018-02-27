@@ -34,6 +34,7 @@
 #include "stackedlayoutwidget.h"
 #include "stackedwidget.h"
 
+#include <QFormLayout>
 #include <QLayout>
 #include <QQmlComponent>
 #include <QQmlEngine>
@@ -249,8 +250,27 @@ void tst_Layouts::compareLayouts(QLayout *a, QLayout *b)
                         .arg(b->count())));
 
     // Verify the layout items
-    for (int i = 0; i < a->count() && !QTest::currentTestFailed(); ++i)
-        compareLayoutItems(a->itemAt(i), b->itemAt(i));
+    // Items get added to a declarative QFormLayout in a different order, due
+    // to the FormLayout.label attached property. Make sure we inspect the rows,
+    // not the arbitrary order in which things were added.
+    if (auto formA = qobject_cast<QFormLayout*>(a)) {
+        auto formB = qobject_cast<QFormLayout*>(b);
+        QVERIFY2(formB != nullptr, "Expected b to be a QFormLayout");
+
+        // Verify that the layouts have a matching number of children
+        QVERIFY2(formA->rowCount() == formB->rowCount(),
+                 qPrintable(QStringLiteral("QFormLayouts do not have the same number of rows (%1 != %2)")
+                            .arg(formA->rowCount())
+                            .arg(formB->rowCount())));
+
+        for (int i = 0; i < formA->rowCount() && !QTest::currentTestFailed(); ++i) {
+            compareLayoutItems(formA->itemAt(i, QFormLayout::LabelRole), formB->itemAt(i, QFormLayout::LabelRole));
+            compareLayoutItems(formA->itemAt(i, QFormLayout::FieldRole), formB->itemAt(i, QFormLayout::FieldRole));
+        }
+    } else {
+        for (int i = 0; i < a->count() && !QTest::currentTestFailed(); ++i)
+            compareLayoutItems(a->itemAt(i), b->itemAt(i));
+    }
 
     // Verify that the layout geometries are equal
     compareGeometry(a->geometry(), b->geometry());
