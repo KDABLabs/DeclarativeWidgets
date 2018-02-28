@@ -39,7 +39,7 @@ class AbstractDeclarativeObject : public QObject
 {
   Q_OBJECT
 
-  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false CONSTANT)
 
   Q_CLASSINFO("DefaultProperty", "data")
 
