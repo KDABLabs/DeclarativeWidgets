@@ -430,8 +430,7 @@ void tst_Layouts::compareWidgets(QWidget *a, QWidget *b)
     QVERIFY2(a != nullptr, "a QWidget is null");
     QVERIFY2(b != nullptr, "b QWidget is null");
 
-    QVERIFY2(a->sizePolicy() == b->sizePolicy(), "Expected size policy to match");
-
+    compareSizePolicy(a->sizePolicy(), b->sizePolicy());
     compareLayouts(a->layout(), b->layout());
     compareGeometry(a->geometry(), b->geometry());
 }
@@ -497,6 +496,7 @@ void tst_Layouts::compareSizePolicy(const QSizePolicy& aPolicy, const QSizePolic
              , qPrintable(QStringLiteral("verticalStretch does not match (%1 != %2")
                           .arg(aPolicy.verticalStretch())
                           .arg(bPolicy.verticalStretch())));
+    // Tests may fail here due to [QTBUG-66747] uic generates incorrect code to set QSizePolicy
     QVERIFY2(aPolicy.controlType() == bPolicy.controlType()
              , qPrintable(QStringLiteral("controlType does not match (%1 != %2")
                           .arg(aPolicy.controlType())
