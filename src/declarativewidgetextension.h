@@ -46,7 +46,7 @@ class DeclarativeWidgetExtension : public DeclarativeObjectExtension
   Q_OBJECT
 
   // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false CONSTANT)
 
   Q_PROPERTY(int x READ x WRITE setX NOTIFY posChanged)
   Q_PROPERTY(int y READ y WRITE setY NOTIFY posChanged)

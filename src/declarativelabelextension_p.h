@@ -37,7 +37,7 @@ class DeclarativeLabelExtension : public DeclarativeWidgetExtension
   Q_PROPERTY(QWidget* buddy READ buddy WRITE setBuddy NOTIFY buddyChanged)
 
   // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false CONSTANT)
 
   Q_CLASSINFO("DefaultProperty", "data")
 
