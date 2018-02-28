@@ -73,6 +73,10 @@ Widget {
     }
     PushButton {
         text: "+"
+        sizePolicy {
+            horizontalPolicy: SizePolicy.Minimum
+            verticalPolicy: SizePolicy.Minimum
+        }
 
         GridLayout.row: 1
         GridLayout.column: 3
@@ -116,6 +120,10 @@ Widget {
     }
     PushButton {
         text: "Enter"
+        sizePolicy {
+            horizontalPolicy: SizePolicy.Minimum
+            verticalPolicy: SizePolicy.Minimum
+        }
 
         GridLayout.row: 3
         GridLayout.column: 3
