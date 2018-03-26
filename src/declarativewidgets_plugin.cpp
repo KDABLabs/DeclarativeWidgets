@@ -48,6 +48,7 @@
 #include "declarativeline_p.h"
 #include "declarativeloaderwidget_p.h"
 #include "declarativemessagebox_p.h"
+#include "declarativepixmap_p.h"
 #include "declarativeqmlcontext_p.h"
 #include "declarativequickwidgetextension_p.h"
 #include "declarativeseparator_p.h"
@@ -68,7 +69,6 @@
 #include "scrollareawidgetcontainer_p.h"
 #include "stackedwidgetwidgetcontainer_p.h"
 #include "toolbarwidgetcontainer_p.h"
-#include "declarativepixmap_p.h"
 
 #include <QButtonGroup>
 #include <QCalendarWidget>
