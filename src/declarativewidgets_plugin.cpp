@@ -69,6 +69,7 @@
 #include "stackedwidgetwidgetcontainer_p.h"
 #include "toolbarwidgetcontainer_p.h"
 
+#include <QAbstractItemDelegate>
 #include <QButtonGroup>
 #include <QCalendarWidget>
 #include <QCheckBox>
@@ -101,7 +102,6 @@
 #include <QToolBar>
 #include <QToolButton>
 #include <QTreeView>
-#include <QAbstractItemDelegate>
 
 #ifdef QT_WEBENGINEWIDGETS_LIB
 # include <QWebEngineView>

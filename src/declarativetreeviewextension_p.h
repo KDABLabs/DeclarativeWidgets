@@ -53,7 +53,7 @@ class DeclarativeTreeViewExtension : public DeclarativeItemViewExtension
   Q_CLASSINFO("DefaultProperty", "data")
 
   public:
-    explicit DeclarativeTreeViewExtension(QObject *parent = Q_NULLPTR);
+    explicit DeclarativeTreeViewExtension(QObject *parent = 0);
 
     QTreeView *extendedTreeView() const;
 
