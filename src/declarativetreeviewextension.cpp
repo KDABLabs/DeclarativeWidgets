@@ -55,3 +55,18 @@ QHeaderView *DeclarativeTreeViewExtension::header() const
 {
   return extendedTreeView()->header();
 }
+
+void DeclarativeTreeViewExtension::setItemDelegate(QAbstractItemDelegate *itemDelegate)
+{
+  if (extendedTreeView()->itemDelegate() == itemDelegate)
+    return;
+
+  extendedTreeView()->setItemDelegate(itemDelegate);
+
+  emit itemDelegateChanged(itemDelegate);
+}
+
+QAbstractItemDelegate *DeclarativeTreeViewExtension::itemDelegate() const
+{
+  return extendedTreeView()->itemDelegate();
+}

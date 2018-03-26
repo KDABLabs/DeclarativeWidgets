@@ -34,6 +34,7 @@
 QT_BEGIN_NAMESPACE
 class QHeaderView;
 class QTreeView;
+class QAbstractItemDelegate;
 QT_END_NAMESPACE
 
 class DeclarativeTreeViewExtension : public DeclarativeItemViewExtension
@@ -45,6 +46,7 @@ class DeclarativeTreeViewExtension : public DeclarativeItemViewExtension
   // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
   Q_PROPERTY(QAbstractItemModel* model READ model WRITE setModel NOTIFY modelChanged)
   Q_PROPERTY(QItemSelectionModel* selectionModel READ selectionModel WRITE setSelectionModel NOTIFY selectionModelChanged)
+  Q_PROPERTY(QAbstractItemDelegate* itemDelegate READ itemDelegate WRITE setItemDelegate NOTIFY itemDelegateChanged)
 
   Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false CONSTANT)
 
@@ -58,9 +60,13 @@ class DeclarativeTreeViewExtension : public DeclarativeItemViewExtension
     void setHeader(QHeaderView *header);
     QHeaderView *header() const;
 
+    void setItemDelegate(QAbstractItemDelegate *itemDelegate);
+    QAbstractItemDelegate *itemDelegate() const;
+
   Q_SIGNALS:
     void modelChanged(QAbstractItemModel *model);
     void selectionModelChanged(QItemSelectionModel *selectionModel);
+    void itemDelegateChanged(QAbstractItemDelegate *itemDelegate);
 
     void headerChanged(QHeaderView *header);
 };
