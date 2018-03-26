@@ -86,6 +86,7 @@ HEADERS = \
     staticdialogmethodattached_p.h \
     toolbarwidgetcontainer_p.h \
     widgetcontainerinterface_p.h \
+    declarativesizepolicy_p.h \
     declarativepushbutton_p.h
 
 SOURCES = \
@@ -137,4 +138,5 @@ SOURCES = \
     stackedwidgetwidgetcontainer.cpp \
     staticdialogmethodattached.cpp \
     toolbarwidgetcontainer.cpp \
+    declarativesizepolicy.cpp \
     declarativepushbutton.cpp

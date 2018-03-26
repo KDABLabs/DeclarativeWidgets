@@ -70,7 +70,7 @@ bool DeclarativeFontDialogAttached::dialogAccepted() const
   return d->dialogAccepted;
 }
 
-void DeclarativeFontDialogAttached::setOptions(int options)
+void DeclarativeFontDialogAttached::setOptions(unsigned int options)
 {
   if (options == d->options)
     return;
@@ -79,7 +79,7 @@ void DeclarativeFontDialogAttached::setOptions(int options)
   emit optionsChanged(options);
 }
 
-int DeclarativeFontDialogAttached::options() const
+unsigned int DeclarativeFontDialogAttached::options() const
 {
   return d->options;
 }

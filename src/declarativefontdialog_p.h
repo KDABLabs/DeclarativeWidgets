@@ -40,7 +40,7 @@ class DeclarativeFontDialogAttached : public StaticDialogMethodAttached
   Q_OBJECT
   Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
   Q_PROPERTY(bool ok READ dialogAccepted NOTIFY dialogAcceptedChanged)
-  Q_PROPERTY(int options READ options WRITE setOptions NOTIFY optionsChanged)
+  Q_PROPERTY(unsigned int options READ options WRITE setOptions NOTIFY optionsChanged)
 
   public:
     explicit DeclarativeFontDialogAttached(QObject *parent = 0);
@@ -51,8 +51,8 @@ class DeclarativeFontDialogAttached : public StaticDialogMethodAttached
 
     bool dialogAccepted() const;
 
-    void setOptions(int options);
-    int options() const;
+    void setOptions(unsigned int options);
+    unsigned int options() const;
 
     Q_INVOKABLE QFont getFont();
     Q_INVOKABLE QFont getFont(const QString &fontFamily);

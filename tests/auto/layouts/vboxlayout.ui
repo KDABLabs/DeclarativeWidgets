@@ -4,21 +4,21 @@
  <widget class="QWidget" name="HBoxLayoutWidget">
   <layout class="QVBoxLayout">
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="pushButton1">
      <property name="text">
       <string>1</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="pushButton2">
      <property name="text">
       <string>2</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="pushButton3">
      <property name="text">
       <string>3</string>
      </property>

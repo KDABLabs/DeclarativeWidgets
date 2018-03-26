@@ -2,17 +2,17 @@
 <ui version="4.0">
  <class>StackedWidget</class>
  <widget class="QStackedWidget" name="StackedWidget">
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="label1">
    <property name="text">
     <string>Page 1</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="label2">
    <property name="text">
     <string>Page 2</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="label3">
    <property name="text">
     <string>Page 3</string>
    </property>

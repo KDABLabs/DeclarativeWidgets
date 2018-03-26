@@ -44,7 +44,7 @@ class DeclarativeComboBoxExtension : public DeclarativeWidgetExtension
   Q_PROPERTY(QAbstractItemModel* model READ model WRITE setModel NOTIFY modelChanged)
 
   // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false CONSTANT)
 
   Q_CLASSINFO("DefaultProperty", "data")
 

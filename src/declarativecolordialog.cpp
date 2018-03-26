@@ -62,7 +62,7 @@ QString DeclarativeColorDialogAttached::title() const
   return d->title;
 }
 
-void DeclarativeColorDialogAttached::setOptions(int options)
+void DeclarativeColorDialogAttached::setOptions(unsigned int options)
 {
   if (d->options == options)
     return;
@@ -71,7 +71,7 @@ void DeclarativeColorDialogAttached::setOptions(int options)
   emit optionsChanged(options);
 }
 
-int DeclarativeColorDialogAttached::options() const
+unsigned int DeclarativeColorDialogAttached::options() const
 {
   return d->options;
 }

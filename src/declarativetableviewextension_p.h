@@ -47,7 +47,7 @@ class DeclarativeTableViewExtension : public DeclarativeItemViewExtension
   Q_PROPERTY(QAbstractItemModel* model READ model WRITE setModel NOTIFY modelChanged)
   Q_PROPERTY(QItemSelectionModel* selectionModel READ selectionModel WRITE setSelectionModel NOTIFY selectionModelChanged)
 
-  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false CONSTANT)
 
   Q_CLASSINFO("DefaultProperty", "data")
 

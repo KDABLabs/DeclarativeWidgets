@@ -33,6 +33,7 @@
 
 #include <QRect>
 
+class DeclarativeSizePolicy;
 class WidgetContainerInterface;
 
 QT_BEGIN_NAMESPACE
@@ -46,7 +47,7 @@ class DeclarativeWidgetExtension : public DeclarativeObjectExtension
   Q_OBJECT
 
   // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
-  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false)
+  Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false CONSTANT)
 
   Q_PROPERTY(int x READ x WRITE setX NOTIFY posChanged)
   Q_PROPERTY(int y READ y WRITE setY NOTIFY posChanged)
@@ -54,6 +55,7 @@ class DeclarativeWidgetExtension : public DeclarativeObjectExtension
   Q_PROPERTY(int height READ height WRITE setHeight NOTIFY sizeChanged)
   Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
   Q_PROPERTY(bool visible READ isVisible WRITE setVisible NOTIFY visibleChanged)
+  Q_PROPERTY(DeclarativeSizePolicy *sizePolicy READ sizePolicy CONSTANT)
 
   Q_CLASSINFO("DefaultProperty", "data")
 
@@ -82,6 +84,8 @@ class DeclarativeWidgetExtension : public DeclarativeObjectExtension
 
     bool eventFilter(QObject *watched, QEvent *event);
 
+    DeclarativeSizePolicy *sizePolicy();
+
   protected:
     explicit DeclarativeWidgetExtension(WidgetContainerInterface *widgetContainer, QObject *parent = 0);
 
@@ -90,6 +94,9 @@ class DeclarativeWidgetExtension : public DeclarativeObjectExtension
     void sizeChanged();
     void geometryChanged();
     void visibleChanged(bool visible);
+
+  private:
+    DeclarativeSizePolicy *m_sizePolicy;
 };
 
 #endif // DECLARATIVEWIDGETEXTENSION_H
