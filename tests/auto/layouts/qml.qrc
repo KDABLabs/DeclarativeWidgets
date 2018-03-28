@@ -6,5 +6,6 @@
         <file>qml/GridLayoutTest.qml</file>
         <file>qml/StackedLayoutTest.qml</file>
         <file>qml/StackedWidgetTest.qml</file>
+        <file>qml/SplitterTest.qml</file>
     </qresource>
 </RCC>
