@@ -27,62 +27,7 @@
 
 #include "declarativesplitter_p.h"
 
-#include <QPointer>
-#include <QWidget>
-#include <QQmlInfo>
-
-class DeclarativeSplitterAttached::Private
-{
-  public:
-    Private(QWidget *w)
-      : stretch(0)
-      , widget(w)
-    {
-    }
-
-    int stretch;
-
-    QPointer<QWidget> widget;
-};
-
-DeclarativeSplitterAttached::DeclarativeSplitterAttached(QWidget *widget, QObject *parent)
-  : QObject(parent)
-  , d(new Private(widget))
-{
-}
-
-DeclarativeSplitterAttached::~DeclarativeSplitterAttached()
-{
-  delete d;
-}
-
-void DeclarativeSplitterAttached::setStretch(int stretch)
-{
-  if (stretch == d->stretch)
-    return;
-
-  d->stretch = stretch;
-
-  emit stretchChanged(stretch);
-}
-
-int DeclarativeSplitterAttached::stretch() const
-{
-  return d->stretch;
-}
-
 DeclarativeSplitter::DeclarativeSplitter(QWidget *parent)
   : QSplitter(parent)
 {
-}
-
-DeclarativeSplitterAttached *DeclarativeSplitter::qmlAttachedProperties(QObject *parent)
-{
-  QWidget *widget = qobject_cast<QWidget*>(parent);
-  if (widget)
-    return new DeclarativeSplitterAttached(widget, parent);
-
-  qmlInfo(parent) << "Can only attach Splitter to widgets";
-
-  return Q_NULLPTR;
 }

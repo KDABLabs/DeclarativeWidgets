@@ -54,6 +54,7 @@
 #include "declarativeseparator_p.h"
 #include "declarativesizepolicy_p.h"
 #include "declarativespaceritem_p.h"
+#include "declarativesplitter_p.h"
 #include "declarativestackedlayout_p.h"
 #include "declarativestatusbar_p.h"
 #include "declarativestringlistmodelextension_p.h"
@@ -68,10 +69,9 @@
 #include "menubarwidgetcontainer_p.h"
 #include "menuwidgetcontainer_p.h"
 #include "scrollareawidgetcontainer_p.h"
+#include "splitterwidgetcontainer_p.h"
 #include "stackedwidgetwidgetcontainer_p.h"
 #include "toolbarwidgetcontainer_p.h"
-#include "splitterwidgetcontainer_p.h"
-#include "declarativesplitter_p.h"
 
 #include <QAbstractItemDelegate>
 #include <QButtonGroup>

@@ -28,40 +28,12 @@
 #ifndef DECLARATIVESPLITTER_P_H
 #define DECLARATIVESPLITTER_P_H
 
-#include <QtGlobal>
-#include <QObject>
 #include <QSplitter>
-#include <QtQml>
-
-class DeclarativeSplitterAttached : public QObject
-{
-  Q_OBJECT
-
-  Q_PROPERTY(int stretch READ stretch WRITE setStretch NOTIFY stretchChanged)
-
-  public:
-    DeclarativeSplitterAttached(QWidget *widget, QObject *parent);
-    ~DeclarativeSplitterAttached();
-
-    void setStretch(int stretch);
-    int stretch() const;
-
-  Q_SIGNALS:
-    void stretchChanged(int stretch);
-
-  private:
-    class Private;
-    Private *const d;
-};
 
 class DeclarativeSplitter : public QSplitter
 {
   public:
     DeclarativeSplitter(QWidget *parent = Q_NULLPTR);
-
-    static DeclarativeSplitterAttached *qmlAttachedProperties(QObject *parent);
 };
-
-QML_DECLARE_TYPEINFO(DeclarativeSplitter, QML_HAS_ATTACHED_PROPERTIES)
 
 #endif // DECLARATIVESPLITTER_P_H

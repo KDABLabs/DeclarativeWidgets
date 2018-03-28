@@ -29,9 +29,8 @@
 
 #include "declarativesplitter_p.h"
 
-#include <QSplitter>
 #include <QQmlInfo>
-#include <QQmlEngine>
+#include <QSplitter>
 
 SplitterWidgetContainer::SplitterWidgetContainer(QObject *parent)
   : DefaultWidgetContainer(qobject_cast<QSplitter*>(parent))
@@ -47,15 +46,6 @@ void SplitterWidgetContainer::setLayout(QLayout *layout)
 
 void SplitterWidgetContainer::addWidget(QWidget *widget)
 {
-  QObject *attachedProperties = qmlAttachedPropertiesObject<QSplitter>(widget, false);
-  DeclarativeSplitterAttached *properties = qobject_cast<DeclarativeSplitterAttached*>(attachedProperties);
-  if (properties) {
-    QSizePolicy policy = widget->sizePolicy();
-    policy.setHorizontalStretch(properties->stretch());
-    policy.setVerticalStretch(properties->stretch());
-    widget->setSizePolicy(policy);
-  }
-
   extendedSplitter()->addWidget(widget);
 }
 
