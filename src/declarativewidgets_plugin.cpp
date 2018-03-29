@@ -48,6 +48,7 @@
 #include "declarativeline_p.h"
 #include "declarativeloaderwidget_p.h"
 #include "declarativemessagebox_p.h"
+#include "declarativepixmap_p.h"
 #include "declarativepushbuttonextension_p.h"
 #include "declarativeqmlcontext_p.h"
 #include "declarativequickwidgetextension_p.h"
@@ -71,6 +72,7 @@
 #include "stackedwidgetwidgetcontainer_p.h"
 #include "toolbarwidgetcontainer_p.h"
 
+#include <QAbstractItemDelegate>
 #include <QButtonGroup>
 #include <QCalendarWidget>
 #include <QCheckBox>
@@ -117,6 +119,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   // uncreatable core
   qmlRegisterType<QAbstractItemModel>();
   qmlRegisterType<QItemSelectionModel>();
+  qmlRegisterType<QAbstractItemDelegate>();
 
   // uncreatable gui
   qmlRegisterType<QTextDocument>();
@@ -143,6 +146,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterType<DeclarativeIcon>(uri, 1, 0, "Icon");
   qmlRegisterExtendedType<DeclarativeSeparator, DeclarativeObjectExtension>(uri, 1, 0, "Separator");
   qmlRegisterType<DeclarativeTabStops>("QtWidgets", 1, 0, "TabStops");
+  qmlRegisterType<DeclarativePixmap>(uri, 1, 0, "Pixmap");
 
   // layouts
   qmlRegisterExtendedType<DeclarativeFormLayout, DeclarativeFormLayoutExtension>(uri, 1, 0, "FormLayout");
