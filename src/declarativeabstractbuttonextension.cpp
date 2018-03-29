@@ -1,9 +1,9 @@
 /*
-  declarativepushbutton_p.h
+  declarativeabstractbuttonextension.cpp
 
   This file is part of DeclarativeWidgets, library and tools for creating QtWidget UIs with QML.
 
-  Copyright (C) 2013-2018 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2018 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Lova Widmark <znurree@gmail.com>
 
   Licensees holding valid commercial KDAB DeclarativeWidgets licenses may use this file in
@@ -25,18 +25,9 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef DECLARATIVEPUSHBUTTON_P_H
-#define DECLARATIVEPUSHBUTTON_P_H
+#include "declarativeabstractbuttonextension_p.h"
 
-#include <QPushButton>
-
-class DeclarativePushButton : public QPushButton
+DeclarativeAbstractButtonExtension::DeclarativeAbstractButtonExtension(QObject *parent)
+    : DeclarativeWidgetExtension(parent)
 {
-  Q_OBJECT
-  Q_PROPERTY(bool isDefault READ isDefault WRITE setDefault)
-
-  public:
-    explicit DeclarativePushButton(QWidget *parent = 0);
-};
-
-#endif // DECLARATIVEPUSHBUTTON_P_H
+}

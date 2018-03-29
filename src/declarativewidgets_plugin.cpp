@@ -48,6 +48,7 @@
 #include "declarativeline_p.h"
 #include "declarativeloaderwidget_p.h"
 #include "declarativemessagebox_p.h"
+#include "declarativepushbuttonextension_p.h"
 #include "declarativeqmlcontext_p.h"
 #include "declarativequickwidgetextension_p.h"
 #include "declarativeseparator_p.h"
@@ -69,7 +70,6 @@
 #include "scrollareawidgetcontainer_p.h"
 #include "stackedwidgetwidgetcontainer_p.h"
 #include "toolbarwidgetcontainer_p.h"
-#include "declarativepushbutton_p.h"
 
 #include <QButtonGroup>
 #include <QCalendarWidget>
@@ -182,7 +182,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<DeclarativeMessageBox, DeclarativeWidgetExtension>(uri, 1, 0, "MessageBox");
   qmlRegisterExtendedType<QPlainTextEdit, DeclarativeWidgetExtension>(uri, 1, 0, "PlainTextEdit");
   qmlRegisterExtendedType<QProgressBar, DeclarativeWidgetExtension>(uri, 1, 0, "ProgressBar");
-  qmlRegisterExtendedType<DeclarativePushButton, DeclarativeWidgetExtension>(uri, 1, 0, "PushButton");
+  qmlRegisterExtendedType<QPushButton, DeclarativePushButtonExtension>(uri, 1, 0, "PushButton");
   qmlRegisterExtendedType<QRadioButton, DeclarativeWidgetExtension>(uri, 1, 0, "RadioButton");
   qmlRegisterExtendedType<QScrollArea, DeclarativeContainerWidgetExtension<ScrollAreaWidgetContainer> >(uri, 1, 0, "ScrollArea");
   qmlRegisterExtendedType<QScrollBar, DeclarativeWidgetExtension>(uri, 1, 0, "ScrollBar");

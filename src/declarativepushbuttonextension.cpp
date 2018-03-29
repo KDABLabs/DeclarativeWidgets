@@ -1,9 +1,9 @@
 /*
-  declarativepushbutton.cpp
+  declarativepushbuttonextension.cpp
 
   This file is part of DeclarativeWidgets, library and tools for creating QtWidget UIs with QML.
 
-  Copyright (C) 2013-2018 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2018 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Lova Widmark <znurree@gmail.com>
 
   Licensees holding valid commercial KDAB DeclarativeWidgets licenses may use this file in
@@ -25,8 +25,37 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "declarativepushbutton_p.h"
+#include "declarativepushbuttonextension_p.h"
 
-DeclarativePushButton::DeclarativePushButton(QWidget *parent) : QPushButton(parent)
+#include <QPushButton>
+
+DeclarativePushButtonExtension::DeclarativePushButtonExtension(QObject *parent)
+    : DeclarativeAbstractButtonExtension(parent)
 {
+}
+
+bool DeclarativePushButtonExtension::isDefault() const
+{
+    return pushButton()->isDefault();
+}
+
+void DeclarativePushButtonExtension::setIsDefault(bool isDefault)
+{
+    QPushButton *button = pushButton();
+
+    if (button->isDefault() == isDefault)
+        return;
+
+    button->setDefault(isDefault);
+
+    emit isDefaultChanged();
+}
+
+QPushButton *DeclarativePushButtonExtension::pushButton() const
+{
+    QPushButton *pushButton = qobject_cast<QPushButton*>(extendedObject());
+
+    Q_ASSERT(pushButton);
+
+    return pushButton;
 }
