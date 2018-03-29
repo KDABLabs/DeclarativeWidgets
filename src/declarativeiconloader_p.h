@@ -1,10 +1,11 @@
 /*
-  declarativeicon_p.h
+  declarativeiconloader_p.h
 
   This file is part of DeclarativeWidgets, library and tools for creating QtWidget UIs with QML.
 
-  Copyright (C) 2013-2017 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2018 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Kevin Krammer <kevin.krammer@kdab.com>
+  Author: Lova Widmark <znurree@gmail.com>
 
   Licensees holding valid commercial KDAB DeclarativeWidgets licenses may use this file in
   accordance with DeclarativeWidgets Commercial License Agreement provided with the Software.
@@ -25,24 +26,26 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef DECLARATIVEICON_P_H
-#define DECLARATIVEICON_P_H
-
-#include <QtGlobal>
+#ifndef DECLARATIVEICONLOADER_P_H
+#define DECLARATIVEICONLOADER_P_H
 
 #include <QIcon>
 #include <QObject>
-#include <qqml.h>
-#include <QStringList>
 
-class DeclarativeIconAttached : public QObject
+QT_BEGIN_NAMESPACE
+class QQmlEngine;
+class QJSEngine;
+QT_END_NAMESPACE
+
+class DeclarativeIconLoader : public QObject
 {
-  Q_OBJECT
-  Q_PROPERTY(QString themeName READ themeName WRITE setThemeName NOTIFY themeNameChanged)
-  Q_PROPERTY(QStringList themeSearchPaths READ themeSearchPaths WRITE setThemeSearchPaths NOTIFY themeSearchPathsChanged)
+    Q_OBJECT
 
-  public:
-    explicit DeclarativeIconAttached(QObject *parent = 0);
+    Q_PROPERTY(QString themeName READ themeName WRITE setThemeName NOTIFY themeNameChanged)
+    Q_PROPERTY(QStringList themeSearchPaths READ themeSearchPaths WRITE setThemeSearchPaths NOTIFY themeSearchPathsChanged)
+
+public:
+    explicit DeclarativeIconLoader(QObject *parent = Q_NULLPTR);
 
     QString themeName() const;
     void setThemeName(const QString &name);
@@ -53,41 +56,11 @@ class DeclarativeIconAttached : public QObject
     Q_INVOKABLE QIcon fromTheme(const QString &name);
     Q_INVOKABLE QIcon fromFileName(const QString &fileName);
 
-  Q_SIGNALS:
+    static QObject *instance(QQmlEngine *engine, QJSEngine *scriptEngine);
+
+Q_SIGNALS:
     void themeNameChanged(const QString &themeName);
     void themeSearchPathsChanged(const QStringList &themeSearchPaths);
 };
 
-class DeclarativeIcon : public QObject
-{
-  Q_OBJECT
-  Q_PROPERTY(QIcon icon READ icon WRITE setIcon NOTIFY iconChanged)
-  Q_PROPERTY(QString name READ name NOTIFY nameChanged)
-  Q_PROPERTY(bool isNull READ isNull NOTIFY isNullChanged)
-
-  public:
-    explicit DeclarativeIcon(QObject *parent = 0);
-    ~DeclarativeIcon();
-
-    QIcon icon() const;
-    void setIcon(const QIcon &icon);
-
-    QString name() const;
-
-    bool isNull() const;
-
-    static DeclarativeIconAttached *qmlAttachedProperties(QObject *parent);
-
-  Q_SIGNALS:
-    void iconChanged(const QIcon &icon);
-    void nameChanged(const QString &name);
-    void isNullChanged(bool isNull);
-
-  private:
-    class Private;
-    Private *const d;
-};
-
-QML_DECLARE_TYPEINFO(DeclarativeIcon, QML_HAS_ATTACHED_PROPERTIES)
-
-#endif // DECLARATIVEICON_P_H
+#endif // DECLARATIVEICONLOADER_P_H
