@@ -87,8 +87,7 @@ HEADERS = \
     toolbarwidgetcontainer_p.h \
     widgetcontainerinterface_p.h \
     declarativesizepolicy_p.h \
-    splitterwidgetcontainer_p.h \
-    declarativesplitter_p.h
+    splitterwidgetcontainer_p.h
 
 SOURCES = \
     abstractdeclarativeobject.cpp \
@@ -140,5 +139,4 @@ SOURCES = \
     staticdialogmethodattached.cpp \
     toolbarwidgetcontainer.cpp \
     declarativesizepolicy.cpp \
-    splitterwidgetcontainer.cpp \
-    declarativesplitter.cpp
+    splitterwidgetcontainer.cpp

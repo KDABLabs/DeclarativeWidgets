@@ -27,8 +27,6 @@
 
 #include "splitterwidgetcontainer_p.h"
 
-#include "declarativesplitter_p.h"
-
 #include <QQmlInfo>
 #include <QSplitter>
 

@@ -54,7 +54,6 @@
 #include "declarativeseparator_p.h"
 #include "declarativesizepolicy_p.h"
 #include "declarativespaceritem_p.h"
-#include "declarativesplitter_p.h"
 #include "declarativestackedlayout_p.h"
 #include "declarativestatusbar_p.h"
 #include "declarativestringlistmodelextension_p.h"
@@ -100,6 +99,7 @@
 #include <QScrollBar>
 #include <QStackedWidget>
 #include <QStringListModel>
+#include <QSplitter>
 #include <QTableView>
 #include <QTextBrowser>
 #include <QTimer>
@@ -208,5 +208,5 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QWebEngineView, DeclarativeWidgetExtension>(uri, 1, 0, "WebEngineView");
 #endif
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>(uri, 1, 0, "Widget");
-  qmlRegisterExtendedType<DeclarativeSplitter, DeclarativeContainerWidgetExtension<SplitterWidgetContainer>>(uri, 1, 0, "Splitter");
+  qmlRegisterExtendedType<QSplitter, DeclarativeContainerWidgetExtension<SplitterWidgetContainer>>(uri, 1, 0, "Splitter");
 }
