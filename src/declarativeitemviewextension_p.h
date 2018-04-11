@@ -77,8 +77,8 @@ class DeclarativeItemViewExtension : public DeclarativeWidgetExtension, protecte
     void setItemDelegate(QAbstractItemDelegate *itemDelegate);
 
   Q_SIGNALS:
-    void modelChanged(QAbstractItemModel *model);
-    void selectionModelChanged(QItemSelectionModel *selectionModel);
+    void modelChanged(QAbstractItemModel *model) Q_DECL_OVERRIDE;
+    void selectionModelChanged(QItemSelectionModel *selectionModel) Q_DECL_OVERRIDE;
     void itemDelegateChanged(QAbstractItemDelegate *itemDelegate) Q_DECL_OVERRIDE;
 };
 
