@@ -40,7 +40,7 @@
 #include "declarativeformlayout_p.h"
 #include "declarativegridlayout_p.h"
 #include "declarativehboxlayout_p.h"
-#include "declarativeicon_p.h"
+#include "declarativeiconloader_p.h"
 #include "declarativeinputdialog_p.h"
 #include "declarativeitemviewextension_p.h"
 #include "declarativelabelextension_p.h"
@@ -48,7 +48,7 @@
 #include "declarativeline_p.h"
 #include "declarativeloaderwidget_p.h"
 #include "declarativemessagebox_p.h"
-#include "declarativepixmap_p.h"
+#include "declarativepixmaploader_p.h"
 #include "declarativeqmlcontext_p.h"
 #include "declarativequickwidgetextension_p.h"
 #include "declarativeseparator_p.h"
@@ -142,10 +142,12 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterType<DeclarativeQmlContextProperty>(uri, 1, 0, "QmlContextProperty");
   qmlRegisterType<DeclarativeQmlContext>(uri, 1, 0, "QmlContext");
   qmlRegisterExtendedType<QFileSystemModel, DeclarativeFileSystemModelExtension>(uri, 1, 0, "FileSystemModel");
-  qmlRegisterType<DeclarativeIcon>(uri, 1, 0, "Icon");
   qmlRegisterExtendedType<DeclarativeSeparator, DeclarativeObjectExtension>(uri, 1, 0, "Separator");
   qmlRegisterType<DeclarativeTabStops>("QtWidgets", 1, 0, "TabStops");
-  qmlRegisterType<DeclarativePixmap>(uri, 1, 0, "Pixmap");
+
+  // singletons
+  qmlRegisterSingletonType<DeclarativeIconLoader>(uri, 1, 0, "Icon", &DeclarativeIconLoader::instance);
+  qmlRegisterSingletonType<DeclarativePixmapLoader>(uri, 1, 0, "Pixmap", &DeclarativePixmapLoader::instance);
 
   // layouts
   qmlRegisterExtendedType<DeclarativeFormLayout, DeclarativeFormLayoutExtension>(uri, 1, 0, "FormLayout");

@@ -47,7 +47,6 @@ HEADERS = \
     declarativeformlayout_p.h \
     declarativegridlayout_p.h \
     declarativehboxlayout_p.h \
-    declarativeicon_p.h \
     declarativeinputdialog_p.h \
     declarativeitemviewextension_p.h \
     declarativelabelextension_p.h \
@@ -57,7 +56,6 @@ HEADERS = \
     declarativemessagebox_p.h \
     declarativeobjectextension.h \
     declarativeobjectproxy_p.h \
-    declarativepixmap_p.h \
     declarativeqmlcontext_p.h \
     declarativequickwidgetextension_p.h \
     declarativeseparator_p.h \
@@ -86,7 +84,9 @@ HEADERS = \
     staticdialogmethodattached_p.h \
     toolbarwidgetcontainer_p.h \
     widgetcontainerinterface_p.h \
-    declarativesizepolicy_p.h
+    declarativesizepolicy_p.h \
+    declarativepixmaploader_p.h \
+    declarativeiconloader_p.h
 
 SOURCES = \
     abstractdeclarativeobject.cpp \
@@ -102,7 +102,6 @@ SOURCES = \
     declarativeformlayout.cpp \
     declarativegridlayout.cpp \
     declarativehboxlayout.cpp \
-    declarativeicon.cpp \
     declarativeinputdialog.cpp \
     declarativeitemviewextension.cpp \
     declarativelabelextension.cpp \
@@ -111,7 +110,6 @@ SOURCES = \
     declarativeloaderwidget.cpp \
     declarativemessagebox.cpp \
     declarativeobjectextension.cpp \
-    declarativepixmap.cpp \
     declarativeqmlcontext.cpp \
     declarativequickwidgetextension.cpp \
     declarativeseparator.cpp \
@@ -137,4 +135,6 @@ SOURCES = \
     stackedwidgetwidgetcontainer.cpp \
     staticdialogmethodattached.cpp \
     toolbarwidgetcontainer.cpp \
-    declarativesizepolicy.cpp
+    declarativesizepolicy.cpp \
+    declarativepixmaploader.cpp \
+    declarativeiconloader.cpp
