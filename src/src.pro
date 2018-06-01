@@ -87,7 +87,8 @@ HEADERS = \
     toolbarwidgetcontainer_p.h \
     widgetcontainerinterface_p.h \
     declarativepalette_p.h \
-    declarativesizepolicy_p.h
+    declarativesizepolicy_p.h \
+    declarativelistitem_p.h
 
 SOURCES = \
     abstractdeclarativeobject.cpp \
@@ -138,4 +139,5 @@ SOURCES = \
     stackedwidgetwidgetcontainer.cpp \
     staticdialogmethodattached.cpp \
     toolbarwidgetcontainer.cpp \
-    declarativesizepolicy.cpp
+    declarativesizepolicy.cpp \
+    declarativelistitem.cpp
