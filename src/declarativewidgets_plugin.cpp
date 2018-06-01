@@ -71,6 +71,7 @@
 #include "scrollareawidgetcontainer_p.h"
 #include "stackedwidgetwidgetcontainer_p.h"
 #include "toolbarwidgetcontainer_p.h"
+#include "declarativerepeater_p.h"
 #include "declarativelistitem_p.h"
 #include "declarativepalette_p.h"
 
@@ -210,5 +211,6 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QWebEngineView, DeclarativeWidgetExtension>(uri, 1, 0, "WebEngineView");
 #endif
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>(uri, 1, 0, "Widget");
+  qmlRegisterType<DeclarativeRepeater>(uri, 1, 0, "Repeater");
   qmlRegisterExtendedType<DeclarativeListItem, DeclarativeWidgetExtension>(uri, 1, 0, "ListItem");
 }

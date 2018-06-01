@@ -1,6 +1,6 @@
 TEMPLATE = lib
 TARGET = declarativewidgets
-QT += core-private qml widgets quickwidgets
+QT += core-private qml widgets quickwidgets qml-private
 
 qtHaveModule(webenginewidgets) {
     QT += webenginewidgets
@@ -90,7 +90,8 @@ HEADERS = \
     declarativesizepolicy_p.h \
     declarativeabstractbuttonextension_p.h \
     declarativepushbuttonextension_p.h \
-    declarativelistitem_p.h
+    declarativelistitem_p.h \
+    declarativerepeater_p.h
 
 SOURCES = \
     abstractdeclarativeobject.cpp \
@@ -144,4 +145,6 @@ SOURCES = \
     declarativesizepolicy.cpp \
     declarativeabstractbuttonextension.cpp \
     declarativepushbuttonextension.cpp \
-    declarativelistitem.cpp
+    declarativelistitem.cpp \
+    declarativerepeater.cpp
+
