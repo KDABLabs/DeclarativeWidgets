@@ -86,6 +86,7 @@ HEADERS = \
     staticdialogmethodattached_p.h \
     toolbarwidgetcontainer_p.h \
     widgetcontainerinterface_p.h \
+    declarativepalette_p.h \
     declarativesizepolicy_p.h
 
 SOURCES = \

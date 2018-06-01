@@ -70,6 +70,7 @@
 #include "scrollareawidgetcontainer_p.h"
 #include "stackedwidgetwidgetcontainer_p.h"
 #include "toolbarwidgetcontainer_p.h"
+#include "declarativepalette_p.h"
 
 #include <QAbstractItemDelegate>
 #include <QButtonGroup>
@@ -144,7 +145,8 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QFileSystemModel, DeclarativeFileSystemModelExtension>(uri, 1, 0, "FileSystemModel");
   qmlRegisterType<DeclarativeIcon>(uri, 1, 0, "Icon");
   qmlRegisterExtendedType<DeclarativeSeparator, DeclarativeObjectExtension>(uri, 1, 0, "Separator");
-  qmlRegisterType<DeclarativeTabStops>("QtWidgets", 1, 0, "TabStops");
+  qmlRegisterType<DeclarativeTabStops>(uri, 1, 0, "TabStops");
+  qmlRegisterType<DeclarativePalette>(uri, 1, 0, "Palette");
   qmlRegisterType<DeclarativePixmap>(uri, 1, 0, "Pixmap");
 
   // layouts
