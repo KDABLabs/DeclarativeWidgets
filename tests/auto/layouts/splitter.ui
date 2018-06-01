@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Splitter</class>
+ <widget class="QSplitter" name="Splitter">
+  <widget class="QLabel" name="label">
+   <property name="text">
+	<string>Label 1</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="text">
+	<string>Label 2</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

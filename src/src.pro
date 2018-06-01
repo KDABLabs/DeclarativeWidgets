@@ -88,6 +88,7 @@ HEADERS = \
     widgetcontainerinterface_p.h \
     declarativepalette_p.h \
     declarativesizepolicy_p.h \
+    splitterwidgetcontainer_p.h \
     declarativeabstractbuttonextension_p.h \
     declarativepushbuttonextension_p.h \
     declarativelistitem_p.h \
@@ -143,6 +144,7 @@ SOURCES = \
     staticdialogmethodattached.cpp \
     toolbarwidgetcontainer.cpp \
     declarativesizepolicy.cpp \
+    splitterwidgetcontainer.cpp \
     declarativeabstractbuttonextension.cpp \
     declarativepushbuttonextension.cpp \
     declarativelistitem.cpp \
