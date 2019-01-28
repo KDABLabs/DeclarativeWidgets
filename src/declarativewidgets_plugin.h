@@ -26,8 +26,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef EXTENSIONPLUGIN_PLUGIN_H
-#define EXTENSIONPLUGIN_PLUGIN_H
+#ifndef DECLARATIVEWIDGETS_PLUGIN_H
+#define DECLARATIVEWIDGETS_PLUGIN_H
 
 #include <QQmlExtensionPlugin>
 
@@ -40,5 +40,5 @@ class ExtensionpluginPlugin : public QQmlExtensionPlugin
     void registerTypes(const char *uri);
 };
 
-#endif // EXTENSIONPLUGIN_PLUGIN_H
+#endif // DECLARATIVEWIDGETS_PLUGIN_H
 
