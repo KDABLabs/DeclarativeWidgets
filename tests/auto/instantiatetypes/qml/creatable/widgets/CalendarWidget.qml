@@ -3,7 +3,7 @@
 
   This file is part of DeclarativeWidgets, library and tools for creating QtWidget UIs with QML.
 
-  Copyright (C) 2017 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2017-2019 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Nathan Collins <nathan.collins@kdab.com>
 
   Licensees holding valid commercial KDAB DeclarativeWidgets licenses may use this file in

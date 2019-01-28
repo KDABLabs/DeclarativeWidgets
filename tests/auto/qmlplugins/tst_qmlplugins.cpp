@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2017 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+  Copyright (C) 2017-2019 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
   Author: Nathan Collins, nathan.collins@kdab.com
 
   This program is free software; you can redistribute it and/or modify
