@@ -1,5 +1,5 @@
 
- The DeclarativeWidgets software is Copyright (C) 2012-2019 Klaralvdalens Datakonsult AB.
+ The DeclarativeWidgets software is Copyright (C) 2012-2020 Klaralvdalens Datakonsult AB.
 
  You may use, distribute and copy the DeclarativeWidgets software under the terms of
  the GNU General Public License version 2 or under the terms of GNU General

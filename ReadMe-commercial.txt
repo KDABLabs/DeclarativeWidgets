@@ -10,7 +10,7 @@ Copyright Assignment Agreement.  Contact info@kdab.com for more information.
 
 Licensing
 =========
-The DeclarativeWidgets software is (C) 2012-2017 Klarälvdalens Datakonsult AB (KDAB).
+The DeclarativeWidgets software is (C) 2012-2020 Klarälvdalens Datakonsult AB (KDAB).
 Commercial licensing terms are available in the included file
         LICENSE.txt (for non-US customers)
 or

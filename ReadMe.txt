@@ -40,7 +40,7 @@ Contact info@kdab.com for more information.
 
 Licensing
 =========
-The DeclarativeWidgets Library is (C) 2012-2017 Klarälvdalens Datakonsult AB (KDAB),
+The DeclarativeWidgets Library is (C) 2012-2020 Klarälvdalens Datakonsult AB (KDAB),
 and is available under the terms of the GPL version 2 (or any later version,
 at your option).  See LICENSE.GPL.txt for license details.
 
