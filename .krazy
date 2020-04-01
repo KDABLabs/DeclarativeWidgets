@@ -5,3 +5,6 @@ EXTRA kdabcopyright,kdabcommercial
 
 #additional checks
 EXTRA defines,null,camelcase
+
+#checks to exclude for now
+EXCLUDE style
