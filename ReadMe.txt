@@ -5,15 +5,7 @@ creating QtWidget User Interfaces with QML.
 
 Dependencies
 ============
-DeclarativeWidgets depends features currently in the dev branch. To use
-DeclarativeWidgets you will need to build [qtbase][1] and [qtdeclarative][2]
-from the dev branch. If you wish to use [Qt WebEngine Widgets][3] you will need
-to build [qtwebengine][4] and its dependencies as well.
-
-[1]: https://codereview.qt-project.org/#/admin/projects/qt/qtbase
-[2]: https://codereview.qt-project.org/#/admin/projects/qt/qtdeclarative
-[3]: http://doc.qt.io/qt-5/qtwebenginewidgets-index.html
-[4]: https://codereview.qt-project.org/#/admin/projects/qt/qtwebengine
+DeclarativeWidgets requires Qt 5.11.0 or above.
 
 Building and running
 ====================

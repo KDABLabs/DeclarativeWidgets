@@ -2,6 +2,8 @@ TEMPLATE = lib
 TARGET = declarativewidgets
 QT += core-private qml widgets quickwidgets
 
+!versionAtLeast(QT_VERSION, 5.11.0):error("DeclarativeWidgets requires at least Qt version 5.11.0")
+
 qtHaveModule(webenginewidgets) {
     QT += webenginewidgets
 }
