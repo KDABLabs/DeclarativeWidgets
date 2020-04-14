@@ -66,7 +66,7 @@ Widget {
     }
     Label {
       id: urlLabel
-      text: "Hallo <a href=\"http://www.kde.org\">Welt</a>"
+      text: "Hallo <a href=\"https://www.kde.org\">Welt</a>"
 
       onLinkActivated: console.log("link=" + link)
     }

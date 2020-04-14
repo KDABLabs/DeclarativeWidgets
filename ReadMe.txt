@@ -49,4 +49,4 @@ frameworks to Qt. We continue to help develop parts of Qt and are one
 of the major contributors to the Qt Project. We can give advanced or
 standard trainings anywhere around the globe.
 
-Please visit http://www.kdab.com to meet the people who write code like this.
+Please visit https://www.kdab.com to meet the people who write code like this.

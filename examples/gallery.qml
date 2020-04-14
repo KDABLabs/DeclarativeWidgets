@@ -184,7 +184,7 @@ TabWidget {
 
       TextBrowser {
         openExternalLinks: true
-        html: "<html><body>TextBrowser <a href=\"http://www.kde.org\">Coolest project ever</a></body></html>"
+        html: "<html><body>TextBrowser <a href=\"https://www.kde.org\">Coolest project ever</a></body></html>"
       }
 
       CalendarWidget {}
@@ -201,7 +201,7 @@ TabWidget {
       }
 
       WebEngineView {
-        url: "http://www.kdab.com"
+        url: "https://www.kdab.com"
       }
     }
   }
