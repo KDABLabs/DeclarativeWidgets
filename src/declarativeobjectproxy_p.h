@@ -37,18 +37,6 @@
 #include <QQmlInfo>
 #include <QVector>
 
-#define DECLARATIVE_OBJECT \
-  public: \
-    Q_OBJECT_CHECK \
-    static QMetaObject staticMetaObject; \
-    static bool metaObjectInitialized; \
-    static bool initializeMetaObject(); \
-    static const QMetaObject &getStaticMetaObject(); \
-    virtual const QMetaObject *metaObject() const; \
-    virtual void *qt_metacast(const char *); \
-    virtual int qt_metacall(QMetaObject::Call, int, void **); \
-  private: \
-
 template <class T>
 class DeclarativeObjectProxy : public AbstractDeclarativeObject
 {
@@ -83,56 +71,5 @@ class DeclarativeObjectProxy : public AbstractDeclarativeObject
     mutable QPointer<T> m_proxiedObject;
     QVector<QObject*> m_children;
 };
-
-//TODO: Find a solution to make the macro public but the usage of QMetaObjectBuilder private
-
-#include "private/qmetaobjectbuilder_p.h"
-
-#define CUSTOM_METAOBJECT(ClassName, ProxyObjectType) \
-QMetaObject ClassName::staticMetaObject;\
-bool ClassName::metaObjectInitialized = ClassName::initializeMetaObject(); \
-bool ClassName::initializeMetaObject() \
-{ \
-  QMetaObjectBuilder builder; \
-  const QMetaObject *mo = &ProxyObjectType::staticMetaObject; \
-  builder.addMetaObject(mo); \
-  builder.addMetaObject(&AbstractDeclarativeObject::staticMetaObject); \
-  builder.setSuperClass(ProxyObjectType::staticMetaObject.superClass()); \
-  builder.setClassName(""#ClassName); \
-  ClassName::staticMetaObject = *builder.toMetaObject(); \
-  return true; \
-} \
-const QMetaObject &ClassName::getStaticMetaObject() \
-{ \
-  return ClassName::staticMetaObject; \
-} \
-const QMetaObject* ClassName::metaObject() const \
-{ \
-  return QObject::d_ptr->metaObject ? QObject::metaObject() : &staticMetaObject; \
-} \
-void* ClassName::qt_metacast(const char*) \
-{ \
-  return 0; \
-} \
-int ClassName::qt_metacall(QMetaObject::Call call, int id, void **argv) \
-{ \
-  if (call == QMetaObject::ReadProperty || call == QMetaObject::WriteProperty) { \
-    if (id >= ProxyObjectType::staticMetaObject.propertyCount()) { \
-      id = AbstractDeclarativeObject::qt_metacall(call, id - ProxyObjectType::staticMetaObject.propertyCount() + 1, argv); \
-      id += ProxyObjectType::staticMetaObject.propertyCount() - 1; \
-    } else { \
-      id = m_proxiedObject->qt_metacall(call, id, argv); \
-    } \
-    if (id < 0) \
-      return 0; \
-  } else if (call == QMetaObject::InvokeMetaMethod) {\
-    if (ClassName::staticMetaObject.method(id).methodType() == QMetaMethod::Signal) \
-      QMetaObject::activate(this, id, argv); \
-    else \
-      id = m_proxiedObject->qt_metacall(call, id, argv); \
-    id -= 1; \
-  } \
-  return id; \
-}
 
 #endif

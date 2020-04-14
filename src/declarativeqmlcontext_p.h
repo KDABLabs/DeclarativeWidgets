@@ -35,8 +35,6 @@
 
 class DeclarativeQmlContext : public DeclarativeObjectProxy<DeclarativeContext>
 {
-  DECLARATIVE_OBJECT
-
   public:
     explicit DeclarativeQmlContext(QObject *parent = 0);
 
