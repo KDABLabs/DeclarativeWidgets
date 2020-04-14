@@ -70,5 +70,3 @@ void DeclarativeQmlContext::dataAppend(QObject *object)
 
   DeclarativeObjectProxy<DeclarativeContext>::dataAppend(object);
 }
-
-CUSTOM_METAOBJECT(DeclarativeQmlContext, DeclarativeContext)
