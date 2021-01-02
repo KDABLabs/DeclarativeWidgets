@@ -26,7 +26,7 @@
 */
 
 #include <QObject>
-#include <QtTest>
+#include <QTest>
 
 #include <QQmlEngine>
 #include <QQmlContext>
