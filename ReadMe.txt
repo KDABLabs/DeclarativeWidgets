@@ -42,7 +42,7 @@ https://github.com/KDAB/DeclarativeWidgets
 
 License
 =======
-The DeclarativeWidgets Library is (C) 2012-2020 Klarälvdalens Datakonsult AB (KDAB),
+The DeclarativeWidgets Library is (C) 2012-2021 Klarälvdalens Datakonsult AB (KDAB),
 and is available under the terms of:
 
 * the [GPL](LICENSE.GPL.txt)
