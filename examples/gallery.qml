@@ -85,7 +85,7 @@ TabWidget {
       }
       ColumnView {
         model: fileSystemModel
-        selectionModel: treeView.selectionModel
+//        selectionModel: treeView.selectionModel
       }
     }
   }
