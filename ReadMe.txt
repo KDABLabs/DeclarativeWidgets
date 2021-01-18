@@ -22,7 +22,12 @@ Install:
 
 How to Use
 ==========
-Look at the sample QML under the examples subdirectory.
+There are three example applications that show how to use the DeclarativeWidgets QML module:
+`bookstore`, `config-editor` and `text-editor`.
+
+In addition, there are a number of example QML files in the `examples` directory. Run these by
+passing the full path to one of the example files as the command line arguments to the `runner`
+target in Qt Creator.
 
 Contact
 =======
