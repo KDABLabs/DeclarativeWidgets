@@ -68,6 +68,7 @@
 #include "menubarwidgetcontainer_p.h"
 #include "menuwidgetcontainer_p.h"
 #include "scrollareawidgetcontainer_p.h"
+#include "splitterwidgetcontainer_p.h"
 #include "stackedwidgetwidgetcontainer_p.h"
 #include "toolbarwidgetcontainer_p.h"
 
@@ -98,6 +99,7 @@
 #include <QScrollBar>
 #include <QStackedWidget>
 #include <QStringListModel>
+#include <QSplitter>
 #include <QTableView>
 #include <QTextBrowser>
 #include <QTimer>
@@ -206,4 +208,5 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QWebEngineView, DeclarativeWidgetExtension>(uri, 1, 0, "WebEngineView");
 #endif
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>(uri, 1, 0, "Widget");
+  qmlRegisterExtendedType<QSplitter, DeclarativeContainerWidgetExtension<SplitterWidgetContainer>>(uri, 1, 0, "Splitter");
 }
