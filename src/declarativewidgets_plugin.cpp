@@ -49,6 +49,7 @@
 #include "declarativeloaderwidget_p.h"
 #include "declarativemessagebox_p.h"
 #include "declarativepixmap_p.h"
+#include "declarativepushbuttonextension_p.h"
 #include "declarativeqmlcontext_p.h"
 #include "declarativequickwidgetextension_p.h"
 #include "declarativeseparator_p.h"
@@ -68,8 +69,12 @@
 #include "menubarwidgetcontainer_p.h"
 #include "menuwidgetcontainer_p.h"
 #include "scrollareawidgetcontainer_p.h"
+#include "splitterwidgetcontainer_p.h"
 #include "stackedwidgetwidgetcontainer_p.h"
 #include "toolbarwidgetcontainer_p.h"
+#include "declarativerepeater_p.h"
+#include "declarativelistitem_p.h"
+#include "declarativepalette_p.h"
 
 #include <QAbstractItemDelegate>
 #include <QButtonGroup>
@@ -98,6 +103,7 @@
 #include <QScrollBar>
 #include <QStackedWidget>
 #include <QStringListModel>
+#include <QSplitter>
 #include <QTableView>
 #include <QTextBrowser>
 #include <QTimer>
@@ -144,7 +150,8 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QFileSystemModel, DeclarativeFileSystemModelExtension>(uri, 1, 0, "FileSystemModel");
   qmlRegisterType<DeclarativeIcon>(uri, 1, 0, "Icon");
   qmlRegisterExtendedType<DeclarativeSeparator, DeclarativeObjectExtension>(uri, 1, 0, "Separator");
-  qmlRegisterType<DeclarativeTabStops>("QtWidgets", 1, 0, "TabStops");
+  qmlRegisterType<DeclarativeTabStops>(uri, 1, 0, "TabStops");
+  qmlRegisterType<DeclarativePalette>(uri, 1, 0, "Palette");
   qmlRegisterType<DeclarativePixmap>(uri, 1, 0, "Pixmap");
 
   // layouts
@@ -185,7 +192,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<DeclarativeMessageBox, DeclarativeWidgetExtension>(uri, 1, 0, "MessageBox");
   qmlRegisterExtendedType<QPlainTextEdit, DeclarativeWidgetExtension>(uri, 1, 0, "PlainTextEdit");
   qmlRegisterExtendedType<QProgressBar, DeclarativeWidgetExtension>(uri, 1, 0, "ProgressBar");
-  qmlRegisterExtendedType<QPushButton, DeclarativeWidgetExtension>(uri, 1, 0, "PushButton");
+  qmlRegisterExtendedType<QPushButton, DeclarativePushButtonExtension>(uri, 1, 0, "PushButton");
   qmlRegisterExtendedType<QRadioButton, DeclarativeWidgetExtension>(uri, 1, 0, "RadioButton");
   qmlRegisterExtendedType<QScrollArea, DeclarativeContainerWidgetExtension<ScrollAreaWidgetContainer> >(uri, 1, 0, "ScrollArea");
   qmlRegisterExtendedType<QScrollBar, DeclarativeWidgetExtension>(uri, 1, 0, "ScrollBar");
@@ -206,4 +213,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QWebEngineView, DeclarativeWidgetExtension>(uri, 1, 0, "WebEngineView");
 #endif
   qmlRegisterExtendedType<QWidget, DeclarativeWidgetExtension>(uri, 1, 0, "Widget");
+  qmlRegisterExtendedType<QSplitter, DeclarativeContainerWidgetExtension<SplitterWidgetContainer>>(uri, 1, 0, "Splitter");
+  qmlRegisterType<DeclarativeRepeater>(uri, 1, 0, "Repeater");
+  qmlRegisterExtendedType<DeclarativeListItem, DeclarativeWidgetExtension>(uri, 1, 0, "ListItem");
 }
