@@ -1,3 +1,5 @@
+## NOTE: This Project is no longer supported or maintained by KDAB.
+
 Introduction
 ============
 The KDAB DeclarativeWidgets software provides a library and tools for
