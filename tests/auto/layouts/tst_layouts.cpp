@@ -31,6 +31,7 @@
 #include "vboxlayoutwidget.h"
 #include "formlayoutwidget.h"
 #include "gridlayoutwidget.h"
+#include "splitter.h"
 #include "stackedlayoutwidget.h"
 #include "stackedwidget.h"
 
@@ -65,6 +66,8 @@ private slots:
     void stackedWidget();
     void sizePolicy_data();
     void sizePolicy();
+    void splitter_data();
+    void splitter();
 
 private:
     QQmlEngine* m_qmlEngine;
@@ -212,6 +215,26 @@ void tst_Layouts::stackedWidget()
     QFETCH(QWidgetPtr, declarativeWidget);
 
     testLayouts(uiWidget, declarativeWidget);
+}
+
+void tst_Layouts::splitter_data()
+{
+	QQmlComponent component(m_qmlEngine, QUrl(QStringLiteral("qrc:/qml/SplitterTest.qml")));
+	QWidgetPtr declarativeWidget(qobject_cast<QWidget *>(component.create()));
+	QVERIFY(declarativeWidget != nullptr);
+
+	QTest::addColumn<QWidgetPtr>("uiWidget");
+	QTest::addColumn<QWidgetPtr>("declarativeWidget");
+
+  QTest::newRow("splitterWidget") << QWidgetPtr(new Splitter()) << declarativeWidget;
+}
+
+void tst_Layouts::splitter()
+{
+	QFETCH(QWidgetPtr, uiWidget);
+	QFETCH(QWidgetPtr, declarativeWidget);
+
+	testLayouts(uiWidget, declarativeWidget);
 }
 
 void tst_Layouts::sizePolicy_data()
