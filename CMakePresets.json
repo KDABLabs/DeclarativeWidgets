@@ -1,0 +1,64 @@
+{
+  "version": 2,
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build-${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "USE_QT6": "OFF"
+      }
+    },
+    {
+      "name": "dev",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_TESTING": "ON"
+      }
+    },
+    {
+      "name": "dev-asan",
+      "inherits": "dev",
+      "binaryDir": "${sourceDir}/build-${presetName}",
+      "cacheVariables": {
+        "ENABLE_SANITIZERS": "ON"
+      }
+    },
+    {
+      "name": "rel",
+      "inherits": "base",
+      "binaryDir": "${sourceDir}/build-${presetName}",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "BUILD_TESTING": "OFF"
+      }
+    },
+    {
+      "name": "dev6",
+      "inherits": "dev",
+      "binaryDir": "${sourceDir}/build-${presetName}",
+      "cacheVariables": {
+        "USE_QT6": "ON"
+      }
+    },
+    {
+      "name": "rel6",
+      "inherits": "rel",
+      "binaryDir": "${sourceDir}/build-${presetName}",
+      "cacheVariables": {
+        "USE_QT6": "ON"
+      }
+    },
+    {
+      "name": "dev-asan6",
+      "inherits": "dev6",
+      "binaryDir": "${sourceDir}/build-${presetName}",
+      "cacheVariables": {
+        "ENABLE_SANITIZERS": "ON"
+      }
+    }
+  ]
+}
