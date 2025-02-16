@@ -67,7 +67,7 @@ protected:
     virtual void writeEndProperty(QTextStream &writer,const QByteArray &indent)
     {
       Q_UNUSED(indent);
-      writer << endl;
+      writer << Qt::endl;
     }
 
     virtual void writeValue(QTextStream &writer, const QByteArray &indent, const QVariant &value)
@@ -170,12 +170,12 @@ class GroupedPropertyWriter : public PropertyWriter
   protected:
     void writeBeginProperty(QTextStream &writer, const QByteArray &indent, const QString &name)
     {
-      writer << indent << name << " {" << endl;
+      writer << indent << name << " {" << Qt::endl;
     }
 
     void writeEndProperty(QTextStream &writer, const QByteArray &indent)
     {
-      writer << indent << "}" << endl;
+      writer << indent << "}" << Qt::endl;
     }
 };
 
@@ -273,10 +273,10 @@ void QmlWriter::visit(UiAddActionNode *addActionNode)
   const QByteArray indent(m_currentIndent, ' ');
   const QByteArray offsetIndent(2, ' ');
 
-  *m_writer << endl;
-  *m_writer << indent << "ActionItem {" << endl;
-  *m_writer << indent << offsetIndent << "action: " << addActionNode->name() << endl;
-  *m_writer << indent << "}" << endl;
+  *m_writer << Qt::endl;
+  *m_writer << indent << "ActionItem {" << Qt::endl;
+  *m_writer << indent << offsetIndent << "action: " << addActionNode->name() << Qt::endl;
+  *m_writer << indent << "}" << Qt::endl;
 }
 
 void QmlWriter::visit(UiConnectionNode *connectionNode)
@@ -284,41 +284,41 @@ void QmlWriter::visit(UiConnectionNode *connectionNode)
   const QByteArray indent(m_currentIndent, ' ');
   const QByteArray offsetIndent(2, ' ');
 
-  *m_writer << endl;
+  *m_writer << Qt::endl;
   *m_writer << indent << m_sharedContext->registerImport("QtQuick", "1.0")
-            << ".Connections {" << endl;
+            << ".Connections {" << Qt::endl;
 
-  *m_writer << indent << offsetIndent << "target: " << connectionNode->sender() << endl;
+  *m_writer << indent << offsetIndent << "target: " << connectionNode->sender() << Qt::endl;
   *m_writer << indent << offsetIndent << connectionNode->signalHandler() << ": ";
 
   const QStringList argumentTypes = connectionNode->argumentTypes();
   if (argumentTypes.count() == 0) {
-    *m_writer << connectionNode->receiver() << "." << connectionNode->slotName() << "()" << endl;
+    *m_writer << connectionNode->receiver() << "." << connectionNode->slotName() << "()" << Qt::endl;
   } else {
-    *m_writer << "{" << endl;
+    *m_writer << "{" << Qt::endl;
 
     // add comment since we can't easily determine the argument names
     *m_writer << indent << offsetIndent << offsetIndent
               << "// TODO: find names of signal arguments or respective properties to pass to the slot"
-              << endl;
+              << Qt::endl;
 
     QStringList args;
     for (int i = 0; i < argumentTypes.count(); ++i) {
       args << QString("arg%1").arg(i);
       *m_writer << indent << offsetIndent << offsetIndent
-                << "// " << args[i] << " is of type \"" << argumentTypes[i] << "\"" << endl;
+                << "// " << args[i] << " is of type \"" << argumentTypes[i] << "\"" << Qt::endl;
     }
-    *m_writer << endl;
+    *m_writer << Qt::endl;
 
     *m_writer << indent << offsetIndent << offsetIndent
               << connectionNode->receiver() << "." << connectionNode->slotName() << "(";
 
-    *m_writer << args.join(", ") << ")" << endl;
+    *m_writer << args.join(", ") << ")" << Qt::endl;
 
-    *m_writer << indent << offsetIndent << "}" << endl;
+    *m_writer << indent << offsetIndent << "}" << Qt::endl;
   }
 
-  *m_writer << indent << "}" << endl;
+  *m_writer << indent << "}" << Qt::endl;
 }
 
 void QmlWriter::visit(UiPropertyNode *propertyNode)
@@ -340,20 +340,20 @@ void QmlWriter::visit(UiObjectNode *objectNode)
   const QByteArray indent(m_currentIndent, ' ');
   const QByteArray offsetIndent(2, ' ');
 
-  *m_writer << endl;
-  *m_writer << indent << objectNode->className().last() << " {" << endl;
+  *m_writer << Qt::endl;
+  *m_writer << indent << objectNode->className().last() << " {" << Qt::endl;
   if (!objectNode->id().isEmpty()) {
-    *m_writer << indent << offsetIndent << "id: " << objectNode->id() << endl;
+    *m_writer << indent << offsetIndent << "id: " << objectNode->id() << Qt::endl;
   }
   if (!objectNode->name().isEmpty()) {
-    *m_writer << indent << offsetIndent << "objectName: \"" << objectNode->id() << "\"" << endl;
+    *m_writer << indent << offsetIndent << "objectName: \"" << objectNode->id() << "\"" << Qt::endl;
   }
 
   m_currentIndent += 2;
   objectNode->acceptChildren(this);
   m_currentIndent -= 2;
 
-  *m_writer << indent << "}" << endl;
+  *m_writer << indent << "}" << Qt::endl;
 }
 
 void QmlWriter::visit(UiSpacerNode *spacerNode)
@@ -361,10 +361,10 @@ void QmlWriter::visit(UiSpacerNode *spacerNode)
   const QByteArray indent(m_currentIndent, ' ');
   const QByteArray offsetIndent(2, ' ');
 
-  *m_writer << endl;
-  *m_writer << indent << "Spacer {" << endl;
-  *m_writer << indent << offsetIndent << "id: " << spacerNode->id() << endl;
-  *m_writer << indent << offsetIndent << "objectName: \"" << spacerNode->id() << "\"" << endl;
+  *m_writer << Qt::endl;
+  *m_writer << indent << "Spacer {" << Qt::endl;
+  *m_writer << indent << offsetIndent << "id: " << spacerNode->id() << Qt::endl;
+  *m_writer << indent << offsetIndent << "objectName: \"" << spacerNode->id() << "\"" << Qt::endl;
 
   // map the orientation property to spacer size policy enums
   // TODO should probably be in a specialized "property transform" visitor
@@ -431,7 +431,7 @@ void QmlWriter::visit(UiSpacerNode *spacerNode)
   spacerNode->acceptChildren(this);
   m_currentIndent -= 2;
 
-  *m_writer << indent << "}" << endl;
+  *m_writer << indent << "}" << Qt::endl;
 }
 
 void QmlWriter::visit(UiTabStopsNode *tabStopsNode)
@@ -442,23 +442,23 @@ void QmlWriter::visit(UiTabStopsNode *tabStopsNode)
   const QByteArray indent(m_currentIndent, ' ');
   const QByteArray offsetIndent(2, ' ');
 
-  *m_writer << endl;
-  *m_writer << indent << "TabStops {" << endl;
-  *m_writer << indent << offsetIndent << "tabStops: [ " << tabStopsNode->tabStops().join(", ") << " ]" << endl;
-  *m_writer << indent << "}" << endl;
+  *m_writer << Qt::endl;
+  *m_writer << indent << "TabStops {" << Qt::endl;
+  *m_writer << indent << offsetIndent << "tabStops: [ " << tabStopsNode->tabStops().join(", ") << " ]" << Qt::endl;
+  *m_writer << indent << "}" << Qt::endl;
 }
 
 void QmlWriter::visit(UiTopNode *topNode)
 {
-  *m_writer << "import QtWidgets 1.0" << endl;
-  *m_writer << endl;
+  *m_writer << "import QtWidgets 1.0" << Qt::endl;
+  *m_writer << Qt::endl;
 
   const QStringList additionalImportLines = m_sharedContext->generateImportLines();
   if (!additionalImportLines.isEmpty()) {
     Q_FOREACH (const QString &importLine, additionalImportLines) {
-      *m_writer << importLine << endl;
+      *m_writer << importLine << Qt::endl;
     }
-    *m_writer << endl;
+    *m_writer << Qt::endl;
   }
 
   topNode->acceptChildren(this);
