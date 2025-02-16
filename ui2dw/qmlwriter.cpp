@@ -39,8 +39,11 @@
 #include <QDebug>
 #include <QIODevice>
 #include <QRect>
-#include <QTextCodec>
 #include <QTextStream>
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#include <QTextCodec>
+#endif
 
 class PropertyWriter
 {
@@ -251,7 +254,9 @@ QmlWriter::QmlWriter(QIODevice *outputDevice, const SharedVisitationContext &sha
   , m_currentIndent(0)
   , m_propertyWriter(new PropertyWriter)
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   m_writer->setCodec(QTextCodec::codecForName("UTF-8"));
+#endif
 }
 
 QmlWriter::~QmlWriter()
