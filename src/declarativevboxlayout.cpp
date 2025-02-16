@@ -86,7 +86,7 @@ DeclarativeVBoxLayoutExtension::DeclarativeVBoxLayoutExtension(QObject *parent)
 void VBoxLayoutContainer::addLayout(QLayout *layout)
 {
   int stretch = 0;
-  Qt::Alignment alignment = 0;
+  Qt::Alignment alignment = {};
 
   QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeVBoxLayout>(layout, false);
   DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
@@ -109,7 +109,7 @@ void VBoxLayoutContainer::addSpacer(DeclarativeSpacerItem *spacerItem)
 void VBoxLayoutContainer::addWidget(QWidget *widget)
 {
   int stretch = 0;
-  Qt::Alignment alignment = 0;
+  Qt::Alignment alignment = {};
 
   QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeVBoxLayout>(widget, false);
   DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
