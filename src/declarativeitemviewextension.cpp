@@ -85,4 +85,3 @@ void DeclarativeItemViewExtension::setItemDelegate(QAbstractItemDelegate *itemDe
 
   emit itemDelegateChanged(itemDelegate);
 }
-
