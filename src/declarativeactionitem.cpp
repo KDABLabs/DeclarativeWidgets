@@ -27,8 +27,9 @@
 */
 
 #include "declarativeactionitem_p.h"
-
 #include "declarativeaction_p.h"
+
+#include <QWidget>
 
 DeclarativeActionItem::DeclarativeActionItem(QObject *parent)
   : QObject(parent)
