@@ -72,6 +72,8 @@
 #include "toolbarwidgetcontainer_p.h"
 
 #include <QAbstractItemDelegate>
+#include <QAbstractItemModel>
+#include <QAction>
 #include <QButtonGroup>
 #include <QCalendarWidget>
 #include <QCheckBox>
@@ -86,6 +88,7 @@
 #include <QFileSystemModel>
 #include <QGroupBox>
 #include <QHeaderView>
+#include <QItemSelectionModel>
 #include <QLabel>
 #include <QLCDNumber>
 #include <QListView>
@@ -100,6 +103,7 @@
 #include <QStringListModel>
 #include <QTableView>
 #include <QTextBrowser>
+#include <QTextDocument>
 #include <QTimer>
 #include <QToolBar>
 #include <QToolButton>

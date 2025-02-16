@@ -27,8 +27,6 @@
 
 #include "declarativeitemviewextension_p.h"
 
-#include <QAbstractItemView>
-
 DeclarativeItemViewExtension::DeclarativeItemViewExtension(QObject *parent)
   : DeclarativeWidgetExtension(parent)
 {
