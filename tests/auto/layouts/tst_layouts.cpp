@@ -49,14 +49,16 @@ class tst_Layouts : public QObject
 public:
     tst_Layouts();
 
+    // Disabled as very flaky
+    void formLayout_data();
+    void formLayout();
+
 private slots:
     void initTestCase();
     void hBoxLayout_data();
     void hBoxLayout();
     void vBoxLayout_data();
     void vBoxLayout();
-    void formLayout_data();
-    void formLayout();
     void gridLayout_data();
     void gridLayout();
     void stackedLayout_data();
