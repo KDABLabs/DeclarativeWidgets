@@ -1,0 +1,18 @@
+// Format on save disabled until clang-format qmllint is used
+//
+{
+  "languages": {
+    "C++": {
+      "format_on_save": "off"
+    },
+    "C": {
+      "format_on_save": "off"
+    },
+    "CMake": {
+      "format_on_save": "off"
+    },
+    "QML": {
+      "format_on_save": "off"
+    }
+  }
+}
