@@ -141,7 +141,6 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterUncreatableType<DeclarativeLayoutContentsMargins>(uri, 1, 0, "LayoutContentMargins", "Grouped Property");
   qmlRegisterUncreatableType<QHeaderView>(uri, 1, 0, "HeaderView", "");
   qmlRegisterUncreatableType<QLayout>(uri, 1, 0, "Layout", "For access of SizeConstraint enum");
-  qmlRegisterUncreatableType<QSizePolicy>(uri, 1, 0, "QSizePolicy", "Cannot create QSizePolicy, it is a Q_GADGET");
   qmlRegisterUncreatableType<DeclarativeSizePolicy>(uri, 1, 0, "SizePolicy", "Cannot create SizePolicy, it wraps QSizePolicy");
 
   // core
