@@ -53,8 +53,8 @@ int main(int argc, char **argv)
   QQmlComponent component(&engine, documentUrl);
   QWidget *widget = qobject_cast<QWidget*>(component.create());
   if (!widget)
-    qFatal("Failed to create widget from QML");
-    
+    qFatal("Failed to create widget from QML: %s", qPrintable(component.errorString()));
+
   widget->show();
 
   return app.exec();

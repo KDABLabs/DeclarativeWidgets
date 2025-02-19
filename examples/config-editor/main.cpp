@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
   QQmlComponent component(&engine, QStringLiteral("qrc:///main.qml"));
   QWidget *widget = qobject_cast<QWidget*>(component.create());
   if (!widget)
-    qFatal("Failed to create widget from document");
+    qFatal("Failed to create widget from document: %s", qPrintable(component.errorString()));
 
   widget->show();
 

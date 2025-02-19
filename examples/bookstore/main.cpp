@@ -52,7 +52,7 @@ static QWidget *createDeclarativeWidgetsUi(BookStore *bookStore, const QString &
   QQmlComponent component(&engine, documentUrl, bookStore);
   QWidget *widget = qobject_cast<QWidget*>(component.create());
   if (!widget)
-    qFatal("Failed to create widget from QML");
+    qFatal("Failed to create widget from QML: %s", qPrintable(component.errorString()));
 
   return widget;
 }
@@ -102,7 +102,7 @@ int main(int argc, char **argv)
   BookStore bookStore;
 
   QWidget *widget = useDeclarativeWidgets ? createDeclarativeWidgetsUi(&bookStore, fileName) : createQtQuickUi(&bookStore, fileName);
-    
+
   widget->show();
 
   return app.exec();
