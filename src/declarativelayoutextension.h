@@ -83,9 +83,14 @@ class DeclarativeLayoutExtension : public DeclarativeObjectExtension
   public:
     QLayout *extendedLayout() const;
     DeclarativeLayoutContentsMargins *contentsMargins() const;
+    int margin() const;
+    void setMargin(int);
 
   protected:
     explicit DeclarativeLayoutExtension(LayoutContainerInterface *layoutContainer, QObject *parent = 0);
+
+  Q_SIGNALS:
+    void marginChanged();
 
   private:
     DeclarativeLayoutContentsMargins *m_contentsMargins;
