@@ -58,5 +58,8 @@ int main(int argc, char **argv)
     return app.exec();
   }
 
+  if (component.isError())
+    qWarning() << "Error creating widget:" << component.errorString();
+
   return -1;
 }
