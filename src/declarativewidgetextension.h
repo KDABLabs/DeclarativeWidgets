@@ -30,6 +30,7 @@
 
 #include <QtGlobal>
 #include "declarativeobjectextension.h"
+#include "declarativepalette_p.h"
 
 #include <QRect>
 
@@ -55,12 +56,14 @@ class DeclarativeWidgetExtension : public DeclarativeObjectExtension
   Q_PROPERTY(int height READ height WRITE setHeight NOTIFY sizeChanged)
   Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
   Q_PROPERTY(bool visible READ isVisible WRITE setVisible NOTIFY visibleChanged)
+  Q_PROPERTY(int backgroundRole READ backgroundRole WRITE setBackgroundRole NOTIFY backgroundRoleChanged)
+  Q_PROPERTY(int foregroundRole READ foregroundRole WRITE setForegroundRole NOTIFY foregroundRoleChanged)
   Q_PROPERTY(DeclarativeSizePolicy *sizePolicy READ sizePolicy CONSTANT)
 
   Q_CLASSINFO("DefaultProperty", "data")
 
   public:
-    explicit DeclarativeWidgetExtension(QObject *parent = 0);
+    explicit DeclarativeWidgetExtension(QObject *parent = Q_NULLPTR);
 
     QWidget *extendedWidget() const;
 
@@ -82,18 +85,26 @@ class DeclarativeWidgetExtension : public DeclarativeObjectExtension
     bool isVisible() const;
     void setVisible(bool visible);
 
+    int backgroundRole() const;
+    void setBackgroundRole(int backgroundRole);
+
+    int foregroundRole() const;
+    void setForegroundRole(int foregroundRole);
+
     bool eventFilter(QObject *watched, QEvent *event);
 
     DeclarativeSizePolicy *sizePolicy();
 
   protected:
-    explicit DeclarativeWidgetExtension(WidgetContainerInterface *widgetContainer, QObject *parent = 0);
+    explicit DeclarativeWidgetExtension(WidgetContainerInterface *widgetContainer, QObject *parent = Q_NULLPTR);
 
   Q_SIGNALS:
     void posChanged();
     void sizeChanged();
     void geometryChanged();
     void visibleChanged(bool visible);
+    void backgroundRoleChanged(int backgroundRole);
+    void foregroundRoleChanged(int foregroundRole);
 
   private:
     DeclarativeSizePolicy *m_sizePolicy;

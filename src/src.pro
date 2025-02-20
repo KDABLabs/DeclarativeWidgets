@@ -1,6 +1,6 @@
 TEMPLATE = lib
 TARGET = declarativewidgets
-QT += core-private qml widgets quickwidgets
+QT += core-private qml widgets quickwidgets qml-private
 
 !versionAtLeast(QT_VERSION, 5.11.0):error("DeclarativeWidgets requires at least Qt version 5.11.0")
 
@@ -88,7 +88,13 @@ HEADERS = \
     staticdialogmethodattached_p.h \
     toolbarwidgetcontainer_p.h \
     widgetcontainerinterface_p.h \
-    declarativesizepolicy_p.h
+    declarativepalette_p.h \
+    declarativesizepolicy_p.h \
+    splitterwidgetcontainer_p.h \
+    declarativeabstractbuttonextension_p.h \
+    declarativepushbuttonextension_p.h \
+    declarativelistitem_p.h \
+    declarativerepeater_p.h
 
 SOURCES = \
     abstractdeclarativeobject.cpp \
@@ -139,4 +145,10 @@ SOURCES = \
     stackedwidgetwidgetcontainer.cpp \
     staticdialogmethodattached.cpp \
     toolbarwidgetcontainer.cpp \
-    declarativesizepolicy.cpp
+    declarativesizepolicy.cpp \
+    splitterwidgetcontainer.cpp \
+    declarativeabstractbuttonextension.cpp \
+    declarativepushbuttonextension.cpp \
+    declarativelistitem.cpp \
+    declarativerepeater.cpp
+
