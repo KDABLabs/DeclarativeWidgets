@@ -65,7 +65,7 @@ void DeclarativeObjectExtension::data_append(QQmlListProperty<QObject> *property
     qWarning("cast went wrong in data_append");
 }
 
-int DeclarativeObjectExtension::data_count(QQmlListProperty<QObject> *property)
+intQt6compat DeclarativeObjectExtension::data_count(QQmlListProperty<QObject> *property)
 {
   DeclarativeObjectExtension *that = qobject_cast<DeclarativeObjectExtension*>(property->object);
   if (that && that->m_objectContainer)
@@ -76,7 +76,7 @@ int DeclarativeObjectExtension::data_count(QQmlListProperty<QObject> *property)
   }
 }
 
-QObject* DeclarativeObjectExtension::data_at(QQmlListProperty<QObject> *property, int index)
+QObject* DeclarativeObjectExtension::data_at(QQmlListProperty<QObject> *property, intQt6compat index)
 {
   DeclarativeObjectExtension *that = qobject_cast<DeclarativeObjectExtension*>(property->object);
   if (that && that->m_objectContainer)

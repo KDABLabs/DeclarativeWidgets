@@ -29,10 +29,7 @@
 #define EDITOR_H
 
 #include <QObject>
-
-QT_BEGIN_NAMESPACE
-class QTextDocument;
-QT_END_NAMESPACE
+#include <QTextDocument>
 
 class Editor : public QObject
 {

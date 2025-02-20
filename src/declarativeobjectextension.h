@@ -28,8 +28,9 @@
 #ifndef DECLARATIVEOBJECTEXTENSION_H
 #define DECLARATIVEOBJECTEXTENSION_H
 
-#include <QtGlobal>
+#include "qt6compat_p.h"
 
+#include <QtGlobal>
 #include <QObject>
 #include <QQmlListProperty>
 
@@ -58,8 +59,8 @@ class DeclarativeObjectExtension : public QObject
 
   private:
     static void data_append(QQmlListProperty<QObject> *, QObject *);
-    static int data_count(QQmlListProperty<QObject> *);
-    static QObject *data_at(QQmlListProperty<QObject> *, int);
+    static intQt6compat data_count(QQmlListProperty<QObject> *);
+    static QObject *data_at(QQmlListProperty<QObject> *, intQt6compat);
     static void data_clear(QQmlListProperty<QObject> *);
 };
 

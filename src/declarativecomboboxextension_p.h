@@ -30,11 +30,11 @@
 #define DECLARATIVECOMBOBOXEXTENSION_P_H
 
 #include <QtGlobal>
+#include <QAbstractItemModel>
 #include "declarativewidgetextension.h"
 
 QT_BEGIN_NAMESPACE
 class QComboBox;
-class QAbstractItemModel;
 QT_END_NAMESPACE
 
 class DeclarativeComboBoxExtension : public DeclarativeWidgetExtension

@@ -29,6 +29,8 @@
 #define DECLARATIVETREEVIEWEXTENSION_P_H
 
 #include <QtGlobal>
+#include <QHeaderView>
+
 #include "declarativeitemviewextension_p.h"
 
 QT_BEGIN_NAMESPACE

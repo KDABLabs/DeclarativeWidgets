@@ -27,8 +27,6 @@
 
 #include "declarativeitemviewextension_p.h"
 
-#include <QAbstractItemView>
-
 DeclarativeItemViewExtension::DeclarativeItemViewExtension(QObject *parent)
   : DeclarativeWidgetExtension(parent)
 {
@@ -87,4 +85,3 @@ void DeclarativeItemViewExtension::setItemDelegate(QAbstractItemDelegate *itemDe
 
   emit itemDelegateChanged(itemDelegate);
 }
-

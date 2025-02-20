@@ -28,7 +28,6 @@
 #include "editor.h"
 
 #include <QFile>
-#include <QTextDocument>
 #include <QTextStream>
 
 Editor::Editor(QObject *parent)

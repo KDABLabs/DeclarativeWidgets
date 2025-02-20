@@ -29,12 +29,15 @@
 #define DECLARATIVEITEMVIEWEXTENSION_P_H
 
 #include <QtGlobal>
+#include <QAbstractItemModel>
+#include <QAbstractItemView>
+#include <QItemSelectionModel>
+
+class QAbstractItemDelegate;
+
 #include "declarativewidgetextension.h"
 
 QT_BEGIN_NAMESPACE
-class QAbstractItemModel;
-class QAbstractItemView;
-class QItemSelectionModel;
 class QAbstractItemDelegate;
 QT_END_NAMESPACE
 

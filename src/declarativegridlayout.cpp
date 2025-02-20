@@ -39,15 +39,14 @@ class DeclarativeGridLayoutAttached::Private
 {
   public:
     Private(QWidget *w, QLayout *l, DeclarativeSpacerItem *s)
-      : row(0), column(0), rowSpan(1), columnSpan(1), alignment(0),
-        widget(w), layout(l), spacerItem(s)
+      : widget(w), layout(l), spacerItem(s)
     {}
 
-    int row;
-    int column;
-    int rowSpan;
-    int columnSpan;
-    Qt::Alignment alignment;
+    int row = 0;
+    int column = 0;
+    int rowSpan = 1;
+    int columnSpan = 1;
+    Qt::Alignment alignment = {};
 
     QPointer<QWidget> widget;
     QPointer<QLayout> layout;
@@ -212,7 +211,7 @@ void GridLayoutContainer::addLayout(QLayout *layout)
   int column = 0;
   int rowSpan = 1;
   int columnSpan = 1;
-  Qt::Alignment alignment = 0;
+  Qt::Alignment alignment = {};
 
   QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeGridLayout>(layout, false);
   DeclarativeGridLayoutAttached *properties = qobject_cast<DeclarativeGridLayoutAttached*>(attachedProperties);
@@ -235,7 +234,7 @@ void GridLayoutContainer::addSpacer(DeclarativeSpacerItem *spacerItem)
     int column = 0;
     int rowSpan = 1;
     int columnSpan = 1;
-    Qt::Alignment alignment = 0;
+    Qt::Alignment alignment = {};
 
     QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeGridLayout>(spacerItem, false);
     DeclarativeGridLayoutAttached *properties = qobject_cast<DeclarativeGridLayoutAttached*>(attachedProperties);
@@ -258,7 +257,7 @@ void GridLayoutContainer::addWidget(QWidget *widget)
   int column = 0;
   int rowSpan = 1;
   int columnSpan = 1;
-  Qt::Alignment alignment = 0;
+  Qt::Alignment alignment = {};
 
   QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeGridLayout>(widget, false);
   DeclarativeGridLayoutAttached *properties = qobject_cast<DeclarativeGridLayoutAttached*>(attachedProperties);
