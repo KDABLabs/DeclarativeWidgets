@@ -60,7 +60,8 @@ add_library(
 target_link_libraries(
   ${TARGET}
   PRIVATE Qt${QTMAJOR}::Core Qt${QTMAJOR}::CorePrivate Qt${QTMAJOR}::Qml
-          Qt${QTMAJOR}::Widgets Qt${QTMAJOR}::QuickWidgets)
+          Qt${QTMAJOR}::Widgets Qt${QTMAJOR}::WidgetsPrivate
+          Qt${QTMAJOR}::QuickWidgets)
 
 if(Qt${QTMAJOR}WebEngineWidgets_FOUND)
   target_link_libraries(${TARGET} PRIVATE Qt${QTMAJOR}::WebEngineWidgets)
