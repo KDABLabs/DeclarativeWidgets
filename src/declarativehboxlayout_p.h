@@ -55,6 +55,7 @@ class DeclarativeHBoxLayoutExtension : public DeclarativeLayoutExtension
   // repeat property declarations, qmlRegisterExtendedType doesn't see the ones from base class
   Q_PROPERTY(QQmlListProperty<QObject> data READ data DESIGNABLE false CONSTANT)
   Q_PROPERTY(DeclarativeLayoutContentsMargins* contentsMargins READ contentsMargins CONSTANT)
+  Q_PROPERTY(int margin READ margin WRITE setMargin NOTIFY marginChanged)
 
   Q_CLASSINFO("DefaultProperty", "data")
 

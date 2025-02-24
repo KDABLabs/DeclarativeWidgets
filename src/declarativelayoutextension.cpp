@@ -175,6 +175,27 @@ DeclarativeLayoutContentsMargins *DeclarativeLayoutExtension::contentsMargins() 
   return m_contentsMargins;
 }
 
+int DeclarativeLayoutExtension::margin() const
+{
+  // QLayout::margin() was removed in Qt 6
+
+  if (m_contentsMargins->leftMargin() == m_contentsMargins->topMargin() &&
+      m_contentsMargins->leftMargin() == m_contentsMargins->rightMargin() &&
+      m_contentsMargins->leftMargin() == m_contentsMargins->bottomMargin()) {
+    return m_contentsMargins->leftMargin();
+  }
+
+  return -1;
+}
+
+void DeclarativeLayoutExtension::setMargin(int margin)
+{
+  if (margin != this->margin()) {
+    extendedLayout()->setContentsMargins({margin, margin, margin, margin}) ;
+    Q_EMIT marginChanged();
+  }
+}
+
 DeclarativeLayoutExtension::DeclarativeLayoutExtension(LayoutContainerInterface *layoutContainer, QObject *parent)
   : DeclarativeObjectExtension(new LayoutContainerDelegate(layoutContainer), parent)
   , m_contentsMargins(new DeclarativeLayoutContentsMargins(layoutContainer, this))
