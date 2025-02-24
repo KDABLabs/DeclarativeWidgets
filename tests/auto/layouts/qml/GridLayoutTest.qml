@@ -28,6 +28,11 @@
 import QtWidgets 1.0
 
 Widget {
+  sizePolicy {
+    horizontalPolicy: SizePolicy.Maximum
+    verticalPolicy: SizePolicy.Maximum
+  }
+
   GridLayout {
     PushButton {
         text: "Num"
