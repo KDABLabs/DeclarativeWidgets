@@ -72,6 +72,8 @@
 #include "toolbarwidgetcontainer_p.h"
 
 #include <QAbstractItemDelegate>
+#include <QAbstractItemModel>
+#include <QAction>
 #include <QButtonGroup>
 #include <QCalendarWidget>
 #include <QCheckBox>
@@ -86,6 +88,7 @@
 #include <QFileSystemModel>
 #include <QGroupBox>
 #include <QHeaderView>
+#include <QItemSelectionModel>
 #include <QLabel>
 #include <QLCDNumber>
 #include <QListView>
@@ -100,6 +103,7 @@
 #include <QStringListModel>
 #include <QTableView>
 #include <QTextBrowser>
+#include <QTextDocument>
 #include <QTimer>
 #include <QToolBar>
 #include <QToolButton>
@@ -109,6 +113,16 @@
 # include <QWebEngineView>
 #endif
 
+template<class T>
+static void registerAnonymousType()
+{
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+  qmlRegisterType<T>();
+#else
+  qmlRegisterAnonymousType<T>("", 1);
+#endif
+}
+
 // @uri QtWidgets
 void ExtensionpluginPlugin::registerTypes(const char *uri)
 {
@@ -116,18 +130,17 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
 
 
   // uncreatable core
-  qmlRegisterType<QAbstractItemModel>();
-  qmlRegisterType<QItemSelectionModel>();
-  qmlRegisterType<QAbstractItemDelegate>();
+  registerAnonymousType<QAbstractItemModel>();
+  registerAnonymousType<QItemSelectionModel>();
+  registerAnonymousType<QAbstractItemDelegate>();
 
   // uncreatable gui
-  qmlRegisterType<QTextDocument>();
+  registerAnonymousType<QTextDocument>();
 
   // uncreatable widgets
   qmlRegisterUncreatableType<DeclarativeLayoutContentsMargins>(uri, 1, 0, "LayoutContentMargins", "Grouped Property");
   qmlRegisterUncreatableType<QHeaderView>(uri, 1, 0, "HeaderView", "");
   qmlRegisterUncreatableType<QLayout>(uri, 1, 0, "Layout", "For access of SizeConstraint enum");
-  qmlRegisterUncreatableType<QSizePolicy>(uri, 1, 0, "QSizePolicy", "Cannot create QSizePolicy, it is a Q_GADGET");
   qmlRegisterUncreatableType<DeclarativeSizePolicy>(uri, 1, 0, "SizePolicy", "Cannot create SizePolicy, it wraps QSizePolicy");
 
   // core
@@ -135,7 +148,7 @@ void ExtensionpluginPlugin::registerTypes(const char *uri)
   qmlRegisterExtendedType<QStringListModel, DeclarativeStringListModelExtension>(uri, 1, 0, "StringListModel");
 
   // objects
-  qmlRegisterType<QAction>();
+  registerAnonymousType<QAction>();
   qmlRegisterExtendedType<DeclarativeAction, DeclarativeObjectExtension>(uri, 1, 0, "Action");
   qmlRegisterExtendedType<DeclarativeActionItem, DeclarativeObjectExtension>(uri, 1, 0, "ActionItem");
   qmlRegisterExtendedType<QButtonGroup, DeclarativeButtonGroupExtension>(uri, 1, 0, "ButtonGroup");

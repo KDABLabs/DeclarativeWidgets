@@ -29,6 +29,8 @@
 #ifndef ABSTRACTDECLARATIVEOBJECT_P_H
 #define ABSTRACTDECLARATIVEOBJECT_P_H
 
+#include "qt6compat_p.h"
+
 #include <QtGlobal>
 
 #include <QObject>
@@ -61,8 +63,8 @@ class AbstractDeclarativeObject : public QObject
     QQmlListProperty<QObject> data();
 
     static void data_append(QQmlListProperty<QObject> *, QObject *);
-    static int data_count(QQmlListProperty<QObject> *);
-    static QObject *data_at(QQmlListProperty<QObject> *, int);
+    static intQt6compat data_count(QQmlListProperty<QObject> *);
+    static QObject *data_at(QQmlListProperty<QObject> *, intQt6compat);
     static void data_clear(QQmlListProperty<QObject> *);
 };
 

@@ -85,7 +85,7 @@ DeclarativeHBoxLayoutExtension::DeclarativeHBoxLayoutExtension(QObject *parent)
 void HBoxLayoutContainer::addLayout(QLayout *layout)
 {
   int stretch = 0;
-  Qt::Alignment alignment = 0;
+  Qt::Alignment alignment = {};
 
   QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeHBoxLayout>(layout, false);
   DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);
@@ -108,7 +108,7 @@ void HBoxLayoutContainer::addSpacer(DeclarativeSpacerItem *spacerItem)
 void HBoxLayoutContainer::addWidget(QWidget *widget)
 {
   int stretch = 0;
-  Qt::Alignment alignment = 0;
+  Qt::Alignment alignment = {};
 
   QObject *attachedProperties = qmlAttachedPropertiesObject<DeclarativeHBoxLayout>(widget, false);
   DeclarativeBoxLayoutAttached *properties = qobject_cast<DeclarativeBoxLayoutAttached*>(attachedProperties);

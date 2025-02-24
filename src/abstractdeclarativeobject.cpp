@@ -92,7 +92,7 @@ void AbstractDeclarativeObject::data_append(QQmlListProperty<QObject> *property,
   }
 }
 
-int AbstractDeclarativeObject::data_count(QQmlListProperty<QObject> *property)
+intQt6compat AbstractDeclarativeObject::data_count(QQmlListProperty<QObject> *property)
 {
   AbstractDeclarativeObject *that = dynamic_cast<AbstractDeclarativeObject*>(property->object);
   if (that) {
@@ -103,7 +103,7 @@ int AbstractDeclarativeObject::data_count(QQmlListProperty<QObject> *property)
   }
 }
 
-QObject *AbstractDeclarativeObject::data_at(QQmlListProperty<QObject> *property, int index)
+QObject *AbstractDeclarativeObject::data_at(QQmlListProperty<QObject> *property, intQt6compat index)
 {
   AbstractDeclarativeObject *that = dynamic_cast<AbstractDeclarativeObject*>(property->object);
   if (that) {
