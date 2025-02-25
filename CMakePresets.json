@@ -45,6 +45,13 @@
       }
     },
     {
+      "name": "dev-no-webengine6",
+      "inherits": "dev6",
+      "cacheVariables": {
+        "LINK_TO_WEBENGINE_WIDGETS": "OFF"
+      }
+    },
+    {
       "name": "rel6",
       "inherits": "rel",
       "binaryDir": "${sourceDir}/build-${presetName}",

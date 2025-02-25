@@ -19,7 +19,7 @@ function(add_test_executable test_name)
   target_link_libraries(
     ${test_name} PRIVATE Qt${QTMAJOR}::Quick Qt${QTMAJOR}::Widgets
                          Qt${QTMAJOR}::QuickWidgets Qt${QTMAJOR}::Test)
-  if(Qt${QTMAJOR}WebEngineWidgets_FOUND)
+  if(Qt${QTMAJOR}WebEngineWidgets_FOUND AND LINK_TO_WEBENGINE_WIDGETS)
     target_link_libraries(${test_name} PRIVATE Qt${QTMAJOR}::WebEngineWidgets)
   endif()
   target_compile_definitions(

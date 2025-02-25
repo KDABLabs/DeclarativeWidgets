@@ -73,7 +73,9 @@ void tst_InstantiateTypes::creatableTypes_data()
     QTest::newRow("layouts") << "layouts";
     QTest::newRow("objects") << "objects";
     QTest::newRow("widgets") << "widgets";
+#ifdef QT_WEBENGINEWIDGETS_LIB
     QTest::newRow("webenginewidgets") << "webenginewidgets";
+#endif
 }
 
 void tst_InstantiateTypes::creatableTypes()
@@ -96,11 +98,6 @@ void tst_InstantiateTypes::creatableTypes()
         QUrl url = QUrl::fromLocalFile(fileInfo.filePath());
         QQmlComponent component(m_qmlEngine, url);
         printErrors(component);
-#ifndef QT_WEBENGINEWIDGETS_LIB
-        QEXPECT_FAIL("webenginewidgets",
-                     "Built without Qt module 'webenginewidgets'",
-                     Continue);
-#endif
         QVERIFY2(component.status() == QQmlComponent::Ready,
                  qPrintable(QString("Failed to load \"%1\" (%2)").
                             arg(url.toString()).
@@ -108,11 +105,6 @@ void tst_InstantiateTypes::creatableTypes()
 
         QSharedPointer<QObject> creatableWidget(component.create());
         printErrors(component);
-#ifndef QT_WEBENGINEWIDGETS_LIB
-        QEXPECT_FAIL("webenginewidgets",
-                     "Built without Qt module 'webenginewidgets'",
-                     Continue);
-#endif
         QVERIFY2(creatableWidget != nullptr,
                  qPrintable(QString("Failed to create \"%1\"").arg(url.toString())));
     }
