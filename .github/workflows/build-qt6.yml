@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only
 
-name: CI
+name: CI Qt 6
 
 on:
   push:
@@ -20,14 +20,17 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-          # - windows-latest
-          # - macos-15
+          - windows-latest
+          - macos-15
+        preset:
+          - dev6
+          - rel6
 
     steps:
-      - name: Install Qt ${{ matrix.preset.qt_version }}
-        uses: jurplel/install-qt-action@v3
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
         with:
-          version: 5.15
+          version: 6.8.2
           cache: true
 
       - name: Install dependencies
@@ -37,7 +40,12 @@ jobs:
           sudo apt install xvfb
 
       - name: Install ninja-build tool (must be after Qt due PATH changes)
+        if: ${{ runner.os != 'macOS' }}
         uses: turtlesec-no/get-ninja@main
+
+      - name: Install ninja-build tool (macOS)
+        if: ${{ runner.os == 'macOS' }}
+        run: brew install ninja
 
       - name: Checkout sources
         uses: actions/checkout@v4
@@ -48,11 +56,16 @@ jobs:
 
       - name: Build project (cmake)
         run: |
-          cmake --preset=dev .
-          cmake --build build-dev
+          cmake --preset=${{ matrix.preset }} .
+          cmake --build build-${{ matrix.preset }}
 
       - name: Run tests (Linux)
         if: ${{ runner.os == 'Linux' }}
-        run: xvfb-run ctest --test-dir ./build-dev --verbose
+        run: xvfb-run ctest --test-dir ./build-${{ matrix.preset }} --verbose --output-on-failure
         env:
           DISPLAY: ":0"
+
+      # these fail, need more investigation. Likely just a CI setup problem
+      # - name: Run tests (macOS/Windows)
+      #   if: ${{ runner.os != 'Linux' }}
+      #   run: ctest --test-dir ./build-${{ matrix.preset }} --verbose --output-on-failure

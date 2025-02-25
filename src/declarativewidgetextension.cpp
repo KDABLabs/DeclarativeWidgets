@@ -39,6 +39,7 @@
 #include <QLayout>
 #include <QQmlInfo>
 #include <QWidget>
+#include <QtWidgets/private/qwidget_p.h>
 
 class WidgetContainerDelegate : public DefaultObjectContainer
 {
@@ -206,6 +207,15 @@ bool DeclarativeWidgetExtension::eventFilter(QObject *watched, QEvent *event)
 {
   Q_ASSERT(watched == parent());
   Q_UNUSED(watched); // release builds
+
+  if (auto w = extendedWidget()) {
+      // This fixes infinite loop QQmlProxyMetaObject::metaCall()
+      // Don't emit signals in an extension after its target widget dtors have already started.
+      // QQmlProxyMetaObject doesn't like its parents meta-objects offsets changing
+      QWidgetPrivate *priv = QWidgetPrivate::get(w);
+      if (priv && priv->data.in_destructor)
+        return false;
+  }
 
   switch (event->type())
   {
