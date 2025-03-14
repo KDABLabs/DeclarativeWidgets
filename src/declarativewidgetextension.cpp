@@ -202,6 +202,40 @@ void DeclarativeWidgetExtension::setVisible(bool visible)
   extendedWidget()->setVisible(visible);
 }
 
+int DeclarativeWidgetExtension::backgroundRole() const
+{
+  return static_cast<int>(extendedWidget()->backgroundRole());
+}
+
+void DeclarativeWidgetExtension::setBackgroundRole(int backgroundRole)
+{
+  const QPalette::ColorRole role = static_cast<QPalette::ColorRole>(backgroundRole);
+
+  if (extendedWidget()->backgroundRole() == role)
+    return;
+
+  extendedWidget()->setBackgroundRole(role);
+
+  emit backgroundRoleChanged(backgroundRole);
+}
+
+int DeclarativeWidgetExtension::foregroundRole() const
+{
+  return static_cast<int>(extendedWidget()->foregroundRole());
+}
+
+void DeclarativeWidgetExtension::setForegroundRole(int foregroundRole)
+{
+  const QPalette::ColorRole role = static_cast<QPalette::ColorRole>(foregroundRole);
+
+  if (extendedWidget()->foregroundRole() == role)
+    return;
+
+  extendedWidget()->setForegroundRole(role);
+
+  emit foregroundRoleChanged(foregroundRole);
+}
+
 bool DeclarativeWidgetExtension::eventFilter(QObject *watched, QEvent *event)
 {
   Q_ASSERT(watched == parent());
