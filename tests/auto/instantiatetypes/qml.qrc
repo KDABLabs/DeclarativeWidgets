@@ -66,5 +66,6 @@
         <file>qml/uncreatable/ItemSelectionModel.qml</file>
         <file>qml/uncreatable/TextDocument.qml</file>
         <file>qml/creatable/webenginewidgets/WebEngineView.qml</file>
+        <file>qml/creatable/widgets/Splitter.qml</file>
     </qresource>
 </RCC>

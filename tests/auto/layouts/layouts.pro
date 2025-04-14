@@ -6,7 +6,8 @@ SOURCES +=  tst_layouts.cpp \
     formlayoutwidget.cpp \
     gridlayoutwidget.cpp \
     stackedlayoutwidget.cpp \
-    stackedwidget.cpp
+    stackedwidget.cpp \
+    splitter.cpp
 
 RESOURCES += \
     qml.qrc
@@ -16,7 +17,8 @@ FORMS += \
     vboxlayout.ui \
     formlayout.ui \
     gridlayout.ui \
-    stackedwidget.ui
+    stackedwidget.ui \
+    splitter.ui
 
 HEADERS += \
     hboxlayoutwidget.h \
@@ -24,4 +26,5 @@ HEADERS += \
     formlayoutwidget.h \
     gridlayoutwidget.h \
     stackedlayoutwidget.h \
-    stackedwidget.h
+    stackedwidget.h \
+    splitter.h
